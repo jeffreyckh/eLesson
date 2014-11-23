@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include '../admin/adminNav.php';
+include 'userNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
 ?>
