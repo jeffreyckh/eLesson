@@ -5,7 +5,6 @@ require_once('view/RegistrationView.php');
 require_once('inc/db_config.php');
 
 $register = new RegistrationView();
-$register->registerAccount();
 ?>
 
 <!DOCTYPE html>

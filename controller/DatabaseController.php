@@ -12,14 +12,14 @@ class DatabaseController
   public function selectUser($username,$password)
   {
 
-  	$query = "SELECT username FROM user WHERE username= '$username' and password= '$password' limit 1";
+  	$query = "SELECT * FROM user WHERE username= '$username' and password= '$password' limit 1";
   	$result = mysql_query($query);
     $res = mysql_fetch_array($result);
 
     if($res)
     {
       $_SESSION['username'] = $username;
-      header('Location: admin/TestingHome.php');
+      header('Location: admin/adminHome.php');
       exit;
     }
     else

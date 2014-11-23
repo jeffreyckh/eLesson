@@ -76,12 +76,12 @@ if($_POST["action"]=="dotest"){
 	          $msg .= "{$titles[$v[0]]}\\nYour answer:{$v[1]}\\nCorrect answer:{$v[2]}\\n\\n";
 	  }
    }
-   echo "<script>alert('$msg');document.location.href='user_test'</script>";
+   echo "<script>alert('$msg');document.location.href='user_test.php'</script>";
    exit;
 }
 if(!$threadid){
    echo "parameter wrong";
-   echo '<meta http-equiv="refresh" content="2; url=user_test">';
+   echo '<meta http-equiv="refresh" content="2; url=user_test.php">';
    exit;
 
 }

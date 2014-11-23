@@ -1,4 +1,5 @@
 <?php
+	include "DatabaseController.php";
 	class UserController{
 
 		public function register($username,$password,$repeatPassword, $name, $email, $position){

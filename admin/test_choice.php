@@ -1,12 +1,10 @@
 <?php
 require "global.php";
-
 require "forms.php";
 require "php_pagenav_class.php";
 $cpforms = new FORMS;
-
 require "header.php";
-islogin();
+//islogin();
 
 
 $threadid = intval($_REQUEST[threadid]);

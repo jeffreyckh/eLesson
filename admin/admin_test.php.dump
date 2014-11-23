@@ -22,7 +22,7 @@ if (empty($action)){
 	$titles=array();
 	$footer=array('<input type="submit" value=" Login "> <input type="reset" value=" Retry ">','center');
 
-	echo "<script language=\"javascript\">function check(){if (!document.iform.i_adminname.value||!document.iform.i_password.value){alert(\"Username and password cannot be empty£°\");return false;}}</script><form action=\"$selfurl\" method=\"post\" name=\"iform\" onsubmit=\"return check()\"><input type=\"hidden\" name=\"action\" value=\"login\">";
+	echo "<script language=\"javascript\">function check(){if (!document.iform.i_adminname.value||!document.iform.i_password.value){alert(\"Username and password cannot be emptyÔºÅ\");return false;}}</script><form action=\"$selfurl\" method=\"post\" name=\"iform\" onsubmit=\"return check()\"><input type=\"hidden\" name=\"action\" value=\"login\">";
 	maketablev($header,$titles,$contstr,$footer);
 	echo "</form>";
 	echo "</body>\n</html>";
@@ -53,15 +53,15 @@ if ($action=="frames"){
 	$row=$db->query_first("SELECT adminid,adminname,password FROM ".$db_prefix."admin WHERE adminname='$i_adminname'");
 	if ($row){
 		if ($row['password']!=md5($i_password)){
-			$message="Invalid Password£°";
+			$message="Invalid PasswordÔºÅ";
 		}else{
 			setcookie("adminid",$row['adminid']);
 			setcookie("adminname",trim($i_adminname));
 			setcookie("adminpassword",md5($i_password));
-			$message="Login success£°";
+			$message="Login successÔºÅ";
 		}
 	}else{
-		$message="Admin°∞<font class=\"empha\">$i_adminname</font>°± not exist£°";
+		$message="Admin‚Äú<font class=\"empha\">$i_adminname</font>‚Äù not existÔºÅ";
 	}
 	require "header.php";
 	msg($message,"admin_test.php");
