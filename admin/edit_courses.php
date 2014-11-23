@@ -9,6 +9,7 @@
     {
         $m_coursename=$m_rows->coursename;
         $m_coursedesc=$m_rows->description;
+    }
       
 ?>
 Change Course Detail
@@ -32,7 +33,6 @@ if(isset($_GET['action'])=='editcourse') {
 <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
 </form>
 <?php
-}
 function editcourse() 
  {
  include("../inc/db_config.php");

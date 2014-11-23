@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
 ?>
@@ -13,64 +13,80 @@ $announcement = new announcementView();
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Home</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-<ul class="nav nav-tabs" role="tablist" id="myTab">
-    <li role="presentation" class="active"><a href="#viewAnnouncement" role="tab" data-toggle="tab">View Announcement</a></li>
-    <li role="presentation"><a href="#createAnnouncement" role="tab" data-toggle="tab">Create Announcement</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="viewAnnouncement">
-      <?php
-            $query="select * from announcement order by taskdate";
-            $result=mysql_query($query);
-            while($a_rows=mysql_fetch_object($result))
-            {
-              
-        
-            echo "<fieldset>
-               No: ".$a_rows->taskid." &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               Posting Date:".$a_rows->taskdate."
-               <br></br>
-               Annoucement:".$a_rows->taskname."
-               </fieldset>";
-              echo "<hr>";
-            }
-      ?>
+  <div class = "col-md-7">
+    <legend>Navigation</legend>
+    <div class = "row">
+      <div class = "col-md-2">
+        <figure>
+        <a href="courses.php"><img src="../img/blackboard.png"></a>
+        <figcaption>Course</figcaption>
+        </figure>
+      </div>
+      <div class = "col-md-2">
+       <figure>
+        <a href="admin_test.php"><img src="../img/quiz.png"></a>
+        <figcaption>Quiz</figcaption>
+        </figure> 
+      </div>
+      <div class = "col-md-2">
+        <figure>
+        <a href="announcement.php"><img src="../img/announcement.png"></a>
+        <figcaption>Announcement</figcaption>
+        </figure>
+      </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="createAnnouncement">
-    <form action="" method="POST">
-            Annoucement: 
-            <textarea name="taskname" id="taskname" rows="10" cols="80">
-            </textarea>
-    <br></br>
-    Posting Date: <input type="date" name="taskdate" id = "taskdate" style="width: 500px;" style = "height: 300px;" >
-    <br></br>
-    <input type="submit" name = "submit" value="Submit">
-      <?php
-          $announcement->addAnnouncement()
-      ?>
-    </form>
+  </div>
+  <div class = "col-md-3">
+  <div class = "row">
+  <?php
+  include "../inc/calender.php";
+  ?>
+  <br></br>
+    <div class = "row">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Announcement
+            </a>
+          </h4>
+        </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            <fieldset class = "setright">
+              <?php
+                  $query="select * from announcement order by taskid DESC limit 1";
+                  $result=mysql_query($query);
+                  while($a_rows=mysql_fetch_object($result))
+                  {
+                  echo "<fieldset>
+                     Posted On:".$a_rows->taskdate."
+                     <br></br>
+                     Annoucement:".$a_rows->taskname."
+                     </fieldset>";
+                    echo "<hr>";
+                  }
+              ?>      
+            </fieldset>
+        </div>
+      </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
 
 
-  <script>
-    $(function () {
-      $('#myTab a[href="#viewAnnouncement"]').tab('show')
-    })
-  </script>
-   <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'taskname' );
-  </script>
 </body>
 </html>

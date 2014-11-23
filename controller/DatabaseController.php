@@ -4,8 +4,8 @@ class DatabaseController
 {
  function registerUser($username,$password,$position,$email,$name){
     $password = md5($password);
-    $query = "INSERT INTO user( username ,  password ,  name ,  email , position) 
-   	VALUES ('$username','$password','$name','$email','$position')";
+    $query = "INSERT INTO user( username ,  password ,  name ,  email , position, rank) 
+   	VALUES ('$username','$password','$name','$email','$position', 2)";
  	$result = mysql_query($query)  or die ('Error updating database: ' . mysql_error());
   }
 

@@ -281,16 +281,11 @@ label {
 	margin-top:12px;
 	padding-bottom:6px;
 }
-.fieldset{
-  border: 1px solid black;
-  width: 20%;
-  margin:auto;
-  padding: 10px 10px 10px 30px;
+
+.centerObjects {
+	text-align:center;
+	float:center;
+	margin:auto;
+	display:block;
+	clear:both;
 }
-	.centerObjects {
-		text-align:center;
-		float:center;
-		margin:auto;
-		display:block;
-		clear:both;
-	}

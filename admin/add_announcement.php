@@ -2,7 +2,6 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
 ?>
@@ -22,13 +21,20 @@ $announcement = new announcementView();
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="announcement.php">Announcement</a></li>
+    <li class="active">Add Announcement</li>
+    </ol>
 
     <form action="" method="POST">
             Annoucement: 
             <textarea name="taskname" id="taskname" rows="10" cols="80">
             </textarea>
     <br></br>
-    <input type="submit" name = "submit" value="Submit">
+    <input type="submit" class = "btn btn-default" name = "submit" value="Submit">
+    <a class="btn btn-default" href="announcement.php">Return</a>
       <?php
           $announcement->addAnnouncement()
       ?>

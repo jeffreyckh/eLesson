@@ -3,14 +3,21 @@
     include '../inc/header.php';
     include 'adminNav.php';
     ?>
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html>
-    <head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Courses</title>
-  <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+  <title>Home</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
     <center>
@@ -18,7 +25,6 @@
         $query_count="select count(*) from course";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
-
         
     ?>
 
@@ -41,7 +47,7 @@
     Total Courses:<font color="red"><?php echo $count; ?></font>|<a href="add_courses.php">Add New Course</a>
     </td>
     <tr><td>
-        <table>
+        <table class="table table-bordered">
         <th align="right">Course ID</th><th align="right">Course Name</th><th align="right">Created</th><th align="right">Modify</th><th align="right">Delete</th>
         <?php
             $query="select * from course order by courseid";

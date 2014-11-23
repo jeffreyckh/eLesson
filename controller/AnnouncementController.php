@@ -11,7 +11,7 @@ class AnnouncementController
     if($result)
     {
       echo "suecess!!";
-      header('Location:testingHome.php');
+      header('Location:announcement.php');
     }
     else
     {
@@ -27,6 +27,7 @@ class AnnouncementController
      $count=mysql_result($result_count);
     
   }
+
 }
 
 ?>
