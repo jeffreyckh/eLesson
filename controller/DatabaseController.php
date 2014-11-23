@@ -14,19 +14,30 @@ class DatabaseController
 
   	$query = "SELECT * FROM user WHERE username= '$username' and password= '$password' limit 1";
   	$result = mysql_query($query);
-    $res = mysql_fetch_array($result);
-
+    $res = mysql_fetch_assoc($result);
+    $_SESSION['rank'] = $res['rank'];
+    $rank = $_SESSION['rank'];
     if($res)
     {
+      if($rank == 1)
+      {
       $_SESSION['username'] = $username;
       header('Location: admin/adminHome.php');
       exit;
+      }
+      elseif ($rank == 2) 
+      {
+      $_SESSION['username'] = $username;
+      header('Location: user/userHome.php');
+      }
     }
     else
     {
       echo 'Wrong!!';
     }
   }
+
+
 // Add annoucement database controller
   public function addAnnounce($taskname,$taskdate)
   {
