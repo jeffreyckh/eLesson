@@ -35,7 +35,7 @@ function islogin(){
 		setcookie("adminid",NULL);
 		setcookie("adminname",NULL);
 		setcookie("adminpassword",NULL);
-		require "../inc/header.php";
+		require "header.php";
 		msg($message,"admin_test.php");
 		echo "</body>\n</html>";
 		exit;

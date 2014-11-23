@@ -10,7 +10,7 @@ if (empty($action)){
 }
 
 /**if ($action=="logon"){
-	require "../inc/header.php";
+	require "header.php";
 	echo "<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
 	$contstr=array();
 	$contstr[]=array('Username','center','30%');
@@ -22,7 +22,7 @@ if (empty($action)){
 	$titles=array();
 	$footer=array('<input type="submit" value=" Login "> <input type="reset" value=" Retry ">','center');
 
-	echo "<script language=\"javascript\">function check(){if (!document.iform.i_adminname.value||!document.iform.i_password.value){alert(\"Username and password cannot be emptyÂ£Â¡\");return false;}}</script><form action=\"$selfurl\" method=\"post\" name=\"iform\" onsubmit=\"return check()\"><input type=\"hidden\" name=\"action\" value=\"login\">";
+	echo "<script language=\"javascript\">function check(){if (!document.iform.i_adminname.value||!document.iform.i_password.value){alert(\"Username and password cannot be empty£¡\");return false;}}</script><form action=\"$selfurl\" method=\"post\" name=\"iform\" onsubmit=\"return check()\"><input type=\"hidden\" name=\"action\" value=\"login\">";
 	maketablev($header,$titles,$contstr,$footer);
 	echo "</form>";
 	echo "</body>\n</html>";
@@ -34,7 +34,7 @@ if ($action=="frames"){
 <head>
 <title><?php echo $settings['sitename']." -Manage Center";?></title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../jcss/default.css" type="text/css">
+<link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <frameset rows="22,*" framespacing="1">
 	<frame src="admin_test.php?action=top" name="head" noresize scrolling="no" frameborder="0">
@@ -53,24 +53,24 @@ if ($action=="frames"){
 	$row=$db->query_first("SELECT adminid,adminname,password FROM ".$db_prefix."admin WHERE adminname='$i_adminname'");
 	if ($row){
 		if ($row['password']!=md5($i_password)){
-			$message="Invalid PasswordÂ£Â¡";
+			$message="Invalid Password£¡";
 		}else{
 			setcookie("adminid",$row['adminid']);
 			setcookie("adminname",trim($i_adminname));
 			setcookie("adminpassword",md5($i_password));
-			$message="Login successÂ£Â¡";
+			$message="Login success£¡";
 		}
 	}else{
-		$message="AdminÂ¡Â°<font class=\"empha\">$i_adminname</font>Â¡Â± not existÂ£Â¡";
+		$message="Admin¡°<font class=\"empha\">$i_adminname</font>¡± not exist£¡";
 	}
-	require "../inc/header.php";
+	require "header.php";
 	msg($message,"admin_test.php");
 	echo "</body>\n</html>";
 }
 
 if ($action=="logout"){
 	setcookie("adminname",NULL);
-	require "../inc/header.php";
+	require "header.php";
 	msg("Logged out","admin_test.php");
 	echo "</body>\n</html>";
 }**/
@@ -87,7 +87,7 @@ if ($action=="top"){
 <center>
 <table border="0" cellspacing="0" cellpadding="3" width="100%">
 	<tr>
-		<td width="50%" align="left">&nbsp;&nbsp;eLesson Test</td>
+		<td width="50%" align="left">&nbsp;&nbsp;Test Manage</td>
 	</tr>
 </table>
 </body>
@@ -96,7 +96,7 @@ if ($action=="top"){
 }
 
 if ($action=="main"){
-	require "../inc/header.php";
+	require "header.php";
 	$contstr=array();
 	$contstr[]=array('WWW Server','center','15%');
 	$contstr[]=array($_SERVER['SERVER_SOFTWARE'],'left','35%');
@@ -115,6 +115,7 @@ if ($action=="main"){
 }
 
 if ($action=="menu"){
+	require "header.php";
 	$contstr=array();
 	$contstr[]=array('<font class="empha">'.$_COOKIE['adminname'].'</font>','center');
 	$header=array("User",1);
