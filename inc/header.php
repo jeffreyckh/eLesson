@@ -5,7 +5,7 @@
 <meta name="description" content="description"/>
 <meta name="keywords" content="keywords"/>
 <meta name="author" content="author"/>
-<link rel="stylesheet" type="text/css" href="jscss/default.css"  />
+<link rel="stylesheet" type="text/css" href="../jscss/default.css"  />
 <link rel="shortcut icon" type="image/x-icon" href="http://www.datapuri.com/CTOS/favicon.ico">
  
 
