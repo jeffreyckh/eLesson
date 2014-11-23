@@ -1,24 +1,18 @@
-<?php
+   <?php
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
-    $m_id=intval($_GET['cid']);
-    $query="select coursename,description from course where courseid=$m_id";
-    $result=mysql_query($query,$link);
-    while($m_rows=mysql_fetch_object($result))
-    {
-        $m_coursename=$m_rows->coursename;
-        $m_coursedesc=$m_rows->description;
-?>
+    ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Course Info</title>
+  <title>Home</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -26,29 +20,9 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-<div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#courseDetail" aria-controls="courseDetail" role="tab" data-toggle="tab">Course Detail</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-<div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="courseDetail">
-            <table class="table table-bordered">
-            <tr>
-                <td>Course Name:</td><td><?php echo $m_coursename ?></td>
-            </tr>
-            <tr>
-                <td>Course Description:</td><td><?php echo $m_coursedesc ?></td>
-            </tr>
-            </table>
-            </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
-                <?php
-        $c_id=intval($_REQUEST['cid']);
-        $query_count="select count(*) from lesson where direction_id=$c_id";
+    <center>
+    <?php
+        $query_count="select count(*) from lesson";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         
@@ -58,28 +32,44 @@
     <table>
     <tr>
     <td align="right">
-    Total Lesson:<font color="red"><?php echo $count; ?></font>|<a href="add_lessons.php?cid=<?php echo $c_id?>">Add New Lesson</a>
+    Total Lesson:<font color="red"><?php echo $count; ?></font>|<a href="add_lessons2.php">Add New Lesson</a>
     </td>
     <tr><td>
         <table class="table table-bordered">
-        <th align="right">Lesson ID</th><th align="right">Lesson Name</th><th align="right">Created</th><th align="right">Modify</th><th align="right">Delete</th>
+        <th align="right">Lesson ID</th><th align="right">Lesson Name</th><th align="right">Created</th><th align="right">Course</th><th align="right">Modify</th><th align="right">Delete</th>
         <?php
-            $lquery="select * from lesson where direction_id=$c_id";
-            $lresult=mysql_query($lquery,$link);
-            while($a_rows=mysql_fetch_object($lresult))
+            $query="select * from lesson order by direction_id";
+            //$query2="select * from course";
+            $result=mysql_query($query,$link);
+            //$result2=mysql_query($query2,$link);
+           
+            while($a_rows=mysql_fetch_object($result))
             {
+
+                $query2="select * from course";
+                $result2=mysql_query($query2,$link);
+                while($b_rows=mysql_fetch_object($result2))
+                {
+                    if($a_rows->direction_id == $b_rows->courseid)
+                    {$cn = $b_rows->coursename;}
+
+                
+            }
+
+
         ?>
                 <tr>
                 <td align="right" width="100"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="right" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
-
+                <td align="right" width="100"><a href="lesson_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="right" width="100"><?php echo $a_rows->created ?></td>
+                <td align="right" width="100"><?php echo $cn ?></td>
                 <td align="right" width="100"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
                 <td align="right" width="100"><a href="delete_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
                 </tr>                
         <?php
+
             }
-                //mysql_close($link);
+                mysql_close($link);
         ?>
         <tr><br>
             <td align="right" colspan="6"><br>
@@ -99,19 +89,6 @@
     </td>
     </tr>
     </table>
-        </div>
-</div>
-
-<?php
-}
-mysql_close($link);
-?>
-</table>
-<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
-</body>
-</html>
+    </center>
+    </body>
+    </html>
