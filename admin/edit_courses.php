@@ -27,9 +27,8 @@ if(isset($_GET['action'])=='editcourse') {
 <tr>
     <td>Course Name:</td><td><input type="text" name="cname" value="<?php echo $m_coursename ?>"></td></tr>
     <tr><td>Course Description:</td>
-    <td><textarea name="cdesc" id="cdesc" rows="10" cols="80">
-        <?php echo $m_coursedesc; ?>
-    </textarea> </td>  
+    <td><textarea name="cdesc" id="cdesc" rows="10" cols="80"><?php echo $m_coursedesc; ?></textarea> 
+    </td>  
     </tr>
 </table>
 <div class="row">

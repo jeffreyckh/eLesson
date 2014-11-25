@@ -48,8 +48,7 @@ if(isset($_GET['action'])=='editlesson') {
 <tr>
     <td>Lesson Name:</td><td><input type="text" name="lname" value="<?php echo $m_lessonname ?>"></td></tr>
     <tr><td>Lesson Content:</td><td>
-    <textarea name="lcont" id="lcont" rows="10" cols="80"><?php echo $m_lessoncontent ?>
-    </textarea>
+    <textarea name="lcont" id="lcont" rows="10" cols="80"><?php echo $m_lessoncontent ?></textarea>
 </td>  
 </tr>
 <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
