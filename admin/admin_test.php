@@ -1,3 +1,14 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.datapuri.com/CTOS/favicon.ico">
+</head>
 <?php
 require "global.php";
 
@@ -36,7 +47,7 @@ if ($action=="frames"){
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../jcss/default.css" type="text/css">
 </head>
-<frameset rows="22,*" framespacing="1">
+<frameset rows="70,*" framespacing="1">
 	<frame src="admin_test.php?action=top" name="head" noresize scrolling="no" frameborder="0">
 	<frameset cols="140,*" framespacing="0">
 		<frame src="admin_test.php?action=menu" name="menu" scrolling="yes" frameborder="0">
@@ -46,7 +57,10 @@ if ($action=="frames"){
 </html>
 <?php
 }
-
+if($action == "top")
+{
+	include '../inc/header.php';
+}
 /**if ($action=="login"){
 	$i_adminname=sql($_REQUEST['i_adminname']);
 	$i_password=sql($_REQUEST['i_password']);
@@ -75,29 +89,13 @@ if ($action=="logout"){
 	echo "</body>\n</html>";
 }**/
 
-if ($action=="top"){
 ?>
-<html>
-<head>
-<title><?php echo $settings['sitename']." - Manage Center";?></title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body bgcolor="#698CC3" style="margin:0px">
-<center>
-<table border="0" cellspacing="0" cellpadding="3" width="100%">
-	<tr>
-		<td width="50%" align="left">&nbsp;&nbsp;eLesson Test</td>
-	</tr>
-</table>
-</body>
-</html>
+
 <?php
-}
 
 if ($action=="main"){
-	require "../inc/header.php";
-	$contstr=array();
+	require "header.php";
+	/*$contstr=array();
 	$contstr[]=array('WWW Server','center','15%');
 	$contstr[]=array($_SERVER['SERVER_SOFTWARE'],'left','35%');
 	$contstr[]=array('Server name','center','15%');
@@ -110,20 +108,31 @@ if ($action=="main"){
 	$contstr[]=array(mysql_get_server_info(),'left');
 	$contstr[]=array('MySQL client version','center');
 	$contstr[]=array(mysql_get_client_info(),'left');
-	maketablev(array('Server Info',4),array(),$contstr);
-	require "footer.php";
+	maketablev(array('Server Info',4),array(),$contstr);*/
+	 echo "<table class=\"tableoutline\" cellpadding=\"4\" cellspacing=\"1\" border=\"0\" width=\"100%\" align=\"center\">
+               <tr class=\"tbhead\">
+                <td>#ID</td>
+				<td>Test name </td>
+                <td> date </td>
+				<td> Operation </td>
+               </tr>\n";
+
+    $q= $db->query("SELECT * FROM ".$db_prefix."thread ORDER BY id DESC");
+    while($title=$db->fetch_array($q)){
+          echo "<tr class=".getrowbg().">
+                <td>$title[id]</td>
+				<td><a href='test_title.php?action=edit&threadid=$title[id]' title='Examine test quiz'>$title[name]</a></td>
+                <td>".maketime($title[date],'datetime')."</td>
+				<td><a href='test_title.php?action=add&threadid=$title[id]'>Add Quiz</a> <a href='".$_SERVER['PHP_SELF']."?action=mod&id=$title[id]'>Modify</a> <a href='".$_SERVER['PHP_SELF']."?action=kill&id=$title[id]'>Delete</a></td>
+               </tr>\n";
+           }
 }
 
 if ($action=="menu"){
-	$contstr=array();
-	$contstr[]=array('<font class="empha">'.$_COOKIE['adminname'].'</font>','center');
-	$header=array("User",1);
-	$titles=array();
-	maketablev($header,$titles,$contstr);
-	
 	
 	  $contstr=array();
 	  $contstr[]=array(
+			'<font class="menu"><a href="admin_test.php?action=main" target="main">Home</a></font><br>'.
 			'<font class="menu"><a href="test_thread.php?action=edit" target="main">Test List</a></font><br>'.
 			'<font class="menu"><a href="test_thread.php?action=add" target="main">Add Test</a></font><br>'.
 			'<font class="menu"><a href="test_thread.php?action=setmark" target="main">Mark Setup</a></font><br>'
@@ -132,13 +141,6 @@ if ($action=="menu"){
 	  $titles=array();
 	  maketablev($header,$titles,$contstr);
 
-	  $contstr=array();
-	  $contstr[]=array(
-			'<font class="menu"><a href="admin_test.php?action=logout" target="main">Exit</a></font><br>'
-			,"left");
-	  $header=array('Exit',1);
-	  $titles=array();
-	  maketablev($header,$titles,$contstr);
 	echo "</body>\n</html>";
 }
 ?>

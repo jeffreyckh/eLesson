@@ -20,6 +20,10 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="userHome.php">Home</a></li>
+    <li class="active">Courses</li>
+    </ol>
     <center>
     <?php
         $query_count="select count(*) from course";

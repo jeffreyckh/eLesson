@@ -1,7 +1,7 @@
 <?php
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $query="select coursename,description from course where courseid=$m_id";
     $result=mysql_query($query,$link);
@@ -26,6 +26,12 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="userHome.php">Home</a></li>
+    <li><a href="courses.php">Courses</a></li>
+    <li class="active">Course Info</li>
+    </ol>
+
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -46,7 +52,60 @@
             </table>
             </div>
         <div role="tabpanel" class="tab-pane" id="profile">
-            ...
+                <?php
+        $c_id=intval($_REQUEST['cid']);
+        $query_count="select count(*) from lesson where direction_id=$c_id";
+        $result_count=mysql_query($query_count,$link);
+        $count=mysql_result($result_count,0);
+        
+    ?>
+
+
+    <table>
+    <tr>
+    <td align="right">
+    Total Lesson:<font color="red"><?php echo $count; ?></font>|<a href="add_lessons.php?cid=<?php echo $c_id?>">Add New Lesson</a>
+    </td>
+    <tr><td>
+        <table class="table table-bordered">
+        <th align="right">Lesson ID</th>
+        <th align="right">Lesson Name</th>
+        <th align="right">Created</th>
+        <?php
+            $lquery="select * from lesson where direction_id=$c_id";
+            $lresult=mysql_query($lquery,$link);
+            while($a_rows=mysql_fetch_object($lresult))
+            {
+        ?>
+                <tr>
+                <td align="right" width="100"><?php echo $a_rows->lessonid ?></a></td>
+                <td align="right" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
+
+                <td align="right" width="100"><?php echo $a_rows->created ?></td>
+
+                </tr>                
+        <?php
+            }
+                //mysql_close($link);
+        ?>
+        <tr><br>
+            <td align="right" colspan="6"><br>
+            <form action="search.php" method="post">
+                Select Check:
+                    <select name="select">
+                        <option value="lessonid" selected>Lesson ID</option>
+                        <option value="lessonname">Lesson Name</option>
+                        <option value="createdate">Create Date</option>
+                    </select>
+                    Value: <input type="text" name="values">
+                    <input type="submit" value="Check Total">
+            </form>
+        </td>        
+    </tr>    
+    </table>
+    </td>
+    </tr>
+    </table>
         </div>
 </div>
 

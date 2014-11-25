@@ -15,7 +15,25 @@
     
       //echo $m_directionid;
 ?>
-Change Course Detail
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Modify Course Detail</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+
+Modify Course Detail
 <hr>
 
 <?php
@@ -26,15 +44,24 @@ if(isset($_GET['action'])=='editlesson') {
 ?>
 <form action="?action=editlesson" method="post">
 <input type="hidden" name="lid" value="<?php echo $m_id ?>">
-<table>
+<table class="table table-bordered">
 <tr>
-    <td>Lesson Name:</td><td><input type="text" name="lname" value="<?php echo $m_lessonname ?>"></td>
-    <td>Lesson Content:</td><td><textarea name="lcont" rows="5" cols="40"><?php echo $m_lessoncontent ?></textarea></td>
-    
+    <td>Lesson Name:</td><td><input type="text" name="lname" value="<?php echo $m_lessonname ?>"></td></tr>
+    <tr><td>Lesson Content:</td><td>
+    <textarea name="lcont" id="lcont" rows="10" cols="80"><?php echo $m_lessoncontent ?>
+    </textarea>
+</td>  
 </tr>
-
 <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
+</table>
 </form>
+<script>
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace( 'lcont' );
+  </script>
+  </body>
+  </html>
 <?php
 function editlesson() 
  {
@@ -76,7 +103,7 @@ function editlesson()
             }
     }
     else{
-        echo "Course Existed";
+        echo " Existed";
     }
 
 }

@@ -15,6 +15,7 @@ $register = new RegistrationView();
 	
 	<!-- Your styles -->
 	<link rel="stylesheet" href="jscss/styles.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
 	
 </head>
 

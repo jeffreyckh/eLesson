@@ -23,7 +23,7 @@ $announcement = new announcementView();
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-  <div class = "col-md-7">
+  <div class = "col-md-8">
     <legend>Navigation</legend>
     <div class = "row">
       <div class = "col-md-2">

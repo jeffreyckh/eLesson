@@ -1,7 +1,7 @@
 <?php
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    //include 'adminNav.php';
     $m_id=intval($_GET['cid']);
     $query="select coursename,description from course where courseid=$m_id";
     $result=mysql_query($query,$link);
@@ -26,11 +26,16 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="courses.php">Courses</a></li>
+    <li class="active">Course Info</li>
+    </ol>
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#courseDetail" aria-controls="courseDetail" role="tab" data-toggle="tab">Course Detail</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li role="presentation"><a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab">Lessons</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -45,7 +50,7 @@
             </tr>
             </table>
             </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
+        <div role="tabpanel" class="tab-pane" id="lessons">
                 <?php
         $c_id=intval($_REQUEST['cid']);
         $query_count="select count(*) from lesson where direction_id=$c_id";
@@ -62,7 +67,7 @@
     </td>
     <tr><td>
         <table class="table table-bordered">
-        <th align="right">Lesson ID</th><th align="right">Lesson Name</th><th align="right">Created</th><th align="right">Modify</th><th align="right">Delete</th>
+        <th align="left">Lesson ID</th><th align="right">Lesson Name</th><th align="right">Created</th><th align="right">Modify</th><th align="right">Delete</th>
         <?php
             $lquery="select * from lesson where direction_id=$c_id";
             $lresult=mysql_query($lquery,$link);
@@ -70,12 +75,12 @@
             {
         ?>
                 <tr>
-                <td align="right" width="100"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="right" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
+                <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
 
-                <td align="right" width="100"><?php echo $a_rows->created ?></td>
-                <td align="right" width="100"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
-                <td align="right" width="100"><a href="delete_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
+                <td align="left" width="100"><a href="delete_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
                 </tr>                
         <?php
             }

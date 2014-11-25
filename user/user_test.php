@@ -1,5 +1,5 @@
 <?php
-set_include_path('.' . PATH_SEPARATOR . './admin'. PATH_SEPARATOR . get_include_path());
+set_include_path('./user' . PATH_SEPARATOR . '../admin'. PATH_SEPARATOR . get_include_path());
 
 include("global.php");
 

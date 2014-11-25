@@ -6,8 +6,25 @@ $temp_id;
 $query_count="select count(*) from lesson";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-
 ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Add Lessons</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+</head>
+<body>
 <center>
 Add New Lesson
 <hr>
@@ -19,7 +36,7 @@ if(isset($_GET['action'])=='addlesson') {
 else
 //show form
 ?>
-<table>
+<table class="table table-bordered">
 <tr>
  <form action="?action=addlesson" method="post">
 <td>Course:</td>
@@ -40,11 +57,20 @@ else
 
 <td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $count ?>"></td></tr>
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
-<td>Lesson Content:</td><td><input type="text" name="lcont"></td></tr>
+<td>Lesson Content:</td><td>
+<textarea name="lessoncontent" id="lessoncontent" rows="10" cols="80">
+</textarea>
+</td></tr>
 <tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
 </form>
 </table>
-
+<script>
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace( 'lessoncontent' );
+  </script>
+</body>
+</html>
 
  <?php
  function addlesson() 

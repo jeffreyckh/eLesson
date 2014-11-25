@@ -23,14 +23,19 @@ if(isset($_GET['action'])=='editcourse') {
 ?>
 <form action="?action=editcourse?cid=<?php echo $m_id ?>" method="post">
 <input type="hidden" name="cid" value="<?php echo $m_id ?>">
-<table>
+<table class="table table-bordered">
 <tr>
-    <td>Course Name:</td><td><input type="text" name="cname" value="<?php echo $m_coursename ?>"></td>
-    <td>Course Description:</td><td><input type="textarea" name="cdesc" value="<?php echo $m_coursedesc ?>"></td>
-</tr>
-
-
-<tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
+    <td>Course Name:</td><td><input type="text" name="cname" value="<?php echo $m_coursename ?>"></td></tr>
+    <tr><td>Course Description:</td>
+    <td><textarea name="cdesc" id="cdesc" rows="10" cols="80">
+        <?php echo $m_coursedesc; ?>
+    </textarea> </td>  
+    </tr>
+</table>
+<div class="row">
+<div align = "center">
+    <button type="submit" class="btn btn-default">Submit</button>&nbsp&nbsp<button type="reset" class="btn btn-default">Reset</button>
+</div>
 </form>
 <?php
 function editcourse() 
@@ -71,7 +76,8 @@ function editcourse()
 
 mysql_close($link);
 ?>
-</table>
+
+
 <br>
 <a href="courses.php">Return</a>
 
