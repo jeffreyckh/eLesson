@@ -40,6 +40,7 @@ if (empty($action)){
 }**/
 
 if ($action=="frames"){
+
 ?>
 <html>
 <head>
@@ -47,7 +48,7 @@ if ($action=="frames"){
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../jcss/default.css" type="text/css">
 </head>
-<frameset rows="70,*" framespacing="1">
+<frameset rows="200,*" framespacing="1">
 	<frame src="admin_test.php?action=top" name="head" noresize scrolling="no" frameborder="0">
 	<frameset cols="140,*" framespacing="0">
 		<frame src="admin_test.php?action=menu" name="menu" scrolling="yes" frameborder="0">
@@ -58,8 +59,9 @@ if ($action=="frames"){
 <?php
 }
 if($action == "top")
-{
+{	
 	include '../inc/header.php';
+	include 'adminNav.php';
 }
 /**if ($action=="login"){
 	$i_adminname=sql($_REQUEST['i_adminname']);
@@ -95,6 +97,7 @@ if ($action=="logout"){
 
 if ($action=="main"){
 	require "header.php";
+	
 	/*$contstr=array();
 	$contstr[]=array('WWW Server','center','15%');
 	$contstr[]=array($_SERVER['SERVER_SOFTWARE'],'left','35%');
@@ -111,9 +114,9 @@ if ($action=="main"){
 	maketablev(array('Server Info',4),array(),$contstr);*/
 	 echo "<table class=\"tableoutline\" cellpadding=\"4\" cellspacing=\"1\" border=\"0\" width=\"100%\" align=\"center\">
                <tr class=\"tbhead\">
-                <td>#ID</td>
-				<td>Test name </td>
-                <td> date </td>
+                <td>ID</td>
+				<td>Quiz </td>
+                <td> Date </td>
 				<td> Operation </td>
                </tr>\n";
 
@@ -133,8 +136,8 @@ if ($action=="menu"){
 	  $contstr=array();
 	  $contstr[]=array(
 			'<font class="menu"><a href="admin_test.php?action=main" target="main">Home</a></font><br>'.
-			'<font class="menu"><a href="test_thread.php?action=edit" target="main">Test List</a></font><br>'.
-			'<font class="menu"><a href="test_thread.php?action=add" target="main">Add Test</a></font><br>'.
+			'<font class="menu"><a href="test_thread.php?action=edit" target="main">Quiz List</a></font><br>'.
+			'<font class="menu"><a href="test_thread.php?action=add" target="main">Add Quiz</a></font><br>'.
 			'<font class="menu"><a href="test_thread.php?action=setmark" target="main">Mark Setup</a></font><br>'
 			,"left");
 	  $header=array('Test Manage',1);

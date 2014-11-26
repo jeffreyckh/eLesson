@@ -26,7 +26,7 @@ echo "<tr class=".getrowbg().">
               <strong>*<a href='test_title.php?action=edit&threadid=$threadid'>$rs[name]</a></strong>
           </td>
           <td  align=right>
-             <a href='test_title.php?action=add&threadid=$threadid'>Add New Question</a>
+             <a href='test_title.php?action=add&threadid=$threadid'>Add Question</a>
           </td>
         </tr>";
 $cpforms->tablefooter();
@@ -95,7 +95,7 @@ if ($_POST[action]=="insert"){
     $choice = htmlspecialchars(trim($_POST[choice]));
     $IsDefault = $_POST[IsDefault];
     if ($choice==""){
-        pa_exit("Option name cannot be empty");
+        pa_exit("Option cannot be empty");
     }
     if($IsDefault)
 	$db->query("UPDATE ".$db_prefix."choice SET IsDefault=0 WHERE extends=$extends");

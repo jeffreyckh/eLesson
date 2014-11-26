@@ -10,7 +10,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
 </head>
-
 <body>
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -26,18 +25,25 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbarCollapse">
+      
       <ul class="nav navbar-nav">
         <li <?=echoActiveClassIfRequestMatches("adminHome")?>><a href="adminHome.php">Home</a></li>
         <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
-         <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
-          </ul>
-        </li>
+        <li <?=echoActiveClassIfRequestMatches("viewlesson")?>><a href="viewlesson.php">Lesson</a></li>
+        <li <?=echoActiveClassIfRequestMatches("admin_test")?>><a href="admin_test.php">Quiz</a></li>
+        <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
       </ul>
+      
+      
       <form method="post" action="../login.php" id="navBar">
       <ul class="nav navbar-nav navbar-right">
+        <div class=".col-md-4">
+        <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
         <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
+        </div>
       </ul>
-    </form>
+      </form>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

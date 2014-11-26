@@ -2,6 +2,7 @@
 include('inc/db_config.php');
 class DatabaseController
 {
+  
  function registerUser($username,$password,$position,$email,$name){
     $password = md5($password);
     $query = "INSERT INTO user( username ,  password ,  name ,  email , position, rank) 

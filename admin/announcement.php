@@ -14,12 +14,15 @@ $announcement = new announcementView();
   <meta name="description" content="AdminHomePage">
   <title>Announcement</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../jscss/jquery.js"></script>
+    <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../jscss/ckeditor/ckeditor.js"></script>
+     <script type="text/javascript" src="../jscss/tablesorter/js/jquery.tablesorter.js"></script>
+     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
 </head>
 <body>
   <!--breadcrumb-->
@@ -32,15 +35,18 @@ $announcement = new announcementView();
       <input type="submit" class = "btn btn-default" value="Add Announcement" name="submit"/>
     </form>
     <br>
-      <table class="table table-bordered">
+      <table id = "announcement" class="tablesorting">
+        <thead>
             <th align="right">No</th>
             <th align="right">Announcement</th>
             <th align="right">Posted On</th>
             <th align="right">Modify</th>
             <th align="right">Delete</th>
+        </thead>
             <?php
                 $query="select * from announcement order by taskid DESC";
                 $result=mysql_query($query,$link);
+                echo "<tbody>";
                 while($a_rows=mysql_fetch_object($result))
                 {
             ?>
@@ -55,7 +61,30 @@ $announcement = new announcementView();
                 }
                     mysql_close($link);
             ?>
+            </tbody> 
     </table>
-
+<script>
+$(document).ready(function(){
+$(function(){
+$("#announcement").tablesorter(
+{
+    theme : 'blue',
+ 
+   // sortList : [[1,0],[2,0],[3,0]],
+ 
+    // header layout template; {icon} needed for some themes
+    headerTemplate : '{content}{icon}',
+ 
+    // initialize column styling of the table
+    widgets : ["columns"],
+    widgetOptions : {
+      // change the default column class names
+      // primary is the first column sorted, secondary is the second, etc
+      columns : [ "primary", "secondary", "tertiary" ]
+    }
+});
+});
+});
+</script>
 </body>
 </html>

@@ -25,7 +25,7 @@ $register = new RegistrationView();
         <title>Register | eLesson </title>
     </head>
     <body>
-
+        <center>
         <div class="container">
             <div class="row">
                 <div class="twocol">
@@ -105,8 +105,9 @@ $register = new RegistrationView();
         </div>
                   
             <?php include('inc/footer.php');?>
-        
+        </center>
     </body>
+
 </html>
 
 

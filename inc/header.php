@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="top">
-  <div class="header">
+  <div class="banner">
     <div class="left">e-Lesson </div>
     <div class="right">
        <? ?>
@@ -22,7 +22,6 @@
   </div>
 </div>
 <div class="container">
-
-<BR><BR>
+<BR>
   <div class="main">
     <div class="content">

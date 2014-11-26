@@ -3,12 +3,13 @@
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['lid']);
-    $query="select lessonname,lessoncontent from lesson where lessonid=$m_id";
+    $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
         $m_lessonname=$m_rows->lessonname;
         $m_lessoncontent=$m_rows->lessoncontent;
+        $courseid = $m_rows->direction_id;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -16,7 +17,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Lesson Info</title>
+  <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -29,7 +30,7 @@
   <ol class="breadcrumb">
     <li><a href="userHome.php">Home</a></li>
     <li><a href="courses.php">Courses</a></li>
-    <li><a href="course_info.php">Course Info</a></li>
+    <li><a href="courses_info.php?cid=<?php echo $courseid?>">Course Info</a></li>
     <li class="active">Lesson Info</li>
     </ol>
 
@@ -49,7 +50,6 @@
         </div>
 
 </div>
-
 <?php
 }
 mysql_close($link);

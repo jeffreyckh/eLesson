@@ -13,7 +13,7 @@ $db->select_db();
 
 $action=(empty($_REQUEST['action'])) ? '' : $_REQUEST['action'];
 $page=(empty($_REQUEST['page'])) ? '1' : intval($_REQUEST['page']);
-$selfurl=$_SERVER['PHP_SELF'];
+//$selfurl=$_SERVER['PHP_SELF'];
 //$referurl=$_SERVER['HTTP_REFERER'];
 
 

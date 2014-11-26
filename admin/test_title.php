@@ -15,7 +15,7 @@ if(!$threadid){
 }else{
   $rs = $db->query_first("SELECT * FROM ".$db_prefix."thread WHERE id='$threadid'");
   if(!$rs){
-     msg('No test found.','test_thread.php?action=edit');
+     msg('No quiz found.','test_thread.php?action=edit');
      exit;
   }
 }
@@ -27,7 +27,7 @@ echo "<tr class=".getrowbg().">
               <strong><a href='test_title.php?action=edit&threadid=$threadid'>$rs[name]</a></strong>
           </td>
           <td  align=right>
-             <a href='test_title.php?action=add&threadid=$threadid'>Add new test</a>
+             <a href='test_title.php?action=add&threadid=$threadid'>Add Quiz</a>
           </td>
         </tr>";
 $cpforms->tablefooter();
@@ -73,17 +73,17 @@ if ($_GET[action]=="add")  {
    while($r = $db->fetch_array($q)){
          $items[$r[id]]=$r[name];
    }
-    $cpforms->formheader(array('title'=>'Add New Quiz'));
+    $cpforms->formheader(array('title'=>'Add Question'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'insert'));
 
-    $cpforms->makeselect(array('text'=>'Select Test:',
+    $cpforms->makeselect(array('text'=>'Select Quiz:',
                                'name'=>'threadid',
 							   'option'=>$items,
 							   'selected'=>(intval($_GET[threadid]) ? intval($_GET[threadid]) : 0)
 							   ));
 							   
-    $cpforms->maketextarea(array('text'=>'Quiz Content:',
+    $cpforms->maketextarea(array('text'=>'Question Content:',
                                'name'=>'title'));
 
     $cpforms->makeselect(array('text'=>'Option Type£º',
@@ -112,7 +112,7 @@ if ($_POST[action]=="insert"){
 	
 	$db->query("INSERT INTO ".$db_prefix."title(threadid,title,choicetype,answer) VALUES ('$threadid','".addslashes($title)."','".addslashes($choicetype)."','$answer')");
     $id = $db->insert_id();
-    msg("New quiz has been added, please add new option<a href=\"test_choice.php?action=add&threadid=$threadid&id=$id\">Add option</a>","./test_title.php?action=edit&threadid=$threadid");
+    msg("New question has been added, please add new option<a href=\"test_choice.php?action=add&threadid=$threadid&id=$id\">Add Option</a>","./test_title.php?action=edit&threadid=$threadid");
 
 }
 
@@ -130,19 +130,19 @@ if ($action=="mod")  {
          $items[$r[id]]=$r[name];
    }
 
-    $cpforms->formheader(array('title'=>'Modify Quiz'));
+    $cpforms->formheader(array('title'=>'Modify Question'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'update'));
 
     $cpforms->makehidden(array('name'=>'id',
                                 'value'=>$id));
 
-    $cpforms->makeselect(array('text'=>'Select Test:',
+    $cpforms->makeselect(array('text'=>'Select Quiz:',
                                'name'=>'threadid',
 							   'option'=>$items,
 							   'selected'=>$title[threadid]
 							   ));
-    $cpforms->maketextarea(array('text'=>'Quiz Content:',
+    $cpforms->maketextarea(array('text'=>'Question Content:',
                                'name'=>'title',
 							   'value'=>$title[title]));
 
@@ -171,12 +171,12 @@ if ($_POST[action]=="update"){
 	$answer = sql($_POST[answer]);
 	$answer = str_replace(",",",",$answer);
     if(!$title || !$answer){
-	   msg("Quiz title and answer cannot be empty","$selfurl?action=add");exit;
+	   msg("Question and answer cannot be empty","$selfurl?action=add");exit;
 	}
 	
     $db->query("UPDATE ".$db_prefix."title SET threadid='$threadid',title='".addslashes($title)."',choicetype='".addslashes($choicetype)."',answer='$answer' WHERE id=$id");
     
-    msg("Quiz has been updated","./test_title.php?action=mod&threadid=$threadid&id=$id");
+    msg("Question has been updated","./test_title.php?action=mod&threadid=$threadid&id=$id");
 
 
 }
@@ -186,7 +186,7 @@ if ($_GET[action]=="kill"){
 
     $id = intval($_GET[id]);
 	$threadid = intval($_GET[threadid]);
-    $cpforms->formheader(array('title'=>'Confirm to delete the quiz?'));
+    $cpforms->formheader(array('title'=>'Confirm to delete the question?'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'remove'));
     $cpforms->makehidden(array('name'=>'threadid',
@@ -208,7 +208,7 @@ if ($_POST[action]=="remove"){
     $db->query("DELETE FROM ".$db_prefix."title WHERE id =$id");
     $db->query("DELETE FROM ".$db_prefix."choice WHERE extends = $id");
 
-    msg("Quiz has been deleted","./test_title.php?action=edit&threadid=$threadid");
+    msg("Question has been deleted","./test_title.php?action=edit&threadid=$threadid");
 
 }
 

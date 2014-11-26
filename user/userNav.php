@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -35,6 +36,7 @@
       </ul>
       <form method="post" action="../login.php" id="navBar">
       <ul class="nav navbar-nav navbar-right">
+        <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
         <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
       </ul>
     </form>
