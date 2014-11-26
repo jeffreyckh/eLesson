@@ -79,7 +79,7 @@
                     {
                         
                     ?>
-                    <input type="checkbox" name="checkboxselection<?php echo $i?>[]" value=<?php echo $optiontoken?> />
+                    <input type="checkbox" name="checkboxselection[]<?php echo $i?>" value=<?php echo $optiontoken?> />
 
                     <?php
                     echo $optiontoken;

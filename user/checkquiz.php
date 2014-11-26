@@ -41,6 +41,7 @@
         	if( strcmp ($selection,$answer) == 0 )
         	{
         		++$score;
+                break;
         	}
         
         }
