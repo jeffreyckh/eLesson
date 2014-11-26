@@ -23,6 +23,10 @@
      <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li class="active">Lessons</li>
+    </ol>
     <center>
     <?php
         $query_count="select count(*) from lesson";
@@ -67,11 +71,11 @@
         ?>
                 <tr>
                 <td align="left" width="5%"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="left" width="30%"><a href="lesson_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
+                <td align="left" width="30%"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="20%"><?php echo $a_rows->created ?></td>
                 <td align="left" width="25%"><?php echo $cn ?></td>
                 <td align="left" width="10%"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
-                <td align="left" width="10%"><a href="delete_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
+                <td align="left" width="10%"><a href="del_viewlesson.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
                 </tr>                
         <?php
 

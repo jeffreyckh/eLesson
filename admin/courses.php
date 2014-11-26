@@ -71,7 +71,7 @@
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_courses.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="del_course.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
                 </tr> 
                               
         <?php
