@@ -59,7 +59,6 @@ class announcementView{
       {
         $taskid=intval($_POST['taskid']);
         $taskname=$_POST['taskname'];
-        $announce_controller = new AnnouncementController();
         $flag=true;
         $check="select * from announcement";
         $check_result=mysql_query($check);
@@ -70,7 +69,6 @@ class announcementView{
             else
             $flag=true;
         }
-    
         if($flag==false)
           {
             $sql="delete from announcement where taskid=$taskid";
@@ -80,7 +78,7 @@ class announcementView{
             {
                
                 echo '<script language="JavaScript"> window.location.href ="announcement.php" </script>'; 
-                 echo '<script> alert("Modify Announcement Successful!") </script>';
+                 echo '<script> alert("Delete Announcement Successful!") </script>';
             }
           }
       }

@@ -51,13 +51,7 @@
         </div>
 
 </div>
-<nav>
-  <ul class="pagination">
-    <li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-    ...
-  </ul>
-</nav>
+
 <?php
 }
 mysql_close($link);

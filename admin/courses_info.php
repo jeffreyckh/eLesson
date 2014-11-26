@@ -88,7 +88,7 @@
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
                 </tr>
                            
         <?php
