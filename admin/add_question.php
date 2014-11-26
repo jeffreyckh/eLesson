@@ -1,4 +1,5 @@
 <?php
+session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -8,6 +9,28 @@ $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
 $quizid = intval($_REQUEST['qid']);
 ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Home</title>
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="view_question?qid=<?php echo $quizid?>">Questions</a></li>
+    <li class="active">Add Question</li>
+    </ol>
 <center>
 Add Question
 <hr>
@@ -19,12 +42,13 @@ if(isset($_GET['action'])=='addquestion') {
 else
 //show form
 ?>
-<table>
+<table class = "table table-bordered">
 <tr>
  <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
-
 <td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
-<td>Question Content:</td><td><input type="text" name="quescont"></td></tr>
+<tr><td>Question Content:</td><td>
+    <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
+</td></tr>
 <!-- <td>Question Type:</td>
  <td><input type="radio" name="choicetype" checked = "checked"
 <?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
@@ -36,10 +60,16 @@ value="checkbox">Multiple Choice</td></tr>
 
 <td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
 <td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
-
-<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
-</form>
 </table>
+<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
+</form>
+<script>
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace( 'quescont' );
+</script>
+</body>
+</html>
 
 
  <?php
@@ -87,11 +117,6 @@ value="checkbox">Multiple Choice</td></tr>
  }
 
 ?>
-
-
-<br>
-<a href="view_question.php?qid=<?php echo $quizid?>">Return</a>
-</center> 
 
 <?php
 

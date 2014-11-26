@@ -30,7 +30,7 @@
         <li <?=echoActiveClassIfRequestMatches("adminHome")?>><a href="adminHome.php">Home</a></li>
         <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
         <li <?=echoActiveClassIfRequestMatches("viewlesson")?>><a href="viewlesson.php">Lesson</a></li>
-        <li <?=echoActiveClassIfRequestMatches("admin_test")?>><a href="admin_test.php">Quiz</a></li>
+        <li <?=echoActiveClassIfRequestMatches("viewquiz")?>><a href="viewquiz.php">Quiz</a></li>
         <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
       </ul>
       

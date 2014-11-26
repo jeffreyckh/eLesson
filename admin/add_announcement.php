@@ -15,7 +15,7 @@ $announcement = new announcementView();
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>

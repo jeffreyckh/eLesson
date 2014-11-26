@@ -54,13 +54,21 @@ $thismonth = getdate ($timestamp);
 $startday = $thismonth['wday'];
 $today = date("d");
 for ($i=0; $i<($maxday+$startday); $i++) {
-    if(($i % 7) == 0 ) echo "<tr>";
-    if($i < $startday) echo "<td style='background-color:silver;'></td>";
+    if(($i % 7) == 0 ) 
+    	{
+    		echo "<tr>";
+		}
+    if($i < $startday) 
+    {
+    	echo "<td style='background-color:silver;'></td>";
+    }
  
-    else if($i - $startday +1 ==$today) echo "<td align='center' valign='middle' height='20px' style='background-color:silver;color:white;'><strong>". ($i - $startday + 1) . "</strong></td>"; // there I have made the changes. It works perfectly but always highlight it on next month.
-    else echo "<td align='center' valign='middle' height='20px' style='background-color:gray;'>". ($i - $startday + 1) . "</td>";
+    else if(($i - $startday +1 ==$today) and ($cMonth == date("n")) and ($cYear == date("Y"))) 
+    	{echo "<td align='center' valign='middle' height='20px' style='background-color:silver;color:white;'><strong>". ($i - $startday + 1) . "</strong></td>";} // there I have made the changes. It works perfectly but always highlight it on next month.
+    else 
+    	{echo "<td align='center' valign='middle' height='20px' style='background-color:gray;'>". ($i - $startday + 1) . "</td>";}
      
-    if(($i % 7) == 6 ) echo "</tr>";
-}
+    if(($i % 7) == 6 ) 
+    	{echo "</tr>";}
 }
 ?>

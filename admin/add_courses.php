@@ -8,10 +8,32 @@ $query_count="select count(*) from course";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
 ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Home</title>
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+     <!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="courses.php">Course</a></li>
+    <li class="active">Add Course</li>
+    </ol>
+
 <center>
 Add new course
 <hr>
-
 <?php
 if(isset($_GET['action'])=='addcourse') {
     addcourse();
@@ -24,9 +46,10 @@ if(isset($_GET['action'])=='addcourse') {
 <td>Course ID:</td><td><input type="text" name="cid" value="<?php echo $count ?>"></td></tr>
 <td>Course Name:</td><td><input type="text" name="cname"></td></tr>
 <td>Course Description</td><td><input type="text" name="cdesc"></td></tr>
-<tr><td><input  class="btn btn-default" type="submit" value="Add"></td><td><input  class="btn btn-default" type="reset"></td></tr>
-</form>
 </table>
+<div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
+</form>
+
 
 
 <?php
@@ -78,3 +101,5 @@ mysql_close($link);
 <br>
 <a href="courses.php">Return</a>
 </center> 
+</body>
+</html>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -6,8 +7,28 @@ $temp_id;
 $query_count="select count(*) from quiz";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-
 ?>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="announcement">
+  <meta name="description" content="AdminHomePage">
+  <title>Home</title>
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewquiz.php">Quiz</a></li>
+    <li class="active">Add Quiz</li>
+    </ol>
+
 <center>
 Add Quiz
 <hr>
@@ -19,7 +40,7 @@ if(isset($_GET['action'])=='addquiz') {
 else
 //show form
 ?>
-<table>
+<table class="table table-bordered">
 <tr>
  <form action="?action=addquiz" method="post">
 <td>Lesson:</td>
@@ -40,9 +61,11 @@ else
 
 <td>Quiz ID:</td><td><input type="text" name="qid" value="<?php echo $count ?>"></td></tr>
 <td>Quiz Name:</td><td><input type="text" name="qname"></td></tr>
-<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
-</form>
 </table>
+<div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
+</form>
+</body>
+</html>
 
 
  <?php

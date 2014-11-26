@@ -49,8 +49,7 @@ if(isset($_GET['action'])=='addlesson') {
 <td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
 <tr><td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <tr><td>Lesson Content:</td><td>
-<textarea name="lcont" id="lcont" rows="10" cols="80">
-</textarea>
+<textarea name="lcont" id="lcont" rows="10" cols="80"></textarea>
 </td></tr>
 <input type="hidden" name="cid" value="<?php echo $courseid ?>">
 <tr><td><input class="btn btn-default" type="submit" value="Add"><?php echo "&nbsp &nbsp";?>
