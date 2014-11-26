@@ -55,13 +55,12 @@
             </table>
             </div>
         <div role="tabpanel" class="tab-pane" id="lessons">
-                <?php
+        <?php
         $c_id=intval($_REQUEST['cid']);
         $query_count="select count(*) from lesson where direction_id=$c_id";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
-        
-    ?>
+        ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
         <thead>
@@ -102,7 +101,7 @@
 }
 mysql_close($link);
 ?>
-</table>
+
 <script>
 $('#myTab a').click(function (e) {
   e.preventDefault()

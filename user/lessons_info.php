@@ -11,6 +11,7 @@
         $m_lessonname=$m_rows->lessonname;
         $m_lessoncontent=$m_rows->lessoncontent;
         $courseid = $m_rows->direction_id;
+     
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -39,6 +40,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#lessonDetail" aria-controls="lessonDetail" role="tab" data-toggle="tab">Lesson Content</a></li>
+    <li role="presentation"><a href="#quiz" aria-controls="quiz" role="tab" data-toggle="tab">Quiz</a></li>  
   </ul>
 
   <!-- Tab panes -->
@@ -49,19 +51,65 @@
           <h2>Lesson Content:</h2>
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
         </div>
-
 </div>
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane" id="quiz">
+  <?php
+        $l_id=intval($_REQUEST['lid']);
+        $query_count="select count(*) from quiz where lessonid=$l_id";
+        $result_count=mysql_query($query_count,$link);
+        $count=mysql_result($result_count,0);
+        
+        ?>
+        <table id = "quiz" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+            <th align="left">Quiz ID</th>
+            <th align="left">Quiz Name</th>
+            <th align="left">Created</th>
+            </tr>
+            </thead>
+        <?php
+            $qquery="select * from quiz where lessonid=$l_id";
+            $qresult=mysql_query($qquery,$link);
+            echo "<tbody>";
+            while($a_rows=mysql_fetch_object($qresult))
+            {
+        ?>
+        <tr>
+            <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+            <td align="left" width="100"><a href="user_doquiz.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+            <td align="left" width="100"><?php echo $a_rows->created ?></td>
+        </tr>
+        <?php
+        }
+         // mysql_close($link);
+        ?>  
+        </tbody> 
+        </td>
+        </tr>
+        </table>
 
-<?php
-}
-mysql_close($link);
-?>
-</table>
+    </div>
+</div> 
+ 
+    <?php
+        }
+          mysql_close($link);
+        ?>  
 <script>
 $('#myTab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
 })
+</script>
+<script>
+$(document).ready(function(){
+    $('#lesson').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
 </script>
 </body>
 </html>
