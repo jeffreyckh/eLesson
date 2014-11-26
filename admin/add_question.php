@@ -15,7 +15,7 @@ $quizid = intval($_REQUEST['qid']);
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Home</title>
+  <title>Add Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

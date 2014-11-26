@@ -10,15 +10,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Home</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <title>Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../jscss/jquery.js"></script>
+    <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+</head>
 </head>
 <body>
     <center>
@@ -30,24 +33,21 @@
         
     ?>
 
-
-    <table>
-    <tr>
-    <td align="right">
-    Total Questions:<font color="red"><?php echo $count; ?></font>|<a href="add_question.php?qid=<?php echo $qid ?>">Add Question</a>
-    </td>
-    <tr><td>
-        <table class="table table-bordered">
-        <th align="right">Question ID</th><th align="right">Content</th><th align="right">Modify</th><th align="right">Delete</th>
-        
+    <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question.php?qid=<?php echo $qid ?>">Add Question</a>
+    <hr>
+        <table id="question" class="table table-striped table-bordered" cellspacing="0" >
+        <thead>
+        <th align="right">Question ID</th>
+        <th align="right">Content</th>
+        <th align="right">Modify</th>
+        <th align="right">Delete</th>
+        </thead>
         <?php
             $query="select * from question where quizid = $qid";
             $result=mysql_query($query,$link);
-           
+            echo "<tbody>";
             while($a_rows=mysql_fetch_object($result))
             {
-
-              
 
         ?>
                 <tr>
@@ -62,15 +62,16 @@
             
                 mysql_close($link);
         ?>
-        <tr><br>
-            <td align="center" colspan="6"><br>
-           <a href="viewquiz.php">Return</a>
-        </td>        
-    </tr>    
-    </table>
-    </td>
-    </tr>
+    </tbody> 
     </table>
     </center>
+    <script>
+    $(document).ready(function(){
+    $('#question').DataTable(
+        {     
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+    });
+    </script>
     </body>
     </html>

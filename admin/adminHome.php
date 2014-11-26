@@ -40,7 +40,7 @@ $announcement = new announcementView();
       </div>
       <div class = "col-md-2">
        <figure>
-        <a href="admin_test.php"><img src="../img/quiz.png"></a>
+        <a href="viewquiz.php"><img src="../img/quiz.png"></a>
         <figcaption>Quiz</figcaption>
         </figure> 
       </div>

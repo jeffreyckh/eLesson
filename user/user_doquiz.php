@@ -1,15 +1,16 @@
  <?php
+    session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    //include 'adminNav.php';
+    include 'userNav.php';
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="keywords" content="announcement">
-  <meta name="description" content="AdminHomePage">
-  <title>Home</title>
+  <meta name="keywords" content="Conduct Quiz">
+  <meta name="description" content="Conduct Quiz">
+  <title>Conduct Quiz</title>
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
@@ -20,7 +21,6 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <center>
     <?php
         $qid = intval($_GET['qid']);
         $query_count="select count(*) from question where quizid = $qid";
@@ -34,10 +34,8 @@
     ?>
 
 
-    Quiz:<?php echo $quizname ?></br>
-    Total Questions:<font color="red"><?php echo $count; ?></font></br></br>
-
-
+    <div align = "left"><h1>Quiz: <strong><?php echo $quizname ?></strong><h1></div>
+    <hr>
     <form action="checkquiz.php?qid=<?php echo $qid?>" method="post">
     <?php
             $query="select * from question where quizid = $qid";
@@ -47,9 +45,11 @@
             while($a_rows=mysql_fetch_object($result))
             {
                 $i++;
-
-
-                echo $i . '.' . $a_rows->content. '</br>' ;
+                echo "<table>";
+                echo "<thead>";
+                echo "<th>";
+                echo $i . '.  ' . $a_rows->content. '</br>' ;
+                echo "</th>";
                 if($a_rows->choicetype == 'radio')
                 {
 
@@ -61,6 +61,8 @@
                         $getvalue = $optiontoken;
                         $getvalue = str_replace(" ","-",$getvalue);
                     ?>
+                    <tbody>
+                    <td>
                      <input type="radio" name="radioselection<?php echo $i?>"
                     <?php if (isset($radioselection{$i}) && $radioselection{$i}=="$optiontoken") echo "checked";?>
                     value=<?php echo $getvalue ?> ><?php echo $optiontoken?>
@@ -106,6 +108,5 @@
      <input type="submit" value="Submit">
          </form>
 
-    </center>
     </body>
     </html>
