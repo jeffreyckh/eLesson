@@ -38,7 +38,7 @@
 
 
 
-        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>
+        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp&nbsp<a class = "btn btn-default" href="add_quiz.php">Add Quiz</a>
         <hr>
         <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
         <thead>    
