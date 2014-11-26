@@ -100,6 +100,11 @@
             </form>
         </td>        
     </tr>    
+    <tr><br>
+            <td align="center" colspan="6"><br>
+           <a href="adminHome.php">Return</a>
+        </td>        
+    </tr>    
     </table>
     </td>
     </tr>

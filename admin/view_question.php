@@ -62,8 +62,8 @@
                 mysql_close($link);
         ?>
         <tr><br>
-            <td align="right" colspan="6"><br>
-           
+            <td align="center" colspan="6"><br>
+           <a href="viewquiz.php">Return</a>
         </td>        
     </tr>    
     </table>

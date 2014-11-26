@@ -51,5 +51,12 @@
 		$wrong = $count - $score;
 		echo 'You Get ' . $score . ' question correct and ' . $wrong . ' question wrong!'
 
-
     ?>
+
+<table>
+        <tr><br>
+            <td align="center" colspan="6"><br>
+           <a href="user_viewquiz.php">Return</a>
+        </td>        
+        </tr>    
+    </table>
