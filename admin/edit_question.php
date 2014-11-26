@@ -108,7 +108,7 @@ function editquestion()
 ?>
 </table>
 <br>
-<a href="view_question.php?qid = <?php echo $quizid ?>">Return</a>
+<a href="view_question.php?qid=<?php echo $quizid ?>">Return</a>
 
 <?php
 mysql_close($link);
