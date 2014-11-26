@@ -22,7 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="adminHome.php">eLesson</a>
+        <a class="navbar-brand" href="userHome.php">eLesson</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,6 +30,7 @@
       <ul class="nav navbar-nav">
         <li <?=echoActiveClassIfRequestMatches("userHome")?>><a href="userHome.php">Home</a></li>
         <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
+        <li <?=echoActiveClassIfRequestMatches("user_viewquiz")?>><a href="user_viewquiz.php">Quiz</a></li>
          <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
           </ul>
         </li>

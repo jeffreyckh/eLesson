@@ -49,16 +49,16 @@ if(isset($_GET['action'])=='editquestion') {
 <input type="hidden" name="qid" value="<?php echo $quizid?>">
 <table class="table table-bordered">
 <tr>
-    <td>Question Content:</td><td><input type="text" name="qcont" value="<?php echo $m_content ?>"></td></tr>
-     <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
-   <td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
+    <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
+    <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
+    <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
     <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
 </table>
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      CKEDITOR.replace( 'qcont' );
   </script>
   </body>
   </html>
