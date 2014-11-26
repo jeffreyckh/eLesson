@@ -65,7 +65,7 @@
                     <td>
                      <input type="radio" name="radioselection<?php echo $i?>"
                     <?php if (isset($radioselection{$i}) && $radioselection{$i}=="$optiontoken") echo "checked";?>
-                    value=<?php echo $getvalue ?> ><?php echo $optiontoken?>
+                    value=<?php echo $getvalue ?> checked="checked" ><?php echo $optiontoken?>
                     
                     <?php $optiontoken = strtok("/"); 
                     } 
