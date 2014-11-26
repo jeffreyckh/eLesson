@@ -54,8 +54,8 @@
                 <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
                 <td align="left" width="500"><a href="question_info.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo $a_rows->content ?></a></td>
                 
-                <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $a_rows->questionid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $a_rows->questionid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
+                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td>
                 </tr>                
         <?php
             }

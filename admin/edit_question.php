@@ -3,14 +3,15 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
-    $m_id=intval($_REQUEST['lid']);
-    $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
+    $quizid=intval($_REQUEST['qid']);
+    $quesid=intval($_REQUEST['quid']);
+    $query="select * from question where questionid=$quesid";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
-        $m_lessonname=$m_rows->lessonname;
-        $m_lessoncontent=$m_rows->lessoncontent;
-        $m_directionid=$m_rows->direction_id;
+        $m_content=$m_rows->content;
+        $m_answer=$m_rows->answer;
+        $m_optionlist=$m_rows->optionlist;
     }
 
     
@@ -22,7 +23,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Modify Course Detail</title>
+  <title>Modify Question</title>
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
@@ -34,25 +35,24 @@
 </head>
 <body>
 
-Modify Course Detail
+Modify Question
 <hr>
 
 <?php
-if(isset($_GET['action'])=='editlesson') {
-    editlesson();
+if(isset($_GET['action'])=='editquestion') {
+    editquestion();
 }else
 //show form
 ?>
-<form action="?action=editlesson" method="post">
-<input type="hidden" name="lid" value="<?php echo $m_id ?>">
+<form action="?action=editquestion" method="post">
+<input type="hidden" name="quid" value="<?php echo $quesid?>">
+<input type="hidden" name="qid" value="<?php echo $quizid?>">
 <table class="table table-bordered">
 <tr>
-    <td>Lesson Name:</td><td><input type="text" name="lname" value="<?php echo $m_lessonname ?>"></td></tr>
-    <tr><td>Lesson Content:</td><td>
-    <textarea name="lcont" id="lcont" rows="10" cols="80"><?php echo $m_lessoncontent ?></textarea>
-</td>  
-</tr>
-<tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
+    <td>Question Content:</td><td><input type="text" name="qcont" value="<?php echo $m_content ?>"></td></tr>
+     <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
+   <td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
+    <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
 </table>
 </form>
 <script>
@@ -63,19 +63,20 @@ if(isset($_GET['action'])=='editlesson') {
   </body>
   </html>
 <?php
-function editlesson() 
+function editquestion() 
  {
  include("../inc/db_config.php");
-    $m_id=intval($_POST['lid']);
-    //$m_did = intval($POST['cid']);
-    $edit_name=$_POST['lname'];
-    $edit_content=$_POST['lcont'];
+    $quizid=intval($_REQUEST['qid']);
+    $quesid=intval($_POST['quid']);
+    $edit_content=$_POST['qcont'];
+    $edit_answer=$_POST['qanswer'];
+    $edit_optionlist=$_POST['qopt'];
     $flag=true;
-    $check="select * from lesson";
+    $check="select * from question";
     $check_result=mysql_query($check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_name,$result_rows->lessonname)!=0 && $edit_name != $result_rows->lessonname)
+            if(strcmp($edit_content,$result_rows->content)!=0)
             $flag=false;
             else
             $flag=true;
@@ -84,26 +85,21 @@ function editlesson()
     if($flag==false)
     {
        
-            $sql="update lesson set lessonname='$edit_name',lessoncontent='$edit_content' where lessonid=$m_id";
+            $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist' where questionid=$quesid";
             if(!mysql_query($sql,$link))
              die("Could not update the data!".mysql_error());
             else
             {
-                $query="select direction_id from lesson where lessonid=$m_id";
-                $result=mysql_query($query,$link);
-                while($m_rows=mysql_fetch_object($result))
-                {
-                $m_directionid=$m_rows->direction_id;
-                }
-                echo '<script> alert("Modify Lesson Successful!") </script>';
+            
+                echo '<script> alert("Modify Question Successful!") </script>';
                 
-                echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid= '. $m_directionid . '" </script>';
-                //header("Location: courses_info.php?cid=$m_directionid");
+                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $quizid . '" </script>';
+                
                 
             }
     }
     else{
-        echo " Existed";
+        echo "Question Existed";
     }
 
 }
@@ -112,7 +108,7 @@ function editlesson()
 ?>
 </table>
 <br>
-<a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>
+<a href="view_question.php?qid = <?php echo $quizid ?>">Return</a>
 
 <?php
 mysql_close($link);
