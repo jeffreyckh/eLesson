@@ -25,14 +25,16 @@ else
 
 <td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
 <td>Question Content:</td><td><input type="text" name="quescont"></td></tr>
-<td>Question Type:</td>
-<td><input type="radio" name="choicetype" checked = "checked"
+<!-- <td>Question Type:</td>
+ <td><input type="radio" name="choicetype" checked = "checked"
 <?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
 value="radio">Single Choice
 <input type="radio" name="choicetype"
 <?php if (isset($choicetype) && $choicetype=="checkbox") echo "checked";?>
 value="checkbox">Multiple Choice</td></tr>
-<td>Correct Answer(Use "/" to separate):</td><td><input type="text" name="quesans"></td></tr>
+-->
+
+<td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
 <td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
 
 <tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
@@ -47,7 +49,7 @@ value="checkbox">Multiple Choice</td></tr>
     $add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
-	$add_type=$_POST['choicetype'];
+	//$add_type=$_POST['choicetype'];
 	//$date = date('Y-m-d H:i:s');
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
@@ -66,7 +68,7 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,quizid,content,choicetype,answer,optionlist) values('$add_questionid','$add_quizid','$add_content','$add_type','$add_answer','$add_option')";
+            $sql="insert into question(questionid,quizid,content,choicetype,answer,optionlist) values('$add_questionid','$add_quizid','$add_content','radio','$add_answer','$add_option')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
@@ -88,7 +90,7 @@ value="checkbox">Multiple Choice</td></tr>
 
 
 <br>
-<a href="viewquiz.php">Return</a>
+<a href="view_question.php?qid=<?php echo $quizid?>">Return</a>
 </center> 
 
 <?php

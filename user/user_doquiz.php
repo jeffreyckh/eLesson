@@ -38,7 +38,7 @@
     Total Questions:<font color="red"><?php echo $count; ?></font></br></br>
 
 
-    <form action="checkquiz.php?qid=<?php echo $qid?>&" method="post">
+    <form action="checkquiz.php?qid=<?php echo $qid?>" method="post">
     <?php
             $query="select * from question where quizid = $qid";
             $result=mysql_query($query,$link);
@@ -58,10 +58,12 @@
 
                     while ($optiontoken !== false)
                     {
+                        $getvalue = $optiontoken;
+                        $getvalue = str_replace(" ","-",$getvalue);
                     ?>
                      <input type="radio" name="radioselection<?php echo $i?>"
                     <?php if (isset($radioselection{$i}) && $radioselection{$i}=="$optiontoken") echo "checked";?>
-                    value=<?php echo $optiontoken?> ><?php echo $optiontoken?>
+                    value=<?php echo $getvalue ?> ><?php echo $optiontoken?>
                     
                     <?php $optiontoken = strtok("/"); 
                     } 

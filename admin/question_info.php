@@ -39,7 +39,7 @@
             <tr>
                 <td>Current Question:</td><td><?php echo $a_rows->content ?></td>
             </tr>
-            <tr>
+           <!-- <tr>
                 <td>Choice Type:</td><td><?php 
                 if($a_rows->choicetype == 'radio')
                     {$choicetype = 'Single Choice';}
@@ -49,8 +49,8 @@
 
                 echo $choicetype
 
-                ?></td>
-            </tr>
+                ?></td> 
+            </tr> -->
             <tr>
                 <td>Option List:</td><td><?php 
 
@@ -91,6 +91,7 @@
         ?>
         <tr><br>
             <td align="right" colspan="6"><br>
+                <a href="view_question.php?qid=<?php echo $qid?>">Return</a>
            
         </td>        
     </tr>    

@@ -14,16 +14,19 @@
         $quizname = mysql_result($result_name,0);
         $score = 0;
         $wrong = 0;
-       
+      
+        
         for ($x = 1; $x <= $count; $x++) {
-        	$query = "select * from question where quizid = $qid";
+        	$selection = $_POST['radioselection'.$x];
+          $query = "select * from question where quizid = $qid";
         $result = mysql_query($query,$link);
+     
         while($a_rows=mysql_fetch_object($result))
         {
 
         	//if($a_rows->choicetype == 'radio')
         	//{
-        		$selection = $_POST['radioselection'.$x];
+        		//$selection = $_POST['radioselection'.$x];
         	//}
         	//else
         	//{
@@ -33,20 +36,20 @@
 				//}
         	//}
 
-        	if($selection == $a_rows->answer)
+        	$answer = $a_rows->answer;
+        	$selection = str_replace("-"," ",$selection);
+        	if( strcmp ($selection,$answer) == 0 )
         	{
-        		$score++;
+        		++$score;
         	}
-        	else
-        	{
-        		$wrong++;
-        	}
+        
         }
 
 
 		}
 
-		echo 'You Get ' . $score . ' question correct and ' . $wrong . 'question wrong!'
+		$wrong = $count - $score;
+		echo 'You Get ' . $score . ' question correct and ' . $wrong . ' question wrong!'
 
 
     ?>
