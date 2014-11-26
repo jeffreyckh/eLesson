@@ -10,10 +10,10 @@ if ($action=="edit")  {
 
     echo "<table class=\"tableoutline\" cellpadding=\"4\" cellspacing=\"1\" border=\"0\" width=\"100%\" align=\"center\">
                <tr class=\"tbhead\">
-                <td>#ID</td>
-				<td>Test name </td>
-                <td> date </td>
-				<td> Operation </td>
+                <td>ID</td>
+				        <td>Quiz </td>
+                <td> Date </td>
+				        <td> Operation </td>
                </tr>\n";
 
     $q= $db->query("SELECT * FROM ".$db_prefix."thread ORDER BY id DESC");
@@ -33,11 +33,11 @@ if ($action=="edit")  {
 }
 if ($action=="add")  {
 
-    $cpforms->formheader(array('title'=>'Add Test'));
+    $cpforms->formheader(array('title'=>'Add Quiz'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'insert'));
 
-    $cpforms->makeinput(array('text'=>'Test Name:',
+    $cpforms->makeinput(array('text'=>'Quiz Name:',
                                'name'=>'name'));
 	$cpforms->formfooter();
 }
@@ -47,12 +47,12 @@ if ($_POST[action]=="insert"){
 
     $name = htmlspecialchars(trim($_POST[name]));
 	if(!$name){
-	    msg("Test name cannot be empty",$_SERVER['PHP_SELF']."?action=add");
+	    msg("Quiz cannot be empty",$_SERVER['PHP_SELF']."?action=add");
 		exit;
 	}
     $db->query("INSERT INTO ".$db_prefix."thread(name,date) VALUES ('".addslashes($name)."','".time()."')");
     $id = $db->insert_id();
-    msg("New test has been added,please add the quiz of this test. <a href=\"test_title.php?action=add&threadid=$id\">Add new quiz</a>","./test_title.php?action=add&threadid=$id");
+    msg("New quiz has been added,please add the questions of this quiz. <a href=\"test_title.php?action=add&threadid=$id\">Add Question</a>","./test_title.php?action=add&threadid=$id");
 
 }
 
@@ -62,13 +62,13 @@ if ($action=="mod")  {
 
     $id = intval($_GET[id]);
 	$title = $db->fetch_one_array("SELECT * FROM ".$db_prefix."thread WHERE id=$id");
-    $cpforms->formheader(array('title'=>'Modify test name'));
+    $cpforms->formheader(array('title'=>'Modify Quiz'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'update'));
     $cpforms->makehidden(array('name'=>'id',
                                 'value'=>$id));
 
-    $cpforms->makeinput(array('text'=>'test name:',
+    $cpforms->makeinput(array('text'=>'Quiz Name:',
                                'name'=>'name',
 							   'value'=>$title[name]));
 	$cpforms->formfooter();
@@ -84,7 +84,7 @@ if ($_POST[action]=="update"){
 
     $db->query("UPDATE ".$db_prefix."thread SET name='".addslashes($name)."' WHERE id=$id");
     
-    msg("Test name has been updated","./test_thread.php?action=edit");
+    msg("Quiz has been updated","./test_thread.php?action=edit");
 
 
 }
@@ -93,7 +93,7 @@ if ($_POST[action]=="update"){
 if ($_GET[action]=="kill"){
 
     $id = intval($_GET[id]);
-    $cpforms->formheader(array('title'=>'Confirm to delete the test?Quiz of the test will been delete also.'));
+    $cpforms->formheader(array('title'=>'Confirm to delete the Quiz?Questions of the quiz will been delete also.'));
     $cpforms->makehidden(array('name'=>'action',
                                 'value'=>'remove'));
     $cpforms->makehidden(array('name'=>'id',
@@ -120,7 +120,7 @@ if ($_POST[action]=="remove"){
 	//Delete test
     $db->query("DELETE FROM ".$db_prefix."thread WHERE id =$id");
 
-    msg("Test and quiz will be deleted.","./test_thread.php?action=edit");
+    msg("Quiz had been deleted.","./test_thread.php?action=edit");
 
 }
 

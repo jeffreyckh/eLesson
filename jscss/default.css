@@ -27,7 +27,7 @@ body {
 	font: normal 62.5% Tahoma,sans-serif;
 }
 
-p,code,ul {padding-bottom: 1.2em;}
+code,ul {padding-bottom: 1.2em;}
 
 li {list-style: none;}
 
@@ -71,7 +71,7 @@ h1,h2,h3 {padding-top: 6px;}
 	font-size: 1.2em;
 	margin: 0 auto;
 	padding: 0 0px 0px;
-	width: 100%;
+	width: 100% !important;
 }
 
 
@@ -82,36 +82,36 @@ h1,h2,h3 {padding-top: 6px;}
 }
 
 /* title */  
-.header {
+.banner {
 	background: #C06190;
 	font-size: 1.4em;
-	height: 45px;
+	height: 60px;
 	margin: 0 auto;
 	padding: 10px 10px 5px;
 	width: 98%;
 }
-.header .left {
+.banner .left {
 	background: #C06190;
 	color: #FFF;
 	width: 80%;
-	height: 45px;
+	height: 60px;
 		font: normal 2em "Trebuchet MS",sans-serif;
 	line-height: 50px;
 	text-align: center;
 }
 
-.header .right {
+.banner .right {
 	background: #C06190;
 	color: #FFF;
 	width: 20%;
-	height: 45px;
+	height: 60px;
 	overflow: auto;
 }
 
  
  
-.header .right p,.header .right h2 {padding: 0 12px;}
-.header .right h2 {padding-top: 12px; font: normal 1.6em "Trebuchet MS",sans-serif;}
+.banner .right p,.banner .right h2 {padding: 0 12px;}
+.banner .right h2 {padding-top: 12px; font: normal 1.6em "Trebuchet MS",sans-serif;}
 
 /* navigation */
 .navigation {	
@@ -288,4 +288,43 @@ label {
 	margin:auto;
 	display:block;
 	clear:both;
+}
+/* tables */
+.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+.tablesorter thead tr th, .tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+t.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+.tablesorter thead tr .headerSortDown, .tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
 }

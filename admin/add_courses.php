@@ -1,4 +1,5 @@
 <?php
+session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -17,13 +18,13 @@ if(isset($_GET['action'])=='addcourse') {
 }else
 //show form
 ?>
-<table>
+<table class = "table table-bordered">
 <tr>
  <form action="?action=addcourse" method="post">
 <td>Course ID:</td><td><input type="text" name="cid" value="<?php echo $count ?>"></td></tr>
 <td>Course Name:</td><td><input type="text" name="cname"></td></tr>
 <td>Course Description</td><td><input type="text" name="cdesc"></td></tr>
-<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
+<tr><td><input  class="btn btn-default" type="submit" value="Add"></td><td><input  class="btn btn-default" type="reset"></td></tr>
 </form>
 </table>
 

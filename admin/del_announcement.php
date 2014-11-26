@@ -36,15 +36,12 @@ while($m_rows=mysql_fetch_object($result))
     </ol>
 
     <div class="alert alert-warning" role="alert">
-      <strong>Are you sure you wan to delete this Announcement?</strong>
+      <strong>Are you sure you wan to delete this announcement?</strong>
       <br>
-    <form action="?action=editannouncement?taskid=<?php echo $m_id ?>" method="POST">
+    <form action="?action=delannouncement?taskid=<?php echo $m_id ?>" method="POST">
     <input type="hidden" name="taskid" value="<?php echo $m_id ?>">
             <legend>Annoucement:</legend>
-            <textarea name="taskname" id="taskname" rows="10" cols="80">
-              <?php echo strip_tags($m_taskname); ?>
-            </textarea>
-
+            <textarea name="taskname" id="taskname" rows="10" cols="80"><?php echo strip_tags($m_taskname); ?></textarea>
     <br>
     <input type="submit" class = "btn btn-default" name = "submit" value="Yes">
     <a class="btn btn-default" href="announcement.php">No</a>

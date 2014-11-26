@@ -1,11 +1,18 @@
 <?php
+session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
-$temp_id;
-$query_count="select count(*) from lesson";
-$result_count=mysql_query($query_count,$link);
-$count=mysql_result($result_count,0) + 1;
+//$temp_id;
+//$query_count="select count(*) from lesson";
+//$result_count=mysql_query($query_count,$link);
+//$count=mysql_result($result_count,0) + 1;
+$query = " select * from lesson order by lessonid DESC limit 1";
+$result = mysql_query($query,$link);
+ while($m_rows=mysql_fetch_object($result))
+    {
+        $lessonid = $m_rows->lessonid + 1;
+    }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -55,10 +62,10 @@ else
 
 </select></td></tr>
 
-<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $count ?>"></td></tr>
+<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <td>Lesson Content:</td><td>
-<textarea name="lessoncontent" id="lessoncontent" rows="10" cols="80">
+<textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>
 </td></tr>
 <tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
@@ -67,7 +74,7 @@ else
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
-      CKEDITOR.replace( 'lessoncontent' );
+      CKEDITOR.replace( 'lcont' );
   </script>
 </body>
 </html>

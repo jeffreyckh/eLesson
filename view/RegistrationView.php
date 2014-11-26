@@ -1,11 +1,12 @@
 <?php
 include('inc/db_config.php');
 require_once('controller/UserController.php');
+require_once ('controller/DatabaseController.php');
 class RegistrationView{
   
 
   function registerAccount(){
-    include ('controller/DatabaseController.php');
+    
     if (isset($_POST['username']) && isset($_POST['password'])){
     $db_controller = new DatabaseController();
     
