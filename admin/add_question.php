@@ -30,10 +30,10 @@ else
 <?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
 value="radio">Single Choice
 <input type="radio" name="choicetype"
-<?php if (isset($gender) && $gender=="checkbox") echo "checked";?>
+<?php if (isset($choicetype) && $choicetype=="checkbox") echo "checked";?>
 value="checkbox">Multiple Choice</td></tr>
 <td>Correct Answer(Use "/" to separate):</td><td><input type="text" name="quesans"></td></tr>
-<td>Option List(Use "/" to separate):</td><td><input type="text" name="quesopt"></td></tr>
+<td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
 
 <tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
 </form>
@@ -51,7 +51,7 @@ value="checkbox">Multiple Choice</td></tr>
 	//$date = date('Y-m-d H:i:s');
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
-    $add_option=$_POST['quesopt'];
+    $add_option=$_POST['option'];
     $add_option = str_replace("/","/",$add_option);
 	$flag=false;
 	$check="select * from question";
@@ -66,14 +66,14 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,quizid,content,choicetype,answer) values('$add_questionid','$add_quizid','$add_content','$add_type','$add_answer')";
+            $sql="insert into question(questionid,quizid,content,choicetype,answer,optionlist) values('$add_questionid','$add_quizid','$add_content','$add_type','$add_answer','$add_option')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
             }else
             {
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="viewquiz.php"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
             }
         
        

@@ -29,13 +29,8 @@
 
              while($a_rows=mysql_fetch_object($result))
             {
-                $answerstring = $a_rows->answer;
-                $token = strtok($answerstring,"/");
+             
 
-                $optionstring = $a_rows->option;
-                $token2 = strtok($optionstring, "/");
-
-              
                 
 
         ?>
@@ -46,7 +41,7 @@
             </tr>
             <tr>
                 <td>Choice Type:</td><td><?php 
-                if($a_rows->choicetype = 'radio')
+                if($a_rows->choicetype == 'radio')
                     {$choicetype = 'Single Choice';}
                 else
                     {$choicetype = 'Multiple Choice';}
@@ -59,20 +54,27 @@
             <tr>
                 <td>Option List:</td><td><?php 
 
-                while ($token !== false)
+                $optionstring = $a_rows->optionlist;
+                $optiontoken = strtok($optionstring, "/");
+
+                while ($optiontoken !== false)
                 {
-                echo "$token<br>";
-                $token = strtok("/");
+                echo "$optiontoken<br>";
+                $optiontoken = strtok("/");
                 } 
 
                 ?></td>
             </tr>
                <tr>
                 <td>Answer:</td><td><?php 
-                while ($token2 !== false)
+
+                $answerstring = $a_rows->answer;
+                $token = strtok($answerstring,"/");
+
+                while ($token !== false)
                 {
-                echo "$token2<br>";
-                $token2 = strtok("/");
+                echo "$token<br>";
+                $token = strtok("/");
                 } 
                 ?></td>
             </tr>
