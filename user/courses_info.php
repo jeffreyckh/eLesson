@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
@@ -14,18 +15,19 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="keywords" content="announcement">
-  <meta name="description" content="AdminHomePage">
+  <meta name="keywords" content="Course info">
+  <meta name="description" content="Course and lesson">
   <title>Course Info</title>
-  <<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
-     <script type="text/javascript" src="../jscss/tablesorter/js/jquery.tablesorter.js"></script>
-     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
     <ol class="breadcrumb">
@@ -61,9 +63,7 @@
         
     ?>
 
-
-
-        <table id = "lesson" class="tablesorting">
+        <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
             <th align="left">Lesson ID</th>
@@ -94,6 +94,7 @@
         </td>
         </tr>
         </table>
+
     </div>
 </div>
 
@@ -110,25 +111,10 @@ $('#myTab a').click(function (e) {
 </script>
 <script>
 $(document).ready(function(){
-$(function(){
-$("#lesson").tablesorter(
-{
-    theme : 'blue',
- 
-   // sortList : [[1,0],[2,0],[3,0]],
- 
-    // header layout template; {icon} needed for some themes
-    headerTemplate : '{content}{icon}',
- 
-    // initialize column styling of the table
-    widgets : ["columns"],
-    widgetOptions : {
-      // change the default column class names
-      // primary is the first column sorted, secondary is the second, etc
-      columns : [ "primary", "secondary", "tertiary" ]
-    }
-});
-});
+    $('#lesson').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
 });
 </script>
 </body>

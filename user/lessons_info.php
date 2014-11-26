@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
@@ -15,8 +16,8 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="keywords" content="announcement">
-  <meta name="description" content="AdminHomePage">
+  <meta name="keywords" content="lesson">
+  <meta name="description" content="lessons content">
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
@@ -50,6 +51,7 @@
         </div>
 
 </div>
+
 <?php
 }
 mysql_close($link);

@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../jscss/ckeditor/ckeditor.js"></script>
-     <script type="text/javascript" src="../jscss/tablesorter/js/jquery.tablesorter.js"></script>
-     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
 </head>
 <body>
     <ol class="breadcrumb">
@@ -34,24 +34,10 @@
         $count=mysql_result($result_count,0);
         
     ?>
-
-    <script>
-    function show_popup() {
-        var p = window.createPopup()
-        var pbody = p.document.body
-        pbody.style.backgroundColor = "lime"
-        pbody.style.border = "solid black 1px"
-        pbody.innerHTML = "This is a pop-up! Click outside to close."
-        p.show(150,150,200,50,document.body)
-    }
-
-    </script>
-
-<!--<a href="edit_courses.php" onclick="javascript:void window.open('edit_courses.php','1414934651699','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">Pop-up Window</a>-->
-    
-    Total Courses:<font color="red"><?php echo $count; ?></font>|<a href="add_courses.php">Add New Course</a>
-    
-        <table id = "course" class="tablesorting">
+   
+    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_courses.php" class = " btn btn-default">Add New Course</a></div>
+    <hr>
+        <table id="course" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
         <th align="left">Course ID</th>
         <th align="left">Course Name</th>
@@ -80,20 +66,17 @@
         ?>
         </tbody> 
         </table>
-            <form action="search.php" method="post">
-                Select Check:
-                    <select name="select">
-                        <option value="courseid" selected>Course ID</option>
-                        <option value="coursename">Course Name</option>
-                        <option value="createdate">Create Date</option>
-                    </select>
-                    Value: <input type="text" name="values">
-                    <input type="submit" value="Check Total">
-            </form>
 
     </center>
 <script>
 $(document).ready(function(){
+    $('#course').DataTable(
+        {
+            
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
+/*$(document).ready(function(){
 $(function(){
 $("#course").tablesorter(
 {
@@ -113,7 +96,7 @@ $("#course").tablesorter(
     }
 });
 });
-});
+});*/
 </script>
 </body>
 </html>

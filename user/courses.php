@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
@@ -13,12 +14,16 @@
     <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../jscss/ckeditor/ckeditor.js"></script>
      <script type="text/javascript" src="../jscss/tablesorter/js/jquery.tablesorter.js"></script>
-     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
+     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script>
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
 </head>
 <body>
     <ol class="breadcrumb">
@@ -33,8 +38,7 @@
         
     ?>
 
-    
-        <table id = "course" class="tablesorting">
+        <table id="course" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
         <th align="left">Course ID</th>
         <th align="left">Course Name</th>
@@ -59,9 +63,17 @@
         ?>
         </tbody> 
         </table>
+
     </center>
 <script>
 $(document).ready(function(){
+    $('#course').DataTable(
+        {
+            
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
+/*$(document).ready(function(){
 $(function(){
 $("#course").tablesorter(
 {
@@ -81,7 +93,7 @@ $("#course").tablesorter(
     }
 });
 });
-});
+});*/
 </script>
 </body>
 </html>

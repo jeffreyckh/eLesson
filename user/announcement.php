@@ -11,17 +11,18 @@ $announcement = new announcementView();
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
-  <meta name="description" content="AdminHomePage">
+  <meta name="description" content="announcement">
   <title>Announcement</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+      <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
-     <script type="text/javascript" src="../jscss/tablesorter/js/jquery.tablesorter.js"></script>
-     <script src="../jscss/tablesorter/js/jquery.tablesorter.widgets.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
   <!--breadcrumb-->
@@ -29,8 +30,9 @@ $announcement = new announcementView();
     <li><a href="userHome.php">Home</a></li>
     <li class="active">Announcement</li>
     </ol>
-    <br>
-      <table id = "announcement" class="tablesorting">
+
+    <hr>
+      <table id = "announcement" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <th align="right">No</th>
             <th align="right">Announcement</th>
@@ -56,25 +58,10 @@ $announcement = new announcementView();
     </table>
 <script>
 $(document).ready(function(){
-$(function(){
-$("#announcement").tablesorter(
-{
-    theme : 'blue',
- 
-   // sortList : [[1,0],[2,0],[3,0]],
- 
-    // header layout template; {icon} needed for some themes
-    headerTemplate : '{content}{icon}',
- 
-    // initialize column styling of the table
-    widgets : ["columns"],
-    widgetOptions : {
-      // change the default column class names
-      // primary is the first column sorted, secondary is the second, etc
-      columns : [ "primary", "secondary", "tertiary" ]
-    }
-});
-});
+    $('#announcement').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
 });
 </script>
 </body>

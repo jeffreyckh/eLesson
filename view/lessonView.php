@@ -46,7 +46,7 @@ class lessonView{
 	}
 
 		public function delviewLesson()
-	{
+		{
 		if(isset($_POST['submit']))
 			{
 				if(isset($_POST['lessonname']))
@@ -86,5 +86,5 @@ class lessonView{
 				}
 
 			}
-	}
+		}
 }

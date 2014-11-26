@@ -34,12 +34,16 @@
           </ul>
         </li>
       </ul>
-      <form method="post" action="../login.php" id="navBar">
-      <ul class="nav navbar-nav navbar-right">
+
+        <form method="post" action="../login.php" id="navBar">
+        <ul class="nav navbar-nav navbar-right">
+        <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
         <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
+        </div>
       </ul>
-    </form>
+      </form>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
