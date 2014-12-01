@@ -33,6 +33,12 @@ $result = mysql_query($query,$link);
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+  <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="courses.php">Courses</a></li>
+    <li><a href="courses_info.php?cid=<?php echo $courseid ?>">Course Info</a></li>
+    <li class="active">Add Lesson</li>
+    </ol>
 <center>
 Add new lesson
 <hr>
@@ -46,21 +52,24 @@ if(isset($_GET['action'])=='addlesson') {
 <table class="table table-bordered">
 <tr>
  <form action="?action=addlesson" method="post">
-<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
+  <td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
 <tr><td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
+<td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <tr><td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80"></textarea>
 </td></tr>
-<input type="hidden" name="cid" value="<?php echo $courseid ?>">
-<tr><td><input class="btn btn-default" type="submit" value="Add"><?php echo "&nbsp &nbsp";?>
-    <input class="btn btn-default" type="reset"></td></tr>
-</form>
 </table>
+<input type="hidden" name="cid" value="<?php echo $courseid ?>">
+<input class="btn btn-default" type="submit" value="Add"><?php echo "&nbsp &nbsp";?>
+    <input class="btn btn-default" type="reset">
+</form>
+
    <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
       CKEDITOR.replace( 'lcont' );
   </script>
+  <br><br>
 </body>
 </html>
 
@@ -70,8 +79,8 @@ if(isset($_GET['action'])=='addlesson') {
  function addlesson() 
  {
     include'../inc/db_config.php';
-    $add_directionid=intval($_POST['cid']);
-    $add_lessonid=intval($_POST['lid']);
+  $add_directionid=intval($_POST['cid']);
+  $add_lessonid=intval($_POST['lid']);
 	$add_lessonname=$_POST['lname'];
 	$add_lessoncontent=$_POST['lcont'];
 	$date = date('Y-m-d H:i:s');
@@ -95,8 +104,8 @@ if(isset($_GET['action'])=='addlesson') {
             }else
             {
                 echo '<script> alert("Add Lesson Successful!") </script>';
-                /*echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid=<?php echo $add_directionid?>"</script>';*/
-                header("Location: courses_info.php?cid=$add_directionid");
+                echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid=<?php echo $add_directionid?>"</script>';
+                //header("Location: courses_info.php?cid=$add_directionid");
             }
         
        
@@ -108,10 +117,6 @@ if(isset($_GET['action'])=='addlesson') {
 }
 ?>
 
-
-
-<br>
-<a href="courses_info.php?cid=<?php echo $courseid ?>">Return</a>
 </center> 
 
 <?php
