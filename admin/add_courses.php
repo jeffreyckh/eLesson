@@ -56,8 +56,8 @@ if(isset($_GET['action'])=='addcourse') {
 
  function addcourse() 
  {
-    include'../inc/db_config.php';
-    $add_courseid=intval($_POST['cid']);
+  //include'../inc/db_config.php';
+  $add_courseid=intval($_POST['cid']);
 	$add_coursename=$_POST['cname'];
 	$add_coursedesc=$_POST['cdesc'];
 	$date = date('Y-m-d H:i:s');
@@ -98,8 +98,6 @@ if(isset($_GET['action'])=='addcourse') {
 mysql_close($link);
 ?>
 
-<br>
-<a href="courses.php">Return</a>
 </center> 
 </body>
 </html>

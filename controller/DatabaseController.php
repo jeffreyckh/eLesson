@@ -7,7 +7,9 @@ class DatabaseController
     $password = md5($password);
     $query = "INSERT INTO user( username ,  password ,  name ,  email , position, rank) 
    	VALUES ('$username','$password','$name','$email','$position', 2)";
- 	$result = mysql_query($query)  or die ('Error updating database: ' . mysql_error());
+ 	  $result = mysql_query($query)  or die ('Error updating database: ' . mysql_error());
+    echo '<script> alert("Registration Successful!") </script>';
+    echo '<script language="JavaScript"> window.location.href ="login.php" </script>';
   }
 
   public function selectUser($username,$password)

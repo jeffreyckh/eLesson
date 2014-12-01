@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
