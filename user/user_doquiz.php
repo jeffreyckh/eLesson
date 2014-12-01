@@ -47,9 +47,11 @@
                 $i++;
                 echo "<table>";
                 echo "<thead>";
+                echo "<tr>";
                 echo "<th>";
                 echo $i . '.  ' . $a_rows->content. '</br>' ;
                 echo "</th>";
+                echo "</tr>";
                 if($a_rows->choicetype == 'radio')
                 {
 
