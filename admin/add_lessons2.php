@@ -62,15 +62,15 @@ else
 
 </select></td></tr>
 
+<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>
 </td></tr>
-</table>
-<input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
 </form>
-
+</table>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
@@ -123,6 +123,7 @@ else
 
 
 <br>
+<a href="viewlesson.php">Return</a>
 </center> 
 
 <?php

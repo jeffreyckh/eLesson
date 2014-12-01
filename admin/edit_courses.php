@@ -13,12 +13,6 @@
     }
       
 ?>
-<!--breadcrumb-->
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="courses.php">Courses</a></li>
-    <li class="active">Edit Course</li>
-    </ol>
 Change Course Detail
 <hr>
 

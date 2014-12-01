@@ -22,7 +22,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Modify Lesson Detail</title>
+  <title>Modify Course Detail</title>
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
@@ -33,14 +33,8 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="courses.php">Courses</a></li>
-    <li><a href="courses_info.php?cid=<?php echo $m_directionid ?>">Course Info</a></li>
-    <li class="active">Edit Lesson</li>
-    </ol>
-<center>
-Modify Lesson Detail
+
+Modify Course Detail
 <hr>
 
 <?php
@@ -58,18 +52,16 @@ if(isset($_GET['action'])=='editlesson') {
     <textarea name="lcont" id="lcont" rows="10" cols="80"><?php echo $m_lessoncontent ?></textarea>
 </td>  
 </tr>
+<tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
 </table>
-<input class="btn btn-default" type="submit" value="Change">&nbsp&nbsp<input class="btn btn-default" type="reset">
-
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
       CKEDITOR.replace( 'lcont' );
-</script>
-</center>
-</body>
-</html>
+  </script>
+  </body>
+  </html>
 <?php
 function editlesson() 
  {
@@ -118,6 +110,9 @@ function editlesson()
 
 
 ?>
+</table>
+<br>
+<a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>
 
 <?php
 mysql_close($link);
