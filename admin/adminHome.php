@@ -68,6 +68,7 @@ $announcement = new announcementView();
   </div>
   <div class = "col-md-3">
   <div class = "row">
+   <br> <hr>
   <?php
   include "../inc/calender.php";
   ?>

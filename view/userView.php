@@ -1,8 +1,10 @@
 <?php
 include('../inc/db_config.php');
 
-class userView{
-   public function editAcc(){
+class userView
+{
+   public function editAcc()
+   {
     if (isset($_POST['submit']))
     {
       if (isset($_POST['rank']))
@@ -22,6 +24,30 @@ class userView{
           }
       }
   }
+
+  public function delAcc()
+  {
+     if (isset($_POST['submit']))
+    {
+      if (isset($_POST['username']))
+      {
+        $userid=intval($_POST['userid']);
+        $username=$_POST['username'];
+        
+   
+            $sql="delete from user where userid=$userid";
+            if(!mysql_query($sql))
+             die("Could not update the data!".mysql_error());
+            else
+            {
+               echo '<script> alert("Delete Account Successful!") </script>';
+                echo '<script language="JavaScript"> window.location.href ="manageAccount.php" </script>'; 
+                 
+            }
+          
+      }
+    }
+  }
 }
 
-  ?>
+?>

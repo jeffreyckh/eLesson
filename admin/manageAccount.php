@@ -33,7 +33,7 @@ include 'adminNav.php';
     <div align="right">
     </form>
   </div>
-  Manage Use Account
+  Manage User Account
   <hr>
       <table id = "user" class="table table-striped table-bordered" cellspacing="0">
         <thead>
@@ -71,7 +71,7 @@ include 'adminNav.php';
                         }?>
                     </td>
                     <td align="left" width="10%"><a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">Modify</a></td>
-                    <td align="left" width="10%"><a href="del_announcement.php?taskid=<?php echo $a_rows->taskid ?>">Delete</a></td>
+                    <td align="left" width="10%"><a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">Delete</a></td>
                     </tr>                
             <?php
                 }
