@@ -24,6 +24,12 @@
 </head>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewquiz.php">Quiz</a></li>
+    <li class="active">Question</li>
+    </ol>
+
     <center>
     <?php
         $qid = intval($_GET['qid']);
