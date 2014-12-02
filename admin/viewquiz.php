@@ -90,7 +90,7 @@
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
                 <td align="left" width="100"><a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_quiz.php?qid=<?php echo $a_rows->quizid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">Delete</a></td>
                 </tr>                
         <?php
 

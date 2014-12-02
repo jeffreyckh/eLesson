@@ -33,6 +33,12 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+<!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewquiz.php">Quiz</a></li>
+    <li class="active">Edit Quiz</li>
+    </ol>
 
 Modify Quiz
 <hr>
