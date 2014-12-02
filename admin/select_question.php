@@ -1,4 +1,4 @@
-<?php
+ <?php
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
@@ -15,7 +15,7 @@ $quizid = intval($_REQUEST['qid']);
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Add Question</title>
+  <title>Select Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -29,37 +29,70 @@ $quizid = intval($_REQUEST['qid']);
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
     <li><a href="view_question?qid=<?php echo $quizid?>">Questions</a></li>
-    <li class="active">Add Question</li>
+    <li class="active">Select Question</li>
     </ol>
 <center>
-Add Question
+Select Question
 <hr>
 
 <?php
-if(isset($_GET['action'])=='addquestion') {
-    addquestion();
+if(isset($_GET['action'])=='selectquestion') {
+    selectquestion();
 }
 else
 //show form
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
-<td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
-<tr><td>Question Content:</td><td>
-    <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
-</td></tr>
-<!-- <td>Question Type:</td>
- <td><input type="radio" name="choicetype" checked = "checked"
-<?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
-value="radio">Single Choice
-<input type="radio" name="choicetype"
-<?php if (isset($choicetype) && $choicetype=="checkbox") echo "checked";?>
-value="checkbox">Multiple Choice</td></tr>
--->
+ <form action="?action=selectquestion&qid=<?php echo $quizid?>" method="post">
 
-<td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
-<td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
+
+ 	<td>Question:</td>
+<td><select name="questionselect">
+     <?php $query2="select * from question ";
+                $result2=mysql_query($query2,$link);
+                while($b_rows=mysql_fetch_object($result2))
+                {
+    ?>
+     
+<option value="<?php echo $b_rows->questionid ?>" selected><?php echo $b_rows->content ?></option>
+
+<?php
+}
+?>
+
+ <?php 
+ /**$i = 0;
+ $query2="select * from question ";
+                $result2=mysql_query($query2,$link);
+                while($b_rows=mysql_fetch_object($result2))
+                {  
+    ?>
+     
+<input type="radio" name="radioselection<?php echo $i?>"
+                    <?php 
+                    if (isset($radioselection{$i}) && $radioselection{$i}=="$b_rows->content") 
+                    	
+                    	{
+                    		echo "checked" ;	
+
+                    	$sql="insert into quiz_to_question(quizid,questionid) values('$quizid','$b_rows->questionid')";
+            
+            			if(!mysql_query($sql,$link)){
+             			die("Could not select the question.".mysql_error());
+            			}
+
+                    	}
+                    ?>
+                    value=<?php echo $b_rows->content ?> ><?php echo $b_rows->content?>
+                </br>
+
+<?php
+$i++;
+}
+**/
+?>
+
 </table>
 <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
 </form>
@@ -73,24 +106,17 @@ value="checkbox">Multiple Choice</td></tr>
 
 
  <?php
- function addquestion() 
+ function selectquestion() 
  {
     include'../inc/db_config.php';
     $add_quizid=intval($_REQUEST['qid']);
-    $add_questionid=intval($_POST['quesid']);
-    $add_content=$_POST['quescont'];
-	//$add_type=$_POST['choicetype'];
-	//$date = date('Y-m-d H:i:s');
-    $add_answer=$_POST['quesans'];
-    $add_answer = str_replace("/","/",$add_answer);
-    $add_option=$_POST['option'];
-    $add_option = str_replace("/","/",$add_option);
+    $add_questionid=intval($_POST['questionselect']);
 	$flag=false;
-	$check="select * from question";
+	$check="select * from quiz_to_question where quizid=$add_quizid";
 	$check_result=mysql_query($check,$link);
 		while($result_rows=mysql_fetch_object($check_result))
 		{
-    		if(strcmp($add_questionid,$result_rows->content)!=0 && $result_rows->questionid!=$add_questionid && $result_rows->content != $add_content)
+    		if(strcmp($add_questionid,$result_rows->questionid)!=0)
         	$flag=false;
     		else
         	$flag=true;
@@ -98,20 +124,20 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,content,choicetype,answer,optionlist) values('$add_questionid','$add_content','radio','$add_answer','$add_option')";
+            $sql="insert into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
             
             if(!mysql_query($sql,$link)){
-             die("Could not add new question.".mysql_error());
+             die("Could not select the question.".mysql_error());
             }else
             {
-                echo '<script> alert("Add Question Successful!") </script>';
+                echo '<script> alert("Select Question Successful!") </script>';
                 echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
             }
         
        
     }
     else{
-        echo "Question Existed ";
+        echo "Question exsited in this quiz";
     }
 
  }
@@ -122,3 +148,5 @@ value="checkbox">Multiple Choice</td></tr>
 
 mysql_close($link);
 ?>
+
+

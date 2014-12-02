@@ -1,4 +1,4 @@
- <?php
+<?php
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
@@ -26,8 +26,8 @@
 <body>
     <center>
     <?php
-        $qid = intval($_GET['qid']);
-        $query_count="select count(*) from question where quizid = $qid";
+        
+        $query_count="select count(*) from question";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         
@@ -43,27 +43,21 @@
         <th align="right">Delete</th>
         </thead>
         <?php
-            $query="select * from quiz_to_question where quizid = $qid";
+            $query="select * from question ";
             $result=mysql_query($query,$link);
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($result))
             {
 
-                $query2="select * from question where questionid=$a_rows->questionid";
-                $result2 = mysql_query($query2,$link);
-                while($b_rows=mysql_fetch_object($result2))
-                {
-
         ?>
                 <tr>
-                <td align="left" width="100"><?php echo $b_rows->questionid ?></a></td>
-                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo $b_rows->content ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
+                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
                 
-                <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $a_rows->questionid ?>">Modify</a></td>
+                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $a_rows->questionid ?>">Delete</a></td>
                 </tr>                
         <?php
-            }
             }
             
                 mysql_close($link);

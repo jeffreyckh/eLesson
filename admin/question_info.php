@@ -23,7 +23,7 @@
     <center>
     <?php
         $quid = intval($_GET['quid']);
-        $qid = intval($_GET['qid']);
+        $qid = intval($_REQUEST['qid']);
         $query="select * from question where questionid = $quid";
         $result=mysql_query($query,$link);
 
