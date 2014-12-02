@@ -34,6 +34,11 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="view_question.php?qid=<?php echo $quizid ?>">Questions</a></li>
+    <li class="active">Edit Question</li>
+    </ol>
 
 Modify Question
 <hr>
@@ -52,14 +57,15 @@ if(isset($_GET['action'])=='editquestion') {
     <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
     <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
     <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
-    <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
-</table>
+    </table>
+    <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
       CKEDITOR.replace( 'qcont' );
   </script>
+  <br><br>
   </body>
   </html>
 <?php
@@ -106,9 +112,6 @@ function editquestion()
 
 
 ?>
-</table>
-<br>
-<a href="view_question.php?qid=<?php echo $quizid ?>">Return</a>
 
 <?php
 mysql_close($link);

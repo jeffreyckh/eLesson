@@ -28,7 +28,7 @@ $quizid = intval($_REQUEST['qid']);
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
-    <li><a href="view_question?qid=<?php echo $quizid?>">Questions</a></li>
+    <li><a href="view_question.php?qid=<?php echo $quizid?>">Questions</a></li>
     <li class="active">Add Question</li>
     </ol>
 <center>
@@ -45,8 +45,8 @@ else
 <table class = "table table-bordered">
 <tr>
  <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
-<td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
-<tr><td>Question Content:</td><td>
+<input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $count ?>">
+<td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td></tr>
 <!-- <td>Question Type:</td>
@@ -61,7 +61,7 @@ value="checkbox">Multiple Choice</td></tr>
 <td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
 <td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
 </table>
-<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
+<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor

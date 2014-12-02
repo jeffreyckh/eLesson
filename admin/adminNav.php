@@ -32,6 +32,7 @@
         <li <?=echoActiveClassIfRequestMatches("viewlesson")?>><a href="viewlesson.php">Lesson</a></li>
         <li <?=echoActiveClassIfRequestMatches("viewquiz")?>><a href="viewquiz.php">Quiz</a></li>
         <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
+        <li <?=echoActiveClassIfRequestMatches("manageAccount")?>><a href="manageAccount.php">Account</a></li>
       </ul>
       
       

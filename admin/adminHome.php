@@ -45,9 +45,23 @@ $announcement = new announcementView();
         </figure> 
       </div>
       <div class = "col-md-2">
+       <figure>
+        <a href="view_questionlist.php"><img src="../img/question.png"></a>
+        <figcaption>Question</figcaption>
+        </figure> 
+      </div>
+      <div class = "col-md-2">
         <figure>
         <a href="announcement.php"><img src="../img/announcement.png"></a>
         <figcaption>Announcement</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col-md-2">
+        <figure>
+        <a href="manageAccount.php"><img src="../img/user.png"></a>
+        <figcaption>Account</figcaption>
         </figure>
       </div>
     </div>

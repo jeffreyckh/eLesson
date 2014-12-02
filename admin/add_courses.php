@@ -43,7 +43,7 @@ if(isset($_GET['action'])=='addcourse') {
 <table class = "table table-bordered">
 <tr>
  <form action="?action=addcourse" method="post">
-<td>Course ID:</td><td><input type="text" name="cid" value="<?php echo $count ?>"></td></tr>
+<input type="hidden" type="text" name="cid" value="<?php echo $count ?>">
 <td>Course Name:</td><td><input type="text" name="cname"></td></tr>
 <td>Course Description</td><td><input type="text" name="cdesc"></td></tr>
 </table>
@@ -56,7 +56,7 @@ if(isset($_GET['action'])=='addcourse') {
 
  function addcourse() 
  {
-  //include'../inc/db_config.php';
+  include'../inc/db_config.php';
   $add_courseid=intval($_POST['cid']);
 	$add_coursename=$_POST['cname'];
 	$add_coursedesc=$_POST['cdesc'];
