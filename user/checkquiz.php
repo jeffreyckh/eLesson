@@ -7,7 +7,7 @@
 
         <?php
         $qid = intval($_GET['qid']);
-        $query_count="select count(*) from question where quizid = $qid";
+        $query_count="select count(*) from quiz_to_question where quizid = $qid";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         $query_name = "select quizname from quiz where quizid = $qid";
@@ -19,7 +19,7 @@
         
         for ($x = 1; $x <= $count; $x++) {
         	$selection = $_POST['radioselection'.$x];
-          $query = "select * from question where quizid = $qid";
+          $query = "select * from question";
         $result = mysql_query($query,$link);
      
         while($a_rows=mysql_fetch_object($result))

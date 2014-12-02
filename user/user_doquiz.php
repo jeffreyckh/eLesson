@@ -38,24 +38,29 @@
     <hr>
     <form action="checkquiz.php?qid=<?php echo $qid?>" method="post">
     <?php
-            $query="select * from question where quizid = $qid";
+            $query="select * from quiz_to_question where quizid = $qid";
             $result=mysql_query($query,$link);
             $i = 0;
            
             while($a_rows=mysql_fetch_object($result))
             {
+
+
                 $i++;
+                $query2 = "select * from question where questionid = $a_rows->questionid";
+                $result2=mysql_query($query2,$link);
+                while($b_rows=mysql_fetch_object($result2)){
                 echo "<table>";
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th>";
-                echo $i . '.  ' . $a_rows->content. '</br>' ;
+                echo $i . '.  ' . $b_rows->content. '</br>' ;
                 echo "</th>";
                 echo "</tr>";
-                if($a_rows->choicetype == 'radio')
+                if($b_rows->choicetype == 'radio')
                 {
 
-                    $optionstring = $a_rows->optionlist;
+                    $optionstring = $b_rows->optionlist;
                     $optiontoken = strtok($optionstring, "/");
 
                     while ($optiontoken !== false)
@@ -76,7 +81,7 @@
                 else
                 {
 
-                     $optionstring = $a_rows->optionlist;
+                     $optionstring = $b_rows->optionlist;
                     $optiontoken = strtok($optionstring, "/");
 
                     while ($optiontoken !== false)
@@ -102,6 +107,7 @@
 
         
         <?php
+            }
             }
             
                 mysql_close($link);
