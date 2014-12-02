@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+   // include 'adminNav.php';
     $m_id=intval($_REQUEST['lid']);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);

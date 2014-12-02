@@ -41,7 +41,7 @@ class courseView
 						else
 						{
 							echo '<script language="JavaScript"> window.location.href ="courses.php" </script>'; 
-                 			echo '<script> alert("Delete Lesson Successful!") </script>';
+                 			echo '<script> alert("Delete Course Successful!") </script>';
 						}
 					}
 				}

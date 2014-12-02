@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+//include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);

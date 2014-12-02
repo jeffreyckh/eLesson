@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+//include 'adminNav.php';
 //$temp_id;
 //$query_count="select count(*) from lesson";
 //$result_count=mysql_query($query_count,$link);
@@ -32,6 +32,13 @@ $result = mysql_query($query,$link);
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+  <!--breadcrumb-->
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewlesson.php">Lesson</a></li>
+    <li class="active">Add Lesson</li>
+    </ol>
+
 <center>
 Add New Lesson
 <hr>
