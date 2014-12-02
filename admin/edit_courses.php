@@ -84,6 +84,3 @@ mysql_close($link);
 ?>
 
 
-<br>
-<a href="courses.php">Return</a>
-

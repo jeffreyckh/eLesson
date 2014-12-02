@@ -21,7 +21,7 @@ $announcement = new announcementView();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-</head>
+  </head>
 <body>
   <div class = "col-md-8">
     <legend>Navigation</legend>
@@ -92,7 +92,6 @@ $announcement = new announcementView();
   </div>
 </div>
 </div>
-
 
 </body>
 </html>
