@@ -33,12 +33,6 @@ $announcement = new announcementView();
         </figure>
       </div>
       <div class = "col-md-2">
-       <figure>
-        <a href="user_viewquiz.php"><img src="../img/quiz.png"></a>
-        <figcaption>Quiz</figcaption>
-        </figure> 
-      </div>
-      <div class = "col-md-2">
         <figure>
         <a href="announcement.php"><img src="../img/announcement.png"></a>
         <figcaption>Announcement</figcaption>
