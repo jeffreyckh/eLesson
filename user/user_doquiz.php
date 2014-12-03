@@ -54,28 +54,35 @@
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th>";
-                echo $i . '.  ' . $b_rows->content. '</br>' ;
+                echo $i . '.  ' . strip_tags($b_rows->content). '</br>' ;
                 echo "</th>";
                 echo "</tr>";
                 if($b_rows->choicetype == 'radio')
                 {
-
+                    
                     $optionstring = $b_rows->optionlist;
                     $optiontoken = strtok($optionstring, "/");
-
+                    echo '<tbody>';
+                    echo '<tr>';
+                    echo '<td>';
                     while ($optiontoken !== false)
                     {
                         $getvalue = $optiontoken;
                         $getvalue = str_replace(" ","-",$getvalue);
                     ?>
-                    <tbody>
-                    <td>
+                    
                      <input type="radio" name="radioselection<?php echo $i?>"
                     <?php if (isset($radioselection{$i}) && $radioselection{$i}=="$optiontoken") echo "checked";?>
-                    value=<?php echo $getvalue ?> checked="checked" ><?php echo $optiontoken?>
-                    
+                    value=<?php echo $getvalue ?>  ><?php echo $optiontoken?>
+
                     <?php $optiontoken = strtok("/"); 
-                    } 
+                    }
+                    echo '</td>';
+                    echo '</tr>'; 
+                    echo '</tbody>';
+                    echo '</table>';
+                    
+                    
 
                 }
                 else

@@ -86,16 +86,16 @@ else
 	$flag=true;
 	$check="select * from quiz";
 	$check_result=mysql_query($check,$link);
-		while($result_rows=mysql_fetch_object($check_result))
+		/*while($result_rows=mysql_fetch_object($check_result))
 		{
-    		if(strcmp($add_quizid,$result_rows->quizname)!=0 && $result_rows->quizid!=$add_quizid && $result_rows->quizname != $add_quizname)
+    		if(strcmp($add_quizid,$result_rows->quizid)!=0 && $result_rows->quizid!=$add_quizid && $result_rows->quizname != $add_quizname)
         	$flag=false;
     		else
         	$flag=true;
 		}
     
     if($flag==false)
-    {
+    {*/
             $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
             
             if(!mysql_query($sql,$link)){
@@ -107,10 +107,10 @@ else
             }
         
        
-    }
-    else{
-        echo "Quiz Existed ";
-    }
+    //}
+    //else{
+    //    echo "Quiz Existed ";
+    //}
 
  }
 

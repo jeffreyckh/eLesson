@@ -52,8 +52,8 @@
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
         </div>
 
-<div role="tabpanel" class="tab-pane" id="quiz">
-  <?php
+  <div role="tabpanel" class="tab-pane" id="quiz">
+    <?php
         $l_id=intval($_REQUEST['lid']);
         $query_count="select count(*) from quiz where lessonid=$l_id";
         $result_count=mysql_query($query_count,$link);

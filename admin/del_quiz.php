@@ -44,7 +44,7 @@ while($m_rows=mysql_fetch_object($result))
             <textarea name="quizname" id="quizname"><?php echo strip_tags($m_quizname); ?></textarea>
     <br>
     <input type="submit" class = "btn btn-default" name = "submit" value="Yes">
-    <a class="btn btn-default" href="courses.php">No</a>
+    <a class="btn btn-default" href="viewquiz.php">No</a>
       <?php
           $quiz->delQuiz()
       ?>

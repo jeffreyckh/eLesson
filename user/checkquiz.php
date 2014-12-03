@@ -70,7 +70,7 @@
    
 
 		$wrong = $count - $score;
-		echo 'You Get ' . $score . ' question correct and ' . $wrong . ' question wrong!';
+		echo 'You get ' . $score . ' question correct and ' . $wrong . ' question wrong!';
 
     ?>
 
