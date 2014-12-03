@@ -28,6 +28,7 @@ $quizid = intval($_REQUEST['qid']);
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
+     <li><a href="viewquiz.php">Quiz</a></li>
     <li><a href="view_question.php?qid=<?php echo $quizid?>">Questions</a></li>
     <li class="active">Add Question</li>
     </ol>

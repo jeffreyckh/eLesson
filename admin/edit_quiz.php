@@ -102,12 +102,18 @@ function editquiz()
     $flag=true;
     $check="select * from quiz";
     $check_result=mysql_query($check,$link);
+     $query_name="select quizname from quiz where quizid = $qid";
+        $result_name=mysql_query($query_name,$link);
+        $oldname=mysql_result($result_name,0);
+        
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_name,$result_rows->quizname)!=0)
+            if($edit_name !=$result_rows->quizname || $edit_name === $oldname)
             $flag=false;
             else
-            $flag=true;
+            {$flag=true;
+            break;
+            }
         }
     
     if($flag==false)

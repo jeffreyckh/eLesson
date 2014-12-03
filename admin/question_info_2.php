@@ -21,6 +21,11 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="view_questionlist.php">Question List</a></li>
+    <li class="active">Question Info</li>
+    </ol>
     <center>
     <?php
         $quid = intval($_GET['quid']);
