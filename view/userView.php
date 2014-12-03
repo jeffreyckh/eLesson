@@ -7,6 +7,7 @@ class userView
    {
     if (isset($_POST['submit']))
     {
+
       if (isset($_POST['rank']))
       {
         $userid=intval($_POST['userid']);
@@ -17,12 +18,14 @@ class userView
              die("Could not update the data!".mysql_error());
             else
             {
-               
+               echo '<script> alert("Modify User Successful!") </script>';
                 echo '<script language="JavaScript"> window.location.href ="manageAccount.php" </script>'; 
-                 echo '<script> alert("Modify User Successful!") </script>';
+                 
             }
           }
       }
+
+
   }
 
   public function delAcc()

@@ -66,7 +66,7 @@ while($m_rows=mysql_fetch_object($result))
     </table>
     <br>
     
-    <button type="submit" class="btn btn-default">Submit</button>&nbsp&nbsp<button type="reset" class="btn btn-default">Reset</button>
+    <button name="submit" type="submit" class="btn btn-default">Submit</button>&nbsp&nbsp<button type="reset" class="btn btn-default">Reset</button>
     </div>
       <?php
           $user->editAcc()

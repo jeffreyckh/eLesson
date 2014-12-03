@@ -65,7 +65,7 @@
                 <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo $b_rows->content ?></a></td>
                 
                 <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td>
                 </tr>                
         <?php
             }

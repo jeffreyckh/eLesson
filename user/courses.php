@@ -52,7 +52,7 @@
             {
         ?>
                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->courseid ?></a></td>
+                <td align="left" width="10%"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 </tr> 
