@@ -7,7 +7,7 @@ $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-$quizid = intval($_REQUEST['qid']);
+//$quizid = intval($_REQUEST['qid']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -44,7 +44,7 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
+ <form action="?action=addquestion>" method="post">
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $count ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
@@ -76,7 +76,7 @@ value="checkbox">Multiple Choice</td></tr>
  function addquestion() 
  {
     include'../inc/db_config.php';
-    $add_quizid=intval($_REQUEST['qid']);
+    //$add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
 	//$add_type=$_POST['choicetype'];
@@ -105,7 +105,7 @@ value="checkbox">Multiple Choice</td></tr>
             }else
             {
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_questionlist.php"</script>';
             }
         
        

@@ -52,8 +52,8 @@ if(isset($_GET['action'])=='addlesson') {
 <table class="table table-bordered">
 <tr>
  <form action="?action=addlesson" method="post">
-  <td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
-<tr><td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
+  <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
+  <input type="hidden" name="cid" value="<?php echo $courseid ?>">
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <tr><td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80"></textarea>
@@ -104,7 +104,7 @@ if(isset($_GET['action'])=='addlesson') {
             }else
             {
                 echo '<script> alert("Add Lesson Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid=<?php echo $add_directionid?>"</script>';
+                echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid='. $add_directionid . '"</script>';
                 //header("Location: courses_info.php?cid=$add_directionid");
             }
         
