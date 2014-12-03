@@ -9,29 +9,12 @@ class quizView
 			{
 				if(isset($_POST['quizname']))
 				{
+
 					$quizid = intval($_POST['quizid']);
 					$quizname=$_POST['quizname'];
-					$flag = false;
 					$check = "select * from quiz";
 					$check_result = mysql_query($check);	
-					while($result_rows=mysql_fetch_object($check_result))
-					{
-						$courseid = $result_rows->direction_id;
-						if(strcmp($quizname,$result_rows->quizname)!=0)
-						{
-							$flag = false;
-						}	
 
-						else
-						{	
-
-							$flag= true;
-
-						}
-
-					}
-					if($flag== true)
-					{
 						$sql="delete from quiz where quizid = $quizid";
 						$lsql="delete from question where quizid = $quizid";
 						$qqsql="delete from quiz_to_question where quizid = $quizid";
@@ -45,7 +28,7 @@ class quizView
 							echo '<script language="JavaScript"> window.location.href ="viewquiz.php" </script>'; 
                  			echo '<script> alert("Delete quiz Successful!") </script>';
 						}
-					}
+					
 				}
 
 			}

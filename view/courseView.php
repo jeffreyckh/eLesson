@@ -16,7 +16,6 @@ class courseView
 					$check_result = mysql_query($check);	
 					while($result_rows=mysql_fetch_object($check_result))
 					{
-						$courseid = $result_rows->direction_id;
 						if(strcmp($coursename,$result_rows->coursename)!=0)
 						{
 							$flag = false;
