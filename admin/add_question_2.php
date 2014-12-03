@@ -7,7 +7,7 @@ $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-//$quizid = intval($_REQUEST['qid']);
+$quizid = intval($_REQUEST['qid']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -28,7 +28,7 @@ $count=mysql_result($result_count,0) + 1;
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
-    <li><a href="view_questionlist.php">Questions</a></li>
+    <li><a href="view_question.php?qid=<?php echo $quizid?>">Questions</a></li>
     <li class="active">Add Question</li>
     </ol>
 <center>
@@ -44,7 +44,7 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion>" method="post">
+ <form action="?action=addquestion&qid=<?php echo $quizid?>>" method="post">
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $count ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
@@ -76,7 +76,7 @@ value="checkbox">Multiple Choice</td></tr>
  function addquestion() 
  {
     include'../inc/db_config.php';
-    //$add_quizid=intval($_REQUEST['qid']);
+    $add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
 	//$add_type=$_POST['choicetype'];
@@ -104,8 +104,14 @@ value="checkbox">Multiple Choice</td></tr>
              die("Could not add new question.".mysql_error());
             }else
             {
+                $sql = "insert into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
+                 if(!mysql_query($sql,$link)){
+                  die("Could not add new question.".mysql_error());
+                }
+                  else
+                  {
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_questionlist.php"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $add_quizid . '" </script>';}
             }
         
        
