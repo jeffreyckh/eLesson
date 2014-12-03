@@ -96,7 +96,8 @@ $register = new RegistrationView();
                             </div>
                             <div class="row centerObjects">
                                 <input class="button" type="submit" name="submit" value="Register" />
-                                <input type="reset" name="Clear" value="Clear" class="button" />
+                                <input class="button" type="reset" name="Clear" value="Clear" class="button" />
+                                <a class="button" href="login.php">Return</a>
                             </div>
                         </fieldset>
                     </form>
