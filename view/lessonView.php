@@ -17,8 +17,27 @@ class lessonView{
        					$m_directionid=$m_rows->direction_id;
    			 		}
 
-						$sql="delete from lesson where lessonid = $lid";
-						if(!mysql_query($sql))
+						$dsql="delete from lesson where lessonid = $lid";
+						$dresult = mysql_query($dsql);
+						$sql1 = "select * from quiz where lessonid = $lid";
+						$result1  = mysql_query($sql1);
+							while($m_rows=mysql_fetch_object($result1))
+							{
+    							$quizid=$m_rows->quizid;
+    							$dsql1="delete from quiz where quizid = $quizid";
+    							$dresult1 = mysql_query($dsql1);
+    							$sql2 = "select * from question where quizid = $quizid";
+								$result2  = mysql_query($sql2);
+								while($m_rows=mysql_fetch_object($result2))
+								{
+    								$questionid=$m_rows->questionid;
+    								$dsql2="delete from quiz_to_question where questionid = $questionid";
+    								$dresult = mysql_query($dsql2);
+								}
+							}
+
+
+						if(!$dresult && !$dresult1 && !$dresult2 && !$dresult3)
 							die("Could not update the data!".mysql_error());
 						else
 						{
@@ -46,30 +65,34 @@ class lessonView{
 					while($result_rows=mysql_fetch_object($check_result))
 					{
 						$courseid = $result_rows->direction_id;
-						if(strcmp($lessonname,$result_rows->lessonname)!=0)
-						{
-							$flag = false;
-						}	
-
-						else
-						{	
-
-							$flag= true;
-
-						}
-
 					}
-					if($flag== true)
-					{
-						$sql="delete from lesson where lessonid = $lid";
-						if(!mysql_query($sql))
+
+						$dsql="delete from lesson where lessonid = $lid";
+						$dresult = mysql_query($dsql);
+						$sql1 = "select * from quiz where lessonid = $lid";
+						$result1  = mysql_query($sql1);
+							while($m_rows=mysql_fetch_object($result1))
+							{
+    							$quizid=$m_rows->quizid;
+    							$dsql1="delete from quiz where quizid = $quizid";
+    							$dresult1 = mysql_query($dsql1);
+    							$sql2 = "select * from question where quizid = $quizid";
+								$result2  = mysql_query($sql2);
+								while($m_rows=mysql_fetch_object($result2))
+								{
+    								$questionid=$m_rows->questionid;
+    								$dsql2="delete from quiz_to_question where questionid = $questionid";
+    								$dresult = mysql_query($dsql2);
+								}
+							}
+						if(!$dresult && !$dresult1 && !$dresult2 && !$dresult3)
 							die("Could not update the data!".mysql_error());
 						else
 						{
 							echo '<script language="JavaScript"> window.location.href ="viewlesson.php" </script>'; 
                  			echo '<script> alert("Delete Lesson Successful!") </script>';
 						}
-					}
+					
 				}
 
 			}

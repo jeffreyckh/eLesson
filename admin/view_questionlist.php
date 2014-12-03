@@ -60,7 +60,7 @@
                 <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
                 
                 <td align="left" width="100"><a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_question.php?quid=<?php echo $a_rows->questionid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">Delete</a></td>
                 </tr>                
         <?php
             }
