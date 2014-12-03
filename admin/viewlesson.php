@@ -37,7 +37,7 @@
 
 
     
-    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a></div>
+    <div align = "right">Total Lessons:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a></div>
         <hr>
         <table id="lesson" class="table table-striped table-bordered" cellspacing="0" >
         <thead>

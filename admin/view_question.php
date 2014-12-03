@@ -32,13 +32,13 @@
     <center>
     <?php
         $qid = intval($_GET['qid']);
-        $query_count="select count(*) from question where quizid = $qid";
+        $query_count="select count(*) from quiz_to_question where quizid = $qid";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         
     ?>
 
-    <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
+    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
         <thead>

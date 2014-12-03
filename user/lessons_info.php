@@ -51,8 +51,7 @@
           <h2>Lesson Content:</h2>
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
         </div>
-</div>
-<div class="tab-content">
+
 <div role="tabpanel" class="tab-pane" id="quiz">
   <?php
         $l_id=intval($_REQUEST['lid']);
@@ -92,6 +91,7 @@
 
     </div>
 </div> 
+
  
     <?php
         }

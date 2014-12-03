@@ -12,43 +12,65 @@
         $count=mysql_result($result_count,0);
         $score = 0;
         $wrong = 0;
-      
         
-        for ($x = 1; $x <= $count; $x++) {
-        	$selection = $_POST['radioselection'.$x];
-            $query = "select * from question";
+        $questionnum = 1;
+        
+        $query2 = "select * from quiz_to_question where quizid = $qid";
+        $result2 = mysql_query($query2,$link);
+        while($b_rows=mysql_fetch_object($result2))
+        {
+            $selection = $_POST['radioselection'.$questionnum];
+             $query = "select * from question where questionid = $b_rows->questionid";
             $result = mysql_query($query,$link);
      
-        while($a_rows=mysql_fetch_object($result))
-        {
+            while($a_rows=mysql_fetch_object($result))
+            {
 
-        	//if($a_rows->choicetype == 'radio')
-        	//{
-        		//$selection = $_POST['radioselection'.$x];
-        	//}
-        	//else
-        	//{
-        		//$selection = $_POST['checkboxselection'.[$x]];
-        		//foreach($_POST['checkboxselection'.[$x]] as $selected){
-				//echo $selected."</br>";
-				//}
-        	//}
+            //if($a_rows->choicetype == 'radio')
+            //{
+                //$selection = $_POST['radioselection'.$x];
+            //}
+            //else
+            //{
+                //$selection = $_POST['checkboxselection'.[$x]];
+                //foreach($_POST['checkboxselection'.[$x]] as $selected){
+                //echo $selected."</br>";
+                //}
+            //}
 
-        	$answer = $a_rows->answer;
-        	$selection = str_replace("-"," ",$selection);
-        	if( strcmp ($selection,$answer) == 0 )
-        	{
-        		++$score;
+            $answer = $a_rows->answer;
+            $selection = str_replace("-"," ",$selection);
+            if( strcmp ($selection,$answer) == 0 )
+                {
+                ++$score;
                 break;
-        	}
+                }
+            else
+                {
+                echo '<table>';
+                echo '<tr>';
+                echo '<td>Question No ' .$questionnum . ': ' . strip_tags($a_rows->content) .'</td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td>Wrong answer. Your answer is: ' .$selection  .'.</td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td>';
+                echo 'Correct answer:' .$a_rows->answer . '.';
+                echo '</td>';
+                echo '</tr>';
+                echo '</table>';
+                echo '<br>';
+                break;
+                }
         
+            }
+            $questionnum++;
         }
-
-
-		}
+   
 
 		$wrong = $count - $score;
-		echo 'You Get ' . $score . ' question correct and ' . $wrong . ' question wrong!'
+		echo 'You Get ' . $score . ' question correct and ' . $wrong . ' question wrong!';
 
     ?>
 
