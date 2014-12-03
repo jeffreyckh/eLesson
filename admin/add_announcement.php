@@ -33,8 +33,10 @@ $announcement = new announcementView();
             <textarea name="taskname" id="taskname" rows="10" cols="80">
             </textarea>
     <br></br>
-    <input type="submit" class = "btn btn-default" name = "submit" value="Submit">
-    <a class="btn btn-default" href="announcement.php">Return</a>
+    <div align="center">
+      <input type="submit" class = "btn btn-default" name = "submit" value="Submit">
+      <a class="btn btn-default" href="announcement.php">Return</a>
+    </div>
       <?php
           $announcement->addAnnouncement()
       ?>

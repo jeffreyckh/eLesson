@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    //include 'adminNav.php';
     $quizid=intval($_REQUEST['qid']);
     $quesid=intval($_REQUEST['quid']);
     $query="select * from question where questionid=$quesid";
