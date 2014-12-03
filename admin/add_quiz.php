@@ -7,6 +7,12 @@ $temp_id;
 $query_count="select count(*) from quiz";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
+$query = " select * from quiz order by quizid DESC limit 1";
+$result = mysql_query($query,$link);
+ while($m_rows=mysql_fetch_object($result))
+    {
+        $quizid = $m_rows->quizid + 1;
+    }
 ?>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -59,7 +65,8 @@ else
 
 </select></td></tr>
 
-<td>Quiz ID:</td><td><input type="text" name="qid" value="<?php echo $count ?>"></td></tr>
+<input type="hidden" type="text" type="hidden" name="qid" value="<?php echo $quizid ?>">
+
 <td>Quiz Name:</td><td><input type="text" name="qname"></td></tr>
 </table>
 <div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>

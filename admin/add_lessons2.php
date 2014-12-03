@@ -68,7 +68,7 @@ else
 ?>
 
 </select></td></tr>
-<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
+  <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80">
