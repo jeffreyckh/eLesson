@@ -5,7 +5,10 @@ require_once('view/RegistrationView.php');
 require_once('inc/db_config.php');
 
 $register = new RegistrationView();
+<<<<<<< HEAD
 $register->registerAccount();
+=======
+>>>>>>> origin/kit
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +19,10 @@ $register->registerAccount();
 	
 	<!-- Your styles -->
 	<link rel="stylesheet" href="jscss/styles.css" type="text/css" media="screen" />
+<<<<<<< HEAD
+=======
+	<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+>>>>>>> origin/kit
 	
 </head>
 

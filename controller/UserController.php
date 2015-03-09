@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+	require_once "DatabaseController.php";
+>>>>>>> origin/kit
 	class UserController{
 
 		public function register($username,$password,$repeatPassword, $name, $email, $position){
@@ -70,5 +74,12 @@
         		
         		return $result;
 		}
+<<<<<<< HEAD
 	}	
 	
+=======
+
+
+	}	
+?>
+>>>>>>> origin/kit
