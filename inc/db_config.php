@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
-
->>>>>>> origin/kit
 $link=mysql_connect("localhost","root","");
 if(!$link){
  die ("Could not connect to MySQL");

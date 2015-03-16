@@ -19,23 +19,22 @@ $register = new RegistrationView();
         
         <!-- Your styles -->
         <link rel="stylesheet" href="jscss/default.css" type="text/css" media="screen" />
-<<<<<<< HEAD
-=======
+
         <link rel="stylesheet" type="text/css" href="jscss/dist/css/bootstrap.min.css">
->>>>>>> origin/kit
+
         
         <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
         <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
         <title>Register | eLesson </title>
     </head>
     <body>
-<<<<<<< HEAD
+
 
         <div class="container">
             <div class="row">
                 <div class="twocol">
                 </div>
-=======
+
         <ol class="breadcrumb">
         <li><a href="login.php">Login</a></li>
         <li class="active">Registration</li>
@@ -43,7 +42,7 @@ $register = new RegistrationView();
         <center>
         <div class="container">
             <div class="row">
->>>>>>> origin/kit
+
                 <div class="sixcol">
                     <form action="registration.php" method="POST">
                         <fieldset class="fieldset">
@@ -109,14 +108,14 @@ $register = new RegistrationView();
                            
                             </div>
                             <div class="row centerObjects">
-<<<<<<< HEAD
+
                                 <input class="button" type="submit" name="submit" value="Register" />
                                 <input type="reset" name="Clear" value="Clear" class="button" />
-=======
+
                                 <br>
                                 <input class = "btn btn-default" type="submit" name="submit" value="Register" />&nbsp&nbsp
                                 <input type="reset" name="Clear" value="Clear" class = "btn btn-default" />
->>>>>>> origin/kit
+
                             </div>
                         </fieldset>
                     </form>
@@ -125,14 +124,13 @@ $register = new RegistrationView();
         </div>
                   
             <?php include('inc/footer.php');?>
-<<<<<<< HEAD
+
         
     </body>
-=======
+
         </center>
     </body>
 
->>>>>>> origin/kit
 </html>
 
 

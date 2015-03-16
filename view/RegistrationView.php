@@ -1,19 +1,17 @@
 <?php
 include('inc/db_config.php');
 require_once('controller/UserController.php');
-<<<<<<< HEAD
-=======
+
 require_once ('controller/DatabaseController.php');
->>>>>>> origin/kit
+
 class RegistrationView{
   
 
   function registerAccount(){
-<<<<<<< HEAD
+
     include ('controller/DatabaseController.php');
-=======
+
     
->>>>>>> origin/kit
     if (isset($_POST['username']) && isset($_POST['password'])){
     $db_controller = new DatabaseController();
     
@@ -58,10 +56,7 @@ class RegistrationView{
     }
 
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/kit
   }
 
 ?>
