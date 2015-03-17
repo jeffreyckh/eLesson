@@ -13,9 +13,10 @@ $announcement = new announcementView();
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Announcement</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+      <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -35,7 +36,7 @@ $announcement = new announcementView();
     </form>
   </div>
     <hr>
-      <table style="width: 100%;" id="announcement" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <table id = "announcement" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <th align="right">No</th>
             <th align="right">Announcement</th>
@@ -67,16 +68,7 @@ $announcement = new announcementView();
 $(document).ready(function(){
     $('#announcement').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
-        ]
-
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
 </script>

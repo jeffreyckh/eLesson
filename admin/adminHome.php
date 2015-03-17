@@ -21,7 +21,7 @@ $announcement = new announcementView();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-  </head>
+</head>
 <body>
   <div class = "col-md-8">
     <legend>Navigation</legend>
@@ -45,30 +45,15 @@ $announcement = new announcementView();
         </figure> 
       </div>
       <div class = "col-md-2">
-       <figure>
-        <a href="view_questionlist.php"><img src="../img/question.png"></a>
-        <figcaption>Question</figcaption>
-        </figure> 
-      </div>
-      <div class = "col-md-2">
         <figure>
         <a href="announcement.php"><img src="../img/announcement.png"></a>
         <figcaption>Announcement</figcaption>
         </figure>
       </div>
     </div>
-    <div class = "row">
-      <div class = "col-md-2">
-        <figure>
-        <a href="manageAccount.php"><img src="../img/user.png"></a>
-        <figcaption>Account</figcaption>
-        </figure>
-      </div>
-    </div>
   </div>
   <div class = "col-md-3">
   <div class = "row">
-   <br> <hr>
   <?php
   include "../inc/calender.php";
   ?>
@@ -107,6 +92,7 @@ $announcement = new announcementView();
   </div>
 </div>
 </div>
+
 
 </body>
 </html>

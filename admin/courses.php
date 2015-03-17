@@ -11,15 +11,16 @@
   <meta name="keywords" content="course">
   <meta name="description" content="course">
   <title>Course</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
 </head>
 <body>
     <ol class="breadcrumb">
@@ -41,8 +42,8 @@
         <th align="left">Course ID</th>
         <th align="left">Course Name</th>
         <th align="left">Created</th>
-        <th align="left">Modify</th>
-        <th align="left">Delete</th>
+        <th align="left">Options</th>
+        <!-- <th align="left">Delete</th> -->
         </thead>
         <?php
             $query="select * from course order by courseid";
@@ -55,8 +56,8 @@
                 <td align="left" width="100"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                <td align="left" width="100"><a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="del_course.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
+                <td align="left" width="100"><a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>">Modify</a>
+                <a href="del_course.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
                 </tr> 
                               
         <?php
@@ -70,15 +71,9 @@
 <script>
 $(document).ready(function(){
     $('#course').DataTable(
-        {          
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+        {
+            
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
 /*$(document).ready(function(){

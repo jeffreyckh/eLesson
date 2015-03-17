@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    //include 'adminNav.php';
+    include 'adminNav.php';
     $quizid=intval($_REQUEST['qid']);
     $quesid=intval($_REQUEST['quid']);
     $query="select * from question where questionid=$quesid";
@@ -34,12 +34,6 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewquiz.php">Quiz</a></li>
-    <li><a href="view_question.php?qid=<?php echo $quizid ?>">Questions</a></li>
-    <li class="active">Edit Question</li>
-    </ol>
 
 Modify Question
 <hr>
@@ -58,15 +52,14 @@ if(isset($_GET['action'])=='editquestion') {
     <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
     <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
     <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
-    </table>
-    <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+    <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
+</table>
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
       CKEDITOR.replace( 'qcont' );
   </script>
-  <br><br>
   </body>
   </html>
 <?php
@@ -83,7 +76,9 @@ function editquestion()
     $check_result=mysql_query($check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_content,$result_rows->content)!=0)
+            if((strcmp($edit_content,$result_rows->content)!=0) || 
+                (strcmp($edit_answer,$result_rows->answer)!=0) || 
+                (strcmp($edit_optionlist,$result_rows->optionlist)!=0) )
             $flag=false;
             else
             $flag=true;
@@ -91,13 +86,26 @@ function editquestion()
     
     if($flag==false)
     {
-       
-            $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist' where questionid=$quesid";
-            if(!mysql_query($sql,$link))
+            $query_update = "";
+
+            $sql="UPDATE question SET 
+                  content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist' 
+                  WHERE questionid=$quesid";
+            
+            date_default_timezone_set("Asia/Kuching");
+            $modify_time = date('Y-m-d H:i:s');
+            $modify_user = $_SESSION['username'];
+
+            $query_update = "UPDATE question SET 
+                             content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',
+                             modified_on = '$modify_time', modified_by = '$modify_user'
+                             WHERE questionid=$quesid";
+
+            if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());
             else
             {
-            
+                
                 echo '<script> alert("Modify Question Successful!") </script>';
                 
                 echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $quizid . '" </script>';
@@ -113,6 +121,9 @@ function editquestion()
 
 
 ?>
+</table>
+<br>
+<a href="view_question.php?qid=<?php echo $quizid ?>">Return</a>
 
 <?php
 mysql_close($link);

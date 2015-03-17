@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 //$temp_id;
 //$query_count="select count(*) from lesson";
 //$result_count=mysql_query($query_count,$link);
@@ -32,13 +32,6 @@ $result = mysql_query($query,$link);
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-  <!--breadcrumb-->
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewlesson.php">Lesson</a></li>
-    <li class="active">Add Lesson</li>
-    </ol>
-
 <center>
 Add New Lesson
 <hr>
@@ -68,16 +61,16 @@ else
 ?>
 
 </select></td></tr>
-  <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
+
+<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
 <td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
 <td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>
 </td></tr>
-</table>
-<input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
 </form>
-
+</table>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
@@ -130,6 +123,7 @@ else
 
 
 <br>
+<a href="viewlesson.php">Return</a>
 </center> 
 
 <?php

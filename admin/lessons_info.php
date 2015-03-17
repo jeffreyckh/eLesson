@@ -5,12 +5,18 @@
     include 'adminNav.php';
     $m_id=intval($_GET['lid']);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
-    $result=mysql_query($query,$link);
+    $query_select = "SELECT * FROM lesson WHERE lessonid='$m_id'";
+    $result=mysql_query($query_select,$link);
     while($m_rows=mysql_fetch_object($result))
     {
         $m_lessonname=$m_rows->lessonname;
         $m_lessoncontent=$m_rows->lessoncontent;
         $courseid = $m_rows->direction_id;
+
+        $m_create_time = $m_rows->created_on;
+        $m_creator = $m_rows->created_by;
+        $m_modify_time = $m_rows->modified_on;
+        $m_modifier = $m_rows->modified_by;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -39,6 +45,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#lessonDetail" aria-controls="lessonDetail" role="tab" data-toggle="tab">Lesson Content</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Lesson Info</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -49,7 +56,30 @@
           <h2>Lesson Content:</h2>
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
         </div>
-
+        <div role="tabpanel" class="tab-pane" id="info">
+          <table class="table table-bordered">
+            <tr>
+              <td>Lesson Name:</td>
+              <td><?php echo $m_lessonname; ?></td>
+            </tr>
+            <tr>
+              <td>Created By:</td>
+              <td><?php echo $m_creator; ?></td>
+            </tr>
+            <tr>
+              <td>Created On:</td>
+              <td><?php echo $m_create_time; ?></td>
+            </tr>
+            <tr>
+              <td>Last Modified By:</td>
+              <td><?php echo $m_modifier; ?></td>
+            </tr>
+            <tr>
+              <td>Last Modified On:</td>
+              <td><?php echo $m_modify_time; ?></td>
+            </tr>
+          </table>
+        </div>
 </div>
 
 <?php

@@ -1,4 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+  
+?>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,9 +34,7 @@
         <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
         <li <?=echoActiveClassIfRequestMatches("viewlesson")?>><a href="viewlesson.php">Lesson</a></li>
         <li <?=echoActiveClassIfRequestMatches("viewquiz")?>><a href="viewquiz.php">Quiz</a></li>
-        <li <?=echoActiveClassIfRequestMatches("view_questionlist")?>><a href="view_questionlist.php">Question</a></li>       
         <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
-        <li <?=echoActiveClassIfRequestMatches("manageAccount")?>><a href="manageAccount.php">Account</a></li>
       </ul>
       
       

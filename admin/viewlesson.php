@@ -11,9 +11,10 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Lessons</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -36,7 +37,7 @@
 
 
     
-    <div align = "right">Total Lessons:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a></div>
+    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a></div>
         <hr>
         <table id="lesson" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
@@ -88,15 +89,7 @@
     $(document).ready(function(){
     $('#lesson').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
     });
     </script>
