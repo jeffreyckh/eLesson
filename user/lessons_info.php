@@ -4,6 +4,10 @@
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['lid']);
+    $uid = $_SESSION['userid'];
+    $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
+    VALUES ('$uid', '$m_id')";
+    $uresult = mysql_query($uquery);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))

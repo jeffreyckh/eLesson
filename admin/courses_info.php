@@ -29,11 +29,35 @@
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
+    <?php 
+    $uid = $_SESSION['userid'];
+    $query2 = " select * from user where userid = $uid";
+    $result2 = mysql_query($query2);
+    while($rows=mysql_fetch_object($result2))
+    {
+        if($rows->rank == 2)
+        {
+    ?>
+    <ol class="breadcrumb">
+    <li><a href="../user/userHome.php">Home</a></li>
+    <li><a href="../user/courses.php">Courses</a></li>
+    <li class="active">Course Info</li>
+    </ol>
+    <?php
+        }
+        else
+        {
+    ?>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
     <li><a href="courses.php">Courses</a></li>
     <li class="active">Course Info</li>
     </ol>
+    <?php
+        }
+    }
+    ?>
+   
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">

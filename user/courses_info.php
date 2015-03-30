@@ -4,6 +4,13 @@
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
+    $uid = $_SESSION['userid'];
+    $uquery = "select * from permission where userid = $uid and courseid = $m_id";
+    $uresult = mysql_query($uquery);
+    if(mysql_num_rows($uresult) != 0)
+    {
+        echo '<script language="JavaScript"> window.location.href ="../admin/courses_info.php?cid='.$m_id.'" </script>'; 
+    }
     $query="select coursename,description from course where courseid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
