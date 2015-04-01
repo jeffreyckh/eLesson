@@ -11,16 +11,15 @@
   <meta name="keywords" content="course">
   <meta name="description" content="course">
   <title>Course</title>
-    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script> 
 </head>
 <body>
     <ol class="breadcrumb">
@@ -71,9 +70,15 @@
 <script>
 $(document).ready(function(){
     $('#course').DataTable(
-        {
-            
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        {          
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+            stateSave: true,
+            "aoColumns": [
+            null,
+            null,
+            null,
+            { "orderSequence": [ "asc" ] },
+            { "orderSequence": [ "asc" ] }
         });
 });
 /*$(document).ready(function(){
