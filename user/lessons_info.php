@@ -5,7 +5,6 @@
     include 'userNav.php';
     $m_id=intval($_GET['lid']);
     $uid = $_SESSION['userid'];
-<<<<<<< HEAD
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
@@ -22,11 +21,10 @@
       $uresult = mysql_query($uquery);
     }
         
-=======
+
     $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
     VALUES ('$uid', '$m_id')";
     $uresult = mysql_query($uquery);
->>>>>>> origin/kit
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))

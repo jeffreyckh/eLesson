@@ -87,7 +87,7 @@ while($m_rows=mysql_fetch_object($result))
               
               echo "</tr>";
             }
-<<<<<<< HEAD
+
             if(isset($_POST['permCourse']))
             {
               $perm = $_POST['permCourse'];
@@ -111,7 +111,7 @@ while($m_rows=mysql_fetch_object($result))
               }
             }
             
-=======
+
             $perm = $_POST['permCourse'];
             $query2 = "select * from permission where userid = $m_id";
             $result2 = mysql_query($query2);
@@ -131,7 +131,7 @@ while($m_rows=mysql_fetch_object($result))
                 //echo($perm[$i] . " ");
               }
             }
->>>>>>> origin/kit
+
           ?>
 
     </table>
