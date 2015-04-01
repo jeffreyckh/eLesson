@@ -4,14 +4,31 @@
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['lid']);
+    $uid = $_SESSION['userid'];
+    $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
+    $vresult = mysql_query($vquery);
+    $numrows = mysql_num_rows($vresult);
+    //echo $numrows;
+    while($v_rows = mysql_fetch_object($vresult))
+    {
+      $validuid = $v_rows->userid;
+      $validlid = $v_rows->lessonid;
+    }
+    if(empty($validlid) && empty($validuid))
+    {
+      $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
+            VALUES ('$uid', '$m_id')";
+      $uresult = mysql_query($uquery);
+    }
+        
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
-        $m_lessonname=$m_rows->lessonname;
-        $m_lessoncontent=$m_rows->lessoncontent;
-        $courseid = $m_rows->direction_id;
-     
+      $m_lessonname=$m_rows->lessonname;
+      $m_lessoncontent=$m_rows->lessoncontent;
+      $courseid = $m_rows->direction_id;
+    
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -95,7 +112,7 @@
  
     <?php
         }
-          mysql_close($link);
+        mysql_close($link);
         ?>  
 <script>
 $('#myTab a').click(function (e) {

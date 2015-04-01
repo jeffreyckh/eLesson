@@ -67,7 +67,10 @@ if(isset($_GET['action'])=='addlesson') {
    <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      CKEDITOR.replace('lcont', {
+        "filebrowserImageUploadUrl": "/path_to/ckeditor/plugins/imgupload.php"
+      });
+      //CKEDITOR.replace( 'lcont' );
   </script>
   <br><br>
 </body>

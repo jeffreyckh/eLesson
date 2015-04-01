@@ -63,6 +63,10 @@ include 'adminNav.php';
                         <?php 
                         if($a_rows->rank == 1)
                         {
+                            echo "Super Admin"; 
+                        }
+                        else if($a_rows->rank == 2)
+                        {
                             echo "Admin"; 
                         }
                         else 

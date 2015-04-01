@@ -51,6 +51,25 @@ class RegistrationView{
     }
 
   }
+
+  function resetPassword(){
+    if(isset($_POST['Reset']) && isset($_POST['Email']))
+    {
+      try
+      {
+        $email = $_POST['Email'];
+        $userController = new userController();
+        $user = $userController->forgotPass($email);
+        
+      } catch (ErrorException $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            } catch (mysqli_sql_exception $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            } catch (Exception $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            }
+    }
+  }
   }
 
 ?>
