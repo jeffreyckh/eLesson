@@ -98,7 +98,7 @@
         ?>
         <tr>
             <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-            <td align="left" width="100"><a href="user_doquiz.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+            <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
             <td align="left" width="100"><?php echo $a_rows->created ?></td>
         </tr>
         <?php
