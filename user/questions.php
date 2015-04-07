@@ -1,0 +1,238 @@
+
+<?php
+session_start();
+   include'../inc/db_config.php';
+    include '../inc/header.php';
+    include 'userNav.php';
+?>
+
+
+<?php 
+  $qid = intval($_GET['qid']);
+        $query_count="select count(*) from question where quizid = $qid";
+        $result_count=mysql_query($query_count,$link);
+        $count=mysql_result($result_count,0);
+        $query_name = "select quizname from quiz where quizid = $qid";
+        $result_name = mysql_query($query_name,$link);
+        $quizname = mysql_result($result_name,0);
+
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="keywords" content="Conduct Quiz">
+  <meta name="description" content="Conduct Quiz"> 
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../jscss/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script src="../jscss/ckeditor/ckeditor.js"></script>
+		<title>Quiz</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/style.css" rel="stylesheet" media="screen">
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="../../assets/js/html5shiv.js"></script>
+		<script src="../../assets/js/respond.min.js"></script>
+		<![endif]-->
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+		<script src="js/countdown.js"></script>
+		<style>
+			.container {
+				margin-top: 110px;
+			}
+			.error {
+				color: #B94A48;
+			}
+			.form-horizontal {
+				margin-bottom: 0px;
+			}
+			.hide{display: none;}
+		</style>
+	</head>
+	
+  <body>
+	  
+        <div id='timer'>
+            <script type="application/javascript">
+            var myCountdownTest = new Countdown({
+                                    time: 30, 
+                                    width:200, 
+                                    height:80, 
+                                    rangeHi:"minute"
+                                    });
+           </script>
+            
+        </div>
+        
+		<div class="container question">
+			<div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-4 col-sm-offset-3 col-md-offset-3">
+				<p>
+				
+				</p>
+				<hr>
+				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
+					<?php 
+            
+					$res = mysql_query("select * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT 3") or die(mysql_error());
+                    $rows = mysql_num_rows($res);
+					$i=1;
+                while($result=mysql_fetch_object($res)){?>
+                    
+                <?php 
+                $query2 = "select * from question where questionid = $result->questionid";
+                $result2=mysql_query($query2,$link);
+                while($b_rows=mysql_fetch_object($result2)){
+                    $y=1;
+                    $optionstring = $b_rows->optionlist;
+                    $optiontoken = strtok($optionstring, "/");
+                  ?>
+
+                     <?php if($i==1){?>         
+                    <div id='question<?php echo $i;?>' class='cont'>
+                    <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
+                    <?php
+                    while ($optiontoken !== false)
+                    {
+                        $getvalue = $optiontoken;
+                        $getvalue = str_replace(" ","-",$getvalue);
+                    ?>
+                    <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/><?php echo $optiontoken;?>
+                   <br/>
+                       <?php $optiontoken = strtok("/"); 
+                       $y++; 
+                     }
+                       ?>
+  
+                    <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
+                    <br/>
+                    <button id='<?php echo $i;?>' class='next btn btn-success' type='button'>Next</button>
+                    </div>     
+                      
+                     <?php }elseif($i<1 || $i<$rows){?>
+                     
+                      <div id='question<?php echo $i;?>' class='cont'>
+                    <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
+
+                    <?php
+                    while ($optiontoken !== false)
+                    {
+                        $getvalue = $optiontoken;
+                        $getvalue = str_replace(" ","-",$getvalue);
+                    ?>
+                    <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/><?php echo $optiontoken;?>
+                   <br/>
+                       <?php $optiontoken = strtok("/"); 
+                       $y++; 
+                     }
+                       ?>
+                      <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
+                    <br/>
+                    <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
+                    <button id='<?php echo $i;?>' class='next btn btn-success' type='button' >Next</button>
+                    </div>
+                       
+                        
+                   <?php }elseif($i==$rows){?>
+                    <div id='question<?php echo $i;?>' class='cont'>
+                    <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
+
+                    <?php
+                    while ($optiontoken !== false)
+                    {
+                        $getvalue = $optiontoken;
+                        $getvalue = str_replace(" ","-",$getvalue);
+                    ?>
+                    <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/><?php echo $optiontoken;?>
+                   <br/>
+                       <?php $optiontoken = strtok("/"); 
+                       $y++; 
+                     }
+                       ?>
+                       <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>    
+                    
+                    <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
+                    <button id='<?php echo $i;?>' class='next btn btn-success' type='submit'>Finish</button>
+                    </div>
+                                  
+            
+					<?php } } $i++;} ?>
+					
+				</form>
+			</div>
+		</div>
+
+
+<?php
+
+if(isset($_POST[1])){ 
+   $keys=array_keys($_POST);
+   $order=join(",",$keys);
+   
+   //$query="select * from questions id IN($order) ORDER BY FIELD(id,$order)";
+  // echo $query;exit;
+   
+   $response=mysql_query("select questionid,answer from question where id IN($order) ORDER BY FIELD(questionid,$order)")   or die(mysql_error());
+   $right_answer=0;
+   $wrong_answer=0;
+   $unanswered=0;
+   while($result=mysql_fetch_array($response)){
+       if($result['answer']==$_POST[$b_rows->questionid]){
+               $right_answer++;
+           }else if($_POST[$b_rows->questionid]==5){
+               $unanswered++;
+           }
+           else{
+               $wrong_answer++;
+           }
+       
+   }
+   
+   
+   echo "right_answer : ". $right_answer."<br>";
+   echo "wrong_answer : ". $wrong_answer."<br>";
+   echo "unanswered : ". $unanswered."<br>";
+}
+?>
+		
+		
+		<script>
+		$('.cont').addClass('hide');
+		count=$('.questions').length;
+		 $('#question'+1).removeClass('hide');
+		 
+		 $(document).on('click','.next',function(){
+		     last=parseInt($(this).attr('id'));     
+		     nex=last+1;
+		     $('#question'+last).addClass('hide');
+		     
+		     $('#question'+nex).removeClass('hide');
+		 });
+		 
+		 $(document).on('click','.previous',function(){
+             last=parseInt($(this).attr('id'));     
+             pre=last-1;
+             $('#question'+last).addClass('hide');
+             
+             $('#question'+pre).removeClass('hide');
+         });
+            
+         setTimeout(function() {
+             $("form").submit();
+          }, 60000);
+		</script>
+	</body>
+    
+</html>

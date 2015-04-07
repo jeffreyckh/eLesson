@@ -8,9 +8,12 @@
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
+
     $time = date("Y-m-d H:i:s");
     $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
     echo $time;
+
+
     //echo $numrows;
     while($v_rows = mysql_fetch_object($vresult))
     {
@@ -19,11 +22,23 @@
     }
     if(empty($validlid) && empty($validuid))
     {
+
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
             VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
     }
         
+
+      $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
+            VALUES ('$uid', '$m_id')";
+      $uresult = mysql_query($uquery);
+    }
+        
+
+    $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
+    VALUES ('$uid', '$m_id')";
+    $uresult = mysql_query($uquery);
+
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -97,7 +112,7 @@
         ?>
         <tr>
             <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-            <td align="left" width="100"><a href="user_doquiz.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+            <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
             <td align="left" width="100"><?php echo $a_rows->created ?></td>
         </tr>
         <?php
