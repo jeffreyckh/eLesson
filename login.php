@@ -36,7 +36,7 @@ $register = new RegistrationView();
 							</div>
 							<div class="row loginrow">
 								<div class="threecol">
-									<a href="lostPassword.php" class="loginbox">Forgot your password?</a> <br />
+									<a href="forget_passwords.php" class="loginbox">Forgot your password?</a> <br />
 									<a href="registration.php" class="loginbox">Register</a>
 								</div>
 								<div class="twocol last">

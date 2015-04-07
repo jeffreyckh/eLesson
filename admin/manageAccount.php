@@ -3,6 +3,7 @@ session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
+
 //require_once('../view/announcementView.php');
 //$announcement = new announcementView();
 ?>
@@ -55,13 +56,18 @@ include 'adminNav.php';
             ?>
                     <tr>
                     <td align="left" width="5%"><?php echo $a_rows->userid ?></a></td>
-                    <td align="left" width="10%"><?php echo $a_rows->username ?></a></td>
+                    <td align="left" width="100"><a href="userdetail.php?uid=<?php echo $a_rows->userid ?>"><?php echo $a_rows->username ?></a></td>
+                    <!--<td align="left" width="10%"><?php echo $a_rows->username ?></a></td>-->
                     <td align="left" width="10%"><?php echo $a_rows->name ?></td>
                     <td align="left" width="20%"><?php echo $a_rows->email ?></td>
                     <td align="left" width="20%"><?php echo $a_rows->position ?></td>
                      <td align="left" width="20%">
                         <?php 
                         if($a_rows->rank == 1)
+                        {
+                            echo "Super Admin"; 
+                        }
+                        else if($a_rows->rank == 2)
                         {
                             echo "Admin"; 
                         }

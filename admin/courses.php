@@ -42,6 +42,7 @@
         <th align="left">Course ID</th>
         <th align="left">Course Name</th>
         <th align="left">Created</th>
+        <th align="left">Admin In Charge</th>
         <th align="left">Modify</th>
         <th align="left">Delete</th>
         </thead>
@@ -56,6 +57,24 @@
                 <td align="left" width="100"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100">
+                    <?php
+                        $uquery = "select * from permission where courseid = $a_rows->courseid";
+                        $uresult = mysql_query($uquery);
+                        while($u_rows=mysql_fetch_object($uresult))
+                        {
+                            $aquery = "select * from user where userid = $u_rows->userid";
+                            $aresult = mysql_query($aquery);
+                            while($ac_rows=mysql_fetch_object($aresult))
+                            {
+                                echo $ac_rows->username;
+                            }
+
+                        }
+
+                        
+                    ?>
+                </td>
                 <td align="left" width="100"><a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>">Modify</a></td>
                 <td align="left" width="100"><a href="del_course.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
                 </tr> 
