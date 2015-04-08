@@ -78,8 +78,32 @@ while($a_rows=mysql_fetch_object($result))
             ?>
                             
                             <td align="left" width="50%"><?php echo $lname ?></a></td>
-                            <?php } ?>
-                            <td align="left" width="50%"><?php echo $diff->format("%d days, %h hours and %i minuts ago" ) ?></a></td>
+                            <?php }
+                            $days = $diff->format("%d");
+                            $hours = $diff->format("%h");
+                            $minutes = $diff->format("%i");
+                            if($days == 0)
+                            {
+                              if($hours == 0)
+                              {
+                            ?>
+                            <td align="left" width="50%"><?php echo $diff->format("%i minutes %s seconds ago" ) ?></a></td>
+                            <?php    
+                              }
+                              else
+                              {
+                            ?>
+                                <td align="left" width="50%"><?php echo $diff->format("%h hours and %i minutes %s seconds ago" ) ?></a></td>
+                            <?php
+                              }
+                            }
+                            else
+                            {
+                            ?>
+                              <td align="left" width="50%"><?php echo $diff->format("%d days, %h hours and %i minutes %s seconds ago" ) ?></a></td>
+                            <?php
+                            }
+                            ?>
                             </tr>                
             <?php
                         

@@ -11,7 +11,6 @@
 
     $time = date("Y-m-d H:i:s");
     $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
-    echo $time;
 
 
     //echo $numrows;
@@ -27,17 +26,12 @@
             VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
     }
-        
-
-      $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
-            VALUES ('$uid', '$m_id')";
+    else
+    { 
+      $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
       $uresult = mysql_query($uquery);
     }
         
-
-    $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
-    VALUES ('$uid', '$m_id')";
-    $uresult = mysql_query($uquery);
 
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
