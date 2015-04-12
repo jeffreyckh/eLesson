@@ -70,7 +70,7 @@ session_start();
                   
                   <div class="col-xs-6 col-sm-3 col-lg-3"> 
                      <a href="userHome.php" class='btn btn-success'>Back</a>                   
-                     <a href="logout.php" class='btn btn-success'>Logout</a>
+                     <a href="../login.php" class='btn btn-success'>Logout</a>
                    
                        <div style="margin-top: 30%">
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>

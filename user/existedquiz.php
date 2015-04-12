@@ -58,7 +58,7 @@ session_start();
         <div id='timer'>
             <script type="application/javascript">
             var myCountdownTest = new Countdown({
-                                    time: 1000, 
+                                    time: 60, 
                                     width:200, 
                                     height:80, 
                                     rangeHi:"minute"
@@ -75,99 +75,24 @@ session_start();
 				<hr>
 				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
 					<?php 
-                    $validquery = "select * from user_to_question where userid = $uid and quizid = $qid";
-                    $validresult = mysql_query($validquery);
-                    $vrows = mysql_num_rows($validresult);
-                    $bi=1;
-                    if($vrows == 0)
-                    {
-					            $res = mysql_query("select * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT 3") or die(mysql_error());
-                      $rows = mysql_num_rows($res);
-					            $i=1;
-                      while($result=mysql_fetch_object($res)){
-                      $uquery = "INSERT INTO user_to_question( userid, quizid, questionid) 
-                                VALUES ('$uid', '$qid', '$result->questionid')";
-                      $uresult = mysql_query($uquery);          
-                      $query2 = "select * from question where questionid = $result->questionid";
-                      $result2=mysql_query($query2,$link);
-                      while($b_rows=mysql_fetch_object($result2)){
-                          $y=1;
-                          $optionstring = $b_rows->optionlist;
-                          $optiontoken = strtok($optionstring, "/");
-      
-                          if($i==1)
-                          {
-                            ?>         
-                          <div id='question<?php echo $i;?>' class='cont'>
-                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
-                          <?php
-                          while ($optiontoken !== false)
-                          {
-                              $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
-                          ?>
-                          <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/><?php echo $optiontoken;?>
-                         <br/>
-                             <?php $optiontoken = strtok("/"); 
-                             $y++; 
-                           }
-                             ?>
-        
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
-                          <br/>
-                          <button id='<?php echo $i;?>' class='next btn btn-success' type='button'>Next</button>
-                          </div>     
-                                                          
-                         <?php 
-                          }
-                          elseif($i==$rows)
-                          {
-                          ?>
-                          <div id='question<?php echo $i;?>' class='cont'>
-                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
-      
-                          <?php
-                          while ($optiontoken !== false)
-                          {
-                              $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
-                          ?>
-                          <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/><?php echo $optiontoken;?>
-                         <br/>
-                             <?php $optiontoken = strtok("/"); 
-                             $y++; 
-                           }
-                             ?>
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>    
-                          
-                          <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
-                          <button id='<?php echo $i;?>' class='next btn btn-success' type='submit'>Finish</button>
-                          </div>
-                                  
-            
-					<?php 
-                          }
-                          } 
-                           $i++;
-                         } 
-                      }
-          else
-          {
-                  while($v_rows = mysql_fetch_object($validresult))
-                  {
+              $validquery = "select * from user_to_question where userid = $uid and quizid = $qid";
+              $validresult = mysql_query($validquery);
+              $vrows = mysql_num_rows($validresult);
+              while($v_rows = mysql_fetch_object($validresult))
+                {
                   $selectquery = "select * from question where questionid = $v_rows->questionid";
                   $selectresult = mysql_query($selectquery);
-                  
+                  $i=1;
                   while($select_rows = mysql_fetch_object($selectresult))
-                  {
+                  {         
                           $y=1;
                           $optionstring = $select_rows->optionlist;
                           $optiontoken = strtok($optionstring, "/");
       
-                          if($bi<=1 || $bi<$vrows){
+                          if($i==1){
                             ?>         
-                          <div id='question<?php echo $bi;?>' class='cont'>
-                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $bi?>.<?php echo $select_rows->content;?></p>
+                          <div id='question<?php echo $i;?>' class='cont'>
+                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $select_rows->content;?></p>
                           <?php
                           while ($optiontoken !== false)
                           {
@@ -183,13 +108,13 @@ session_start();
         
                           <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>'/>                                                                      
                           <br/>
-                          <button id='<?php echo $bi;?>' class='next btn btn-success' type='button'>Next</button>
+                          <button id='<?php echo $i;?>' class='next btn btn-success' type='button'>Next</button>
                           </div>     
-                                                          
-                         <?php }elseif($bi==$vrows){?>
-
-                          <div id='question<?php echo $bi;?>' class='cont'>
-                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $bi?>.<?php echo $select_rows->content;?></p>
+                            
+                           <?php }elseif($i<1 || $i<$rows){?>
+                           
+                            <div id='question<?php echo $i;?>' class='cont'>
+                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $select_rows->content;?></p>
       
                           <?php
                           while ($optiontoken !== false)
@@ -203,19 +128,43 @@ session_start();
                              $y++; 
                            }
                              ?>
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>'/>                       
-                          <button id='<?php echo $bi;?>' class='next btn btn-success' type='submit'>Finish</button>
+                            <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
+                          <br/>
+                          <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
+                          <button id='<?php echo $i;?>' class='next btn btn-success' type='button' >Next</button>
+                          </div>
+                             
+                              
+                         <?php }elseif($i==$rows){?>
+                          <div id='question<?php echo $i;?>' class='cont'>
+                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $select_rows->content;?></p>
+      
+                          <?php
+                          while ($optiontoken !== false)
+                          {
+                              $getvalue = $optiontoken;
+                              $getvalue = str_replace(" ","-",$getvalue);
+                          ?>
+                          <input type="radio" value="<?php echo $y;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>'/><?php echo $optiontoken;?>
+                         <br/>
+                             <?php $optiontoken = strtok("/"); 
+                             $y++; 
+                           }
+                             ?>
+                             <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>'/>    
+                          
+                          <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
+                          <button id='<?php echo $i;?>' class='next btn btn-success' type='submit'>Finish</button>
                           </div>
                                   
             
           <?php 
                           }
                           } 
-                           $bi++;
+                           $i++;
                          } 
-                      }
           ?>
-
+					
 				</form>
 			</div>
 		</div>
