@@ -22,7 +22,8 @@ session_start();
    $response=mysql_query("select questionid,answer from question where questionid IN($order) ORDER BY FIELD(questionid,$order)")   or die(mysql_error());
    
    while($result=mysql_fetch_array($response)){
-       if($result['answer']==$_POST[$result['questionid']]){
+       if($result['answer']==$_POST[$result['questionid']])
+          {
                $right_answer++;
            }else if($_POST[$result['questionid']]==5){
                $unanswered++;
@@ -32,7 +33,7 @@ session_start();
                //echo $result['answer'];
            }
    }
- 
+   
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,13 +52,6 @@ session_start();
     </head>
     <body>
         <header>
-           <!-- <p class="text-center">
-                Welcome <?php 
-                if(!empty($_SESSION['name'])){
-                    echo $_SESSION['name'];
-                }?>
-               
-            </p>-->
         </header>
         <div class="container result">
             <div class="row"> 
