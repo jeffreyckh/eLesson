@@ -10,6 +10,7 @@ session_start();
 <?php 
   $qid = intval($_GET['qid']);
   $uid = $_SESSION['userid'];
+  $_SESSION['qid'] = $qid;
         $query_count="select count(*) from question where quizid = $qid";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
@@ -81,7 +82,7 @@ session_start();
 				
 				</p>
 				<hr>
-				<form class="form-horizontal" role="form" id='login' method="post" action="result.php?cid=<?php echo $cid ?>&lid=<?php echo $lid?>">
+				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
 					<?php 
                     $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = 0";
                     $validresult = mysql_query($validquery);
@@ -94,8 +95,8 @@ session_start();
 					            $i=1;
                       while($result=mysql_fetch_object($res))
                       {
-                      $uquery = "INSERT INTO user_to_question( userid, quizid, questionid,completed) 
-                                VALUES ('$uid', '$qid', '$result->questionid','0')";
+                      $uquery = "INSERT INTO user_to_question( userid, quizid, questionid,answer,completed) 
+                                VALUES ('$uid', '$qid', '$result->questionid','5','0')";
                       $uresult = mysql_query($uquery);          
                       $query2 = "select * from question where questionid = $result->questionid";
                       $result2=mysql_query($query2,$link);
