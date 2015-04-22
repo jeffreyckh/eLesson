@@ -17,6 +17,14 @@ session_start();
         $result_name = mysql_query($query_name,$link);
         $quizname = mysql_result($result_name,0);
 
+
+        $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
+        $lid = mysql_result($lessonquery,0);
+
+        $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $lid",$link);
+        $cid = mysql_result($coursequery,0);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,7 +81,7 @@ session_start();
 				
 				</p>
 				<hr>
-				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
+				<form class="form-horizontal" role="form" id='login' method="post" action="result.php?cid=<?php echo $cid ?>&lid=<?php echo $lid?>">
 					<?php 
                     $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = 0";
                     $validresult = mysql_query($validquery);
@@ -143,7 +151,7 @@ session_start();
                              ?>
                           <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>    
                           
-                          <button id='<?php echo $i;?>' class='previous btn btn-success' type='button'>Previous</button>                    
+                                          
                           <button id='<?php echo $i;?>' class='next btn btn-success' type='submit'>Finish</button>
                           </div>
                                   
@@ -261,6 +269,8 @@ session_start();
                           <?php } ?>
                           
                           <button id='<?php echo $bi;?>' class='next btn btn-success' type='submit' >Finish</button>
+                           <input type="hidden" type="text" name="cid" value="<?php echo $lid ?>">
+                           <input type="hidden" type="text" name="lid" value="<?php echo $cid ?>">
                           </div>
                                   
             

@@ -33,6 +33,34 @@ session_start();
                //echo $result['answer'];
            }
    }
+
+
+
+           $done_courseid=intval($_GET['cid']);
+           $done_lessonid=intval($_GET['lid']);
+            $uid = $_SESSION['userid'];
+          $date = date('Y-m-d H:i:s');
+          $flag=true;
+         $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          $done_result=mysql_query($done_query,$link);
+         
+
+          $newlc = mysql_result($done_result,0) + 1;
+
+
+          $sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
+
+           if(!mysql_query($sql,$link))
+            { die("Could not update the data!".mysql_error());}
+            else
+            {
+                echo '<script> alert("You have finish the quiz.") </script>';
+              
+            }
+
+          
+       
+
    
 ?>
 <!DOCTYPE html>
