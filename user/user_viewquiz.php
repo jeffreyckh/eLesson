@@ -65,6 +65,7 @@
                     {
                         $lessonname = $b_rows->lessonname;
                         $directionid = $b_rows->direction_id;
+                        $lesson_id = $b_rows->lessonid;
 
                             $query3="select * from course";
                             $result3=mysql_query($query3,$link);
@@ -80,6 +81,18 @@
                     }          
                 
                 }
+                  $uid = $_SESSION['userid'];
+
+                  $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id");
+                       if(mysql_num_rows($completeQuery) != 0)
+                    {
+
+                         $completeResult = mysql_result($completeQuery,0);
+                    
+                 
+
+                  if($completeResult == 1)
+                  {
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
@@ -89,7 +102,8 @@
                 <td align="left" width="100"><?php echo $coursename ?></td>
                 </tr>                
         <?php
-
+                }
+             }
             }
                 mysql_close($link);
         ?>  
