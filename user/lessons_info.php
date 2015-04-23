@@ -216,22 +216,18 @@ $(document).ready(function(){
            else
             {
 
-
-                echo '<script> alert("You have finish reading the lesson! You will be direct to the quiz page.") </script>';
-                echo '<script language="JavaScript"> window.location.href ="user_viewquiz.php" </script>';
-
-               // echo '<script> 
-                //      var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
-                //      if(answer)
-                //      {
-               //         window.location.href ="questions.php?qid='. $done_lessonid . '"
-                 //     }
-                //      else
-                //      {
-                 //       window.location.href ="userHome.php"
-                 //     } 
-               // </script>';
-               // echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
+                echo '<script> 
+                    var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
+                      if(answer)
+                      {
+                        window.location.href ="user_viewquiz.php"
+                     }
+                      else
+                      {
+                       window.location.href ="userHome.php"
+                /    } 
+                </script>';
+                echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
 
                 
             }
