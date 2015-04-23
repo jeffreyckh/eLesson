@@ -19,11 +19,6 @@ session_start();
         $quizname = mysql_result($result_name,0);
 
 
-        $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
-        $lid = mysql_result($lessonquery,0);
-
-        $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $lid",$link);
-        $cid = mysql_result($coursequery,0);
 
 
 ?>
@@ -84,7 +79,7 @@ session_start();
 				<hr>
 				<form class="form-horizontal" role="form" id='login' method="post" action="result.php?cid=<?php echo $cid ?>&lid=<?php echo $lid?>">
 					<?php 
-                    $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = 0";
+                    $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = '0'";
                     $validresult = mysql_query($validquery);
                     $vrows = mysql_num_rows($validresult);
                     $bi=1;
@@ -223,14 +218,8 @@ session_start();
                           <?php } ?>
                           <br/>
                           <button id='<?php echo $bi;?>' class='next btn btn-success' type='button'  >Next</button>
-                          </div>   
-
-                                                          
+                          </div>                               
                          <?php
-                         if(isset($_POST['radio1_'.$select_rows->questionid]))
-                         {
-                          echo "yes";
-                         }   
                        }elseif($bi==$vrows){?>
 
                           <div id='question<?php echo $bi;?>' class='cont'>
@@ -270,8 +259,6 @@ session_start();
                           <?php } ?>
                           
                           <button id='<?php echo $bi;?>' class='next btn btn-success' type='submit' >Finish</button>
-                           <input type="hidden" type="text" name="cid" value="<?php echo $lid ?>">
-                           <input type="hidden" type="text" name="lid" value="<?php echo $cid ?>">
                           </div>
                                   
             

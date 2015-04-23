@@ -12,12 +12,13 @@ session_start();
     
     $right_answer=0;
     $wrong_answer=0;
-    $unanswered=0; 
+    $unanswered=0;
+    $score = 0; 
     $userans = array();
     $orians = array();
   
-   $keys=array_keys($_POST);
-   $order=join(",",$keys);
+   //$keys=array_keys($_POST);
+   //$order=join(",",$keys);
    
    //$query="select * from questions id IN($order) ORDER BY FIELD(id,$order)";
   // echo $query;exit;
@@ -47,23 +48,30 @@ session_start();
                $wrong_answer++;
                //echo $result['answer'];
            }
-           
+    $score = ($right_answer/$usercount) * 100;
    }
 
 
+<<<<<<< HEAD
 
 
            $done_courseid=intval($_GET['cid']);
            $done_lessonid=intval($_GET['lid']);
             $uid = $_SESSION['userid'];
 
+=======
+          $uid = $_SESSION['userid'];
+>>>>>>> origin/kit
           $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
           $done_lessonid = mysql_result($lessonquery,0);
           $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
           $done_courseid = mysql_result($coursequery,0);
 
             //$uid = $_SESSION['userid'];
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/kit
           $date = date('Y-m-d H:i:s');
           $flag=true;
          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
@@ -91,6 +99,7 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
+
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -122,7 +131,23 @@ session_start();
                        <div style="margin-top: 30%">
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
-                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>                   
+                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
+                        <p>Score : <span class="answer"><?php echo $score;?></span></p>
+                        <?php if($score < 50)
+                        {
+                        ?>
+                        <p> you failed </p>
+                        <?php
+                        mysql_query(" UPDATE passingrate SET fail = fail + 1 WHERE prid = '1'");
+                        }
+                        else
+                        {
+                        ?>
+                        <p> you passed </p>
+                        <?php
+                        mysql_query(" UPDATE passingrate SET pass = pass + 1 WHERE prid = '1'");
+                        }
+                        ?>                   
                        </div> 
                    
                    </div>
@@ -147,9 +172,5 @@ session_start();
     </body>
 </html>
 <?php
- for($i=0;$i<$usercount;$i++)
-   {
-     unset($userans[$i]);
-     unset($orians[$i]);
-   }
+$delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
 ?>

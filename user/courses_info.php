@@ -5,7 +5,8 @@
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
-
+    $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
+    $viewresult = mysql_query($viewquery);
     $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
     $checkresult = mysql_query($querycheck);
         
