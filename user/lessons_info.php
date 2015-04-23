@@ -201,10 +201,7 @@ $(document).ready(function(){
            // { die("Could not update the data!".mysql_error());}
           //  else
            // {
-<<<<<<< HEAD
-                echo '<script> alert("You have finish reading the lesson! You will be direct to the quiz page.") </script>';
-                echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
-=======
+
                 echo '<script> 
                       var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
                       if(answer)
@@ -217,7 +214,6 @@ $(document).ready(function(){
                       } 
                 </script>';
                 //echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
->>>>>>> origin/kit
                 
           //  }
 
