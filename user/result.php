@@ -52,19 +52,13 @@ session_start();
    }
 
 
-<<<<<<< HEAD
-
-           $done_courseid=intval($_GET['cid']);
-           $done_lessonid=intval($_GET['lid']);
-            $uid = $_SESSION['userid'];
-=======
+          $uid = $_SESSION['userid'];
           $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
           $done_lessonid = mysql_result($lessonquery,0);
           $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
           $done_courseid = mysql_result($coursequery,0);
 
             //$uid = $_SESSION['userid'];
->>>>>>> origin/kit
           $date = date('Y-m-d H:i:s');
           $flag=true;
          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
