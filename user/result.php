@@ -7,11 +7,14 @@ session_start();
 
 
 <?php 
-
+    $uid = $_SESSION['userid'];
+    $qid = $_SESSION['qid'];
     
     $right_answer=0;
     $wrong_answer=0;
     $unanswered=0; 
+    $userans = array();
+    $orians = array();
   
    $keys=array_keys($_POST);
    $order=join(",",$keys);
@@ -19,26 +22,48 @@ session_start();
    //$query="select * from questions id IN($order) ORDER BY FIELD(id,$order)";
   // echo $query;exit;
    
-   $response=mysql_query("select questionid,answer from question where questionid IN($order) ORDER BY FIELD(questionid,$order)")   or die(mysql_error());
+   $response=mysql_query("select questionid,answer from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
    
-   while($result=mysql_fetch_array($response)){
-       if($result['answer']==$_POST[$result['questionid']])
+   while($result=mysql_fetch_object($response)){
+    $userans[] = $result->answer;
+      $ansquery = "select answer from question where questionid = $result->questionid";
+      $ansresult = mysql_query($ansquery);
+      while ($ans_rows = mysql_fetch_object($ansresult)) {
+        $orians[] = $ans_rows->answer;
+      }
+       
+   }
+   $usercount = count($userans);
+   for($i=0;$i<$usercount;$i++)
+   {
+      //echo $orians[$i];
+      if($userans[$i]==$orians[$i])
           {
                $right_answer++;
-           }else if($_POST[$result['questionid']]==5){
+           }else if($userans[$i]==5){
                $unanswered++;
            }
            else{
                $wrong_answer++;
                //echo $result['answer'];
            }
+           
    }
 
 
+<<<<<<< HEAD
 
            $done_courseid=intval($_GET['cid']);
            $done_lessonid=intval($_GET['lid']);
             $uid = $_SESSION['userid'];
+=======
+          $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
+          $done_lessonid = mysql_result($lessonquery,0);
+          $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
+          $done_courseid = mysql_result($coursequery,0);
+
+            //$uid = $_SESSION['userid'];
+>>>>>>> origin/kit
           $date = date('Y-m-d H:i:s');
           $flag=true;
          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
@@ -121,3 +146,10 @@ session_start();
 
     </body>
 </html>
+<?php
+ for($i=0;$i<$usercount;$i++)
+   {
+     unset($userans[$i]);
+     unset($orians[$i]);
+   }
+?>
