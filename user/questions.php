@@ -77,7 +77,7 @@ session_start();
 				
 				</p>
 				<hr>
-				<form class="form-horizontal" role="form" id='login' method="post" action="result.php?cid=<?php echo $cid ?>&lid=<?php echo $lid?>">
+				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
 					<?php 
                     $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = '0'";
                     $validresult = mysql_query($validquery);
