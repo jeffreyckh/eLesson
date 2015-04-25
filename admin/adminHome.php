@@ -85,8 +85,14 @@ $announcement = new announcementView();
     $cname[] = $c_rows->coursename;
     $cview[] = $c_rows->view;
   }
-  $jcname = json_encode($cname);
-  $jcview = json_encode($cview);
+  $csize = count($cname);
+  for($i = 0;$i < $csize;$i++)
+          {
+            echo $cname[$i];
+            echo $cview[$i];
+          }
+  //$jcname = json_encode($cname);
+  //$jcview = json_encode($cview);
   $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
   $pass = mysql_result($passquery,0);
   $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
@@ -104,12 +110,25 @@ $announcement = new announcementView();
           ['Pass',    <?php echo $pass?>],
           ['Fail',    <?php echo $fail?>]
         ]);
-        var cname = <?php echo json_encode($cname) ?>;
+        /*var cname = <?php echo json_encode($cname) ?>;
         var cview = <?php echo json_encode($cview) ?>;
         var cdata = google.visualization.DataTable();
         cdata.addColumn({ type: 'string', id: 'Course' });
         cdata.addColumn({ type: 'number', id: 'View' });
-        caddRows(<?php $jcname?>,<?php $jcview?>);
+        for (i = 0; i < cname.length; i++)
+        {
+
+        }*/
+        var cdata = google.visualization.arrayToDataTable(
+          [['No of View', 'Course'],
+          <?php 
+          for($i = 0;$i < 3;$i++)
+          {
+          ?>
+          ['<?php echo $cview[$i];?>', <?php echo $cname[$i]?>]
+          
+          <?php }?>
+         ]);
         
         var options = {
           title: 'Passing Rate'
