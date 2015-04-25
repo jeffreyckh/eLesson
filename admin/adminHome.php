@@ -21,8 +21,8 @@ $announcement = new announcementView();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-    <!--Google chart !-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!--Script required for Google chart !-->
+    <script type="text/javascript" src="../jscss/googleChart.js"></script>
   </head>
 <body>
   <div class = "col-md-8">
@@ -79,14 +79,14 @@ $announcement = new announcementView();
 <?php
   $cname = array();
   $cview = array();
-  $cname[] = ("Course");
-  $cview[] = ("Viewed");
   $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
   while($c_rows = mysql_fetch_object($courseresult))
   {
     $cname[] = $c_rows->coursename;
     $cview[] = $c_rows->view;
   }
+  $jcname = json_encode($cname);
+  $jcview = json_encode($cview);
   $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
   $pass = mysql_result($passquery,0);
   $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
@@ -94,7 +94,8 @@ $announcement = new announcementView();
 ?>
 <!--Pie Chart !-->
 <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
+
+      google.load("visualization", "1", {packages:["corechart", "bar"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
 
@@ -103,14 +104,27 @@ $announcement = new announcementView();
           ['Pass',    <?php echo $pass?>],
           ['Fail',    <?php echo $fail?>]
         ]);
-
+        var cname = <?php echo json_encode($cname) ?>;
+        var cview = <?php echo json_encode($cview) ?>;
+        var cdata = google.visualization.DataTable();
+        cdata.addColumn({ type: 'string', id: 'Course' });
+        cdata.addColumn({ type: 'number', id: 'View' });
+        caddRows(<?php $jcname?>,<?php $jcview?>);
+        
         var options = {
           title: 'Passing Rate'
         };
+        var coptions = {
+          chart: {
+            title: 'Number of Course View',
+          }
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
 
         chart.draw(data, options);
+        cchart.draw(cdata, coptions);
       }
     </script>
     <!--column chart!-->
@@ -118,7 +132,7 @@ $announcement = new announcementView();
     //var cname = <?php echo '["' . implode('", "', $coursename) . '"]'; ?>;
     //var cview = <?php echo '["' . implode('", "', $cview) . '"]'; ?>;
 
-      google.load("visualization", "1.1", {packages:["bar"]});
+     /* google.load("visualization", "1.1", {packages:["bar"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         //var data = google.visualization.arrayToDataTable(
@@ -145,7 +159,7 @@ var cdata = google.visualization.arrayToDataTable([
         var cchart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
         cchart.draw(cdata, coptions);
-      }
+      }*/
     </script>
 </body>
 </html>

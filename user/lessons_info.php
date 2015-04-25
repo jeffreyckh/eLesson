@@ -225,9 +225,9 @@ $(document).ready(function(){
                       else
                       {
                        window.location.href ="userHome.php"
-                /    } 
+                  } 
                 </script>';
-                echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
+                //echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
 
                 
             }
