@@ -12,7 +12,6 @@ $tnow = date_create ("$t");
 while($a_rows=mysql_fetch_object($result))
     {
         $uname = $a_rows->username;
-        $mailaddr = $a_rows->email;
     }
 //require_once('../view/announcementView.php');
 //$announcement = new announcementView();
@@ -49,6 +48,7 @@ while($a_rows=mysql_fetch_object($result))
   <hr>
   Username : <?php echo $uname; ?>
   <hr>
+<<<<<<< HEAD
   <form action="" method="post">
 <<<<<<< HEAD
   E-Mail : <?php echo $mailaddr; ?>
@@ -63,6 +63,8 @@ while($a_rows=mysql_fetch_object($result))
     }
   ?></form>
   <hr>
+=======
+>>>>>>> parent of 48a8759... lam sync test
       <table id = "user" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <th align="right">InComplete Lesson</th>
@@ -72,9 +74,6 @@ while($a_rows=mysql_fetch_object($result))
 
                 $query1="select * from user_to_lesson where userid = $u_id";
                 $result1=mysql_query($query1);
-
-                $lessonsNdate = "";
-
                 echo "<tbody>";
                 while($u_rows=mysql_fetch_object($result1))
                 {
@@ -92,9 +91,14 @@ while($a_rows=mysql_fetch_object($result))
                         {
                             $lname = $l_rows->lessonname;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                             $lessonsNdate .= " [ " . $l_rows->lessonname . " = ";
 >>>>>>> origin/kit
+=======
+
+                        
+>>>>>>> parent of 48a8759... lam sync test
             ?>
                             
                             <td align="left" width="50%"><?php echo $lname ?></a></td>
@@ -124,6 +128,7 @@ while($a_rows=mysql_fetch_object($result))
                             <?php
                             }
 <<<<<<< HEAD
+<<<<<<< HEAD
                             if($days > 7)
                             {
                               $lessonsNdate .= " [ " . $l_rows->lessonname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
@@ -131,10 +136,12 @@ while($a_rows=mysql_fetch_object($result))
 =======
                             $lessonsNdate .= "Last view on " . $diff->format("%d days") . " ago ]";
 >>>>>>> origin/kit
+=======
+>>>>>>> parent of 48a8759... lam sync test
                             ?>
                             </tr>                
             <?php
-                
+                        
                 }
             ?>
             </tbody> 
@@ -147,6 +154,7 @@ $(document).ready(function(){
         });
 });
 </script>
+<<<<<<< HEAD
 <?php
     if(isset($_POST['sendReminder']))
     {
@@ -168,5 +176,7 @@ $(document).ready(function(){
       }
     }
 ?>
+=======
+>>>>>>> parent of 48a8759... lam sync test
 </body>
 </html>
