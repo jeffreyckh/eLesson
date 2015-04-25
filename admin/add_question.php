@@ -67,6 +67,12 @@ value="checkbox">Multiple Choice</td></tr>
 
 <td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
 <td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
+<td>Difficulty:</td><td>
+    <select name="ddlDifficulty">
+        <option value="Easy" selected>Easy</option>
+        <option value="Normal">Normal</option>
+        <option value="Hard">Hard</option>
+    </select></td></tr>
 </table>
 <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
 </form>
@@ -92,6 +98,7 @@ value="checkbox">Multiple Choice</td></tr>
     $add_answer = str_replace("/","/",$add_answer);
     $add_option=$_POST['option'];
     $add_option = str_replace("/","/",$add_option);
+    $add_difficulty = $_POST['ddlDifficulty'];
 	$flag=false;
 	$check="select * from question";
 	$check_result=mysql_query($check,$link);
@@ -105,7 +112,7 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,content,choicetype,answer,optionlist) values('$add_questionid','$add_content','radio','$add_answer','$add_option')";
+            $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());

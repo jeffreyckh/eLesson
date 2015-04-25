@@ -85,6 +85,11 @@
                 } 
                 ?></td>
             </tr>
+            <tr>
+                <td>Difficulty:</td><td><?php
+                $diff = $a_rows->difficulty;
+                echo $diff ?></td>
+            </tr>
             </table>
         
             
