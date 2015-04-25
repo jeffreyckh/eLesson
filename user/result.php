@@ -7,36 +7,85 @@ session_start();
 
 
 <?php 
-
+    $uid = $_SESSION['userid'];
+    $qid = $_SESSION['qid'];
     
     $right_answer=0;
     $wrong_answer=0;
-    $unanswered=0; 
+    $unanswered=0;
+    $score = 0; 
+    $userans = array();
+    $orians = array();
   
-   $keys=array_keys($_POST);
-   $order=join(",",$keys);
+   //$keys=array_keys($_POST);
+   //$order=join(",",$keys);
    
    //$query="select * from questions id IN($order) ORDER BY FIELD(id,$order)";
   // echo $query;exit;
    
-   $response=mysql_query("select questionid,answer from question where questionid IN($order) ORDER BY FIELD(questionid,$order)")   or die(mysql_error());
+   $response=mysql_query("select questionid,answer from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
    
-   while($result=mysql_fetch_array($response)){
-       if($result['answer']==$_POST[$result['questionid']]){
+   while($result=mysql_fetch_object($response)){
+    $userans[] = $result->answer;
+      $ansquery = "select answer from question where questionid = $result->questionid";
+      $ansresult = mysql_query($ansquery);
+      while ($ans_rows = mysql_fetch_object($ansresult)) {
+        $orians[] = $ans_rows->answer;
+      }
+       
+   }
+   $usercount = count($userans);
+   for($i=0;$i<$usercount;$i++)
+   {
+      //echo $orians[$i];
+      if($userans[$i]==$orians[$i])
+          {
                $right_answer++;
-           }else if($_POST[$result['questionid']]==5){
+           }else if($userans[$i]==5){
                $unanswered++;
            }
            else{
                $wrong_answer++;
                //echo $result['answer'];
            }
+    $score = ($right_answer/$usercount) * 100;
    }
- 
+
+
+          $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
+          $done_lessonid = mysql_result($lessonquery,0);
+          $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
+          $done_courseid = mysql_result($coursequery,0);
+
+            //$uid = $_SESSION['userid'];
+          $date = date('Y-m-d H:i:s');
+          $flag=true;
+         $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          $done_result=mysql_query($done_query,$link);
+         
+
+          $newlc = mysql_result($done_result,0) + 1;
+
+
+          $sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
+
+           if(!mysql_query($sql,$link))
+            { die("Could not update the data!".mysql_error());}
+            else
+            {
+                echo '<script> alert("You have finish the quiz.") </script>';
+              
+            }
+
+          
+       
+
+   
 ?>
 <!DOCTYPE html>
 <html>
     <head>
+      
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -51,13 +100,6 @@ session_start();
     </head>
     <body>
         <header>
-           <!-- <p class="text-center">
-                Welcome <?php 
-                if(!empty($_SESSION['name'])){
-                    echo $_SESSION['name'];
-                }?>
-               
-            </p>-->
         </header>
         <div class="container result">
             <div class="row"> 
@@ -75,7 +117,21 @@ session_start();
                        <div style="margin-top: 30%">
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
-                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>                   
+                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
+                        <p>Score : <span class="answer"><?php echo $score;?></span></p>
+                        <?php if($score < 50)
+                        {
+                        ?>
+                        <p> you failed </p>
+                        <?php
+                        }
+                        else
+                        {
+                        ?>
+                        <p> you passed </p>
+                        <?php
+                        }
+                        ?>                   
                        </div> 
                    
                    </div>
@@ -99,3 +155,6 @@ session_start();
 
     </body>
 </html>
+<?php
+$delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
+?>

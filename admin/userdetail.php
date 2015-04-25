@@ -12,6 +12,7 @@ $tnow = date_create ("$t");
 while($a_rows=mysql_fetch_object($result))
     {
         $uname = $a_rows->username;
+        $mailaddr = $a_rows->email;
     }
 //require_once('../view/announcementView.php');
 //$announcement = new announcementView();
@@ -48,6 +49,16 @@ while($a_rows=mysql_fetch_object($result))
   <hr>
   Username : <?php echo $uname; ?>
   <hr>
+  <form action="" method="post">
+  E-Mail : <?php echo $mailaddr; ?>
+  <br><br>&emsp;* You can add in extra message into the Reminder Mail or leave it blank *<br>&emsp;<input type="text" name="xtraMailMsg">&emsp;&emsp;<input class="btn btn-default" type="submit" name="sendReminder" value="Send Reminder Mail">&emsp;
+  <?php
+    if(isset($_POST['sendReminder']))
+    {
+      echo 'Reminder E-mail Sent!';
+    }
+  ?></form>
+  <hr>
       <table id = "user" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <th align="right">InComplete Lesson</th>
@@ -57,6 +68,9 @@ while($a_rows=mysql_fetch_object($result))
 
                 $query1="select * from user_to_lesson where userid = $u_id";
                 $result1=mysql_query($query1);
+
+                $lessonsNdate = "";
+
                 echo "<tbody>";
                 while($u_rows=mysql_fetch_object($result1))
                 {
@@ -73,8 +87,6 @@ while($a_rows=mysql_fetch_object($result))
                     while($l_rows = mysql_fetch_object($lresult))
                         {
                             $lname = $l_rows->lessonname;
-
-                        
             ?>
                             
                             <td align="left" width="50%"><?php echo $lname ?></a></td>
@@ -103,10 +115,14 @@ while($a_rows=mysql_fetch_object($result))
                               <td align="left" width="50%"><?php echo $diff->format("%d days, %h hours and %i minutes %s seconds ago" ) ?></a></td>
                             <?php
                             }
+                            if($days > 7)
+                            {
+                              $lessonsNdate .= " [ " . $l_rows->lessonname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
+                            }
                             ?>
                             </tr>                
             <?php
-                        
+                
                 }
             ?>
             </tbody> 
@@ -119,5 +135,21 @@ $(document).ready(function(){
         });
 });
 </script>
+<?php
+    if(isset($_POST['sendReminder']))
+    {
+      $sbj = 'Reminder of continue your lessons';
+      $xtraMsg = $_POST['xtraMailMsg'];
+      $msg = 'Hello, this is a gentle reminder to inform you still have uncompleted lesson. ' . $lessonsNdate . $xtraMsg . " This is an auto-generated email, please do not reply.";
+      $dt = date("Y-m-d H:i:s");
+
+      mail($mailaddr, $sbj, $msg, "From: e-Lesson");
+      $mailInfo="insert into email(date,receiver,message) values('$dt','$mailaddr','$msg')";
+      if(!mysql_query($mailInfo))
+      {
+        die("Unable to store the mail into database.".mysql_error());
+      }
+    }
+?>
 </body>
 </html>

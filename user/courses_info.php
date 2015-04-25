@@ -5,6 +5,22 @@
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
+
+    $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
+    $checkresult = mysql_query($querycheck);
+        
+
+        if(mysql_num_rows($checkresult) == 0)
+        {
+          $sql = "INSERT INTO lessonstatus (userid, courseid)
+            VALUES ('$uid', '$m_id')";
+            mysql_query($sql,$link);
+        }
+          
+        
+       
+
+
     $uquery = "select * from permission where userid = $uid and courseid = $m_id";
     $uresult = mysql_query($uquery);
     if(mysql_num_rows($uresult) != 0)
@@ -64,9 +80,10 @@
         <div role="tabpanel" class="tab-pane" id="lessons">
         <?php
         $c_id=intval($_REQUEST['cid']);
-        $query_count="select count(*) from lesson where direction_id=$c_id";
-        $result_count=mysql_query($query_count,$link);
-        $count=mysql_result($result_count,0);
+        $userid = $_SESSION['userid'];
+        $lessonquery = "select lessoncount from lessonstatus where userid = $userid and courseid = $c_id";
+        $lessonresult = mysql_query($lessonquery,$link);
+        $lessoncount = mysql_result($lessonresult,0);
         ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
@@ -79,7 +96,7 @@
             </thead>
 
         <?php
-            $lquery="select * from lesson where direction_id=$c_id";
+            $lquery="select * from lesson where direction_id=$c_id limit $lessoncount";
             $lresult=mysql_query($lquery,$link);
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($lresult))
