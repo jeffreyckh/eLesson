@@ -84,15 +84,16 @@
                   $uid = $_SESSION['userid'];
 
                   $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id");
+                  $completeQuery2 = mysql_query("SELECT complete from user_to_quiz WHERE userid = $uid and quizid = $a_rows->quizid");
+                  if(mysql_num_rows($completeQuery2) == 0)
+                  {
                        if(mysql_num_rows($completeQuery) != 0)
-                    {
+                        {
 
                          $completeResult = mysql_result($completeQuery,0);
-                    
                  
-
-                  if($completeResult == 1)
-                  {
+                        if($completeResult == 1)
+                {
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
@@ -103,7 +104,41 @@
                 </tr>                
         <?php
                 }
-             }
+                }
+                }
+                else
+                {
+                    $completeResult2 = mysql_result($completeQuery2,0);
+
+                    if($completeResult2 == 1)
+                {
+        ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                else
+                {
+
+                     ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                }
+
             }
                 mysql_close($link);
         ?>  

@@ -225,10 +225,15 @@ $(document).ready(function(){
                       else
                       {
                        window.location.href ="userHome.php"
+<<<<<<< HEAD
                   } 
                 </script>';
                 //echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
 
+=======
+                    } 
+                </script>';
+>>>>>>> origin/kit
                 
             }
 
