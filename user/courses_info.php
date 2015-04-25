@@ -5,12 +5,7 @@
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
-<<<<<<< HEAD
 
-=======
-    $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
-    $viewresult = mysql_query($viewquery);
->>>>>>> origin/kit
     $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
     $checkresult = mysql_query($querycheck);
         
@@ -89,10 +84,6 @@
         $lessonquery = "select lessoncount from lessonstatus where userid = $userid and courseid = $c_id";
         $lessonresult = mysql_query($lessonquery,$link);
         $lessoncount = mysql_result($lessonresult,0);
-<<<<<<< HEAD
-=======
-       
->>>>>>> origin/kit
         ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
@@ -107,37 +98,18 @@
         <?php
             $lquery="select * from lesson where direction_id=$c_id limit $lessoncount";
             $lresult=mysql_query($lquery,$link);
-            $i = 1;
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($lresult))
             {
-                if($i <= $lessoncount)
-                {
-                    ?>
-                      <tr>
+        ?>
+            
+                <tr>
                 <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                </tr>      
-
-              <?php
-                }
-                else
-                {
-                ?>
-                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->lessonname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                </tr>    
-                <?php
-                }
-
-                ?>
-            
-              
-                 <?php
-                $i++;
+                </tr>
+                           
+        <?php
             }
                 //mysql_close($link);
         ?>

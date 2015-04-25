@@ -5,27 +5,6 @@
     include 'userNav.php';
     $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
-<<<<<<< HEAD
-=======
-    $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
-    $checkresult = mysql_query($querycheck);
-        
-
-        if(mysql_num_rows($checkresult) == 0)
-        {
-
-          $starttime = date('Y-m-d H:i:s');
-
-          $sql = "INSERT INTO lessoncomplete (userid, lessonid,complete,start_time)
-            VALUES ('$uid', '$m_id','0','$starttime')";
-            mysql_query($sql,$link);
-        }
-          
-
-
-
-
->>>>>>> origin/kit
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
@@ -109,7 +88,6 @@
           </table>
           <?php 
         
-<<<<<<< HEAD
            $querycheck = "select lessoncount from lessonstatus where userid = $uid and courseid = $courseid";
            $checkresult = mysql_query($querycheck);
            $currentcount = mysql_result($checkresult,0);
@@ -118,13 +96,6 @@
            $current_lesson = mysql_result($current_result,($currentcount - 1));
 
             if($m_id == $current_lesson)
-=======
-           $querycheck = "SELECT complete from lessoncomplete where userid = $uid AND lessonid = $m_id ";
-           $checkresult = mysql_query($querycheck);
-           $completeresult = mysql_result($checkresult,0);
-         
-            if($completeresult == 0)
->>>>>>> origin/kit
             {
 
             ?>
@@ -215,7 +186,6 @@ $(document).ready(function(){
            $done_courseid=intval($_POST['cid']);
            $done_lessonid=intval($_POST['lid']);
             $uid = $_SESSION['userid'];
-<<<<<<< HEAD
           $date = date('Y-m-d H:i:s');
           $flag=true;
          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
@@ -245,36 +215,6 @@ $(document).ready(function(){
                 //echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
                 
           //  }
-=======
-          $endtime = date('Y-m-d H:i:s');
-          $flag=true;
-         //$done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
-          //$done_result=mysql_query($done_query,$link);
-          //$newlc = mysql_result($done_result,0) + 1;
-          $finish = 1;
-
-
-          $sql = "UPDATE lessoncomplete SET complete = '$finish', end_time = '$endtime' WHERE userid = $uid AND lessonid = $done_lessonid";
-
-           if(!mysql_query($sql,$link))
-           { die("Could not update the data!".mysql_error());}
-           else
-            {
-
-                echo '<script> 
-                    var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
-                      if(answer)
-                      {
-                        window.location.href ="user_viewquiz.php"
-                     }
-                      else
-                      {
-                       window.location.href ="userHome.php"                 
-                     } 
-                      </script>';
-               
-            }
->>>>>>> origin/kit
 
           }
           ?>
