@@ -3,7 +3,7 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
-    $m_id=intval($_REQUEST['lid']);
+    $m_id=intval($_GET['lid']);
     $uid = $_SESSION['userid'];
 <<<<<<< HEAD
 =======
@@ -29,6 +29,11 @@
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
+
+    $time = date("Y-m-d H:i:s");
+    $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
+
+
     //echo $numrows;
     while($v_rows = mysql_fetch_object($vresult))
     {
@@ -37,15 +42,18 @@
     }
     if(empty($validlid) && empty($validuid))
     {
-      $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
-            VALUES ('$uid', '$m_id')";
+
+      $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
+            VALUES ('$uid', '$m_id', '$time')";
+      $uresult = mysql_query($uquery);
+    }
+    else
+    { 
+      $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
       $uresult = mysql_query($uquery);
     }
         
 
-    $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
-    VALUES ('$uid', '$m_id')";
-    $uresult = mysql_query($uquery);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -92,6 +100,7 @@
           <hr>
           <h2>Lesson Content:</h2>
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
+<<<<<<< HEAD
 
 
             <?php
@@ -137,6 +146,8 @@
             
             ?>
           </form>
+=======
+>>>>>>> parent of 48a8759... lam sync test
         </div>
 
   <div role="tabpanel" class="tab-pane" id="quiz">
@@ -169,7 +180,6 @@
         </tr>
         <?php
         }
-
          // mysql_close($link);
         ?>  
         </tbody> 
@@ -198,11 +208,9 @@ $(document).ready(function(){
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
-
 </script>
-
-
 </body>
+<<<<<<< HEAD
 </html>
 
 
@@ -280,3 +288,6 @@ $(document).ready(function(){
           ?>
 
 
+=======
+</html>
+>>>>>>> parent of 48a8759... lam sync test

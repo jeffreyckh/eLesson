@@ -7,49 +7,32 @@ session_start();
 
 
 <?php 
-    $uid = $_SESSION['userid'];
-    $qid = $_SESSION['qid'];
+
     
     $right_answer=0;
     $wrong_answer=0;
-    $unanswered=0;
-    $score = 0; 
-    $userans = array();
-    $orians = array();
+    $unanswered=0; 
   
-   //$keys=array_keys($_POST);
-   //$order=join(",",$keys);
+   $keys=array_keys($_POST);
+   $order=join(",",$keys);
    
    //$query="select * from questions id IN($order) ORDER BY FIELD(id,$order)";
   // echo $query;exit;
    
-   $response=mysql_query("select questionid,answer from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
+   $response=mysql_query("select questionid,answer from question where questionid IN($order) ORDER BY FIELD(questionid,$order)")   or die(mysql_error());
    
-   while($result=mysql_fetch_object($response)){
-    $userans[] = $result->answer;
-      $ansquery = "select answer from question where questionid = $result->questionid";
-      $ansresult = mysql_query($ansquery);
-      while ($ans_rows = mysql_fetch_object($ansresult)) {
-        $orians[] = $ans_rows->answer;
-      }
-       
-   }
-   $usercount = count($userans);
-   for($i=0;$i<$usercount;$i++)
-   {
-      //echo $orians[$i];
-      if($userans[$i]==$orians[$i])
-          {
+   while($result=mysql_fetch_array($response)){
+       if($result['answer']==$_POST[$result['questionid']]){
                $right_answer++;
-           }else if($userans[$i]==5){
+           }else if($_POST[$result['questionid']]==5){
                $unanswered++;
            }
            else{
                $wrong_answer++;
                //echo $result['answer'];
            }
-    $score = ($right_answer/$usercount) * 100;
    }
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -87,15 +70,21 @@ session_start();
        
 
    
+=======
+ 
+>>>>>>> parent of 48a8759... lam sync test
 ?>
 <!DOCTYPE html>
 <html>
     <head>
 <<<<<<< HEAD
+<<<<<<< HEAD
       
 =======
 
 >>>>>>> origin/kit
+=======
+>>>>>>> parent of 48a8759... lam sync test
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -110,6 +99,13 @@ session_start();
     </head>
     <body>
         <header>
+           <!-- <p class="text-center">
+                Welcome <?php 
+                if(!empty($_SESSION['name'])){
+                    echo $_SESSION['name'];
+                }?>
+               
+            </p>-->
         </header>
         <div class="container result">
             <div class="row"> 
@@ -127,6 +123,7 @@ session_start();
                        <div style="margin-top: 30%">
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
+<<<<<<< HEAD
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
                         <p>Score : <span class="answer"><?php echo $score;?></span></p>
                         <?php if($score < 50)
@@ -181,6 +178,9 @@ session_start();
 >>>>>>> origin/kit
                         }
                         ?>                   
+=======
+                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>                   
+>>>>>>> parent of 48a8759... lam sync test
                        </div> 
                    
                    </div>
@@ -204,6 +204,7 @@ session_start();
 
     </body>
 </html>
+<<<<<<< HEAD
 <?php
 $delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
 <<<<<<< HEAD
@@ -211,3 +212,5 @@ $delquery=mysql_query("delete from user_to_question where userid = $uid and quiz
 =======
 ?>
 >>>>>>> origin/kit
+=======
+>>>>>>> parent of 48a8759... lam sync test

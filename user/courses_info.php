@@ -6,6 +6,7 @@
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
@@ -26,6 +27,8 @@
        
 
 
+=======
+>>>>>>> parent of 48a8759... lam sync test
     $uquery = "select * from permission where userid = $uid and courseid = $m_id";
     $uresult = mysql_query($uquery);
     if(mysql_num_rows($uresult) != 0)
@@ -85,6 +88,7 @@
         <div role="tabpanel" class="tab-pane" id="lessons">
         <?php
         $c_id=intval($_REQUEST['cid']);
+<<<<<<< HEAD
         $userid = $_SESSION['userid'];
         $lessonquery = "select lessoncount from lessonstatus where userid = $userid and courseid = $c_id";
         $lessonresult = mysql_query($lessonquery,$link);
@@ -93,6 +97,11 @@
 =======
        
 >>>>>>> origin/kit
+=======
+        $query_count="select count(*) from lesson where direction_id=$c_id";
+        $result_count=mysql_query($query_count,$link);
+        $count=mysql_result($result_count,0);
+>>>>>>> parent of 48a8759... lam sync test
         ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
@@ -105,7 +114,7 @@
             </thead>
 
         <?php
-            $lquery="select * from lesson where direction_id=$c_id limit $lessoncount";
+            $lquery="select * from lesson where direction_id=$c_id";
             $lresult=mysql_query($lquery,$link);
             $i = 1;
             echo "<tbody>";
