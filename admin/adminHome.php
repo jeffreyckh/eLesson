@@ -34,6 +34,9 @@ $announcement = new announcementView();
       <div class = "col-md-5">
         <div id="columnchart_values" style="width: 100%; height: 100%;"></div>
       </div>
+      <div class = "col-md-5">
+        <div id="chart_div" style="width: 100%; height: 100%;"></div>
+      </div>
     </div>
   <div class = "col-md-3">
   <div class = "row">
@@ -86,39 +89,28 @@ $announcement = new announcementView();
     $cview[] = $c_rows->view;
   }
   $csize = count($cname);
-  for($i = 0;$i < $csize;$i++)
-          {
-            echo $cname[$i];
-            echo $cview[$i];
-          }
   //$jcname = json_encode($cname);
   //$jcview = json_encode($cview);
   $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
   $pass = mysql_result($passquery,0);
   $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
   $fail = mysql_result($failquery,0);
+  $nuquery = mysql_query("SELECT * FROM user");
+  $numUserRows = mysql_num_rows($nuquery);
 ?>
 <!--Pie Chart !-->
 <script type="text/javascript">
 
-      google.load("visualization", "1", {packages:["corechart", "bar"]});
+      google.load("visualization", "1", {packages:["corechart", "bar",'gauge']});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-
+        // pie Chart for passing ate
         var data = google.visualization.arrayToDataTable([
           ['PassFail', 'Number of people'],
           ['Pass',    <?php echo $pass?>],
           ['Fail',    <?php echo $fail?>]
         ]);
-        /*var cname = <?php echo json_encode($cname) ?>;
-        var cview = <?php echo json_encode($cview) ?>;
-        var cdata = google.visualization.DataTable();
-        cdata.addColumn({ type: 'string', id: 'Course' });
-        cdata.addColumn({ type: 'number', id: 'View' });
-        for (i = 0; i < cname.length; i++)
-        {
-
-        }*/
+        // bar chart for number of view
         var cdata = google.visualization.arrayToDataTable([
           ['Course', 'View'],
           <?php 
@@ -129,6 +121,12 @@ $announcement = new announcementView();
           <?php }?>
          ]);
         
+        // gauge for total user registered
+        var tudata = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['User', <?php echo $numUserRows; ?>]
+        ]);
+
         var options = {
           title: 'Passing Rate'
         };
@@ -137,47 +135,24 @@ $announcement = new announcementView();
             title: 'Number of Course View',
           }
         };
+        var tuoptions = {
+          width: 400, height: 120,
+          redFrom: 900, redTo: 1000,
+          yellowFrom:750, yellowTo: 900,
+          minorTicks: 10
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        var tuchart = new google.visualization.Gauge(document.getElementById('chart_div'));
 
+        
         chart.draw(data, options);
         cchart.draw(cdata, coptions);
+        tuchart.draw(tudata, tuoptions);
       }
     </script>
-    <!--column chart!-->
-    <script type="text/javascript">
-    //var cname = <?php echo '["' . implode('", "', $coursename) . '"]'; ?>;
-    //var cview = <?php echo '["' . implode('", "', $cview) . '"]'; ?>;
-
-     /* google.load("visualization", "1.1", {packages:["bar"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        //var data = google.visualization.arrayToDataTable(
-          //[
-          //for(var i = 0;i < cname.length;i++)
-          //[cname[i], cview[i]]
-          //]
-        //);
-var cdata = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
-        ]);
-
-        var coptions = {
-          chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
-        };
-
-        var cchart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        cchart.draw(cdata, coptions);
-      }*/
+   
     </script>
 </body>
 </html>
