@@ -50,8 +50,12 @@ while($a_rows=mysql_fetch_object($result))
   Username : <?php echo $uname; ?>
   <hr>
   <form action="" method="post">
+<<<<<<< HEAD
   E-Mail : <?php echo $mailaddr; ?>
   <br><br>&emsp;* You can add in extra message into the Reminder Mail or leave it blank *<br>&emsp;<input type="text" name="xtraMailMsg">&emsp;&emsp;<input class="btn btn-default" type="submit" name="sendReminder" value="Send Reminder Mail">&emsp;
+=======
+  E-Mail : <?php echo $mailaddr; ?>&emsp;&emsp;<input class="btn btn-default" type="submit" name="sendReminder" value="Send Reminder Mail">&emsp;
+>>>>>>> origin/kit
   <?php
     if(isset($_POST['sendReminder']))
     {
@@ -87,6 +91,10 @@ while($a_rows=mysql_fetch_object($result))
                     while($l_rows = mysql_fetch_object($lresult))
                         {
                             $lname = $l_rows->lessonname;
+<<<<<<< HEAD
+=======
+                            $lessonsNdate .= " [ " . $l_rows->lessonname . " = ";
+>>>>>>> origin/kit
             ?>
                             
                             <td align="left" width="50%"><?php echo $lname ?></a></td>
@@ -115,10 +123,14 @@ while($a_rows=mysql_fetch_object($result))
                               <td align="left" width="50%"><?php echo $diff->format("%d days, %h hours and %i minutes %s seconds ago" ) ?></a></td>
                             <?php
                             }
+<<<<<<< HEAD
                             if($days > 7)
                             {
                               $lessonsNdate .= " [ " . $l_rows->lessonname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
                             }
+=======
+                            $lessonsNdate .= "Last view on " . $diff->format("%d days") . " ago ]";
+>>>>>>> origin/kit
                             ?>
                             </tr>                
             <?php
@@ -139,8 +151,13 @@ $(document).ready(function(){
     if(isset($_POST['sendReminder']))
     {
       $sbj = 'Reminder of continue your lessons';
+<<<<<<< HEAD
       $xtraMsg = $_POST['xtraMailMsg'];
       $msg = 'Hello, this is a gentle reminder to inform you still have uncompleted lesson. ' . $lessonsNdate . $xtraMsg . " This is an auto-generated email, please do not reply.";
+=======
+      //$msg = 'Hello, this is a gentle reminder to inform you still have uncompleted lesson, please continue your lessons\n'. $diff->format("%d days, %h hours and %i minutes %s seconds ago" ).' This is an auto generated e-mail, please do not reply.';
+      $msg = 'Hello, this is a gentle reminder to inform you still have uncompleted lesson, ' . $lessonsNdate . ". This is an auto-generated email, please do not reply.";
+>>>>>>> origin/kit
       $dt = date("Y-m-d H:i:s");
 
       mail($mailaddr, $sbj, $msg, "From: e-Lesson");

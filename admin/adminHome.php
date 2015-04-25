@@ -21,51 +21,20 @@ $announcement = new announcementView();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <!--Script required for Google chart !-->
+    <script type="text/javascript" src="../jscss/googleChart.js"></script>
   </head>
 <body>
   <div class = "col-md-8">
     <legend>Navigation</legend>
     <div class = "row">
-      <div class = "col-md-2">
-        <figure>
-        <a href="courses.php"><img src="../img/blackboard.png"></a>
-        <figcaption>Course</figcaption>
-        </figure>
+      <div class = "col-md-5">
+        <div id="piechart" style="width: 100%; height: 100%;"></div>
       </div>
-      <div class = "col-md-2">
-        <figure>
-        <a href="viewlesson.php"><img src="../img/lesson.png"></a>
-        <figcaption>Lessons</figcaption>
-        </figure>
-      </div>
-      <div class = "col-md-2">
-       <figure>
-        <a href="viewquiz.php"><img src="../img/quiz.png"></a>
-        <figcaption>Quiz</figcaption>
-        </figure> 
-      </div>
-      <div class = "col-md-2">
-       <figure>
-        <a href="view_questionlist.php"><img src="../img/question.png"></a>
-        <figcaption>Question</figcaption>
-        </figure> 
-      </div>
-      <div class = "col-md-2">
-        <figure>
-        <a href="announcement.php"><img src="../img/announcement.png"></a>
-        <figcaption>Announcement</figcaption>
-        </figure>
+      <div class = "col-md-5">
+        <div id="columnchart_values" style="width: 100%; height: 100%;"></div>
       </div>
     </div>
-    <div class = "row">
-      <div class = "col-md-2">
-        <figure>
-        <a href="manageAccount.php"><img src="../img/user.png"></a>
-        <figcaption>Account</figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
   <div class = "col-md-3">
   <div class = "row">
    <br> <hr>
@@ -107,6 +76,108 @@ $announcement = new announcementView();
   </div>
 </div>
 </div>
+<?php
+  $cname = array();
+  $cview = array();
+  $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
+  while($c_rows = mysql_fetch_object($courseresult))
+  {
+    $cname[] = $c_rows->coursename;
+    $cview[] = $c_rows->view;
+  }
+  $csize = count($cname);
+  for($i = 0;$i < $csize;$i++)
+          {
+            echo $cname[$i];
+            echo $cview[$i];
+          }
+  //$jcname = json_encode($cname);
+  //$jcview = json_encode($cview);
+  $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
+  $pass = mysql_result($passquery,0);
+  $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
+  $fail = mysql_result($failquery,0);
+?>
+<!--Pie Chart !-->
+<script type="text/javascript">
 
+      google.load("visualization", "1", {packages:["corechart", "bar"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['PassFail', 'Number of people'],
+          ['Pass',    <?php echo $pass?>],
+          ['Fail',    <?php echo $fail?>]
+        ]);
+        /*var cname = <?php echo json_encode($cname) ?>;
+        var cview = <?php echo json_encode($cview) ?>;
+        var cdata = google.visualization.DataTable();
+        cdata.addColumn({ type: 'string', id: 'Course' });
+        cdata.addColumn({ type: 'number', id: 'View' });
+        for (i = 0; i < cname.length; i++)
+        {
+
+        }*/
+        var cdata = google.visualization.arrayToDataTable([
+          ['Course', 'View'],
+          <?php 
+          for($i = 0;$i < $csize;$i++)
+          {
+          ?>
+          [ '<?php echo $cname[$i]?>' , <?php echo $cview[$i];?>],   
+          <?php }?>
+         ]);
+        
+        var options = {
+          title: 'Passing Rate'
+        };
+        var coptions = {
+          chart: {
+            title: 'Number of Course View',
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+
+        chart.draw(data, options);
+        cchart.draw(cdata, coptions);
+      }
+    </script>
+    <!--column chart!-->
+    <script type="text/javascript">
+    //var cname = <?php echo '["' . implode('", "', $coursename) . '"]'; ?>;
+    //var cview = <?php echo '["' . implode('", "', $cview) . '"]'; ?>;
+
+     /* google.load("visualization", "1.1", {packages:["bar"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        //var data = google.visualization.arrayToDataTable(
+          //[
+          //for(var i = 0;i < cname.length;i++)
+          //[cname[i], cview[i]]
+          //]
+        //);
+var cdata = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var coptions = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
+
+        var cchart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        cchart.draw(cdata, coptions);
+      }*/
+    </script>
 </body>
 </html>
