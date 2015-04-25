@@ -119,14 +119,13 @@ $announcement = new announcementView();
         {
 
         }*/
-        var cdata = google.visualization.arrayToDataTable(
-          [['No of View', 'Course'],
+        var cdata = google.visualization.arrayToDataTable([
+          ['Course', 'View'],
           <?php 
-          for($i = 0;$i < 3;$i++)
+          for($i = 0;$i < $csize;$i++)
           {
           ?>
-          ['<?php echo $cview[$i];?>', <?php echo $cname[$i]?>]
-          
+          [ '<?php echo $cname[$i]?>' , <?php echo $cview[$i];?>],   
           <?php }?>
          ]);
         
