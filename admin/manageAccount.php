@@ -3,6 +3,7 @@ session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
+
 //require_once('../view/announcementView.php');
 //$announcement = new announcementView();
 ?>
@@ -13,9 +14,11 @@ include 'adminNav.php';
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Manage Account</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -42,8 +45,7 @@ include 'adminNav.php';
             <th align="right">Email</th>
             <th align="right">Position</th>
             <th align="right">Rank</th>
-            <th align="right">Modify</th>
-            <th align="right">Delete</th>
+            <th align="right">Action</th>
         </thead>
             <?php
                 $query="select * from user";
@@ -54,13 +56,18 @@ include 'adminNav.php';
             ?>
                     <tr>
                     <td align="left" width="5%"><?php echo $a_rows->userid ?></a></td>
-                    <td align="left" width="10%"><?php echo $a_rows->username ?></a></td>
+                    <td align="left" width="100"><a href="userdetail.php?uid=<?php echo $a_rows->userid ?>"><?php echo $a_rows->username ?></a></td>
+                    <!--<td align="left" width="10%"><?php echo $a_rows->username ?></a></td>-->
                     <td align="left" width="10%"><?php echo $a_rows->name ?></td>
                     <td align="left" width="20%"><?php echo $a_rows->email ?></td>
                     <td align="left" width="20%"><?php echo $a_rows->position ?></td>
                      <td align="left" width="20%">
                         <?php 
                         if($a_rows->rank == 1)
+                        {
+                            echo "Super Admin"; 
+                        }
+                        else if($a_rows->rank == 2)
                         {
                             echo "Admin"; 
                         }
@@ -69,8 +76,16 @@ include 'adminNav.php';
                             echo "User";                        
                         }?>
                     </td>
-                    <td align="left" width="10%"><a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">Modify</a></td>
-                    <td align="left" width="10%"><a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">Delete</a></td>
+                    <td align="left" width="10%">
+                        <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">
+                            <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                            <!-- Modify -->
+                        </a>
+                        <a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">
+                            <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                            <!-- Delete -->
+                        </a>
+                    </td>
                     </tr>                
             <?php
                 }
@@ -82,16 +97,7 @@ include 'adminNav.php';
 $(document).ready(function(){
     $('#user').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
 </script>

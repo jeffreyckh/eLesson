@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 //$temp_id;
 //$query_count="select count(*) from lesson";
 //$result_count=mysql_query($query_count,$link);
@@ -25,11 +25,57 @@ $result = mysql_query($query,$link);
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+      function validateForm(){
+        var warning_string = "";
+        if(document.add_lesson_form.select.value == ""){
+          alert("Please select a course.");
+          return false;
+        }
+        /*alert(document.add_lesson_form.select.value);*/
+
+        if(document.add_lesson_form.lname.value == ""){
+          alert("Please enter a lesson name.");
+          warning_string += "Please enter a lesson name.\n";
+          return false;
+        }else{
+          var l_name = document.add_lesson_form.lname.value;
+          // alert("Checking..."+l_name);
+          var state = checkLessonName(l_name);
+          /*alert("State: "+state);*/
+          return false;
+        }
+
+        return false;
+      }
+
+      function checkLessonName(l_name){
+        $.ajax({
+          url: "check_lesson.php",
+          type: "POST",
+          data: "l_name=" + l_name,
+          success: function(data){
+            // alert(data);
+            if(data == 1){
+              $("#name_warning_msg").html("Lesson name is taken, choose another.");
+              // return false;
+            }else{
+              $("#name_warning_msg").html("Lesson name is free.");
+              // return true;
+              document.getElementById("add_lesson_form").submit();
+            }
+          }
+        });
+
+      }
+
+    </script>
 </head>
 <body>
   <!--breadcrumb-->
@@ -52,24 +98,32 @@ else
 ?>
 <table class="table table-bordered">
 <tr>
- <form action="?action=addlesson" method="post">
+<form id="add_lesson_form" name="add_lesson_form" action="?action=addlesson" method="post" onsubmit="return(validateForm())">
 <td>Course:</td>
-<td><select name="select">
-     <?php $query2="select * from course";
-                $result2=mysql_query($query2,$link);
-                while($b_rows=mysql_fetch_object($result2))
-                {
+<td>
+    <select name="select">
+    <?php 
+    $query2 = "SELECT * from course";
+    $result2 = mysql_query($query2,$link);
     ?>
-     
-<option value="<?php echo $b_rows->courseid ?>" selected><?php echo $b_rows->coursename ?></option>
-
-<?php
-}
-?>
-
-</select></td></tr>
+      <option value='' disabled selected> --- Select a Course --- </option>
+    <?php
+    while($b_rows=mysql_fetch_object($result2)){
+      if($courseid == $b_rows->courseid){
+        ?>
+        <option value="<?php echo $b_rows->courseid ?>" selected><?php echo $b_rows->coursename ?></option>
+        <?php
+      }else{
+    ?>
+      <option value="<?php echo $b_rows->courseid ?>"><?php echo $b_rows->coursename ?></option>
+    <?php
+      }
+    }
+    ?>
+    </select>
+  </td></tr>
   <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
-<td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
+<td>Lesson Name:</td><td><input type="text" name="lname"><div id="name_warning_msg"></div></td></tr>
 <td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>

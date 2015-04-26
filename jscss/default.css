@@ -27,11 +27,7 @@ body {
 	font: normal 62.5% Tahoma,sans-serif;
 }
 
-<<<<<<< HEAD
-p,code,ul {padding-bottom: 1.2em;}
-=======
 code,ul {padding-bottom: 1.2em;}
->>>>>>> origin/kit
 
 li {list-style: none;}
 
@@ -75,11 +71,7 @@ h1,h2,h3 {padding-top: 6px;}
 	font-size: 1.2em;
 	margin: 0 auto;
 	padding: 0 0px 0px;
-<<<<<<< HEAD
-	width: 100%;
-=======
 	width: 100% !important;
->>>>>>> origin/kit
 }
 
 
@@ -90,64 +82,36 @@ h1,h2,h3 {padding-top: 6px;}
 }
 
 /* title */  
-<<<<<<< HEAD
-.header {
-	background: #C06190;
-	font-size: 1.4em;
-	height: 45px;
-=======
 .banner {
 	background: #C06190;
 	font-size: 1.4em;
 	height: 60px;
->>>>>>> origin/kit
 	margin: 0 auto;
 	padding: 10px 10px 5px;
 	width: 98%;
 }
-<<<<<<< HEAD
-.header .left {
-	background: #C06190;
-	color: #FFF;
-	width: 80%;
-	height: 45px;
-=======
 .banner .left {
 	background: #C06190;
 	color: #FFF;
 	width: 80%;
 	height: 60px;
->>>>>>> origin/kit
 		font: normal 2em "Trebuchet MS",sans-serif;
 	line-height: 50px;
 	text-align: center;
 }
 
-<<<<<<< HEAD
-.header .right {
-	background: #C06190;
-	color: #FFF;
-	width: 20%;
-	height: 45px;
-=======
 .banner .right {
 	background: #C06190;
 	color: #FFF;
 	width: 20%;
-	height: 60px;
->>>>>>> origin/kit
+	height: 40px;
 	overflow: auto;
 }
 
  
  
-<<<<<<< HEAD
-.header .right p,.header .right h2 {padding: 0 12px;}
-.header .right h2 {padding-top: 12px; font: normal 1.6em "Trebuchet MS",sans-serif;}
-=======
 .banner .right p,.banner .right h2 {padding: 0 12px;}
 .banner .right h2 {padding-top: 12px; font: normal 1.6em "Trebuchet MS",sans-serif;}
->>>>>>> origin/kit
 
 /* navigation */
 .navigation {	
@@ -317,21 +281,6 @@ label {
 	margin-top:12px;
 	padding-bottom:6px;
 }
-<<<<<<< HEAD
-.fieldset{
-  border: 1px solid black;
-  width: 20%;
-  margin:auto;
-  padding: 10px 10px 10px 30px;
-}
-	.centerObjects {
-		text-align:center;
-		float:center;
-		margin:auto;
-		display:block;
-		clear:both;
-	}
-=======
 
 .centerObjects {
 	text-align:center;
@@ -379,4 +328,3 @@ t.tablesorter tbody tr.odd td {
 .tablesorter thead tr .headerSortDown, .tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
->>>>>>> origin/kit

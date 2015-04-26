@@ -1,14 +1,10 @@
 <?php 
-include 'inc/header.php'; 
+include 'inc/login_header.php'; 
 session_start();
 require_once('view/RegistrationView.php');
 require_once('inc/db_config.php');
 
 $register = new RegistrationView();
-<<<<<<< HEAD
-$register->registerAccount();
-=======
->>>>>>> origin/kit
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +15,7 @@ $register->registerAccount();
 	
 	<!-- Your styles -->
 	<link rel="stylesheet" href="jscss/styles.css" type="text/css" media="screen" />
-<<<<<<< HEAD
-=======
 	<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
->>>>>>> origin/kit
 	
 </head>
 
@@ -43,7 +36,7 @@ $register->registerAccount();
 							</div>
 							<div class="row loginrow">
 								<div class="threecol">
-									<a href="lostPassword.php" class="loginbox">Forgot your password?</a> <br />
+									<a href="forget_passwords.php" class="loginbox">Forgot your password?</a> <br />
 									<a href="registration.php" class="loginbox">Register</a>
 								</div>
 								<div class="twocol last">

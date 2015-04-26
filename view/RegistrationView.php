@@ -1,19 +1,12 @@
 <?php
 include('inc/db_config.php');
 require_once('controller/UserController.php');
-<<<<<<< HEAD
-=======
 require_once ('controller/DatabaseController.php');
->>>>>>> origin/kit
 class RegistrationView{
   
 
   function registerAccount(){
-<<<<<<< HEAD
-    include ('controller/DatabaseController.php');
-=======
     
->>>>>>> origin/kit
     if (isset($_POST['username']) && isset($_POST['password'])){
     $db_controller = new DatabaseController();
     
@@ -58,10 +51,25 @@ class RegistrationView{
     }
 
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/kit
+  function resetPassword(){
+    if(isset($_POST['Reset']) && isset($_POST['Email']))
+    {
+      try
+      {
+        $email = $_POST['Email'];
+        $userController = new userController();
+        $user = $userController->forgotPass($email);
+        
+      } catch (ErrorException $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            } catch (mysqli_sql_exception $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            } catch (Exception $e) {
+                echo '<p class="error_message">' . $e->getMessage() . '</p>';
+            }
+    }
+  }
   }
 
 ?>

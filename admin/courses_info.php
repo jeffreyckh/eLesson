@@ -18,9 +18,11 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Course Info</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -29,11 +31,35 @@
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
+    <?php 
+    $uid = $_SESSION['userid'];
+    $query2 = " select * from user where userid = $uid";
+    $result2 = mysql_query($query2);
+    while($rows=mysql_fetch_object($result2))
+    {
+        if($rows->rank == 2)
+        {
+    ?>
+    <ol class="breadcrumb">
+    <li><a href="../user/userHome.php">Home</a></li>
+    <li><a href="../user/courses.php">Courses</a></li>
+    <li class="active">Course Info</li>
+    </ol>
+    <?php
+        }
+        else
+        {
+    ?>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
     <li><a href="courses.php">Courses</a></li>
     <li class="active">Course Info</li>
     </ol>
+    <?php
+        }
+    }
+    ?>
+   
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -70,8 +96,7 @@
             <th align="left">Lesson ID</th>
             <th align="left">Lesson Name</th>
             <th align="left">Created</th>
-            <th align="left">Modify</th>
-            <th align="left">Delete</th>
+            <th align="left">Action</th>
             </tr>
             </thead>
 
@@ -87,8 +112,20 @@
                 <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                <td align="left" width="100"><a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
+                <td align="left" width="100">
+                    <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                        <!-- Modify -->
+                    </a>
+                    <a class="action-tooltip" href="lesson_history.php?lid=<?php echo $a_rows->lessonid ?>" title="View History">
+                        <img id="action-icon" src="../img/historyicon2_600x600.png">
+                        <!-- &nbsp;View History&nbsp; -->
+                    </a>
+                    <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                        <!-- Delete -->
+                    </a>
+                </td>
                 </tr>
                            
         <?php
@@ -118,14 +155,7 @@ $('#myTab a').click(function (e) {
 $(document).ready(function(){
     $('#lesson').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
 </script>

@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    //include 'adminNav.php';
+    include 'adminNav.php';
     $m_id=intval($_REQUEST['cid']);
     $query="select coursename,description from course where courseid=$m_id";
     $result=mysql_query($query,$link);
@@ -22,11 +22,23 @@
   <title>Edit Course</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+    function validateForm(){
+        // alert("Validating");
+        if(document.edit_course_form.cname.value == ""){
+            alert("Course name is empty. Please enter a course name.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </head>
 <body>
 <!--breadcrumb-->
@@ -44,7 +56,7 @@ if(isset($_GET['action'])=='editcourse') {
 }else
 //show form
 ?>
-<form action="?action=editcourse?cid=<?php echo $m_id ?>" method="post">
+<form action="?action=editcourse?cid=<?php echo $m_id ?>" method="post" name="edit_course_form" onsubmit="return(validateForm())">
 <input type="hidden" name="cid" value="<?php echo $m_id ?>">
 <table class="table table-bordered">
 <tr>

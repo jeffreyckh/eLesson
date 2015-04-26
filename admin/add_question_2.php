@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
@@ -24,11 +24,37 @@ $result = mysql_query($query,$link);
   <title>Add Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+  <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+      function validateForm(){
+        var warning_string = "";
+        
+        if(document.add_question_form.quescont.value == ""){
+          alert("Please enter question content.");
+          warning_string += "Please enter question content.\n";
+          return false;
+        }else if(document.add_question_form.quesans.value == ""){
+          alert("Please enter correct answer.");
+          warning_string += "Please enter question content.\n";
+          return false;
+        }else if(document.add_question_form.option.value == ""){
+          alert("Please enter option list.");
+          warning_string += "Please enter question content.\n";
+          return false;
+        }else{
+          
+          return true;
+        }
+
+        return false;
+      }
+
+    </script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -51,7 +77,7 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>>" method="post">
+ <form action="?action=addquestion&qid=<?php echo $quizid?>>" name="add_question_form" method="post" onsubmit="return(validateForm())">
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
@@ -67,6 +93,12 @@ value="checkbox">Multiple Choice</td></tr>
 
 <td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
 <td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
+<td>Difficulty:</td><td>
+    <select name="ddlDifficulty">
+        <option value="Easy" selected>Easy</option>
+        <option value="Normal">Normal</option>
+        <option value="Hard">Hard</option>
+    </select></td></tr>
 </table>
 <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
 </form>
@@ -92,6 +124,7 @@ value="checkbox">Multiple Choice</td></tr>
     $add_answer = str_replace("/","/",$add_answer);
     $add_option=$_POST['option'];
     $add_option = str_replace("/","/",$add_option);
+    $add_difficulty = $_POST['ddlDifficulty'];
 	$flag=false;
 	$check="select * from question";
 	$check_result=mysql_query($check,$link);
@@ -105,7 +138,7 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,content,choicetype,answer,optionlist) values('$add_questionid','$add_content','radio','$add_answer','$add_option')";
+            $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());

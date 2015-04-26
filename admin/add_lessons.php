@@ -2,12 +2,15 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 $temp_id;
 //$query_count="select count(*) from lesson";
 //$result_count=mysql_query($query_count,$link);
 //$count=mysql_result($result_count,0) + 1;
-$courseid = intval($_REQUEST['cid']);
+if(isset($_REQUEST['cid'])){
+  $courseid = intval($_REQUEST['cid']);  
+}
+
 $query = " select * from lesson order by lessonid DESC limit 1";
 $result = mysql_query($query,$link);
  while($m_rows=mysql_fetch_object($result))
@@ -26,11 +29,51 @@ $result = mysql_query($query,$link);
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+      function validateForm(){
+        var warning_string = "";
+        
+        if(document.add_lesson_form.lname.value == ""){
+          alert("Please enter a lesson name.");
+          warning_string += "Please enter a lesson name.\n";
+          return false;
+        }else{
+          var l_name = document.add_lesson_form.lname.value;
+          // alert("Checking..."+l_name);
+          var state = checkLessonName(l_name);
+          /*alert("State: "+state);*/
+          return false;
+        }
+
+        return false;
+      }
+
+      function checkLessonName(l_name){
+        $.ajax({
+          url: "check_lesson.php",
+          type: "POST",
+          data: "l_name=" + l_name,
+          success: function(data){
+            // alert(data);
+            if(data == 1){
+              $("#name_warning_msg").html("Lesson name is taken, choose another.");
+              // return false;
+            }else{
+              $("#name_warning_msg").html("Lesson name is free.");
+              // return true;
+              document.getElementById("add_lesson_form").submit();
+            }
+          }
+        });
+
+      }
+    </script>
 </head>
 <body>
   <ol class="breadcrumb">
@@ -51,10 +94,14 @@ if(isset($_GET['action'])=='addlesson') {
 ?>
 <table class="table table-bordered">
 <tr>
- <form action="?action=addlesson" method="post">
+ <form id="add_lesson_form" name="add_lesson_form" action="?action=addlesson" method="post" onsubmit="return(validateForm())">
   <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
   <input type="hidden" name="cid" value="<?php echo $courseid ?>">
-<td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
+<td>Lesson Name:</td>
+  <td>
+    <input type="text" name="lname">
+    <div id="name_warning_msg"></div>
+  </td></tr>
 <tr><td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80"></textarea>
 </td></tr>
@@ -67,7 +114,10 @@ if(isset($_GET['action'])=='addlesson') {
    <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      CKEDITOR.replace('lcont', {
+        "filebrowserImageUploadUrl": "/path_to/ckeditor/plugins/imgupload.php"
+      });
+      //CKEDITOR.replace( 'lcont' );
   </script>
   <br><br>
 </body>

@@ -12,6 +12,7 @@
         $m_content=$m_rows->content;
         $m_answer=$m_rows->answer;
         $m_optionlist=$m_rows->optionlist;
+        $m_difficulty=$m_rows->difficulty;
     }
 
     
@@ -27,6 +28,7 @@
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -57,6 +59,25 @@ if(isset($_GET['action'])=='editquestion') {
     <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
     <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
     <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
+    <tr><td>Difficulty:</td><td>
+      <select name="ddlDifficulty">
+        <?php
+        if($m_difficulty == "Easy")
+          echo '<option value="Easy" selected>Easy</option>';
+        else
+          echo '<option value="Easy" >Easy</option>';
+
+        if($m_difficulty == "Normal")
+          echo '<option value="Normal" selected>Normal</option>';
+        else
+          echo '<option value="Normal">Normal</option>';
+
+        if($m_difficulty == "Hard")
+          echo '<option value="Hard" selected>Hard</option>';
+        else
+          echo '<option value="Hard">Hard</option>';
+        ?>
+      </select></td></tr>
     </table>
     <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
 </form>
@@ -77,12 +98,17 @@ function editquestion()
     $edit_content=$_POST['qcont'];
     $edit_answer=$_POST['qanswer'];
     $edit_optionlist=$_POST['qopt'];
+    $edit_ddlDifficulty=$_POST['ddlDifficulty'];
     $flag=true;
     $check="select * from question";
     $check_result=mysql_query($check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_content,$result_rows->content)!=0)
+            if(strcmp($edit_content,$result_rows->content)!=0 ||
+                (strcmp($edit_answer,$result_rows->answer)!=0) ||
+                (strcmp($edit_optionlist,$result_rows->optionlist)!=0) ||
+                (strcmp($edit_ddlDifficulty,$result_rows->difficulty)!=0)
+              )
             $flag=false;
             else
             $flag=true;
@@ -91,7 +117,7 @@ function editquestion()
     if($flag==false)
     {
        
-            $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist' where questionid=$quesid";
+            $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',difficulty = '$edit_ddlDifficulty' where questionid=$quesid";
             if(!mysql_query($sql,$link))
              die("Could not update the data!".mysql_error());
             else

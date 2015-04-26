@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    //include 'adminNav.php';
+    include 'adminNav.php';
     $m_id=intval($_REQUEST['qid']);
     $query="select quizname,lessonid from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);
@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

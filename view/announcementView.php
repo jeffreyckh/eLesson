@@ -16,8 +16,6 @@ class announcementView{
     }
   } 
   }
-<<<<<<< HEAD
-=======
 
   public function editAnnouncement(){
     if (isset($_POST['submit']))
@@ -86,6 +84,5 @@ class announcementView{
       }
     }
   }
->>>>>>> origin/kit
 }
 ?>

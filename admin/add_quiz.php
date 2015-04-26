@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from quiz";
 $result_count=mysql_query($query_count,$link);
@@ -21,11 +21,24 @@ $result = mysql_query($query,$link);
   <title>Add Quiz</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        function validateForm(){
+            if(document.add_quiz_form.qname.value == ""){
+                alert("Please enter a quiz name.");
+                return false;
+            }else{
+                return true;
+            }
+
+            return false;
+        }
+    </script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -48,7 +61,7 @@ else
 ?>
 <table class="table table-bordered">
 <tr>
- <form action="?action=addquiz" method="post">
+ <form action="?action=addquiz" name="add_quiz_form" method="post" onsubmit="return(validateForm())">
 <td>Lesson:</td>
 <td><select name="select">
      <?php $query2="select * from lesson order by direction_id";

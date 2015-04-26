@@ -11,9 +11,12 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Quiz</title>
-  <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -46,8 +49,7 @@
         <th align="left">Created</th>
         <th align="left">Lesson</th>
         <th align="left">Course</th>
-        <th align="left">Modify</th>
-        <th align="left">Delete</th>
+        <th align="left">Action</th>
         </thead>
         <?php
             $query="select * from quiz order by lessonid";
@@ -88,8 +90,16 @@
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
-                <td align="left" width="100"><a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">Delete</a></td>
+                <td align="left" width="100">
+                    <a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">
+                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                        <!-- Modify -->
+                    </a>
+                    <a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">
+                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                        <!-- Delete -->
+                    </a>
+                </td>
                 </tr>                
         <?php
 
@@ -103,16 +113,7 @@
     $(document).ready(function(){
     $('#quiz').DataTable(
         {  
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
     });
     </script>

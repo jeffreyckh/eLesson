@@ -78,6 +78,59 @@ $announcement = new announcementView();
       </div>
     </div>
   </div>
+  <div class = "row">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Lastest View
+            </a>
+          </h4>
+        </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            <fieldset class = "setright">
+              <?php
+                  $username = $_SESSION['username'];
+                  //echo $username;
+                  $query1 = "SELECT * FROM user WHERE username= '$username' limit 1";
+                  $result1=mysql_query($query1);
+                  
+              
+                  while($rows=mysql_fetch_object($result1))
+                  {
+
+                    $_SESSION['userid']=$rows->userid;
+                    $uid = $_SESSION['userid'];
+                  }
+
+                  $query2="select * from user_to_lesson WHERE userid = '$uid' ";
+                  $result2=mysql_query($query2);
+                  while($l_rows=mysql_fetch_object($result2))
+                  {
+                    $lessonid = $l_rows->lessonid;
+                    $query3="select * from lesson WHERE lessonid = '$lessonid' ";
+                    $result3=mysql_query($query3);
+                    while($d_rows=mysql_fetch_object($result3))
+                    {
+                      $lessonname = $d_rows->lessonname;
+                      echo "<fieldset>
+                       
+                       <a href=\"lessons_info.php?lid=$lessonid\">".$lessonname."</a>
+                      </fieldset>";
+                      echo "<hr>";
+                    }
+                  }
+
+                  
+              ?>      
+            </fieldset>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 

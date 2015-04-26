@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 	require_once "DatabaseController.php";
->>>>>>> origin/kit
 	class UserController{
 
 		public function register($username,$password,$repeatPassword, $name, $email, $position){
@@ -74,12 +71,28 @@
         		
         		return $result;
 		}
-<<<<<<< HEAD
-	}	
-	
-=======
+
+		public function forgotPass($email){
+			try
+			{
+				if (empty($email))
+				{
+					throw new Exception("Email must not be empty.");	
+				}
+
+				$dbController = new DatabaseController();
+				$result = $dbController->retrivePass($email);
+
+			} catch (ErrorException $e) {
+            	throw $e;
+        	} catch (mysqli_sql_exception $e) {
+            	throw $e;
+        	} catch (Exception $e) {
+           		throw $e;
+        	}
+			
+		}
 
 
 	}	
 ?>
->>>>>>> origin/kit

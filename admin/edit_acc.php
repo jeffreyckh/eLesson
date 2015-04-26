@@ -2,6 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
+include 'adminNav.php';
 require_once('../view/userView.php');
 $user = new userView();
 $m_id=intval($_REQUEST['userid']);
@@ -22,6 +23,7 @@ while($m_rows=mysql_fetch_object($result))
   <title>Edit User</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -50,18 +52,104 @@ while($m_rows=mysql_fetch_object($result))
               <?php 
               if ($m_rank == 1)
               {
-                echo "<option value=\"1\" selected>Admin</option>";
-                echo "<option value=\"2\">User</option>";
+                echo "<option value=\"1\" selected>Super Admin</option>";
+                echo "<option value=\"2\">Admin</option>";
+                echo "<option value=\"3\">User</option>";
               }
               else if ($m_rank ==2) 
               {
-                echo "<option value=\"1\">Admin</option>";
-                echo "<option value=\"2\"selected>User</option>";
+                echo "<option value=\"1\">Super Admin</option>";
+                echo "<option value=\"2\"selected>Admin</option>";
+                echo "<option value=\"3\">User</option>";
+              }
+               else if ($m_rank ==3) 
+              {
+                echo "<option value=\"1\">Super Admin</option>";
+                echo "<option value=\"2\">Admin</option>";
+                echo "<option value=\"3\"selected>User</option>";
               }
               ?>
               </select>
             </td>
           </tr>
+          <?php
+            if($m_rank == 2)
+            {
+              $query1="select * from course";
+              $result1=mysql_query($query1);
+              echo "<tr>";
+              echo "<td width=\"20%\">Course: </td>";
+              echo "<td>";
+              while($m_rows=mysql_fetch_object($result1))
+              {
+
+                 $cquery = "select * from permission where courseid = $m_rows->courseid";
+                 $cresult = mysql_query($cquery);
+                 if (mysql_num_rows($cresult) == 0) 
+                  {
+                    echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
+                  }
+                else
+                  {
+                    echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" checked/>".$m_rows->coursename."</br>";
+                  }
+
+
+                echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
+
+              }
+              echo "</td>";
+              
+              echo "</tr>";
+            }
+
+            if(isset($_POST['permCourse']))
+            {
+              $perm = $_POST['permCourse'];
+              $query2 = "select * from permission where userid = $m_id";
+              $result2 = mysql_query($query2);
+              if (mysql_num_rows($result2) != 0) 
+              {
+                 $sql="delete from permission where userid=$m_id";
+                 $result3 = mysql_query($sql);
+              } 
+              
+              if(!empty($perm))
+              {
+                $n = count($perm);
+                for($i=0;$i < $n; $i++)
+                {
+                  $sql1 = "insert into permission (userid,courseid) values ($m_id,$perm[$i])";
+                  $result3 = mysql_query($sql1);
+                  //echo($perm[$i] . " ");
+                }
+              }
+            }
+            
+
+
+            $perm = $_POST['permCourse'];
+            $query2 = "select * from permission where userid = $m_id";
+            $result2 = mysql_query($query2);
+            if (mysql_num_rows($result2) != 0) 
+            {
+               $sql="delete from permission where userid=$m_id";
+               $result3 = mysql_query($sql);
+            } 
+            
+            if(!empty($perm))
+            {
+              $n = count($perm);
+              for($i=0;$i < $n; $i++)
+              {
+                $sql1 = "insert into permission (userid,courseid) values ($m_id,$perm[$i])";
+                $result3 = mysql_query($sql1);
+                //echo($perm[$i] . " ");
+              }
+            }
+
+
+          ?>
 
     </table>
     <br>
