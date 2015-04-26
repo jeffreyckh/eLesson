@@ -26,19 +26,32 @@ $announcement = new announcementView();
   </head>
 <body>
   <div class = "col-md-8">
-    <legend>Navigation</legend>
-    <div class = "row">
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#piechart" aria-controls="home" role="tab" data-toggle="tab">Passing Rate</a></li>
+        <li role="presentation"><a href="#columnchart_values" aria-controls="profile" role="tab" data-toggle="tab">Number of view</a></li>
+        <li role="presentation"><a href="#chart_div" aria-controls="messages" role="tab" data-toggle="tab">Total registered member</a></li>
+      
+        </ul>
+    <!--<div class = "row">
       <div class = "col-md-5">
         <div id="piechart" style="width: 100%; height: 100%;"></div>
       </div>
-      <div class = "col-md-5">
-        <div id="columnchart_values" style="width: 100%; height: 100%;"></div>
+      <div class = "col-md-20">
+        <div id="columnchart_values" style="width: 900px%; height: 400px;"></div>
       </div>
       <div class = "col-md-5">
         <div id="chart_div" style="width: 100%; height: 100%;"></div>
-      </div>
+      </div>!-->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="piechart"></div>
+      <div role="tabpanel" class="tab-pane" id="columnchart_values"></div>
+      <div role="tabpanel" class="tab-pane" id="chart_div"></div>
     </div>
-  <div class = "col-md-3">
+    </div>
+  </div>
+ <!--<div class = "col-md-3">
   <div class = "row">
    <br> <hr>
   <?php
@@ -71,14 +84,14 @@ $announcement = new announcementView();
                     echo "<hr>";
                   }
               ?>      
-            </fieldset>
+            </fieldset> 
         </div>
       </div>
       </div>
     </div>
   </div>
 </div>
-</div>
+</div>!-->
 <?php
   $cname = array();
   $cview = array();
@@ -99,9 +112,95 @@ $announcement = new announcementView();
   $numUserRows = mysql_num_rows($nuquery);
 ?>
 <!--Pie Chart !-->
-<script type="text/javascript">
 
-      google.load("visualization", "1", {packages:["corechart", "bar",'gauge']});
+<script type="text/javascript">
+      //$('#myTab a').click(function (e) {
+      //e.preventDefault()
+      //$(this).tab('show')
+      //})
+
+      
+      </script>
+      <script type="text/javascript">
+      function passingRateChart()
+      {
+        // pie Chart for passing ate
+          var data = google.visualization.arrayToDataTable([
+            ['PassFail', 'Number of people'],
+            ['Pass',    <?php echo $pass?>],
+            ['Fail',    <?php echo $fail?>]
+          ]);
+       
+          var options = {
+            title: 'Passing Rate'
+          };
+       
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        
+          chart.draw(data, options);
+        }
+        google.load('visualization', '1', {
+        packages: ['corechart'],
+        callback: passingRateChart
+        });
+      function numberCourseView()
+      {
+
+        
+        // bar chart for number of view
+        var cdata = google.visualization.arrayToDataTable([
+          ['Course', 'View'],
+          <?php 
+          for($i = 0;$i < $csize;$i++)
+          {
+          ?>
+          [ '<?php echo $cname[$i]?>' , <?php echo $cview[$i];?>],   
+          <?php }?>
+         ]);
+        
+        var coptions = {
+          chart: {
+            title: 'Number of Course View',
+          }
+        };
+      
+        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+       
+        cchart.draw(cdata, coptions);
+      
+      }
+      google.load('visualization', '1', {
+        packages: ['bar'],
+        callback: numberCourseView
+      });
+      function numberofUser()
+      {
+
+        // gauge for total user registered
+        var tudata = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['User', <?php echo $numUserRows; ?>]
+        ]);
+
+        var tuoptions = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+    
+        var tuchart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        tuchart.draw(tudata, tuoptions);
+      
+      }
+      google.load('visualization', '1', {
+        packages: ['gauge'],
+        callback: numberofUser
+      });
+      /*google.load("visualization", "1", {packages:["corechart", "bar",'gauge']});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         // pie Chart for passing ate
@@ -137,9 +236,9 @@ $announcement = new announcementView();
         };
         var tuoptions = {
           width: 400, height: 120,
-          redFrom: 900, redTo: 1000,
-          yellowFrom:750, yellowTo: 900,
-          minorTicks: 10
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -150,9 +249,8 @@ $announcement = new announcementView();
         chart.draw(data, options);
         cchart.draw(cdata, coptions);
         tuchart.draw(tudata, tuoptions);
-      }
+      }*/
     </script>
-   
-    </script>
+
 </body>
 </html>
