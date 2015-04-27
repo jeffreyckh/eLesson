@@ -112,10 +112,20 @@ while($a_rows=mysql_fetch_object($result))
                             else
                             {
                             ?>
-                              <td align="left" width="50%"><?php echo $diff->format("%d days, %h hours and %i minutes %s seconds ago" ) ?></a></td>
+                              <td align="left" width="50%">
+                                <?php
+                                  if($days >= 7)
+                                  {
+                                    $temp = $diff->format("%d days, %h hours and %i minutes %s seconds ago");
+                                    echo "<font color='red'>$temp</font>";
+                                  }
+                                  else
+                                    echo $diff->format("%d days, %h hours and %i minutes %s seconds ago");
+                                ?>
+                              </a></td>
                             <?php
                             }
-                            if($days > 7)
+                            if($days >= 7)
                             {
                               $lessonsNdate .= " [ " . $l_rows->lessonname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
                             }
