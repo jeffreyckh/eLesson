@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -13,6 +13,7 @@
     }
       
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -48,6 +49,9 @@
     <li class="active">Edit Course</li>
     </ol>
 Modify Course Detail
+=======
+Change Course Detail
+>>>>>>> origin/Brennan
 <hr>
 
 <?php
@@ -68,11 +72,11 @@ if(isset($_GET['action'])=='editcourse') {
 </table>
 <div class="row">
 <div align = "center">
-    <button type="submit" class="btn btn-default">Submit</button>&nbsp&nbsp<button type="reset" class="btn btn-default">Reset</button>
+    <button type="submit" class="btn btn-default">Submit</button>
+    &nbsp&nbsp
+    <button type="reset" class="btn btn-default">Reset</button>
 </div>
 </form>
-<br><br>
-</body>
 <?php
 function editcourse() 
  {
@@ -80,27 +84,67 @@ function editcourse()
     $m_id=intval($_POST['cid']);
     $edit_name=$_POST['cname'];
     $edit_desc=$_POST['cdesc'];
-    $flag=true;
+
+    $modify_time = "";
+    $modify_user = "";
+    
+    // Check entries for duplicate course names
+    $flag=false;
     $check="select * from course";
-    $check_result=mysql_query($check,$link);
+    $query_check = "SELECT * FROM course WHERE courseid != '$m_id'";
+    $check_result=mysql_query($query_check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_name,$result_rows->coursename)!=0)
-            $flag=false;
-            else
-            $flag=true;
+            
+            if(strcmp($edit_name, $result_rows->coursename)==0)
+                $flag=true;
+            // else
+            //     $flag=true;
+
+            // echo $edit_name." ".$result_rows->coursename."<br>";
+            // echo $flag."<br>";
         }
     
+    // Check if submitted fields are different
+    $modify_flag = false;
+    $query_select_check = "SELECT coursename, description FROM course WHERE courseid = '$m_id'";
+    $check_select_result = mysql_query($query_select_check, $link);
+        while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
+            // foreach($result_rows as $k=>$v){
+            //     echo "<br>".$k." ".$v;
+            // }
+            
+            if(strcmp($edit_name, $result_rows["coursename"])!=0){
+                $modify_flag = true;
+            }
+            if(strcmp($edit_desc, $result_rows["description"])!=0){
+                $modify_flag = true;
+            }
+        }
+
     if($flag==false)
     {
-       
-            $sql="update course set coursename='$edit_name',description='$edit_desc' where courseid=$m_id";
-            if(!mysql_query($sql,$link))
+        $query_update = "";
+            if($modify_flag == true){
+                date_default_timezone_set("Asia/Kuching");
+                $modify_time = date('Y-m-d H:i:s');
+                $modify_user = $_SESSION['username'];
+
+                $query_update = "UPDATE course SET 
+                                coursename = '$edit_name', description = '$edit_desc',
+                                modified_on = '$modify_time', modified_by = '$modify_user'
+                                WHERE courseid = '$m_id'";
+            }else{
+                $query_update="update course set coursename='$edit_name',description='$edit_desc' where courseid=$m_id";
+            }
+            // $sql="update course set coursename='$edit_name',description='$edit_desc' where courseid=$m_id";
+            
+            if(!mysql_query($query_update,$link))
              die("Could not update the data!".mysql_error());
             else
             {
                 echo '<script> alert("Modify Course Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
+                // echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
                 
             }
     }
@@ -113,4 +157,7 @@ function editcourse()
 mysql_close($link);
 ?>
 
-</html>
+
+<br>
+<a href="courses.php">Return</a>
+

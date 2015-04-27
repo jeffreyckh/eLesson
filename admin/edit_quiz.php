@@ -1,19 +1,25 @@
 <?php
     session_start();
-    include'../inc/db_config.php';
+    include '../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
+<<<<<<< HEAD
     $m_id=intval($_REQUEST['qid']);
     $query="select quizname,lessonid from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
+=======
+    $m_id = intval($_REQUEST['qid']);
+    $query_select_quiz  = "SELECT quizname, lessonid FROM quiz WHERE quizid = '$m_id'";
+    $result_select_quiz = mysql_query($query_select_quiz, $link);
+    while($m_rows=mysql_fetch_object($result_select_quiz)){
+>>>>>>> origin/Brennan
         $m_quizname=$m_rows->quizname;
         
         $m_lessonid=$m_rows->lessonid;
     }
 
-    
       //echo $m_directionid;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,12 +40,6 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-<!--breadcrumb-->
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewquiz.php">Quiz</a></li>
-    <li class="active">Edit Quiz</li>
-    </ol>
 
 Modify Quiz
 <hr>
@@ -96,32 +96,55 @@ if(isset($_GET['action'])=='editquiz') {
 function editquiz() 
  {
  include("../inc/db_config.php");
-    $qid=intval($_POST['qid']);
-    $m_id=intval($_POST['select']);
+    $qid = intval($_POST['qid']);
+    $m_id = intval($_POST['select']);
     //$m_did = intval($POST['cid']);
-    $edit_name=$_POST['qname'];
-    $flag=true;
-    $check="select * from quiz";
+    $edit_name = $_POST['qname'];
+    $flag = true;
+    $check= "SELECT * FROM quiz";
+
     $check_result=mysql_query($check,$link);
-     $query_name="select quizname from quiz where quizid = $qid";
-        $result_name=mysql_query($query_name,$link);
-        $oldname=mysql_result($result_name,0);
-        
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if($edit_name !=$result_rows->quizname || $edit_name === $oldname)
+            if(strcmp($edit_name,$result_rows->quizname)!=0)
             $flag=false;
             else
-            {$flag=true;
-            break;
-            }
+            $flag=true;
         }
     
+    // Check if submitted fields are different
+    $modify_flag = false;
+    $query_select_check = "SELECT quizname, lessonid FROM quiz WHERE quizid = '$qid'";
+    $check_select_result = mysql_query($query_select_check, $link);
+        while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
+            
+            if(strcmp($edit_name, $result_rows["quizname"])!=0){
+                $modify_flag = true;
+            }
+            if($m_id != $result_rows["lessonid"]){
+                $modify_flag = true;
+            }
+        }
+
     if($flag==false)
     {
-       
-            $sql="update quiz set quizname='$edit_name',lessonid='$m_id' where quizid=$qid";
-            if(!mysql_query($sql,$link))
+            $query_update = "";
+
+            if($modify_flag == true){
+
+              date_default_timezone_set("Asia/Kuching");
+              $modify_time = date('Y-m-d H:i:s');
+              $modify_user = $_SESSION['username'];
+
+              $sql="update quiz set quizname='$edit_name',lessonid='$m_id' where quizid=$qid";
+              $query_update = "UPDATE quiz SET 
+                              quizname = '$edit_name', lessonid = '$m_id',
+                              modified_on = '$modify_time', modified_by = '$modify_user'
+                              WHERE quizid = '$qid'";
+            }else{
+              $query_update = "update quiz set quizname='$edit_name',lessonid='$m_id' where quizid=$qid";
+            }
+            if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());
             else
             {

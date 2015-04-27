@@ -78,13 +78,6 @@ $result = mysql_query($query,$link);
     </script>
 </head>
 <body>
-  <!--breadcrumb-->
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewlesson.php">Lesson</a></li>
-    <li class="active">Add Lesson</li>
-    </ol>
-
 <center>
 Add New Lesson
 <hr>
@@ -106,6 +99,7 @@ else
     $query2 = "SELECT * from course";
     $result2 = mysql_query($query2,$link);
     ?>
+<<<<<<< HEAD
       <option value='' disabled selected> --- Select a Course --- </option>
     <?php
     while($b_rows=mysql_fetch_object($result2)){
@@ -124,14 +118,26 @@ else
   </td></tr>
   <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
 <td>Lesson Name:</td><td><input type="text" name="lname"><div id="name_warning_msg"></div></td></tr>
+=======
+     
+<option value="<?php echo $b_rows->courseid ?>" selected><?php echo $b_rows->coursename ?></option>
+
+<?php
+}
+?>
+
+</select></td></tr>
+
+<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
+<td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
+>>>>>>> origin/Brennan
 <td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>
 </td></tr>
-</table>
-<input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
 </form>
-
+</table>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
@@ -184,6 +190,7 @@ else
 
 
 <br>
+<a href="viewlesson.php">Return</a>
 </center> 
 
 <?php

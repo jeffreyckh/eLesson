@@ -15,16 +15,23 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+=======
+>>>>>>> origin/Brennan
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+<<<<<<< HEAD
 
      <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
  </head>
+=======
+</head>
+>>>>>>> origin/Brennan
 <body>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
@@ -45,8 +52,13 @@
         <th align="left">Course ID</th>
         <th align="left">Course Name</th>
         <th align="left">Created</th>
+<<<<<<< HEAD
         <th align="left">Admin In Charge</th>
         <th align="center" style="text-align:center;">Actions</th>
+=======
+        <th align="left">Options</th>
+        <!-- <th align="left">Delete</th> -->
+>>>>>>> origin/Brennan
         </thead>
         <?php
             $query="select * from course order by courseid";
@@ -59,6 +71,7 @@
                 <td align="left" width="100"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
+<<<<<<< HEAD
                 <td align="left" width="100">
                     <?php
                         $uquery = "select * from permission where courseid = $a_rows->courseid";
@@ -88,6 +101,11 @@
                     </a>
                 </td>
             </tr> 
+=======
+                <td align="left" width="100"><a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>">Modify</a>
+                <a href="del_course.php?cid=<?php echo $a_rows->courseid ?>">Delete</a></td>
+                </tr> 
+>>>>>>> origin/Brennan
                               
         <?php
             }

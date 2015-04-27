@@ -5,11 +5,16 @@
     include 'adminNav.php';
     $m_id=intval($_GET['cid']);
     $query="select coursename,description from course where courseid=$m_id";
-    $result=mysql_query($query,$link);
+    $query_select = "SELECT * FROM course WHERE courseid = $m_id";
+    $result=mysql_query($query_select,$link);
     while($m_rows=mysql_fetch_object($result))
     {
         $m_coursename=$m_rows->coursename;
         $m_coursedesc=$m_rows->description;
+        $m_course_createtime = $m_rows->created_on;
+        $m_course_creator = $m_rows->created_by;
+        $m_course_modifytime = $m_rows->modified_on;
+        $m_course_modifier = $m_rows->modified_by;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -22,7 +27,10 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+=======
+>>>>>>> origin/Brennan
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -77,9 +85,25 @@
             <tr>
                 <td>Course Description:</td><td><?php echo $m_coursedesc ?></td>
             </tr>
+            <tr>
+                <td>Created By:</td>
+                <td><?php echo $m_course_creator ?></td>
+            </tr>
+            <tr>
+                <td>Created On:</td>
+                <td><?php echo $m_course_createtime ?></td>
+            </tr>
+            <tr>
+                <td>Last Modified By:</td>
+                <td><?php echo $m_course_modifier ?></td>
+            </tr>
+            <tr>
+                <td>Last Modified On:</td>
+                <td><?php echo $m_course_modifytime ?></td>
+            </tr>
             </table>
-            </div>
-        <div role="tabpanel" class="tab-pane" id="lessons">
+        </div>
+    <div role="tabpanel" class="tab-pane" id="lessons">
                 <?php
         $c_id=intval($_REQUEST['cid']);
         $query_count="select count(*) from lesson where direction_id=$c_id";
@@ -96,7 +120,12 @@
             <th align="left">Lesson ID</th>
             <th align="left">Lesson Name</th>
             <th align="left">Created</th>
+<<<<<<< HEAD
             <th align="left">Action</th>
+=======
+            <th align="left">Options</th>
+            <!-- <th align="left">Delete</th> -->
+>>>>>>> origin/Brennan
             </tr>
             </thead>
 
@@ -113,6 +142,7 @@
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100">
+<<<<<<< HEAD
                     <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
                         <img id="action-icon" src="../img/modifyicon2_600x600.png">
                         <!-- Modify -->
@@ -126,6 +156,11 @@
                         <!-- Delete -->
                     </a>
                 </td>
+=======
+                    <!-- <a href="view">Details</a> -->
+                    <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a>
+                    <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
+>>>>>>> origin/Brennan
                 </tr>
                            
         <?php
@@ -148,7 +183,7 @@ mysql_close($link);
 <script>
 $('#myTab a').click(function (e) {
   e.preventDefault()
-  $('#myTab a:last').tab('show')
+  $(this).tab('show')
 })
 </script>
 <script>
