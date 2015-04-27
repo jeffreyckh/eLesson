@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    //include 'adminNav.php';
+    include 'adminNav.php';
     $quizid=intval($_REQUEST['qid']);
     $quesid=intval($_REQUEST['quid']);
     $query="select * from question where questionid=$quesid";
@@ -35,12 +35,6 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewquiz.php">Quiz</a></li>
-    <li><a href="view_question.php?qid=<?php echo $quizid ?>">Questions</a></li>
-    <li class="active">Edit Question</li>
-    </ol>
 
 Modify Question
 <hr>
@@ -86,7 +80,6 @@ if(isset($_GET['action'])=='editquestion') {
       // instance, using default configuration.
       CKEDITOR.replace( 'qcont' );
   </script>
-  <br><br>
   </body>
   </html>
 <?php
@@ -122,7 +115,7 @@ function editquestion()
              die("Could not update the data!".mysql_error());
             else
             {
-            
+                
                 echo '<script> alert("Modify Question Successful!") </script>';
                 
                 echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $quizid . '" </script>';
@@ -138,6 +131,9 @@ function editquestion()
 
 
 ?>
+</table>
+<br>
+<a href="view_question.php?qid=<?php echo $quizid ?>">Return</a>
 
 <?php
 mysql_close($link);

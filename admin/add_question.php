@@ -2,19 +2,12 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-//include 'adminNav.php';
+include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-
-$query = " select * from question order by questionid DESC limit 1";
-$result = mysql_query($query,$link);
- while($m_rows=mysql_fetch_object($result))
-    {
-        $questionid = $m_rows->questionid + 1;
-    }
-//$quizid = intval($_REQUEST['qid']);
+$quizid = intval($_REQUEST['qid']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -35,7 +28,7 @@ $result = mysql_query($query,$link);
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
-    <li><a href="view_questionlist.php">Questions</a></li>
+    <li><a href="view_question?qid=<?php echo $quizid?>">Questions</a></li>
     <li class="active">Add Question</li>
     </ol>
 <center>
@@ -51,9 +44,9 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion>" method="post">
-<input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
-<td>Question Content:</td><td>
+ <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
+<td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
+<tr><td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td></tr>
 <!-- <td>Question Type:</td>
@@ -74,7 +67,7 @@ value="checkbox">Multiple Choice</td></tr>
         <option value="Hard">Hard</option>
     </select></td></tr>
 </table>
-<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
@@ -89,11 +82,23 @@ value="checkbox">Multiple Choice</td></tr>
  function addquestion() 
  {
     include'../inc/db_config.php';
-    //$add_quizid=intval($_REQUEST['qid']);
+    $add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
 	//$add_type=$_POST['choicetype'];
 	//$date = date('Y-m-d H:i:s');
+
+    if(isset($_SESSION['username'])){
+      $create_user = $_SESSION['username'];
+    }
+    date_default_timezone_set("Asia/Kuching");
+    $create_time  = date("Y-m-d h:i:s");
+    $modify_user  = "-";
+    $modify_time  = "0000-00-00 00:00:00";
+    $delete_user  = "-";
+    $delete_time  = "0000-00-00 00:00:00";
+    $rec_status   = "-";
+
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
     $add_option=$_POST['option'];
@@ -112,14 +117,35 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
+
             $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
             }else
             {
+
+              date_default_timezone_set("Asia/Kuching");
+              $modify_time = date('Y-m-d H:i:s');
+              $modify_user = $_SESSION['username'];
+              $last_inserted_id = mysql_insert_id();
+
+              // Get direction_id to update modification information of the course
+              $query_select_question = "SELECT quizid FROM question WHERE questionid = '$last_inserted_id'";
+              $select_question_result = mysql_query($query_select_question, $link);
+
+              while($row = mysql_fetch_object($select_question_result)){
+                $quiz_id = $row->quizid;
+              }
+
+              $query_update_quiz = "UPDATE quiz SET
+                                      modified_on = '$modify_time', modified_by = '$modify_user'
+                                      WHERE courseid = '$quiz_id'";
+
+              mysql_query($query_update_quiz, $link);
+
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_questionlist.php"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
             }
         
        

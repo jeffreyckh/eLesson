@@ -1,9 +1,8 @@
  <?php
-    session_start();
+ session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
-    $qid = intval($_REQUEST['qid']);
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -22,62 +21,113 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <!--breadcrumb-->
-    <ol class="breadcrumb">
-    <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewquiz.php">Quiz</a></li>
-    <li><a href="view_question.php?qid=<?php echo $qid?>">Question</a></li>
-    <li class="active">Question Info</li>
-    </ol>
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#content" aria-controls="question_content" role="tab" data-toggle="tab">Question Content</a></li>
+            <li role="presentation"><a href="#information" aria-controls="lessons" role="tab" data-toggle="tab">Information</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="content">
+            <center>
+            <?php
+            $quid   = intval($_GET['quid']);
+            $qid    = intval($_GET['qid']);
+            $query  = "SELECT * FROM question WHERE questionid = $quid";
+            $result = mysql_query($query,$link);
 
-    <center>
-    <?php
-        $quid = intval($_GET['quid']);
-        $qid = intval($_REQUEST['qid']);
-        $query="select * from question where questionid = $quid";
-        $result=mysql_query($query,$link);
+            $creator        = "";
+            $create_time    = "";
+            $modifier       = "";
+            $modify_time    = "";
 
-             while($a_rows=mysql_fetch_object($result))
-            { 
+            while($a_rows=mysql_fetch_object($result)){
+            ?>
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Current Question:</td>
+                        <td>
+                            <?php echo $a_rows->content ?>
+                        </td>
+                    </tr>
+                   <!-- <tr>
+                        <td>
+                            Choice Type:
+                        </td>
+                        <td>
+                            <?php 
+                            // if($a_rows->choicetype == 'radio')
+                            //     {$choicetype = 'Single Choice';}
+                            // else
+                            //     {$choicetype = 'Multiple Choice';}
+                            // echo $choicetype
+                            ?>
+                        </td> 
+                    </tr> -->
+                    <tr>
+                        <td>Option List:</td>
+                        <td>
+                            <?php 
+                            $optionstring = $a_rows->optionlist;
+                            $optiontoken = strtok($optionstring, "/");
 
+                            while ($optiontoken !== false){
+                                echo "$optiontoken<br>";
+                                $optiontoken = strtok("/");
+                            } 
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Answer:</td>
+                        <td>
+                            <?php 
+                            $answerstring = $a_rows->answer;
+                            $token = strtok($answerstring,"/");
+
+                            while ($token !== false){
+                                echo "$token<br>";
+                                $token = strtok("/");
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+        <?php
+            $creator        = $a_rows->created_by;
+            $create_time    = $a_rows->created_on;
+            $modifier       = $a_rows->modified_by;
+            $modify_time    = $a_rows->modified_on;    
+        }
+                
+        
         ?>
- 
-        <table class="table table-bordered">
-            <tr>
-                <td>Current Question:</td><td><?php echo $a_rows->content ?></td>
-            </tr>
-           <!-- <tr>
-                <td>Choice Type:</td><td><?php 
-                if($a_rows->choicetype == 'radio')
-                    {$choicetype = 'Single Choice';}
-                else
-                    {$choicetype = 'Multiple Choice';}
+            <div role="tabpanel" class="tab-pane" id="information">
+                <?php
+                $quiz_name      = "";
+                $lesson_name    = "";
+                $course_name    = "";
 
+                $query_select_quiz = "SELECT quizname, lessonid FROM quiz WHERE quizid='$qid'";
+                $result_select_quiz = mysql_query($query_select_quiz, $link);
 
-                echo $choicetype
+                while($q_row = mysql_fetch_object($result_select_quiz)){
+                    $quiz_name  = $q_row->quizname;
+                    $lid        = $q_row->lessonid;
+                    $query_select_lesson = "SELECT lessonname, direction_id 
+                                            FROM lesson WHERE lessonid='$lid'";
+                    $result_select_lesson = mysql_query($query_select_lesson, $link);
 
-                ?></td> 
-            </tr> -->
-            <tr>
-                <td>Option List:</td><td><?php 
-
-                $optionstring = $a_rows->optionlist;
-                $optiontoken = strtok($optionstring, "/");
-
-                while ($optiontoken !== false)
-                {
-                echo "$optiontoken<br>";
-                $optiontoken = strtok("/");
-                } 
-
-                ?></td>
-            </tr>
-               <tr>
-                <td>Answer:</td><td><?php 
-
-                $answerstring = $a_rows->answer;
-                $token = strtok($answerstring,"/");
-
+                    while($l_row = mysql_fetch_object($result_select_lesson)){
+                        $lesson_name    = $l_row->lessonname;
+                        $cid            = $l_row->direction_id;
+                        $query_select_course = "SELECT coursename 
+                                                FROM course WHERE courseid='$cid'";
+                        $result_select_course = mysql_query($query_select_course, $link);
+                    }
                 while ($token !== false)
                 {
                 echo "$token<br>";
@@ -85,21 +135,21 @@
                 } 
                 ?></td>
             </tr>
-            </table>
+            <tr>
+                <td>Difficulty:</td><td><?php
+                $diff = $a_rows->difficulty;
+                echo $diff ?></td>
+            </tr>
+            </table>               
+        </center>
         
-            
-        
-
-        <?php
-            
-            }
-            
-                mysql_close($link);
-        ?>
-    </table>
-    </td>
-    </tr>
-    </table>
-    </center>
+    </div>
+    <tr>
+        <br>
+        <td align="right" colspan="6">
+            <br>
+            <a href="view_question.php?qid=<?php echo $qid?>">Return</a>
+        </td>        
+    </tr> 
     </body>
     </html>

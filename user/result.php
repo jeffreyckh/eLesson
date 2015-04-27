@@ -51,10 +51,31 @@ session_start();
     $score = ($right_answer/$usercount) * 100;
    }
 
+          $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
+          $done_lessonid = mysql_result($lessonquery,0);
+          $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
+          $done_courseid = mysql_result($coursequery,0);
+
+            //$uid = $_SESSION['userid'];
+          $date = date('Y-m-d H:i:s');
+          $flag=true;
+         $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          $done_result=mysql_query($done_query,$link);
+         
+
+          $newlc = mysql_result($done_result,0) + 1;
 
 
+          $sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
 
-      
+           if(!mysql_query($sql,$link))
+            { die("Could not update the data!".mysql_error());}
+            else
+            {
+                echo '<script> alert("You have finish the quiz.") </script>';
+              
+            }
+
 
           
        
@@ -64,7 +85,6 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
-
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -141,7 +161,6 @@ session_start();
                               
                             }
 
-
                         }
                         ?>                   
                        </div> 
@@ -170,3 +189,4 @@ session_start();
 <?php
 $delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
 ?>
+

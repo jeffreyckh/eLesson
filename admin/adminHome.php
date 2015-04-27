@@ -16,6 +16,7 @@ $announcement = new announcementView();
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -53,7 +54,6 @@ $announcement = new announcementView();
   </div>
  <!--<div class = "col-md-3">
   <div class = "row">
-   <br> <hr>
   <?php
   include "../inc/calender.php";
   ?>
@@ -251,6 +251,7 @@ $announcement = new announcementView();
         tuchart.draw(tudata, tuoptions);
       }*/
     </script>
+
 
 </body>
 </html>

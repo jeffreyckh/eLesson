@@ -8,6 +8,8 @@
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
+    $time = date("Y-m-d H:i:s");
+    $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
     //echo $numrows;
     while($v_rows = mysql_fetch_object($vresult))
     {
@@ -16,11 +18,15 @@
     }
     if(empty($validlid) && empty($validuid))
     {
-      $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
-            VALUES ('$uid', '$m_id')";
+      $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
+            VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
     }
-        
+    else
+    { 
+      $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
+      $uresult = mysql_query($uquery);
+    }
 
     $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
     VALUES ('$uid', '$m_id')";
@@ -43,6 +49,7 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -140,6 +147,9 @@
         </tr>
         <?php
         }
+        $update_query = "UPDATE user SET last_lesson_id='$m_id' WHERE userid='$uid'";
+        // echo $update_query;
+        mysql_query($update_query, $link);
 
          // mysql_close($link);
         ?>  
