@@ -30,6 +30,7 @@
       <ul class="nav navbar-nav">
         <li <?=echoActiveClassIfRequestMatches("userHome")?>><a href="userHome.php">Home</a></li>
         <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
+        <li <?=echoActiveClassIfRequestMatches("quiz")?>><a href="user_viewquiz.php">Quiz</a></li>
          <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
           </ul>
         </li>
