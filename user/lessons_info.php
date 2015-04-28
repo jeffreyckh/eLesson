@@ -5,6 +5,24 @@
     include 'userNav.php';
     $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
+
+  $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
+    $checkresult = mysql_query($querycheck);
+        
+
+        if(mysql_num_rows($checkresult) == 0)
+        {
+
+          $starttime = date('Y-m-d H:i:s');
+
+          $sql = "INSERT INTO lessoncomplete (userid, lessonid,complete,start_time)
+            VALUES ('$uid', '$m_id','0','$starttime')";
+            mysql_query($sql,$link);
+        }
+          
+
+
+    
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
@@ -197,31 +215,37 @@ $(document).ready(function(){
           $flag=true;
          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
           $done_result=mysql_query($done_query,$link);
-         
-
           $newlc = mysql_result($done_result,0) + 1;
 
+            $endtime = date('Y-m-d H:i:s');
+          $flag=true;
+         //$done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          //$done_result=mysql_query($done_query,$link);
+          //$newlc = mysql_result($done_result,0) + 1;
+          $finish = 1;
 
-          //$sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
 
-           //if(!mysql_query($sql,$link))
-           // { die("Could not update the data!".mysql_error());}
-          //  else
-           // {
+          $sql = "UPDATE lessoncomplete SET complete = '$finish', end_time = '$endtime' WHERE userid = $uid AND lessonid = $done_lessonid";
+
+           if(!mysql_query($sql,$link))
+           { die("Could not update the data!".mysql_error());}
+           else
+            {
+
                 echo '<script> 
-                      var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
+                    var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
                       if(answer)
                       {
-                        window.location.href ="questions.php?qid='. $done_lessonid . '"
-                      }
+                        window.location.href ="user_viewquiz.php"
+                     }
                       else
                       {
-                        window.location.href ="userHome.php"
-                      } 
-                </script>';
-                //echo '<script language="JavaScript"> window.location.href ="questions.php?qid='. $done_lessonid . '" </script>';
-                
-          //  }
+                       window.location.href ="userHome.php"                 
+                     } 
+                      </script>';
+               
+            }
+
 
           }
           ?>
