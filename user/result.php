@@ -51,11 +51,7 @@ session_start();
     $score = ($right_answer/$usercount) * 100;
    }
 
-
-
-
-      
-
+         
           
        
 
@@ -104,12 +100,14 @@ session_start();
                         <p> you failed </p>
                         <?php
                         mysql_query(" UPDATE passingrate SET fail = fail + 1 WHERE prid = '1'");
+
                         }
                         else
                         {
                         ?>
                         <p> you passed </p>
                         <?php
+
                         mysql_query(" UPDATE passingrate SET pass = pass + 1 WHERE prid = '1'");
           
 
@@ -140,8 +138,6 @@ session_start();
                                   }
                               
                             }
-
-
                         }
                         ?>                   
                        </div> 
@@ -170,3 +166,4 @@ session_start();
 <?php
 $delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
 ?>
+

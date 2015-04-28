@@ -16,6 +16,7 @@ $announcement = new announcementView();
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -33,19 +34,36 @@ $announcement = new announcementView();
         </figure>
       </div>
       <div class = "col-md-2">
+       <figure>
+        <a href="user_viewquiz.php"><img src="../img/quiz.png"></a>
+        <figcaption>Quiz</figcaption>
+        </figure> 
+      </div>
+      <div class = "col-md-2">
         <figure>
         <a href="announcement.php"><img src="../img/announcement.png"></a>
         <figcaption>Announcement</figcaption>
         </figure>
       </div>
     </div>
+    <br></br>
+    <div class = "home-table">
+      <table>
+      </table>
+      
+      </ul>
+    </div>
+  
   </div>
+
   <div class = "col-md-3">
   <div class = "row">
+
   <?php
   include "../inc/calender.php";
   ?>
   <br></br>
+
     <div class = "row">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
@@ -78,62 +96,32 @@ $announcement = new announcementView();
       </div>
     </div>
   </div>
-  <div class = "row">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Lastest View
-            </a>
-          </h4>
-        </div>
-      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-            <fieldset class = "setright">
-              <?php
-                  $username = $_SESSION['username'];
-                  //echo $username;
-                  $query1 = "SELECT * FROM user WHERE username= '$username' limit 1";
-                  $result1=mysql_query($query1);
-                  
-              
-                  while($rows=mysql_fetch_object($result1))
-                  {
 
-                    $_SESSION['userid']=$rows->userid;
-                    $uid = $_SESSION['userid'];
-                  }
-
-                  $query2="select * from user_to_lesson WHERE userid = '$uid' ";
-                  $result2=mysql_query($query2);
-                  while($l_rows=mysql_fetch_object($result2))
-                  {
-                    $lessonid = $l_rows->lessonid;
-                    $query3="select * from lesson WHERE lessonid = '$lessonid' ";
-                    $result3=mysql_query($query3);
-                    while($d_rows=mysql_fetch_object($result3))
-                    {
-                      $lessonname = $d_rows->lessonname;
-                      echo "<fieldset>
-                       
-                       <a href=\"lessons_info.php?lid=$lessonid\">".$lessonname."</a>
-                      </fieldset>";
-                      echo "<hr>";
-                    }
-                  }
-
-                  
-              ?>      
-            </fieldset>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
 </div>
 </div>
 
+<?php
+function get_latest_lesson(){
+  global $link;
+  $user_id = $_SESSION['userid'];
+  $l_id = "";
+  $select_query = "SELECT last_lesson_id FROM user WHERE userid=$user_id";
+  // echo $select_query;
+  // echo $_SESSION['userid'];
+  $result_query = mysql_query($select_query, $link);
+  while($row = mysql_fetch_object($result_query)){
+    $l_id = $row->last_lesson_id;
+  }
 
+  $l_name = "";
+  $select_lesson_query = "SELECT * FROM lesson WHERE lessonid=$l_id";
+  $result_lesson_query = mysql_query($select_lesson_query, $link);
+  while($row = mysql_fetch_object($result_lesson_query)){
+    $l_name = $row->lessonname;
+  }
+
+  echo $l_name;
+}
+?>
 </body>
 </html>

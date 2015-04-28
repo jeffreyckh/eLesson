@@ -56,7 +56,7 @@ else
                 {
     ?>
      
-<option value="<?php echo $b_rows->questionid ?>" selected><?php echo $b_rows->content ?></option>
+<option value="<?php echo $b_rows->questionid ?>" selected><?php echo "[Difficulty: " . $b_rows->difficulty . "] " . $b_rows->content ?></option>
 
 <?php
 }

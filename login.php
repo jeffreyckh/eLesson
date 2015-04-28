@@ -1,5 +1,5 @@
 <?php 
-include 'inc/header.php'; 
+include 'inc/login_header.php'; 
 session_start();
 require_once('view/RegistrationView.php');
 require_once('inc/db_config.php');

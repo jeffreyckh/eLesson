@@ -11,9 +11,13 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Quiz</title>
-  <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -46,30 +50,30 @@
         <th align="left">Created</th>
         <th align="left">Lesson</th>
         <th align="left">Course</th>
-        <th align="left">Modify</th>
-        <th align="left">Delete</th>
+        <th align="left">Action</th>
         </thead>
         <?php
-            $query="select * from quiz order by lessonid";
+            $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
             //$query2="select * from course";
-            $result=mysql_query($query,$link);
+            $result_all_quiz    = mysql_query($query_all_quiz,$link);
             //$result2=mysql_query($query2,$link);
             echo "<tbody>";
-            while($a_rows=mysql_fetch_object($result))
+
+            while($a_rows = mysql_fetch_object($result_all_quiz))
             {
-                $query2="select * from lesson";
-                $result2=mysql_query($query2,$link);
+                $query_all_lesson   = "SELECT * FROM lesson";
+                $result_all_lesson  = mysql_query($query_all_lesson, $link);
                 
-                while($b_rows=mysql_fetch_object($result2))
+                while($b_rows=mysql_fetch_object($result_all_lesson))
                 {
                     if($a_rows->lessonid == $b_rows->lessonid)
                     {
                         $lessonname = $b_rows->lessonname;
                         $directionid = $b_rows->direction_id;
 
-                            $query3="select * from course";
-                            $result3=mysql_query($query3,$link);
-                            while($c_rows=mysql_fetch_object($result3))
+                            $query_all_course   = "SELECT * FROM course";
+                            $result_all_course  = mysql_query($query_all_course, $link);
+                            while($c_rows = mysql_fetch_object($result_all_course))
                             {
                                 if($directionid == $c_rows->courseid)
                                 {
@@ -88,8 +92,17 @@
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
-                <td align="left" width="100"><a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">Delete</a></td>
+                <td align="left" width="100">
+                    <a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">
+                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                        <!-- Modify -->
+                    </a>
+                    <a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">
+                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                        <!-- Delete -->
+                    </a>
+                </td>
+
                 </tr>                
         <?php
 
@@ -103,16 +116,7 @@
     $(document).ready(function(){
     $('#quiz').DataTable(
         {  
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
     });
     </script>

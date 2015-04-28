@@ -1,6 +1,6 @@
  <?php
     session_start();
-    include'../inc/db_config.php';
+    include '../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
     ?>
@@ -11,32 +11,42 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Question</title>
-  <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>  
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
 </head>
 </head>
 <body>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
     <li><a href="viewquiz.php">Quiz</a></li>
-    <li class="active">Question</li>
+    <li class="active">Quiz Info</li>
     </ol>
-    <center>
+    
     <?php
         $qid = intval($_GET['qid']);
-        $query_count="select count(*) from quiz_to_question where quizid = $qid";
-        $result_count=mysql_query($query_count,$link);
-        $count=mysql_result($result_count,0);
-        
-    ?>
+        $query_count    = "SELECT count(*) FROM question WHERE quizid = $qid";
+        $result_count   = mysql_query($query_count, $link);
+        $count = mysql_result($result_count, 0);
 
+        $query_select = "SELECT * FROM quiz WHERE quizid = '$qid'";
+        $result_select = mysql_query($query_select, $link);
+        while($m_rows = mysql_fetch_object($result_select)){
+            $m_quizname     = $m_rows->quizname;
+            $m_lessonid     = $m_rows->lessonid;
+            $m_createtime   = $m_rows->created_on;
+            $m_creator      = $m_rows->created_by;
+            $m_modifytime   = $m_rows->modified_on;
+            $m_modifier     = $m_rows->modified_by;
+        }
+?>
     <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
@@ -54,10 +64,27 @@
             while($a_rows=mysql_fetch_object($result))
             {
 
-                $query2="select * from question where questionid=$a_rows->questionid";
-                $result2 = mysql_query($query2,$link);
-                while($b_rows=mysql_fetch_object($result2))
-                {
+
+        $query_select_course = "SELECT * FROM course WHERE courseid = '$m_lessoncourse'";
+        $result_select_course = mysql_query($query_select_course);
+        while($m_rows = mysql_fetch_object($result_select_course)){
+            $m_coursename = $m_rows->coursename;
+        }
+    ?>
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#quizDetail" aria-controls="quizDetail" role="tab" data-toggle="tab">
+                    Quiz Detail
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#questionList" aria-controls="questionList" role="tab" data-toggle="tab">
+                    Quiz Questions
+                </a>
+            </li>
+        </ul>
+    </div>
 
         ?>
                 <tr>
@@ -70,25 +97,17 @@
         <?php
             }
             }
-            
-                mysql_close($link);
-        ?>
-    </tbody> 
-    </table>
-    </center>
-    <script>
-    $(document).ready(function(){
-    $('#question').DataTable(
-        {     
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
-        });
-    });
-    </script>
+            ?>
+            </center>
+            <script>
+            $(document).ready(function(){
+            $('#question').DataTable(
+                {     
+                    "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+                });
+            });
+            </script>
+        </div>
+    </div>
     </body>
     </html>
