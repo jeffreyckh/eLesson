@@ -128,7 +128,7 @@ div#banner_content{
   border: 1px solid #ddd;
 }
 
-.btn-default {
+.btn-default, a.btn-default {
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
