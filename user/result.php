@@ -77,11 +77,7 @@ session_start();
         <header>
         </header>
         <div class="container result">
-            <div class="row"> 
-                    <div class='result-logo'>
-                            <img src="image/Quiz_result.png" class="img-responsive"/>
-                    </div>    
-           </div>  
+           
            <hr>   
            
                   
