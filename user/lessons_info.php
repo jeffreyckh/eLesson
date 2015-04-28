@@ -3,11 +3,20 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
+
     $m_id=intval($_REQUEST['lid']);
+
     $uid = $_SESSION['userid'];
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
+
+
+    $time = date("Y-m-d H:i:s");
+    $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
+
+
+
     //echo $numrows;
     while($v_rows = mysql_fetch_object($vresult))
     {
@@ -18,6 +27,7 @@
     {
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
             VALUES ('$uid', '$m_id')";
+
       $uresult = mysql_query($uquery);
     }
         
@@ -25,6 +35,7 @@
     $uquery = "INSERT INTO user_to_lesson( userid, lessonid) 
     VALUES ('$uid', '$m_id')";
     $uresult = mysql_query($uquery);
+
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -43,6 +54,7 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
