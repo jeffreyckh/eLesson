@@ -25,9 +25,12 @@ a:hover   {text-decoration:underline; color:#EE0000}
 .secondalt{background-color:#FFFFFF}
 .tbhead{color:#FFFFFF;background-color:#8BAEE5}
 .tableoutline{background-color:#D6E0EF}
+<<<<<<< HEAD
 
 .tbcat{color:#FFFFFF;background-color:#8BAEE5}
 
+=======
+>>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"
 .tbcat{color:#FFFFFF;background-color:#8BAEE5}
 
 #navlist {
@@ -131,7 +134,11 @@ div#banner_content{
   border: 1px solid #ddd;
 }
 
+<<<<<<< HEAD
 .btn-default, a.btn-default {
+=======
+.btn-default {
+>>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
@@ -154,3 +161,7 @@ div#banner_content{
 .breadcrumb{
   margin-bottom: 10px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"

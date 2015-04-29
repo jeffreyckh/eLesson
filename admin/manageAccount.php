@@ -16,9 +16,11 @@ $tnow = date_create ("$t");
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Manage Account</title>
-    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -48,6 +50,7 @@ $tnow = date_create ("$t");
             <th align="right">Last View Lesson</th>
             <th align="right">Modify</th>
             <th align="right">Delete</th>
+            <th align="right">Action</th>
         </thead>
             <?php
                 $query="select * from user";
@@ -109,6 +112,16 @@ $tnow = date_create ("$t");
                     </td>
                     <td align="left" width="10%"><a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">Modify</a></td>
                     <td align="left" width="10%"><a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">Delete</a></td>
+                    <td align="left" width="10%">
+                        <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">
+                            <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                            <!-- Modify -->
+                        </a>
+                        <a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">
+                            <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                            <!-- Delete -->
+                        </a>
+                    </td>
                     </tr>                
             <?php
                 }
@@ -120,16 +133,7 @@ $tnow = date_create ("$t");
 $(document).ready(function(){
     $('#user').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
 </script>
