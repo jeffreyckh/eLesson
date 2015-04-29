@@ -2,12 +2,20 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+//include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from course";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
+
+$query = " select * from course order by courseid DESC limit 1";
+$result = mysql_query($query,$link);
+ while($m_rows=mysql_fetch_object($result))
+    {
+        $courseid = $m_rows->courseid + 1;
+    }
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -17,23 +25,11 @@ $count=mysql_result($result_count,0) + 1;
   <title>Home</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-      function validate(){
-
-        if(document.add_course_form.cname.value == ""){
-          alert("Please enter a course name.");
-          return false;
-        }
-        return true;
-      }
-
-    </script>
 </head>
 <body>
      <!--breadcrumb-->
@@ -54,13 +50,10 @@ if(isset($_GET['action'])=='addcourse') {
 ?>
 <table class = "table table-bordered">
 <tr>
-  <form action="?action=addcourse" name="add_course_form" method="post" onsubmit="return(validate())">
-  <input type="hidden" type="text" name="cid" value="<?php echo $courseid ?>">
-  <td>Course Name:</td><td><input type="text" name="cname"></td>
-</tr>
-<tr>
-  <td>Course Description</td><td><input type="text" name="cdesc"></td>
-</tr>
+ <form action="?action=addcourse" method="post">
+<input type="hidden" type="text" name="cid" value="<?php echo $courseid ?>">
+<td>Course Name:</td><td><input type="text" name="cname"></td></tr>
+<td>Course Description</td><td><input type="text" name="cdesc"></td></tr>
 </table>
 <div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
 </form>
@@ -71,27 +64,12 @@ if(isset($_GET['action'])=='addcourse') {
 
  function addcourse() 
  {
-    include'../inc/db_config.php';
-    $add_courseid=intval($_POST['cid']);
+  include'../inc/db_config.php';
+  $add_courseid=intval($_POST['cid']);
 	$add_coursename=$_POST['cname'];
 	$add_coursedesc=$_POST['cdesc'];
-
-  $create_user = "-";
-  if(isset($_SESSION['username'])){
-    $create_user = $_SESSION['username'];
-  }
-
 	$date = date('Y-m-d H:i:s');
-
-  date_default_timezone_set("Asia/Kuching");
-  $create_time  = date("Y-m-d h:i:s");
-  $modify_user  = "-";
-  $modify_time  = "0000-00-00 00:00:00";
-  $delete_user  = "-";
-  $delete_time  = "0000-00-00 00:00:00";
-  $rec_status   = "-";
-
-  $flag=true;
+	$flag=true;
 	$check="select * from course";
 	$check_result=mysql_query($check,$link);
 		while($result_rows=mysql_fetch_object($check_result))
@@ -106,21 +84,7 @@ if(isset($_GET['action'])=='addcourse') {
     {
             $sql="insert into course(courseid,coursename,created,description) values('$add_courseid','$add_coursename','$date','$add_coursedesc')";
             
-            // New insert query_03/05/2015
-            $query_insert_course = "INSERT INTO course
-                                    ( courseid, coursename, created, description,
-                                      created_on, created_by,
-                                      modified_on, modified_by,
-                                      deleted_on, deleted_by,
-                                      rec_status )
-                                    VALUES
-                                    ( '$add_courseid', '$add_coursename', '$date', '$add_coursedesc',
-                                      '$create_time', '$create_user',
-                                      '$modify_time', '$modify_user',
-                                      '$delete_time', '$delete_user',
-                                      '$rec_status')";
-
-            if(!mysql_query($query_insert_course,$link)){
+            if(!mysql_query($sql,$link)){
              die("Could not add new course.".mysql_error());
             }else
             {
@@ -142,8 +106,6 @@ if(isset($_GET['action'])=='addcourse') {
 mysql_close($link);
 ?>
 
-<br>
-<a href="courses.php">Return</a>
 </center> 
 </body>
 </html>

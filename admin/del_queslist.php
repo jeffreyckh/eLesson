@@ -2,7 +2,6 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
 require_once('../view/questionView.php');
 $question = new questionView();
 $m_id = intval($_REQUEST['quesid']);
@@ -23,7 +22,6 @@ while($m_rows=mysql_fetch_object($result))
   <title>Delete Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

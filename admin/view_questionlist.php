@@ -11,17 +11,16 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Question</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+  <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+</head>
 </head>
 <body>
      <ol class="breadcrumb">
@@ -45,8 +44,8 @@
         <th align="right">Question ID</th>
         <th align="right">Content</th>
         <th align="right">Difficulty</th>
-        <th align="right">Action</th>
-
+        <th align="right">Modify</th>
+        <th align="right">Delete</th>
         </thead>
         <?php
             $query="select * from question ";
@@ -60,16 +59,8 @@
                 <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
                 <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
                 <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
-                <td align="left" width="100">
-                    <a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">
-                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                        <!-- Modify -->
-                    </a>
-                    <a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">
-                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                        <!-- Delete -->
-                    </a>
-                </td>
+                <td align="left" width="100"><a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">Modify</a></td>
+                <td align="left" width="100"><a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">Delete</a></td>
                 </tr>                
         <?php
             }
@@ -83,7 +74,13 @@
     $(document).ready(function(){
     $('#question').DataTable(
         {     
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+            stateSave: true,
+            "aoColumns": [
+            null,
+            null,
+            { "orderSequence": [ "asc" ] },
+            { "orderSequence": [ "asc" ] }
         });
     });
     </script>

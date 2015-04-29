@@ -6,7 +6,6 @@ include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -24,20 +23,6 @@ $announcement = new announcementView();
     <script src="../jscss/ckeditor/ckeditor.js"></script>
     <!--Script required for Google chart !-->
     <script type="text/javascript" src="../jscss/googleChart.js"></script>
-    <!-- Add mousewheel plugin (this is optional) -->
-    <script type="text/javascript" src="../jscss/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-    
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="../jscss/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-    <script type="text/javascript" src="../jscss/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-    
-    <!-- Optionally add helpers - button, thumbnail and/or media -->
-    <link rel="stylesheet" href="../jscss/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
-    <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-    <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-    
-    <link rel="stylesheet" href="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
-    <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
   </head>
 <body>
   <div class = "col-md-8">
@@ -107,13 +92,9 @@ $announcement = new announcementView();
   </div>
 </div>
 </div>!-->
-
 <?php
-
   $cname = array();
   $cview = array();
-  $lname = array();
-  $lview = array();
   $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
   while($c_rows = mysql_fetch_object($courseresult))
   {
@@ -121,22 +102,6 @@ $announcement = new announcementView();
     $cview[] = $c_rows->view;
   }
   $csize = count($cname);
-  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    $coursename = $_GET['q'];
-    //$clessonquery = "SELECT courseid FROM course WHERE coursename ='" . $coursename . "'";
-    $clessonresult = mysql_query("SELECT courseid FROM course WHERE coursename ='" . $coursename . "'") or die(mysql_error());
-    $directid = mysql_result($clessonresult,0);
-    $lessonresult  = mysql_query("SELECT * FROM lesson WHERE direction_id ='" . $directid . "'") or die(mysql_error());
-    while($l_rows = mysql_fetch_object($lessonresult))
-    {
-      $lname[] = $l_rows->lessonname;
-      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
-      $lcompleterows = mysql_num_rows($lcompleteresult);
-      $lview[] = $lcompleterows;
-    }
-    $_SESSION['lename'] = $lname;
-    $_SESSION['leview'] = $lview;
-  }
   //$jcname = json_encode($cname);
   //$jcview = json_encode($cview);
   $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
@@ -172,15 +137,6 @@ $announcement = new announcementView();
        
 
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-           function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            alert('The user selected ' + topping);
-          }
-        }
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
         
           chart.draw(data, options);
         }
@@ -199,7 +155,7 @@ $announcement = new announcementView();
           for($i = 0;$i < $csize;$i++)
           {
           ?>
-          ['<?php echo $cname[$i]?>',<?php echo $cview[$i];?>],   
+          [ '<?php echo $cname[$i]?>' , <?php echo $cview[$i];?>],   
           <?php }?>
          ]);
         
@@ -210,30 +166,6 @@ $announcement = new announcementView();
         };
       
         var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
-        function cselectHandler() {
-          var cselectedItem = cchart.getSelection()[0];
-          if (cselectedItem) {
-            var ctopping = cdata.getValue(cselectedItem.row, 0);
-            $.ajax ({
-                url: "adminHome.php",
-                data: 'q=' + ctopping,
-                 success: function(data) {
-                $.fancybox.open([
-                  {
-                    href : 'chart/lessonChart.php',
-                    type : 'iframe',
-                    padding : 5
-                  }
-                
-                ], {
-                  padding : 0   
-                  });
-                }
-            });
-          }
-        }
-
-        google.visualization.events.addListener(cchart, 'select', cselectHandler);
        
         cchart.draw(cdata, coptions);
       
@@ -268,9 +200,57 @@ $announcement = new announcementView();
         packages: ['gauge'],
         callback: numberofUser
       });
-    </script>
-<?php 
+      /*google.load("visualization", "1", {packages:["corechart", "bar",'gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        // pie Chart for passing ate
+        var data = google.visualization.arrayToDataTable([
+          ['PassFail', 'Number of people'],
+          ['Pass',    <?php echo $pass?>],
+          ['Fail',    <?php echo $fail?>]
+        ]);
+        // bar chart for number of view
+        var cdata = google.visualization.arrayToDataTable([
+          ['Course', 'View'],
+          <?php 
+          for($i = 0;$i < $csize;$i++)
+          {
+          ?>
+          [ '<?php echo $cname[$i]?>' , <?php echo $cview[$i];?>],   
+          <?php }?>
+         ]);
+        
+        // gauge for total user registered
+        var tudata = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['User', <?php echo $numUserRows; ?>]
+        ]);
 
-?>
+        var options = {
+          title: 'Passing Rate'
+        };
+        var coptions = {
+          chart: {
+            title: 'Number of Course View',
+          }
+        };
+        var tuoptions = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        var tuchart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        
+        chart.draw(data, options);
+        cchart.draw(cdata, coptions);
+        tuchart.draw(tudata, tuoptions);
+      }*/
+    </script>
+
 </body>
 </html>

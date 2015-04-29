@@ -1,0 +1,208 @@
+﻿Revert "fix conflict on manageAccount.php"
+
+This reverts commit 6b227b4bb7acd434b5434aea650b149119e55277, reversing
+changes made to 59983eff1fb8c96d338e6ed6e2a8c48c33fc581a.
+
+Conflicts:
+	user/lessons_info.php
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch kit
+# Your branch is behind 'origin/kit' by 2 commits, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# You are currently reverting commit 6b227b4.
+#
+# Changes to be committed:
+#	deleted:    010415_notes.txt
+#	modified:   admin/add_announcement.php
+#	modified:   admin/add_courses.php
+#	modified:   admin/add_lessons.php
+#	modified:   admin/add_lessons2.php
+#	modified:   admin/add_question.php
+#	modified:   admin/add_question_2.php
+#	modified:   admin/add_quiz.php
+#	modified:   admin/adminHome.php
+#	modified:   admin/adminNav.php
+#	deleted:    admin/adminNav2.php
+#	deleted:    admin/admin_test.php
+#	modified:   admin/announcement.php
+#	deleted:    admin/chart/lessonChart.php
+#	deleted:    admin/check_lesson.php
+#	deleted:    admin/config.php
+#	modified:   admin/courses.php
+#	modified:   admin/courses_info.php
+#	deleted:    admin/db_mysql.php
+#	modified:   admin/del_acc.php
+#	modified:   admin/del_announcement.php
+#	modified:   admin/del_course.php
+#	modified:   admin/del_queslist.php
+#	modified:   admin/del_viewlesson.php
+#	modified:   admin/edit_acc.php
+#	modified:   admin/edit_announcement.php
+#	modified:   admin/edit_courses.php
+#	modified:   admin/edit_lessons.php
+#	modified:   admin/edit_question.php
+#	modified:   admin/edit_question_2.php
+#	modified:   admin/edit_quiz.php
+#	deleted:    admin/forms.php
+#	deleted:    admin/global.php
+#	deleted:    admin/global.php.dump
+#	deleted:    admin/header2.php
+#	deleted:    admin/history_lesson.php
+#	deleted:    admin/history_lesson2.php
+#	deleted:    admin/lesson_history.php
+#	deleted:    admin/lesson_oldinfo.php
+#	modified:   admin/lessons_info.php
+#	modified:   admin/manageAccount.php
+#	deleted:    admin/nav_css.css
+#	modified:   admin/question_info.php
+#	modified:   admin/question_info_2.php
+#	deleted:    admin/revert_lesson.php
+#	modified:   admin/select_question.php
+#	modified:   admin/style.css
+#	deleted:    admin/tooltiptest.php
+#	modified:   admin/userdetail.php
+#	modified:   admin/view_question.php
+#	modified:   admin/view_questionlist.php
+#	modified:   admin/viewlesson.php
+#	modified:   admin/viewquiz.php
+#	deleted:    eLesson_Tasks.txt
+#	deleted:    elesson-updated-by-Lam.sql
+#	deleted:    elesson.sql
+#	deleted:    finediff/finediff.php
+#	deleted:    img/announceicon2_600x600.png
+#	deleted:    img/announceicon_600x600.png
+#	deleted:    img/announceicon_white_600x600.png
+#	deleted:    img/courseicon2_600x600.png
+#	deleted:    img/courseicon_600x600.png
+#	deleted:    img/courseicon_white_600x600.png
+#	deleted:    img/deleteicon1_600x600.png
+#	deleted:    img/deleteicon2_600x600.png
+#	deleted:    img/eLessonLogo1_600x600.png
+#	deleted:    img/eLessonLogo2_600x600.png
+#	deleted:    img/historyicon1_600x600.png
+#	deleted:    img/historyicon2_600x600.png
+#	deleted:    img/homeicon4_600x600.png
+#	deleted:    img/homeicon5_600x600.png
+#	deleted:    img/homeicon_600x600.png
+#	deleted:    img/homeicon_color_600x600.png
+#	deleted:    img/homeicon_white_600x600.png
+#	deleted:    img/lessonicon2_600x600.png
+#	deleted:    img/lessonicon_600x600.png
+#	deleted:    img/lessonicon_white_600x600.png
+#	deleted:    img/logo1.png
+#	deleted:    img/logo2.png
+#	deleted:    img/modifyicon1_600x600.png
+#	deleted:    img/modifyicon2_600x600.png
+#	deleted:    img/questionicon1_600x600.png
+#	deleted:    img/questionicon2_600x600.png
+#	deleted:    img/questionicon3_600x600.png
+#	deleted:    img/questionicon4_600x600.png
+#	deleted:    img/questionicon_white_600x600.png
+#	deleted:    img/quizicon2_600x600.png
+#	deleted:    img/quizicon3.png
+#	deleted:    img/quizicon_600x600.png
+#	deleted:    img/quizicon_white_600x600.png
+#	deleted:    img/usericon1_600x600.png
+#	deleted:    img/usericon2_600x600.png
+#	deleted:    img/usericon_white_600x600.png
+#	renamed:    user/testingcalander.php -> inc/calender.php
+#	modified:   inc/db_config.php
+#	renamed:    inc/login_header.php -> inc/header.php
+#	deleted:    inc/style.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_diagonals-thick_18_b81900_40x40.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_diagonals-thick_20_666666_40x40.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_flat_10_000000_40x100.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_glass_100_f6f6f6_1x400.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_glass_100_fdf5ce_1x400.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_glass_65_ffffff_1x400.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_gloss-wave_35_f6a828_500x100.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_highlight-soft_100_eeeeee_1x100.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-bg_highlight-soft_75_ffe45c_1x100.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-icons_222222_256x240.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-icons_228ef1_256x240.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-icons_ef8c08_256x240.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-icons_ffd27a_256x240.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/images/ui-icons_ffffff_256x240.png
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/index.html
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.min.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.min.js
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.structure.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.structure.min.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.theme.css
+#	deleted:    jqueryui/jquery-ui-1.11.4.custom/jquery-ui.theme.min.css
+#	modified:   jscss/datatable/jquery.dataTables.min.css
+#	modified:   jscss/default.css
+#	deleted:    jscss/fancybox/.gitattributes
+#	deleted:    jscss/fancybox/CHANGELOG.md
+#	deleted:    jscss/fancybox/README.md
+#	deleted:    jscss/fancybox/demo/1_b.jpg
+#	deleted:    jscss/fancybox/demo/1_s.jpg
+#	deleted:    jscss/fancybox/demo/2_b.jpg
+#	deleted:    jscss/fancybox/demo/2_s.jpg
+#	deleted:    jscss/fancybox/demo/3_b.jpg
+#	deleted:    jscss/fancybox/demo/3_s.jpg
+#	deleted:    jscss/fancybox/demo/4_b.jpg
+#	deleted:    jscss/fancybox/demo/4_s.jpg
+#	deleted:    jscss/fancybox/demo/5_b.jpg
+#	deleted:    jscss/fancybox/demo/5_s.jpg
+#	deleted:    jscss/fancybox/demo/ajax.txt
+#	deleted:    jscss/fancybox/demo/iframe.html
+#	deleted:    jscss/fancybox/demo/index.html
+#	deleted:    jscss/fancybox/lib/jquery-1.10.1.min.js
+#	deleted:    jscss/fancybox/lib/jquery-1.9.0.min.js
+#	deleted:    jscss/fancybox/lib/jquery.mousewheel-3.0.6.pack.js
+#	deleted:    jscss/fancybox/source/blank.gif
+#	deleted:    jscss/fancybox/source/fancybox_loading.gif
+#	deleted:    jscss/fancybox/source/fancybox_loading@2x.gif
+#	deleted:    jscss/fancybox/source/fancybox_overlay.png
+#	deleted:    jscss/fancybox/source/fancybox_sprite.png
+#	deleted:    jscss/fancybox/source/fancybox_sprite@2x.png
+#	deleted:    jscss/fancybox/source/helpers/fancybox_buttons.png
+#	deleted:    jscss/fancybox/source/helpers/jquery.fancybox-buttons.css
+#	deleted:    jscss/fancybox/source/helpers/jquery.fancybox-buttons.js
+#	deleted:    jscss/fancybox/source/helpers/jquery.fancybox-media.js
+#	deleted:    jscss/fancybox/source/helpers/jquery.fancybox-thumbs.css
+#	deleted:    jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js
+#	deleted:    jscss/fancybox/source/jquery.fancybox.css
+#	deleted:    jscss/fancybox/source/jquery.fancybox.js
+#	deleted:    jscss/fancybox/source/jquery.fancybox.pack.js
+#	deleted:    jscss/fancybox/sprite.psd
+#	deleted:    jscss/images/sort_asc.png
+#	deleted:    jscss/images/sort_asc_2.png
+#	deleted:    jscss/images/sort_asc_disabled_2.png
+#	deleted:    jscss/images/sort_both.png
+#	deleted:    jscss/images/sort_both_2.png
+#	deleted:    jscss/images/sort_desc.png
+#	deleted:    jscss/images/sort_desc_2.png
+#	deleted:    jscss/images/sort_desc_disabled_2.png
+#	modified:   login.php
+#	deleted:    templates/test_choices.html
+#	deleted:    templates/test_choicesbit.html
+#	deleted:    templates/test_footer.html
+#	deleted:    templates/test_header.html
+#	deleted:    templates/test_home.html
+#	deleted:    templates/test_showbit.html
+#	deleted:    templates/test_test.html
+#	deleted:    templates/test_threadlist.html
+#	deleted:    templates/test_threadlistbit.html
+#	deleted:    templates/test_title_list.html
+#	deleted:    test.php
+#	modified:   user/courses_info.php
+#	deleted:    user/global.php
+#	modified:   user/lessons_info.php
+#	deleted:    user/nav_css.css
+#	deleted:    user/quiz_generate.php
+#	modified:   user/result.php
+#	deleted:    user/style.css
+#	modified:   user/userHome.php
+#	modified:   user/userNav.php
+#	modified:   user/user_viewquiz.php
+#	deleted:    user_test.php
+#
+

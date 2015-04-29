@@ -5,8 +5,7 @@
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
-    $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
-    $viewresult = mysql_query($viewquery);
+
     $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
     $checkresult = mysql_query($querycheck);
         
@@ -29,7 +28,6 @@
         echo '<script language="JavaScript"> window.location.href ="../admin/courses_info.php?cid='.$m_id.'" </script>'; 
     }
     $query="select coursename,description from course where courseid=$m_id";
-
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
@@ -47,7 +45,6 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -80,15 +77,13 @@
             </tr>
             </table>
             </div>
-            
-         <div role="tabpanel" class="tab-pane" id="lessons">
+        <div role="tabpanel" class="tab-pane" id="lessons">
         <?php
         $c_id=intval($_REQUEST['cid']);
         $userid = $_SESSION['userid'];
         $lessonquery = "select lessoncount from lessonstatus where userid = $userid and courseid = $c_id";
         $lessonresult = mysql_query($lessonquery,$link);
         $lessoncount = mysql_result($lessonresult,0);
-       
         ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
@@ -101,41 +96,21 @@
             </thead>
 
         <?php
-            $lquery="select * from lesson where direction_id=$c_id";
+            $lquery="select * from lesson where direction_id=$c_id limit $lessoncount";
             $lresult=mysql_query($lquery,$link);
-            $i = 1;
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($lresult))
             {
-                if($i <= $lessoncount)
-                {
-                    ?>
-                      <tr>
+        ?>
+            
+                <tr>
                 <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                </tr>      
-
-              <?php
-                }
-                else
-                {
-                ?>
-                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->lessonname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                </tr>    
-                <?php
-                }
-
-                ?>
-            
-              
-                 <?php
-                $i++;
+                </tr>
+                           
+        <?php
             }
-            
                 //mysql_close($link);
         ?>
         </tbody> 
@@ -150,6 +125,7 @@
 }
 mysql_close($link);
 ?>
+
 <script>
 $('#myTab a').click(function (e) {
   e.preventDefault()

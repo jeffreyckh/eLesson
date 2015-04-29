@@ -2,7 +2,7 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+//include 'adminNav.php';
 $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
@@ -24,37 +24,11 @@ $result = mysql_query($query,$link);
   <title>Add Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-  <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-      function validateForm(){
-        var warning_string = "";
-        
-        if(document.add_question_form.quescont.value == ""){
-          alert("Please enter question content.");
-          warning_string += "Please enter question content.\n";
-          return false;
-        }else if(document.add_question_form.quesans.value == ""){
-          alert("Please enter correct answer.");
-          warning_string += "Please enter question content.\n";
-          return false;
-        }else if(document.add_question_form.option.value == ""){
-          alert("Please enter option list.");
-          warning_string += "Please enter question content.\n";
-          return false;
-        }else{
-          
-          return true;
-        }
-
-        return false;
-      }
-
-    </script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -77,7 +51,7 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>>" name="add_question_form" method="post" onsubmit="return(validateForm())">
+ <form action="?action=addquestion&qid=<?php echo $quizid?>>" method="post">
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>

@@ -13,11 +13,9 @@ $announcement = new announcementView();
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Announcement</title>
-    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+    <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />-->
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.bootstrap.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -37,12 +35,13 @@ $announcement = new announcementView();
     </form>
   </div>
     <hr>
-      <table id = "announcement" class="table table-striped table-bordered" cellspacing="0">
+      <table style="width: 100%;" id="announcement" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <th align="right">No</th>
             <th align="right">Announcement</th>
             <th align="right">Posted On</th>
-            <th align="right">Action</th>
+            <th align="right">Modify</th>
+            <th align="right">Delete</th>
         </thead>
             <?php
                 $query="select * from announcement order by taskid DESC";
@@ -55,17 +54,9 @@ $announcement = new announcementView();
                     <td align="left" width="5%"><?php echo $a_rows->taskid ?></a></td>
                     <td align="left" width="50%"><?php echo $a_rows->taskname ?></a></td>
                     <td align="left" width="25%"><?php echo $a_rows->taskdate ?></td>
-                    <td align="left" width="10%">
-                        <a href="edit_announcement.php?taskid=<?php echo $a_rows->taskid ?>">
-                            <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                            <!-- Modify -->
-                        </a>
-                        <a href="del_announcement.php?taskid=<?php echo $a_rows->taskid ?>">
-                            <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                            <!-- Delete -->
-                        </a>
-                    </td>
-                </tr>                
+                    <td align="left" width="10%"><a href="edit_announcement.php?taskid=<?php echo $a_rows->taskid ?>">Modify</a></td>
+                    <td align="left" width="10%"><a href="del_announcement.php?taskid=<?php echo $a_rows->taskid ?>">Delete</a></td>
+                    </tr>                
             <?php
                 }
                     mysql_close($link);
@@ -76,7 +67,16 @@ $announcement = new announcementView();
 $(document).ready(function(){
     $('#announcement').DataTable(
         { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+            stateSave: true,
+            "aoColumns": [
+            null,
+            null,
+            null,
+            { "orderSequence": [ "asc" ] },
+            { "orderSequence": [ "asc" ] }
+        ]
+
         });
 });
 </script>

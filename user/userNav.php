@@ -10,33 +10,6 @@
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-
-    <!-- jquery UI -->
-    <!-- Added on: 11-04-15 -->
-    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
-    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
-    <script type="text/javascript">
-    var jquery_1_11_4 = $.noConflict(true);
-    jquery_1_11_4(function(){
-      jquery_1_11_4( ".nav-tooltip" ).tooltip({
-        show: {
-          effect: false
-        },
-        position: {
-          my: "center top+18",
-          at: "right center"
-        }
-      });
-    });
-    </script>
-    <style>
-    label{
-      display: inline-block;
-      /*width: 5em;*/
-    }
-    </style>
-
 </head>
 
 <body>
@@ -49,72 +22,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="userHome.php">
-          <img id="home_icon" src="../img/elessonlogo2_600x600.png">
-          <!-- eLesson -->
-        </a>
+        <a class="navbar-brand" href="userHome.php">eLesson</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbarCollapse">
-      <?php
-      $active_state = false;
-      ?>
       <ul class="nav navbar-nav">
-        <li <?=echoActiveClassIfRequestMatches("userHome")?>>
-          <a href="userHome.php">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/homeicon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/homeicon5_600x600.png">';
-            }
-            ?>
-            <!-- Home -->
-          </a>
-        </li>
-        <li <?=echoActiveClassIfRequestMatches("courses")?>
-          <?=echoActiveClassIfRequestMatches("lesson")?>
-          >
-          <a href="courses.php">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/courseicon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/courseicon2_600x600.png">';
-            }
-            ?>
-            <!-- Course -->
-          </a>
-        </li>
-        <li <?=echoActiveClassIfRequestMatches("user_viewquiz")?>>
-          <a href="user_viewquiz.php">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/quizicon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/quizicon2_600x600.png">';
-            }
-            ?>
-            <!-- Quiz -->
-          </a>
-        </li>
-         <li <?=echoActiveClassIfRequestMatches("announcement")?>>
-          <a href="announcement.php">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/announceicon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/announceicon2_600x600.png">';
-            }
-            ?>
-            <!-- Announcement -->
-          </a>
-        </li>
+        <li <?=echoActiveClassIfRequestMatches("userHome")?>><a href="userHome.php">Home</a></li>
+        <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
+         <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
           </ul>
         </li>
       </ul>
@@ -137,11 +53,8 @@ function echoActiveClassIfRequestMatches($requestUri)
 {
     $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
 
-    if ( strpos($current_file_name, $requestUri) !== false){
+    if ($current_file_name == $requestUri)
         echo 'class="active"';
-        global $active_state;
-        $active_state = true;
-      }
 }
 
 ?>
