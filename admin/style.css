@@ -135,10 +135,14 @@ div#banner_content{
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .btn-default, a.btn-default {
 =======
 .btn-default {
 >>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"
+=======
+.btn-default {
+>>>>>>> parent of e510b04... Style updates
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
