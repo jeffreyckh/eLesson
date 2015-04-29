@@ -22,6 +22,8 @@ $result = mysql_query($query,$link);
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
 
+
+
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -85,6 +87,7 @@ else
     $add_lessonid=intval($_POST['select']);
     $add_quizid=intval($_POST['qid']);
 
+
 	$add_quizname=$_POST['qname'];
 	$date = date('Y-m-d H:i:s');
 	$flag=true;
@@ -97,7 +100,7 @@ else
     		else
         	$flag=true;
 		}
-=======
+
     $add_quizname=$_POST['qname'];
     $date = date('Y-m-d H:i:s');
     $flag=true;
@@ -110,7 +113,7 @@ else
             else
             $flag=true;
         }
->>>>>>> origin/kit
+
     
     if($flag==false)
     {*/
