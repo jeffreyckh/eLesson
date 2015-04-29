@@ -25,7 +25,6 @@ a:hover   {text-decoration:underline; color:#EE0000}
 .secondalt{background-color:#FFFFFF}
 .tbhead{color:#FFFFFF;background-color:#8BAEE5}
 .tableoutline{background-color:#D6E0EF}
-
 .tbcat{color:#FFFFFF;background-color:#8BAEE5}
 
 #navlist {
@@ -129,9 +128,7 @@ div#banner_content{
   border: 1px solid #ddd;
 }
 
-
 .btn-default, a.btn-default {
-
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
@@ -154,3 +151,4 @@ div#banner_content{
 .breadcrumb{
   margin-bottom: 10px;
 }
+

@@ -34,7 +34,8 @@
       $validuid = $v_rows->userid;
       $validlid = $v_rows->lessonid;
     }
-  
+    echo $validuid;
+    echo $validlid;
     if(empty($validlid) && empty($validuid))
     {
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
