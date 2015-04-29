@@ -21,6 +21,9 @@ $result = mysql_query($query,$link);
   <title>Add Quiz</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -81,6 +84,7 @@ else
     include'../inc/db_config.php';
     $add_lessonid=intval($_POST['select']);
     $add_quizid=intval($_POST['qid']);
+
 	$add_quizname=$_POST['qname'];
 	$date = date('Y-m-d H:i:s');
 	$flag=true;
@@ -93,6 +97,20 @@ else
     		else
         	$flag=true;
 		}
+=======
+    $add_quizname=$_POST['qname'];
+    $date = date('Y-m-d H:i:s');
+    $flag=true;
+    $check="select * from quiz";
+    $check_result=mysql_query($check,$link);
+        /*while($result_rows=mysql_fetch_object($check_result))
+        {
+            if(strcmp($add_quizid,$result_rows->quizid)!=0 && $result_rows->quizid!=$add_quizid && $result_rows->quizname != $add_quizname)
+            $flag=false;
+            else
+            $flag=true;
+        }
+>>>>>>> origin/kit
     
     if($flag==false)
     {*/
