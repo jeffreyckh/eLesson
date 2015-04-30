@@ -65,7 +65,6 @@
       $active_state = false;
       ?>
       <ul class="nav navbar-nav">
-<<<<<<< HEAD
       
         <li <?=echoActiveClassIfRequestMatches("adminHome")?>>
           <a class="nav-tooltip" href="adminHome.php" title="Home">
@@ -159,13 +158,6 @@
             <!-- Account -->
           </a>
         </li>
-=======
-        <li <?=echoActiveClassIfRequestMatches("adminHome")?>><a href="adminHome.php">Home</a></li>
-        <li <?=echoActiveClassIfRequestMatches("courses")?>><a href="courses.php">Course</a></li>
-        <li <?=echoActiveClassIfRequestMatches("viewlesson")?>><a href="viewlesson.php">Lesson</a></li>
-        <li <?=echoActiveClassIfRequestMatches("viewquiz")?>><a href="viewquiz.php">Quiz</a></li>
-        <li <?=echoActiveClassIfRequestMatches("announcement")?>><a href="announcement.php">Announcement</a></li>
->>>>>>> origin/Brennan
       </ul>
       
       

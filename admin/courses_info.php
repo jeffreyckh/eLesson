@@ -27,10 +27,9 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-<<<<<<< HEAD
+
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-=======
->>>>>>> origin/Brennan
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -71,39 +70,14 @@
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#courseDetail" aria-controls="courseDetail" role="tab" data-toggle="tab">Course Detail</a></li>
-    <li role="presentation"><a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab">Lessons</a></li>
+    <li role="presentation" class="active"><a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab">Lessons</a></li>
+    <li role="presentation"><a href="#courseDetail" aria-controls="courseDetail" role="tab" data-toggle="tab">Course Detail</a></li>
   </ul>
 
   <!-- Tab panes -->
 <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="courseDetail">
-            <table class="table table-bordered">
-            <tr>
-                <td>Course Name:</td><td><?php echo $m_coursename ?></td>
-            </tr>
-            <tr>
-                <td>Course Description:</td><td><?php echo $m_coursedesc ?></td>
-            </tr>
-            <tr>
-                <td>Created By:</td>
-                <td><?php echo $m_course_creator ?></td>
-            </tr>
-            <tr>
-                <td>Created On:</td>
-                <td><?php echo $m_course_createtime ?></td>
-            </tr>
-            <tr>
-                <td>Last Modified By:</td>
-                <td><?php echo $m_course_modifier ?></td>
-            </tr>
-            <tr>
-                <td>Last Modified On:</td>
-                <td><?php echo $m_course_modifytime ?></td>
-            </tr>
-            </table>
-        </div>
-    <div role="tabpanel" class="tab-pane" id="lessons">
+    
+    <div role="tabpanel" class="tab-pane active" id="lessons">
                 <?php
         $c_id=intval($_REQUEST['cid']);
         $query_count="select count(*) from lesson where direction_id=$c_id";
@@ -112,66 +86,83 @@
         
     ?>
 
-    <div align="right">Total Lesson:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons.php?cid=<?php echo $c_id?>" class = "btn btn-default">Add New Lesson</a>
-    <hr> 
-        <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
-        <thead>
-            <tr>
-            <th align="left">Lesson ID</th>
-            <th align="left">Lesson Name</th>
-            <th align="left">Created</th>
-<<<<<<< HEAD
-            <th align="left">Action</th>
-=======
-            <th align="left">Options</th>
-            <!-- <th align="left">Delete</th> -->
->>>>>>> origin/Brennan
-            </tr>
-            </thead>
-
-        <?php
-            $lquery="select * from lesson where direction_id=$c_id";
-            $lresult=mysql_query($lquery,$link);
-            echo "<tbody>";
-            while($a_rows=mysql_fetch_object($lresult))
-            {
-        ?>
-            
+        <div align="right">Total Lesson:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons.php?cid=<?php echo $c_id?>" class = "btn btn-default">Add New Lesson</a>
+        <hr> 
+            <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
+            <thead>
                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
-                <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                <td align="left" width="100">
-<<<<<<< HEAD
-                    <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
-                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                        <!-- Modify -->
-                    </a>
-                    <a class="action-tooltip" href="lesson_history.php?lid=<?php echo $a_rows->lessonid ?>" title="View History">
-                        <img id="action-icon" src="../img/historyicon2_600x600.png">
-                        <!-- &nbsp;View History&nbsp; -->
-                    </a>
-                    <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
-                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                        <!-- Delete -->
-                    </a>
-                </td>
-=======
-                    <!-- <a href="view">Details</a> -->
-                    <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Modify</a>
-                    <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">Delete</a></td>
->>>>>>> origin/Brennan
+                <th align="left">Lesson ID</th>
+                <th align="left">Lesson Name</th>
+                <th align="left">Created</th>
+                <th align="left">Action</th>
+
                 </tr>
-                           
-        <?php
-            }
-                //mysql_close($link);
-        ?>
-        </tbody> 
-        </td>
+                </thead>
+
+            <?php
+                $lquery="select * from lesson where direction_id=$c_id";
+                $lresult=mysql_query($lquery,$link);
+                echo "<tbody>";
+                while($a_rows=mysql_fetch_object($lresult))
+                {
+            ?>
+                
+                    <tr>
+                    <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
+                    <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
+                    <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                    <td align="left" width="100">
+
+                        <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                            <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                            <!-- Modify -->
+                        </a>
+                        <a class="action-tooltip" href="lesson_history.php?lid=<?php echo $a_rows->lessonid ?>" title="View History">
+                            <img id="action-icon" src="../img/historyicon2_600x600.png">
+                            <!-- &nbsp;View History&nbsp; -->
+                        </a>
+                        <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                            <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                            <!-- Delete -->
+                        </a>
+                    </td>
+                    </tr>
+                               
+            <?php
+                }
+                    //mysql_close($link);
+            ?>
+            </tbody> 
+            
+            </table>
+
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="courseDetail">
+        <table class="table table-bordered">
+        <tr>
+            <td>Course Name:</td><td><?php echo $m_coursename ?></td>
+        </tr>
+        <tr>
+            <td>Course Description:</td><td><?php echo $m_coursedesc ?></td>
+        </tr>
+        <tr>
+            <td>Created By:</td>
+            <td><?php echo $m_course_creator ?></td>
+        </tr>
+        <tr>
+            <td>Created On:</td>
+            <td><?php echo $m_course_createtime ?></td>
+        </tr>
+        <tr>
+            <td>Last Modified By:</td>
+            <td><?php echo $m_course_modifier ?></td>
+        </tr>
+        <tr>
+            <td>Last Modified On:</td>
+            <td><?php echo $m_course_modifytime ?></td>
         </tr>
         </table>
-
     </div>
 </div>
 

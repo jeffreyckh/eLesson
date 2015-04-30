@@ -13,7 +13,7 @@ session_start();
     }
       
 ?>
-<<<<<<< HEAD
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -49,9 +49,7 @@ session_start();
     <li class="active">Edit Course</li>
     </ol>
 Modify Course Detail
-=======
-Change Course Detail
->>>>>>> origin/Brennan
+
 <hr>
 
 <?php

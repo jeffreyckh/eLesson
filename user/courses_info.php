@@ -4,7 +4,32 @@
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
-    $query="SELECT coursename, description from course where courseid=$m_id";
+    $uid = $_SESSION['userid'];
+    $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
+    $viewresult = mysql_query($viewquery);
+    $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
+    $checkresult = mysql_query($querycheck);
+        
+
+        if(mysql_num_rows($checkresult) == 0)
+        {
+          $sql = "INSERT INTO lessonstatus (userid, courseid)
+            VALUES ('$uid', '$m_id')";
+            mysql_query($sql,$link);
+        }
+          
+        
+       
+
+
+    $uquery = "select * from permission where userid = $uid and courseid = $m_id";
+    $uresult = mysql_query($uquery);
+    if(mysql_num_rows($uresult) != 0)
+    {
+        echo '<script language="JavaScript"> window.location.href ="../admin/courses_info.php?cid='.$m_id.'" </script>'; 
+    }
+    $query="select coursename,description from course where courseid=$m_id";
+
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
@@ -55,12 +80,15 @@
             </tr>
             </table>
             </div>
-        <div role="tabpanel" class="tab-pane" id="lessons">
+            
+         <div role="tabpanel" class="tab-pane" id="lessons">
         <?php
         $c_id=intval($_REQUEST['cid']);
-        $query_count="select count(*) from lesson where direction_id=$c_id";
-        $result_count=mysql_query($query_count,$link);
-        $count=mysql_result($result_count,0);
+        $userid = $_SESSION['userid'];
+        $lessonquery = "select lessoncount from lessonstatus where userid = $userid and courseid = $c_id";
+        $lessonresult = mysql_query($lessonquery,$link);
+        $lessoncount = mysql_result($lessonresult,0);
+       
         ?>
 
         <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
@@ -75,18 +103,37 @@
         <?php
             $lquery="select * from lesson where direction_id=$c_id";
             $lresult=mysql_query($lquery,$link);
+            $i = 1;
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($lresult))
             {
-        ?>
-            
-                <tr>
+                if($i <= $lessoncount)
+                {
+                    ?>
+                      <tr>
                 <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
                 <td align="left" width="100"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                </tr>
-                           
-        <?php
+                </tr>      
+
+              <?php
+                }
+                else
+                {
+                ?>
+                 <tr>
+                <td align="left" width="100"><?php echo $a_rows->lessonid ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->lessonname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                </tr>    
+                <?php
+                }
+
+                ?>
+            
+              
+                 <?php
+                $i++;
             }
             
                 //mysql_close($link);
@@ -103,7 +150,6 @@
 }
 mysql_close($link);
 ?>
-
 <script>
 $('#myTab a').click(function (e) {
   e.preventDefault()

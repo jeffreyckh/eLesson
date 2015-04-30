@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-<<<<<<< HEAD
+
     <link rel="stylesheet" type="text/css" href="style.css"/>
-=======
->>>>>>> origin/Brennan
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -62,17 +61,12 @@
         
     ?>
 
-
-    
-<<<<<<< HEAD
     <div align = "right">
         Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp
         <a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a>
         <!-- <a href="history_lesson.php" class = " btn btn-default">Lesson History Log</a> -->
     </div>
-=======
-    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a></div>
->>>>>>> origin/Brennan
+
         <hr>
         <table id="lesson" class="table table-striped table-bordered" cellspacing="0" >
         <thead>

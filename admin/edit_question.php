@@ -53,7 +53,7 @@ if(isset($_GET['action'])=='editquestion') {
     <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
     <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
     <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
-<<<<<<< HEAD
+
     <tr><td>Difficulty:</td><td>
       <select name="ddlDifficulty">
         <?php
@@ -75,10 +75,7 @@ if(isset($_GET['action'])=='editquestion') {
       </select></td></tr>
     </table>
     <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
-=======
-    <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
-</table>
->>>>>>> origin/Brennan
+
 </form>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
@@ -102,17 +99,12 @@ function editquestion()
     $check_result=mysql_query($check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-<<<<<<< HEAD
+
             if(strcmp($edit_content,$result_rows->content)!=0||
                 (strcmp($edit_answer,$result_rows->answer)!=0) ||
                 (strcmp($edit_optionlist,$result_rows->optionlist)!=0) ||
                 (strcmp($edit_ddlDifficulty,$result_rows->difficulty)!=0)
             )
-=======
-            if((strcmp($edit_content,$result_rows->content)!=0) || 
-                (strcmp($edit_answer,$result_rows->answer)!=0) || 
-                (strcmp($edit_optionlist,$result_rows->optionlist)!=0) )
->>>>>>> origin/Brennan
             $flag=false;
             else
             $flag=true;
@@ -120,28 +112,11 @@ function editquestion()
     
     if($flag==false)
     {
-<<<<<<< HEAD
+
        
             $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',difficulty = '$edit_ddlDifficulty' where questionid=$quesid";
             if(!mysql_query($sql,$link))
-=======
-            $query_update = "";
 
-            $sql="UPDATE question SET 
-                  content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist' 
-                  WHERE questionid=$quesid";
-            
-            date_default_timezone_set("Asia/Kuching");
-            $modify_time = date('Y-m-d H:i:s');
-            $modify_user = $_SESSION['username'];
-
-            $query_update = "UPDATE question SET 
-                             content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',
-                             modified_on = '$modify_time', modified_by = '$modify_user'
-                             WHERE questionid=$quesid";
-
-            if(!mysql_query($query_update, $link))
->>>>>>> origin/Brennan
              die("Could not update the data!".mysql_error());
             else
             {

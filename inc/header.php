@@ -11,6 +11,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="http://www.datapuri.com/CTOS/favicon.ico">
 <!-- <link rel="shortcut icon" type="image/x-icon" href="../img/eLessonLogo2_600x600.png"> -->
 <link rel="stylesheet" type="text/css" href="../inc/style.css"  />
+<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 <?php
 // global $basedir;
 // echo $basedir;

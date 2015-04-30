@@ -3,25 +3,41 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
-    $m_id=intval($_GET['lid']);
+    $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
+
+  $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
+    $checkresult = mysql_query($querycheck);
+        
+
+        if(mysql_num_rows($checkresult) == 0)
+        {
+
+          $starttime = date('Y-m-d H:i:s');
+
+          $sql = "INSERT INTO lessoncomplete (userid, lessonid,complete,start_time)
+            VALUES ('$uid', '$m_id','0','$starttime')";
+            mysql_query($sql,$link);
+        }
+          
+
+
+    
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
-
-    $time = date("Y-m-d H:i:s");
+     $time = date("Y-m-d H:i:s");
     $myViewTime = DateTime::createFromFormat('Y-m-d H:i:s', $time);
-
-
     //echo $numrows;
     while($v_rows = mysql_fetch_object($vresult))
     {
       $validuid = $v_rows->userid;
       $validlid = $v_rows->lessonid;
     }
+    echo $validuid;
+    echo $validlid;
     if(empty($validlid) && empty($validuid))
     {
-
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
             VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
@@ -29,10 +45,11 @@
     else
     { 
       $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
-      $uresult = mysql_query($uquery);
+       $uresult = mysql_query($uquery);
     }
         
 
+    $uresult = mysql_query($uquery);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -51,7 +68,6 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -80,6 +96,43 @@
           <hr>
           <h2>Lesson Content:</h2>
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
+
+
+            <?php
+        if(isset($_GET['action'])=='donelesson') {
+            donelesson();
+          }else
+          //show form
+          ?>
+
+          <table class = "table table-bordered">
+          <tr>
+          <form action="?action=donelesson" method="post">
+          <input type="hidden" type="text" name="cid" value="<?php echo $courseid ?>">
+          <input type="hidden" type="text" name="lid" value="<?php echo $m_id ?>">
+          </table>
+          <?php 
+        
+           $querycheck = "select lessoncount from lessonstatus where userid = $uid and courseid = $courseid";
+           $checkresult = mysql_query($querycheck);
+           $currentcount = mysql_result($checkresult,0);
+           $current_query = "select lessonid from lesson where direction_id = $courseid limit $currentcount";
+           $current_result= mysql_query($current_query);
+           $current_lesson = mysql_result($current_result,($currentcount - 1));
+
+            if($m_id == $current_lesson)
+            {
+
+            ?>
+          
+          <div align = "center" ><input class="btn btn-default" type="submit" value="Complete"></div>
+            <?php 
+
+           
+          } 
+            
+            ?>
+          </form>
         </div>
 
   <div role="tabpanel" class="tab-pane" id="quiz">
@@ -112,9 +165,6 @@
         </tr>
         <?php
         }
-        $update_query = "UPDATE user SET last_lesson_id='$m_id' WHERE userid='$uid'";
-        // echo $update_query;
-        mysql_query($update_query, $link);
 
          // mysql_close($link);
         ?>  
@@ -144,6 +194,60 @@ $(document).ready(function(){
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
+
 </script>
+
+
 </body>
 </html>
+
+
+  <?php
+
+           function donelesson() 
+          {
+
+          include'../inc/db_config.php';
+           $done_courseid=intval($_POST['cid']);
+           $done_lessonid=intval($_POST['lid']);
+            $uid = $_SESSION['userid'];
+          $date = date('Y-m-d H:i:s');
+          $flag=true;
+         $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          $done_result=mysql_query($done_query,$link);
+          $newlc = mysql_result($done_result,0) + 1;
+
+            $endtime = date('Y-m-d H:i:s');
+          $flag=true;
+         //$done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+          //$done_result=mysql_query($done_query,$link);
+          //$newlc = mysql_result($done_result,0) + 1;
+          $finish = 1;
+
+
+          $sql = "UPDATE lessoncomplete SET complete = '$finish', end_time = '$endtime' WHERE userid = $uid AND lessonid = $done_lessonid";
+
+           if(!mysql_query($sql,$link))
+           { die("Could not update the data!".mysql_error());}
+           else
+            {
+
+                echo '<script> 
+                    var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
+                      if(answer)
+                      {
+                        window.location.href ="user_viewquiz.php"
+                     }
+                      else
+                      {
+                       window.location.href ="userHome.php"                 
+                     } 
+                      </script>';
+               
+            }
+
+
+          }
+          ?>
+
+

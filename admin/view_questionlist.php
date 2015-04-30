@@ -46,6 +46,7 @@
         <th align="right">Content</th>
         <th align="right">Difficulty</th>
         <th align="right">Action</th>
+
         </thead>
         <?php
             $query="select * from question ";

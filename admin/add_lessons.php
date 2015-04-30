@@ -88,7 +88,6 @@ if(isset($_GET['action'])=='addlesson') {
 ?>
 <table class="table table-bordered">
 <tr>
-<<<<<<< HEAD
  <form id="add_lesson_form" name="add_lesson_form" action="?action=addlesson" method="post" onsubmit="return(validateForm())">
   <input type="hidden" name="lid" value="<?php echo $lessonid ?>">
   <input type="hidden" name="cid" value="<?php echo $courseid ?>">
@@ -97,11 +96,6 @@ if(isset($_GET['action'])=='addlesson') {
     <input type="text" name="lname">
     <div id="name_warning_msg"></div>
   </td></tr>
-=======
- <form action="?action=addlesson" method="post">
-<td>Lesson ID:</td><td><input type="text" name="lid" value="<?php echo $lessonid ?>"></td></tr>
-<tr><td>Lesson Name:</td><td><input type="text" name="lname"></td></tr>
->>>>>>> origin/Brennan
 <tr><td>Lesson Content:</td><td>
 <textarea name="lcont" id="lcont" rows="10" cols="80"></textarea>
 </td></tr>

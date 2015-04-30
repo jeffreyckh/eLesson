@@ -46,8 +46,7 @@
             $m_modifytime   = $m_rows->modified_on;
             $m_modifier     = $m_rows->modified_by;
         }
-
-<<<<<<< HEAD
+?>
     <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
@@ -64,14 +63,7 @@
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($result))
             {
-=======
-        $query_select_lesson = "SELECT * FROM lesson WHERE lessonid = '$m_lessonid'";
-        $result_select_lesson = mysql_query($query_select_lesson);
-        while($m_rows = mysql_fetch_object($result_select_lesson)){
-            $m_lessonname = $m_rows->lessonname;
-            $m_lessoncourse = $m_rows->direction_id;
-        }
->>>>>>> origin/Brennan
+
 
         $query_select_course = "SELECT * FROM course WHERE courseid = '$m_lessoncourse'";
         $result_select_course = mysql_query($query_select_course);
@@ -94,7 +86,6 @@
         </ul>
     </div>
 
-<<<<<<< HEAD
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $b_rows->questionid ?></a></td>
@@ -106,89 +97,7 @@
         <?php
             }
             }
-=======
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="quizDetail">
-            <table class="table table-bordered">
-            <tr>
-                <td>Quiz Name:</td>
-                <td><?php echo $m_quizname ?></td>
-            </tr>
-            <tr>
-                <td>Lesson:</td>
-                <td><?php echo $m_lessonname ?></td>
-            </tr>
-            <tr>
-                <td>Course:</td>
-                <td><?php echo $m_coursename ?></td>
-            </tr>
-            <tr>
-                <td>Created By:</td>
-                <td><?php echo $m_creator ?></td>
-            </tr>
-            <tr>
-                <td>Created On:</td>
-                <td><?php echo $m_createtime ?></td>
-            </tr>
-            <tr>
-                <td>Last Modified By:</td>
-                <td><?php echo $m_modifier ?></td>
-            </tr>
-            <tr>
-                <td>Last Modified On:</td>
-                <td><?php echo $m_modifytime ?></td>
-            </tr>
-            </table>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="questionList">
-            <center>
-            <div align = "right">
-                Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp
-                <a class = " btn btn-default" href="add_question.php?qid=<?php echo $qid ?>">Add Question</a>
-            </div>
-            <hr>
-                <table id="question" class="table table-striped table-bordered" cellspacing="0" >
-                <thead>
-                <th align="right">Question ID</th>
-                <th align="right">Content</th>
-                <th align="right">Modify</th>
-                <th align="right">Delete</th>
-                </thead>
-                <?php
-                    $query  = "SELECT * FROM question WHERE quizid = $qid";
-                    $result = mysql_query($query, $link);
-                    echo "<tbody>";
-                    while($a_rows=mysql_fetch_object($result)){
-                ?>
-                        <tr>
-                            <td align="left" width="100">
-                                <?php echo $a_rows->questionid ?>
-                            </td>
-                            <td align="left" width="500">
-                                <a href="question_info.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>">
-                                    <?php echo $a_rows->content ?>
-                                </a>
-                            </td>
-                            <td align="left" width="100">
-                                <a href="edit_question.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>">
-                                    Modify
-                                </a>
-                            </td>
-                            <td align="left" width="100">
-                                <a href="delete_question.php?quid=<?php echo $a_rows->questionid ?>&qid=<?php echo $qid ?>">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>                
-                <?php
-                    }
-                    
-                        mysql_close($link);
-                ?>
-            </tbody> 
-            </table>
->>>>>>> origin/Brennan
-            
+            ?>
             </center>
             <script>
             $(document).ready(function(){

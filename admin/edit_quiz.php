@@ -3,18 +3,12 @@
     include '../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
-<<<<<<< HEAD
     $m_id=intval($_REQUEST['qid']);
     $query="select quizname,lessonid from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
-=======
-    $m_id = intval($_REQUEST['qid']);
-    $query_select_quiz  = "SELECT quizname, lessonid FROM quiz WHERE quizid = '$m_id'";
-    $result_select_quiz = mysql_query($query_select_quiz, $link);
-    while($m_rows=mysql_fetch_object($result_select_quiz)){
->>>>>>> origin/Brennan
+
         $m_quizname=$m_rows->quizname;
         
         $m_lessonid=$m_rows->lessonid;

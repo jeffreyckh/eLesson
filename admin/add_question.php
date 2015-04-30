@@ -117,29 +117,10 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-<<<<<<< HEAD
             $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
             
             if(!mysql_query($sql,$link)){
-=======
-            $sql="insert into question(questionid,quizid,content,choicetype,answer,optionlist) values('$add_questionid','$add_quizid','$add_content','radio','$add_answer','$add_option')";
-            $query_insert_question = "INSERT INTO question
-                                      ( questionid, quizid, content, choicetype, 
-                                        answer, optionlist,
-                                        created_on, created_by,
-                                        modified_on, modified_by,
-                                        deleted_on, deleted_by,
-                                        rec_status ) 
-                                      VALUES
-                                      ('$add_questionid','$add_quizid',
-                                        '$add_content', 'radio',
-                                        '$add_answer', '$add_option', 
-                                        '$create_time', '$create_user',
-                                        '$modify_time', '$modify_user',
-                                        '$delete_time', '$delete_user',
-                                        '$rec_status')";
-            if(!mysql_query($query_insert_question,$link)){
->>>>>>> origin/Brennan
+
              die("Could not add new question.".mysql_error());
             }else
             {

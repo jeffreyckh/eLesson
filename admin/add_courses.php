@@ -54,7 +54,6 @@ if(isset($_GET['action'])=='addcourse') {
 ?>
 <table class = "table table-bordered">
 <tr>
-<<<<<<< HEAD
   <form action="?action=addcourse" name="add_course_form" method="post" onsubmit="return(validate())">
   <input type="hidden" type="text" name="cid" value="<?php echo $courseid ?>">
   <td>Course Name:</td><td><input type="text" name="cname"></td>
@@ -62,12 +61,6 @@ if(isset($_GET['action'])=='addcourse') {
 <tr>
   <td>Course Description</td><td><input type="text" name="cdesc"></td>
 </tr>
-=======
- <form action="?action=addcourse" method="post">
-<td>Course ID:</td><td><input type="text" name="cid" value="<?php echo $count ?>"></td></tr>
-<td>Course Name:</td><td><input type="text" name="cname"></td></tr>
-<td>Course Description</td><td><input type="text" name="cdesc"></td></tr>
->>>>>>> origin/Brennan
 </table>
 <div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
 </form>
@@ -117,15 +110,13 @@ if(isset($_GET['action'])=='addcourse') {
             $query_insert_course = "INSERT INTO course
                                     ( courseid, coursename, created, description,
                                       created_on, created_by,
-                                      modified_on, modified_by,
-                                      deleted_on, deleted_by,
-                                      rec_status )
+                                      modified_on, modified_by
+                                      )
                                     VALUES
                                     ( '$add_courseid', '$add_coursename', '$date', '$add_coursedesc',
                                       '$create_time', '$create_user',
-                                      '$modify_time', '$modify_user',
-                                      '$delete_time', '$delete_user',
-                                      '$rec_status')";
+                                      '$modify_time', '$modify_user'
+                                      )";
 
             if(!mysql_query($query_insert_course,$link)){
              die("Could not add new course.".mysql_error());

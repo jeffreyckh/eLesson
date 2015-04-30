@@ -127,8 +127,8 @@
                         $query_select_course = "SELECT coursename 
                                                 FROM course WHERE courseid='$cid'";
                         $result_select_course = mysql_query($query_select_course, $link);
+                    }
 
-<<<<<<< HEAD
                 while ($token !== false)
                 {
                 echo "$token<br>";
@@ -142,50 +142,6 @@
                 echo $diff ?></td>
             </tr>
             </table>
-=======
-                        while($c_row = mysql_fetch_object($result_select_course)){
-                            $course_name = $c_row->coursename;
-                        }
-                    }
-                }
-                
-                mysql_close($link);
-                ?>
-                <table class="table table-bordered">
-                    <tr><th colspan="2">Question Information</th></tr>
-                    <tr>
-                        <td>Quiz:</td>
-                        <td><?php echo $quiz_name ?></td>
-                    </tr>
-                    <tr>
-                        <td>Lesson:</td>
-                        <td><?php echo $lesson_name ?></td>
-                    </tr>
-                    <tr>
-                        <td>Course:</td>
-                        <td><?php echo $course_name ?></td>
-                    </tr>
-                    <tr>
-                        <td>Created By:</td>
-                        <td><?php echo $creator ?></td>
-                    </tr>
-                    <tr>
-                        <td>Created On:</td>
-                        <td><?php echo $create_time ?></td>
-                    </tr>
-                    <tr>
-                        <td>Last Modified By:</td>
-                        <td><?php echo $modifier ?></td>
-                    </tr>
-                    <tr>
-                        <td>Last Modified On:</td>
-                        <td><?php echo $modify_time ?></td>
-                    </tr>
-                </table>
-            </div>
->>>>>>> origin/Brennan
-        
-               
         </center>
         
     </div>

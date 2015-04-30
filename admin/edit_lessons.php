@@ -76,12 +76,6 @@
     </script>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-
-Modify Course Detail
-<hr>
->>>>>>> origin/Brennan
 
 Modify Lesson Details
 <hr>
@@ -103,7 +97,7 @@ if(isset($_GET['action'])=='editlesson') {
         <div id="name_warning_msg" style="display:inline;"></div>
     </td>
 </tr>
-<<<<<<< HEAD
+
 <tr>
     <td>Lesson Content:</td>
     <td>
@@ -118,9 +112,7 @@ if(isset($_GET['action'])=='editlesson') {
     <td><input type="reset">
 
 </td></tr>
-=======
-<tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
->>>>>>> origin/Brennan
+
 </table>
 </form>
 <script>
@@ -148,16 +140,12 @@ function editlesson()
     $check_result=mysql_query($query_check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-<<<<<<< HEAD
             // echo $result_rows->lessonname."<br>";
             if(strcmp($edit_name, $result_rows->lessonname) == 0){
                 
                 $flag = true;
                 echo $flag;
-=======
-            if(strcmp($edit_name, $result_rows->lessonname) == 0){
-                $flag = true;
->>>>>>> origin/Brennan
+
             }
             // if(strcmp($edit_name,$result_rows->lessonname)!=0 && $edit_name != $result_rows->lessonname)
             // $flag=false;
@@ -170,21 +158,14 @@ function editlesson()
     $query_select_check = "SELECT lessonname, lessoncontent FROM lesson WHERE lessonid = '$m_id'";
     $check_select_result = mysql_query($query_select_check, $link);
     while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
-<<<<<<< HEAD
+
         if(strcmp($edit_name, $result_rows["lessonname"])==0 && strcmp($edit_content, $result_rows["lessoncontent"])==0){
             $modify_flag = true;
         }
         // if(strcmp($edit_content, $result_rows["lessoncontent"])==0){
         //     $modify_flag = true;
         // }
-=======
-        if(strcmp($edit_name, $result_rows["lessonname"])!=0){
-            $modify_flag = true;
-        }
-        if(strcmp($edit_content, $result_rows["lessoncontent"])!=0){
-            $modify_flag = true;
-        }
->>>>>>> origin/Brennan
+
     }
     
     if($flag==false)
@@ -192,11 +173,9 @@ function editlesson()
         $query_update = "";
         $query_update_course = "";
         // Modification changed lesson data, update modification record info
-<<<<<<< HEAD
+
         if($modify_flag == false){
-=======
-        if($modify_flag == true){
->>>>>>> origin/Brennan
+
             date_default_timezone_set("Asia/Kuching");
             $modify_time = date('Y-m-d H:i:s');
             $modify_user = $_SESSION['username'];
@@ -223,20 +202,12 @@ function editlesson()
         }
             // $sql="update lesson set lessonname='$edit_name',lessoncontent='$edit_content' where lessonid=$m_id";
             
-<<<<<<< HEAD
-            // backup($m_id);
-
-
-=======
->>>>>>> origin/Brennan
             if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());
             else
             {
-<<<<<<< HEAD
                 update_lesson_history($m_id);
-=======
->>>>>>> origin/Brennan
+
                 mysql_query($query_update_course, $link);
                 $query="select direction_id from lesson where lessonid=$m_id";
                 $result=mysql_query($query,$link);
@@ -300,7 +271,18 @@ function update_lesson_history($lesson_id){
 ?>
 </table>
 <br>
-<a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>
+<?php
+    if(isset($_SESSION['url'])){
+        ?>
+        <a href="<?php echo $_SESSION['url'] ?>">Return</a>
+        <?php
+    }else{
+        ?>
+        <a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>        
+        <?php
+    }
+?>
+
 
 <?php
 mysql_close($link);

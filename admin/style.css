@@ -1,3 +1,32 @@
+body {margin:5px 5px 5px 5px} 
+body,p,table,a,form,input,textarea,select,botton {font-family:"Verdana","Song Ti"; font-size:12px; color:#000000} 
+form {margin:0px} 
+input,textarea,select,botton {padding:2px 2px 0px 2px} 
+
+a:link    {text-decoration:none;      color:#222222} 
+a:visited {text-decoration:none;      color:#444444} 
+a:hover   {text-decoration:underline; color:#EE0000} 
+
+.empha {color:#FF0000} 
+.menu  {line-height:125%;} 
+
+.pt {font-size:20px; font-weight:bold; color:#000000} 
+.p1 {font-size:14px; line-height:150%; color:#000000} 
+.p2 {font-size:16px; line-height:150%; color:#000000}
+.p3 {font-size:18px; line-height:150%; color:#000000} 
+
+.expressine {font-size:12px; font-family:"Song Ti"; color:#0000CC}
+.expressoute {font-size:12px; font-family:"Song Ti"; color:#CC0000}
+.expressinc {font-size:12px; font-family:"Song Ti"; color:#0000CC}
+.expressoutc {font-size:12px; font-family:"Song Ti"; color:#CC0000}
+.song {font-size:12px; font-family:"Song Ti"; color:#000000}
+.item {color:#888888}
+.firstalt{background-color:#EEEEEE}
+.secondalt{background-color:#FFFFFF}
+.tbhead{color:#FFFFFF;background-color:#8BAEE5}
+.tableoutline{background-color:#D6E0EF}
+.tbcat{color:#FFFFFF;background-color:#8BAEE5}
+
 #navlist {
     position: relative;
 }
@@ -99,7 +128,7 @@ div#banner_content{
   border: 1px solid #ddd;
 }
 
-.btn-default {
+.btn-default, a.btn-default {
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
@@ -122,3 +151,4 @@ div#banner_content{
 .breadcrumb{
   margin-bottom: 10px;
 }
+

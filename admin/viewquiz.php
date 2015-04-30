@@ -15,11 +15,9 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-<<<<<<< HEAD
 
     <link rel="stylesheet" type="text/css" href="style.css"/>
-=======
->>>>>>> origin/Brennan
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -94,7 +92,6 @@
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
-<<<<<<< HEAD
                 <td align="left" width="100">
                     <a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">
                         <img id="action-icon" src="../img/modifyicon2_600x600.png">
@@ -105,10 +102,7 @@
                         <!-- Delete -->
                     </a>
                 </td>
-=======
-                <td align="left" width="100"><a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">Modify</a></td>
-                <td align="left" width="100"><a href="delete_quiz.php?qid=<?php echo $a_rows->quizid ?>">Delete</a></td>
->>>>>>> origin/Brennan
+
                 </tr>                
         <?php
 
