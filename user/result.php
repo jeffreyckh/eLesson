@@ -96,47 +96,43 @@ session_start();
                         <p>Score : <span class="answer"><?php echo $score;?></span></p>
                         <?php if($score < 50)
                         {
-                        ?>
-                        <p> you failed </p>
-                        <?php
-                        mysql_query(" UPDATE passingrate SET fail = fail + 1 WHERE prid = '1'");
+                          ?>
+                          <p> you failed </p>
+                          <?php
+                          mysql_query(" UPDATE passingrate SET fail = fail + 1 WHERE prid = '1'");
 
                         }
                         else
                         {
-                        ?>
-                        <p> you passed </p>
-                        <?php
+                          ?>
+                          <p> you passed </p>
+                          <?php
 
-                        mysql_query(" UPDATE passingrate SET pass = pass + 1 WHERE prid = '1'");
-          
+                          mysql_query(" UPDATE passingrate SET pass = pass + 1 WHERE prid = '1'");
+            
 
-          
-                          $lessonquery = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
-                          $done_lessonid = mysql_result($lessonquery,0);
-                          $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
-                          $done_courseid = mysql_result($coursequery,0);       
+            
+                            $lessonquery    = mysql_query("SELECT lessonid FROM quiz WHERE quizid = $qid",$link);
+                            $done_lessonid  = mysql_result($lessonquery,0);
+                            $coursequery    = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
+                            $done_courseid  = mysql_result($coursequery,0);       
 
-                          $date = date('Y-m-d H:i:s');
-                          $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
-                          $done_result=mysql_query($done_query,$link);
-                          $newlc = mysql_result($done_result,0) + 1;
-                          $sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
-                           if(!mysql_query($sql,$link))
+                            $date         = date('Y-m-d H:i:s');
+                            $done_query   = "SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
+                            $done_result  = mysql_query($done_query,$link);
+                            $newlc        = mysql_result($done_result,0) + 1;
+                            $sql          = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
+                            if(!mysql_query($sql,$link))
                             { die("Could not update the data!".mysql_error());}
                             else
                             {
-                               
-
-                                $sql = "UPDATE user_to_quiz SET complete = '1',finish_time= '$date' WHERE userid = $uid AND quizid = $qid";
-                                if(!mysql_query($sql,$link))
-                                  { die("Could not update the data!".mysql_error());}
-                                   else
-                                  {
-                                      echo '<script> alert("You Passed.") </script>';
-                              
-                                  }
-                              
+                              $sql = "UPDATE user_to_quiz SET complete = '1',finish_time= '$date' WHERE userid = $uid AND quizid = $qid";
+                              if(!mysql_query($sql,$link))
+                                { die("Could not update the data!".mysql_error());}
+                                 else
+                                {
+                                    echo '<script> alert("You Passed.") </script>';
+                                }
                             }
                         }
                         ?>                   

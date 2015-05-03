@@ -24,6 +24,7 @@
 
     
     $vquery = " select * from user_to_lesson where userid = $uid and lessonid = $m_id";
+    // echo $vquery;
     $vresult = mysql_query($vquery);
     $numrows = mysql_num_rows($vresult);
      $time = date("Y-m-d H:i:s");
@@ -34,8 +35,8 @@
       $validuid = $v_rows->userid;
       $validlid = $v_rows->lessonid;
     }
-    echo $validuid;
-    echo $validlid;
+    // echo $validuid;
+    // echo $validlid;
     if(empty($validlid) && empty($validuid))
     {
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 

@@ -25,8 +25,8 @@ $announcement = new announcementView();
 </head>
 <body>
   <div class = "col-md-7">
-    <legend>Navigation</legend>
-    <div class = "row">
+    <!-- <legend>Navigation</legend> -->
+    <!-- <div class = "row">
       <div class = "col-md-2">
         <figure>
         <a href="courses.php"><img src="../img/blackboard.png"></a>
@@ -44,6 +44,44 @@ $announcement = new announcementView();
         <a href="announcement.php"><img src="../img/announcement.png"></a>
         <figcaption>Announcement</figcaption>
         </figure>
+      </div>
+    </div> -->
+    <div id="userhome_tab">
+    <div role="tabpanel">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#last_lessons" aria-controls="last_lessons" role="tab" data-toggle="tab">Last Lessons Viewed</a></li>
+        <li role="presentation"><a href="#quiz_avai" aria-controls="quiz_avai" role="tab" data-toggle="tab">Quizzes Available</a></li>
+      </ul>
+    </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="last_lessons">
+          <?php
+          $select_lesson_query = 
+            "SELECT distinct user_to_lesson.lessonid, lesson.*
+            FROM `user_to_lesson` inner join `lesson` on user_to_lesson.lessonid = lesson.lessonid
+            where user_to_lesson.userid='12' order by user_to_lesson.viewtime desc limit 10";
+            // echo $select_lesson_query;
+
+          $result = mysql_query($select_lesson_query);
+          
+          ?>
+          <ul>
+            <?php
+            while($row = mysql_fetch_object($result)){
+              ?>
+              <li>
+                <a href="lessons_info.php?lid=<?php echo $row->lessonid ?>">
+                  <?php echo $row->lessonname ?>
+                </a>
+              </li>
+              <?php
+            }
+            ?>
+          </ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="quiz_avai">
+          
+        </div>
       </div>
     </div>
     <br></br>
@@ -121,6 +159,11 @@ function get_latest_lesson(){
   }
 
   echo $l_name;
+}
+
+function get_lesson(){
+  global $link;
+
 }
 ?>
 </body>

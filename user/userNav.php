@@ -62,7 +62,7 @@
       ?>
       <ul class="nav navbar-nav">
         <li <?=echoActiveClassIfRequestMatches("userHome")?>>
-          <a href="userHome.php">
+          <a href="userHome.php" class="nav-tooltip" title="Home">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/homeicon_white_600x600.png">';
@@ -77,7 +77,7 @@
         <li <?=echoActiveClassIfRequestMatches("courses")?>
           <?=echoActiveClassIfRequestMatches("lesson")?>
           >
-          <a href="courses.php">
+          <a href="courses.php" class="nav-tooltip" title="Course">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/courseicon_white_600x600.png">';
@@ -90,7 +90,7 @@
           </a>
         </li>
         <li <?=echoActiveClassIfRequestMatches("user_viewquiz")?>>
-          <a href="user_viewquiz.php">
+          <a href="user_viewquiz.php" class="nav-tooltip" title="Quiz">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/quizicon_white_600x600.png">';
@@ -103,7 +103,7 @@
           </a>
         </li>
          <li <?=echoActiveClassIfRequestMatches("announcement")?>>
-          <a href="announcement.php">
+          <a href="announcement.php" class="nav-tooltip" title="Announcement">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/announceicon_white_600x600.png">';

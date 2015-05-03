@@ -152,3 +152,11 @@ a.navbar-brand{
 .breadcrumb{
   margin-bottom: 10px;
 }
+
+#userhome_tab li{
+  list-style: none;
+}
+
+.nav-tabs{
+  border-bottom: none;
+}
