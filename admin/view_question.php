@@ -96,7 +96,7 @@
                 </tr>                
         <?php
             }
-            }
+            
             ?>
             </center>
             <script>
