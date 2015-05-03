@@ -3,6 +3,8 @@ session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
+$t = date("Y-m-d H:i:s");
+$tnow = date_create ("$t");
 
 //require_once('../view/announcementView.php');
 //$announcement = new announcementView();
@@ -45,6 +47,9 @@ include 'adminNav.php';
             <th align="right">Email</th>
             <th align="right">Position</th>
             <th align="right">Rank</th>
+            <th align="right">Last View Lesson</th>
+            <th align="right">Modify</th>
+            <th align="right">Delete</th>
             <th align="right">Action</th>
         </thead>
             <?php
@@ -76,6 +81,37 @@ include 'adminNav.php';
                             echo "User";                        
                         }?>
                     </td>
+                    <td align="left" width="20%">
+                        <?php
+                            $useracc = $a_rows->userid;
+                            $queryU2L = "select * from user_to_lesson where userid = $useracc";
+                            $resultU2L = mysql_query($queryU2L);
+                            $tempdays = 0;
+                            while($b_rows=mysql_fetch_object($resultU2L))
+                            {
+                                $vdate = $b_rows->viewtime;
+                                $vtime = date_create ("$vdate");
+                                $diff=date_diff($vtime,$tnow);
+
+                                $days = $diff->format("%d");
+
+                                if($days > $tempdays)
+                                {
+                                    $tempdays = $days;
+                                }
+                            }
+                            if($tempdays >= 7)
+                            {
+                                echo "<font color='red'>$tempdays days ago</font>";
+                            }
+                            else
+                            {
+                                echo "$tempdays days ago";
+                            }
+                        ?>
+                    </td>
+                    <td align="left" width="10%"><a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">Modify</a></td>
+                    <td align="left" width="10%"><a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">Delete</a></td>
                     <td align="left" width="10%">
                         <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">
