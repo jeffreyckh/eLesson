@@ -50,8 +50,6 @@ session_start();
            }
     $score = ($right_answer/$usercount) * 100;
     $result = round($score);
-
-    $scorequery = " INSERT INTO passingrate ("
    }
 
          
@@ -93,19 +91,19 @@ session_start();
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
                         <p>Score : <span class="answer"><?php echo $result;?></span></p>
-                        <?php if($score < 50)
+                        <?php if($result < 50)
                         {
                         ?>
                           <p> you failed </p>
                         <?php
-                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid");
+                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           if(mysql_num_rows($checkdone) == 0)
                           {
-                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$score','0'");
+                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$result','0')") or die(mysql_error());
                           }
                           else
                           {
-                            mysql_query("UPDATE passingrate SET result = $result AND pass = '0' WHERE userid = $uid AND quizid = $qid");
+                            mysql_query("UPDATE passingrate SET result = '$result', pass = '0' WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           }
                         }
                         else
@@ -114,14 +112,14 @@ session_start();
                         <p> you passed </p>
                         <?php
 
-                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid");
+                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           if(mysql_num_rows($checkdone) == 0)
                           {
-                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$score','1'");
+                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$result','1')") or die(mysql_error());
                           }
                           else
                           {
-                            mysql_query("UPDATE passingrate SET result = $result AND pass = '1' WHERE userid = $uid AND quizid = $qid");
+                            mysql_query("UPDATE passingrate SET result = '$result', pass = '0' WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           }
           
 
@@ -140,8 +138,6 @@ session_start();
                             { die("Could not update the data!".mysql_error());}
                             else
                             {
-                               
-
                                 $sql = "UPDATE user_to_quiz SET complete = '1',finish_time= '$date' WHERE userid = $uid AND quizid = $qid";
                                 if(!mysql_query($sql,$link))
                                   { die("Could not update the data!".mysql_error());}
