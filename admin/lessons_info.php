@@ -1,15 +1,9 @@
 <?php
     session_start();
-    
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
     $m_id=intval($_GET['lid']);
-    if(isset($_SESSION['url'])){
-      unset($_SESSION['url']);
-    }
-    $_SESSION['url'] = "lessons_info.php?lid=".$m_id;
-    // echo $_SESSION['url'];
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $query_select = "SELECT * FROM lesson WHERE lessonid='$m_id'";
     $result=mysql_query($query_select,$link);
@@ -39,30 +33,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
-    <style type="text/css">
-      .nav-options{
-        
-        float: right;
-      }
-      .nav-options>li{
-        float: left;
-        margin-bottom: -1px;
-        display: block;
-        position: relative;
-        list-style: none;
-        padding: 0;
-      }
-      .nav-options>li>a>img{
-        height: 22px;
-        width: auto;
-        padding: 0px;
-      }
-      .nav-options>li>div.optionTab{
-          position: relative;
-          display: block;
-          padding: 10px 15px;
-      }
-    </style>
 </head>
 <body>
   <ol class="breadcrumb">
@@ -77,24 +47,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#lessonDetail" aria-controls="lessonDetail" role="tab" data-toggle="tab">Lesson Content</a></li>
     <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Lesson Info</a></li>
-    <!-- <li>options</li> -->
-    <ul class="nav nav-options">
-      <li><div class="optionTab"></div></li>
-      <li>
-        <a href="edit_lessons.php?lid=<?php echo $m_id ?>">
-          <img src="../img/modifyicon2_600x600.png">
-          Modify
-        </a>
-      </li>
-      <li>
-        <a href="del_lessons.php?lid=<?php echo $m_id ?>">
-          <img src="../img/deleteicon2_600x600.png">
-          Delete
-        </a>
-      </li>
-    </ul>
   </ul>
-  
 
   <!-- Tab panes -->
 <div class="tab-content">
@@ -128,10 +81,6 @@
             </tr>
           </table>
         </div>
-        <div role="tabpanel" class="tab-pane" id="lessonOptions">
-
-        </div>
-
 </div>
 
 <?php

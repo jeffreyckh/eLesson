@@ -27,6 +27,47 @@ $result = mysql_query($query,$link);
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        getLessons();
+    });
+    function generate_lesson(){
+        var coursedetail = document.getElementById("quiz_course").value;
+        
+        var arr_course = coursedetail.split(",");
+        var courseid = arr_course[0];
+        var coursename = arr_course[1];
+        alert("Course id: "+courseid+" Course name: "+coursename);
+
+        <?php
+        // $sel_query = "SELECT * FROM course where courseid=";
+        ?>
+    }
+
+    function getLessons(course_det){
+        get_lesson_url = "get_lesson.php";
+        var c_id = "";
+        if(course_det){
+            // alert("If: "+course_det);
+            course_det = course_det.split(",");
+            c_id = course_det[0];
+            // alert("c_id: "+c_id);
+            get_lesson_url += "?c_id=" + c_id;
+            // alert(get_lesson_url);
+        }else{
+            // alert("Else: "+course_det);
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("sel_lesson").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", get_lesson_url, true);
+        xmlhttp.send();
+    }
+    </script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -47,30 +88,62 @@ if(isset($_GET['action'])=='addquiz') {
 else
 //show form
 ?>
+<form name="quizform" action="?action=addquiz" method="post">
 <table class="table table-bordered">
 <tr>
- <form action="?action=addquiz" method="post">
-<td>Lesson:</td>
-<td><select name="select">
-     <?php $query2="select * from lesson order by direction_id";
-                $result2=mysql_query($query2,$link);
-                while($b_rows=mysql_fetch_object($result2))
-                {
-    ?>
-     
-<option value="<?php echo $b_rows->lessonid ?>" selected><?php echo $b_rows->lessonname ?></option>
-
-<?php
-}
-?>
-
-</select></td></tr>
+    <td>
+        Course:
+      </td>
+      <td>
+        <select name="quiz_course" id="quiz_course" onchange="getLessons(this.value)">
+            <option value="" selected disabled>--- Select a Course ---</option>
+            <?php
+            $select_course = "SELECT * FROM course";
+            $result = mysql_query($select_course);
+            while($row = mysql_fetch_object($result)){
+              ?>
+              <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+              <?php
+            }
+            ?>
+        </select>
+      </td>
+</tr>
+<tr>
+    <td>Lesson:</td>
+    <td>
+        <!-- <select name="select">
+         <?php $query2="select * from lesson order by direction_id";
+                    $result2=mysql_query($query2,$link);
+                    while($b_rows=mysql_fetch_object($result2))
+                    {
+        ?>         
+        <option value="<?php echo $b_rows->lessonid ?>" selected><?php echo $b_rows->lessonname ?></option>
+        <?php
+        }
+        ?>
+        </select> -->
+        <!-- <select name = "sel_lesson" id = "sel_lesson" value="<?php echo $sel_lesson; ?>">
+            <option value='' disabled selected> --- Select a Lesson --- </option>
+        </select> -->
+        <select name = "sel_lesson" id = "sel_lesson">
+            
+        </select>
+    </td>
+</tr>
 
 <input type="hidden" type="text" type="hidden" name="qid" value="<?php echo $quizid ?>">
 
-<td>Quiz Name:</td><td><input type="text" name="qname"></td></tr>
+<tr>
+    <td>Quiz Name:</td>
+    <td><input type="text" name="qname"></td>
+</tr>
 </table>
-<div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
+<div align = "center" >
+    <input  class="btn btn-default" type="submit" value="Add">
+    &nbsp&nbsp
+    <input  class="btn btn-default" type="reset">
+</div>
 </form>
 </body>
 </html>
@@ -80,7 +153,17 @@ else
  function addquiz() 
  {
     include'../inc/db_config.php';
-    $add_lessonid=intval($_POST['select']);
+    $c_details = $_POST['quiz_course'];
+    $c_explode = explode(',', $c_details);
+    $c_id = $c_explode[0];
+    $c_name = $c_explode[1];
+    
+    $l_details = $_POST['sel_lesson'];
+    $l_explode = explode(',', $l_details);
+    $l_id = $l_explode[0];
+    $l_name = $l_explode[1];
+    
+    // $add_lessonid=intval($_POST['sel_lesson']);
     $add_quizid=intval($_POST['qid']);
     $add_quizname=$_POST['qname'];
     $date = date('Y-m-d H:i:s');
@@ -97,9 +180,12 @@ else
     
     if($flag==false)
     {*/
-            $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
+            // $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
+            $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name) 
+                    values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name')";
             
             if(!mysql_query($sql,$link)){
+                echo $sql;
              die("Could not add new quiz.".mysql_error());
             }else
             {

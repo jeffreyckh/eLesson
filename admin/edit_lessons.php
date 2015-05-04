@@ -271,18 +271,7 @@ function update_lesson_history($lesson_id){
 ?>
 </table>
 <br>
-<?php
-    if(isset($_SESSION['url'])){
-        ?>
-        <a href="<?php echo $_SESSION['url'] ?>">Return</a>
-        <?php
-    }else{
-        ?>
-        <a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>        
-        <?php
-    }
-?>
-
+<a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>
 
 <?php
 mysql_close($link);
