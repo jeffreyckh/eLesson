@@ -15,15 +15,10 @@ $count=mysql_result($result_count,0) + 1;
   <title>Add Quiz</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-<<<<<<< HEAD
-
-
 
     <link rel="stylesheet" type="text/css" href="style.css">
 
-=======
-    <link rel="stylesheet" type="text/css" href="style.css"/>
->>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -94,7 +89,7 @@ else
  <?php
  function addquiz() 
  {
-<<<<<<< HEAD
+
     include'../inc/db_config.php';
     $add_lessonid=intval($_POST['select']);
     $add_quizid=intval($_POST['qid']);
@@ -105,8 +100,8 @@ else
 	$flag=true;
 	$check="select * from quiz";
 	$check_result=mysql_query($check,$link);
-		/*while($result_rows=mysql_fetch_object($check_result))
-=======
+		while($result_rows=mysql_fetch_object($check_result))
+
     include '../inc/db_config.php';
     $add_lessonid  = intval($_POST['select']);
     $add_quizid    = intval($_POST['qid']);
@@ -130,7 +125,6 @@ else
 	$check         = "SELECT * FROM quiz";
 	$check_result  = mysql_query($check,$link);
 		while($result_rows = mysql_fetch_object($check_result))
->>>>>>> parent of 3428c86... Revert "fix conflict on manageAccount.php"
 		{
     		if(strcmp($add_quizid, $result_rows->quizname)!=0 && 
                 $result_rows->quizid != $add_quizid && 
@@ -145,7 +139,7 @@ else
     $flag=true;
     $check="select * from quiz";
     $check_result=mysql_query($check,$link);
-        /*while($result_rows=mysql_fetch_object($check_result))
+        while($result_rows=mysql_fetch_object($check_result))
         {
             if(strcmp($add_quizid,$result_rows->quizid)!=0 && $result_rows->quizid!=$add_quizid && $result_rows->quizname != $add_quizname)
             $flag=false;

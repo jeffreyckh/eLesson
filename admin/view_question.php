@@ -95,7 +95,7 @@
                 <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td>
                 </tr>                
         <?php
-            }
+            
             }
             ?>
             </center>
