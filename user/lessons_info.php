@@ -5,8 +5,14 @@
     include 'userNav.php';
     $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
+        if(!isset($_SESSION['lessonview']))
+    {
+        $viewquery = "UPDATE lesson SET view = view + 1 where lessonid = $m_id";
+        $viewresult = mysql_query($viewquery);
+        $_SESSION['lessonview'] = 1;
+    }
 
-  $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
+   $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
     $checkresult = mysql_query($querycheck);
         
 

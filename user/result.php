@@ -49,6 +49,9 @@ session_start();
                //echo $result['answer'];
            }
     $score = ($right_answer/$usercount) * 100;
+    $result = round($score);
+
+    $scorequery = " INSERT INTO passingrate ("
    }
 
          
@@ -89,14 +92,21 @@ session_start();
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
-                        <p>Score : <span class="answer"><?php echo $score;?></span></p>
+                        <p>Score : <span class="answer"><?php echo $result;?></span></p>
                         <?php if($score < 50)
                         {
                         ?>
-                        <p> you failed </p>
+                          <p> you failed </p>
                         <?php
-                        mysql_query(" UPDATE passingrate SET fail = fail + 1 WHERE prid = '1'");
-
+                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid");
+                          if(mysql_num_rows($checkdone) == 0)
+                          {
+                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$score','0'");
+                          }
+                          else
+                          {
+                            mysql_query("UPDATE passingrate SET result = $result AND pass = '0' WHERE userid = $uid AND quizid = $qid");
+                          }
                         }
                         else
                         {
@@ -104,7 +114,15 @@ session_start();
                         <p> you passed </p>
                         <?php
 
-                        mysql_query(" UPDATE passingrate SET pass = pass + 1 WHERE prid = '1'");
+                          $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid");
+                          if(mysql_num_rows($checkdone) == 0)
+                          {
+                            mysql_query(" INSERT INTO passingrate(userid,quizid,result,pass) VALUES ('$uid','$qid','$score','1'");
+                          }
+                          else
+                          {
+                            mysql_query("UPDATE passingrate SET result = $result AND pass = '1' WHERE userid = $uid AND quizid = $qid");
+                          }
           
 
           

@@ -1,12 +1,18 @@
 <?php
     session_start();
+    unset($_SESSION['lessonview']);
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
     $m_id=intval($_GET['cid']);
     $uid = $_SESSION['userid'];
-    $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
-    $viewresult = mysql_query($viewquery);
+    if(!isset($_SESSION['view']))
+    {
+        $viewquery = "UPDATE course SET view = view + 1 where courseid = $m_id";
+        $viewresult = mysql_query($viewquery);
+        $_SESSION['view'] = 1;
+    }
+
     $querycheck = "select * from lessonstatus where userid = $uid and courseid = $m_id";
     $checkresult = mysql_query($querycheck);
         
@@ -164,5 +170,6 @@ $(document).ready(function(){
         });
 });
 </script>
+
 </body>
 </html>

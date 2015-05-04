@@ -36,7 +36,7 @@
         </li>
       </ul>
 
-        <form method="post" action="../login.php" id="navBar">
+        <form method="post" action="logout.php" id="navBar">
         <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
