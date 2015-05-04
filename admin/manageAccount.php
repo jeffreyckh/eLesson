@@ -48,8 +48,6 @@ $tnow = date_create ("$t");
             <th align="right">Position</th>
             <th align="right">Rank</th>
             <th align="right">Last View Lesson</th>
-            <th align="right">Modify</th>
-            <th align="right">Delete</th>
             <th align="right">Action</th>
         </thead>
             <?php
@@ -110,8 +108,7 @@ $tnow = date_create ("$t");
                             }
                         ?>
                     </td>
-                    <td align="left" width="10%"><a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">Modify</a></td>
-                    <td align="left" width="10%"><a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">Delete</a></td>
+                    
                     <td align="left" width="10%">
                         <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">

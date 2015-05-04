@@ -5,6 +5,12 @@ include '../inc/header.php';
 include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
+$time = time();
+$month=date("F",$time);
+$year=date("Y",$time);
+
+$mysqltesting = "UPDATE dashboard SET $month = $month + 1 WHERE title = 'userview'" or die(mysql_error());
+$testresutl = mysql_query($mysqltesting);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

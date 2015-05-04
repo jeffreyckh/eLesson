@@ -7,7 +7,14 @@ $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
-$quizid = intval($_REQUEST['qid']);
+
+$query = " select * from question order by questionid DESC limit 1";
+$result = mysql_query($query,$link);
+ while($m_rows=mysql_fetch_object($result))
+    {
+        $questionid = $m_rows->questionid + 1;
+    }
+//$quizid = intval($_REQUEST['qid']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -28,7 +35,7 @@ $quizid = intval($_REQUEST['qid']);
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
-    <li><a href="view_question?qid=<?php echo $quizid?>">Questions</a></li>
+    <li><a href="view_questionlist.php">Questions</a></li>
     <li class="active">Add Question</li>
     </ol>
 <center>
@@ -44,9 +51,9 @@ else
 ?>
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>" method="post">
-<td>Question ID:</td><td><input type="text" name="quesid" value="<?php echo $count ?>"></td></tr>
-<tr><td>Question Content:</td><td>
+ <form action="?action=addquestion>" method="post">
+<input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
+<td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td></tr>
 <!-- <td>Question Type:</td>
@@ -82,7 +89,7 @@ value="checkbox">Multiple Choice</td></tr>
  function addquestion() 
  {
     include'../inc/db_config.php';
-    $add_quizid=intval($_REQUEST['qid']);
+    // $add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
 	//$add_type=$_POST['choicetype'];
