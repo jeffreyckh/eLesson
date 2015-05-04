@@ -5,12 +5,6 @@ include '../inc/header.php';
 include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
-$time = time();
-$month=date("F",$time);
-$year=date("Y",$time);
-
-$mysqltesting = "UPDATE dashboard SET $month = $month + 1 WHERE title = 'userview'" or die(mysql_error());
-$testresutl = mysql_query($mysqltesting);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -44,8 +38,20 @@ $testresutl = mysql_query($mysqltesting);
     
     <link rel="stylesheet" href="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
     <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+     <script type="text/javascript"> 
+   $(function () {
+   $('[data-toggle="popover"]').popover()
+    })
+     </script>
   </head>
 <body>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> 50</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most View Course <br> IT <br> 20 View</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Most Active User <br> xia0t99 </button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:jeffrey<br>2:abc234<br>3:admin<br>4:admin123<br>5:admin001">Most Active Admin <br> jeffrey</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most Change Course <br> IT</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
+
   <div class = "col-md-8">
     <div role="tabpanel">
         <!-- Nav tabs -->
@@ -160,9 +166,9 @@ $testresutl = mysql_query($mysqltesting);
 
       <script type="text/javascript">
      $('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+        e.preventDefault()
+        $(this).tab('show')
+      })
       function numberCourseView()
       {
 
