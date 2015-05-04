@@ -53,32 +53,10 @@ $announcement = new announcementView();
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
 
   <div class = "col-md-8">
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#piechart" aria-controls="home" role="tab" data-toggle="tab">Passing Rate</a></li>
-        <li role="presentation"><a href="#columnchart_values" aria-controls="profile" role="tab" data-toggle="tab">Number of view</a></li>
-        <li role="presentation"><a href="#chart_div" aria-controls="messages" role="tab" data-toggle="tab">Total registered member</a></li>
-      
-        </ul>
-    <!--<div class = "row">
-      <div class = "col-md-5">
-        <div id="piechart" style="width: 100%; height: 100%;"></div>
-      </div>
-      <div class = "col-md-20">
-        <div id="columnchart_values" style="width: 900px%; height: 400px;"></div>
-      </div>
-      <div class = "col-md-5">
-        <div id="chart_div" style="width: 100%; height: 100%;"></div>
-      </div>!-->
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="piechart" style="width: 900px; height: 500px;"></div>
-      <div role="tabpanel" class="tab-pane" id="columnchart_values"></div>
-      <div role="tabpanel" class="tab-pane" id="chart_div"></div>
-    </div>
-    </div>
+
+      <div  id="piechart" style="width: 900px; height: 500px;"></div>
   </div>
- <!--<div class = "col-md-3">
+ <div class = "col-md-3">
   <div class = "row">
    <br> <hr>
   <?php
@@ -118,7 +96,7 @@ $announcement = new announcementView();
     </div>
   </div>
 </div>
-</div>!-->
+</div>
 
 <?php
 
@@ -150,7 +128,7 @@ $announcement = new announcementView();
       $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where complete = '1' AND lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
       $lcompleterows = mysql_num_rows($lcompleteresult);
       $lcomp[] = $lcompleterows;
-      $incomp[] = $lviewrows - $lcompleterows;
+      $lincomp[] = $lviewrows - $lcompleterows;
     }
     $_SESSION['lename'] = $lname;
     $_SESSION['leview'] = $lview;
@@ -187,8 +165,6 @@ $announcement = new announcementView();
         var coptions = {
           chart: {
             title: 'Number of Course View',
-            width:1000000,
-            height:500
           }
         };
       
@@ -201,11 +177,12 @@ $announcement = new announcementView();
                 url: "adminHome.php",
                 data: 'q=' + ctopping,
                  success: function(data) {
+                  
                 $.fancybox.open([
                   {
                     href : 'chart/lessonChart.php', 
-                    'width'  : 500,           // set the width
-                    'height' : 500,
+                    'width'  : 900,           // set the width
+                    'height' : 600,
                     type : 'iframe',
                     padding : 5
                   }
