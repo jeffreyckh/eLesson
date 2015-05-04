@@ -66,7 +66,7 @@ $testresutl = mysql_query($mysqltesting);
         <div id="chart_div" style="width: 100%; height: 100%;"></div>
       </div>!-->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="piechart"></div>
+      <div role="tabpanel" class="tab-pane active" id="piechart" style="width: 900px; height: 500px;"></div>
       <div role="tabpanel" class="tab-pane" id="columnchart_values"></div>
       <div role="tabpanel" class="tab-pane" id="chart_div"></div>
     </div>
@@ -120,6 +120,8 @@ $testresutl = mysql_query($mysqltesting);
   $cview = array();
   $lname = array();
   $lview = array();
+  $lcomp = array();
+  $lincomp = array();
   $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
   while($c_rows = mysql_fetch_object($courseresult))
   {
@@ -136,64 +138,31 @@ $testresutl = mysql_query($mysqltesting);
     while($l_rows = mysql_fetch_object($lessonresult))
     {
       $lname[] = $l_rows->lessonname;
-      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewrows = mysql_num_rows($lviewresult);
+      $lview[] = $lviewrows;
+      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where complete = '1' AND lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
       $lcompleterows = mysql_num_rows($lcompleteresult);
-      $lview[] = $lcompleterows;
+      $lcomp[] = $lcompleterows;
+      $incomp[] = $lviewrows - $lcompleterows;
     }
     $_SESSION['lename'] = $lname;
     $_SESSION['leview'] = $lview;
+    $_SESSION['lecomp'] = $lcomp;
+    $_SESSION['leincomp'] = $lincomp;
   }
   //$jcname = json_encode($cname);
   //$jcview = json_encode($cview);
-  $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
-  $pass = mysql_result($passquery,0);
-  $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
-  $fail = mysql_result($failquery,0);
   $nuquery = mysql_query("SELECT * FROM user");
   $numUserRows = mysql_num_rows($nuquery);
 ?>
 <!--Pie Chart !-->
 
-<script type="text/javascript">
-      //$('#myTab a').click(function (e) {
-      //e.preventDefault()
-      //$(this).tab('show')
-      //})
-
-      
-      </script>
       <script type="text/javascript">
-      function passingRateChart()
-      {
-        // pie Chart for passing ate
-          var data = google.visualization.arrayToDataTable([
-            ['PassFail', 'Number of people'],
-            ['Pass',    <?php echo $pass?>],
-            ['Fail',    <?php echo $fail?>]
-          ]);
-       
-          var options = {
-            title: 'Passing Rate'
-          };
-       
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-           function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            alert('The user selected ' + topping);
-          }
-        }
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        
-          chart.draw(data, options);
-        }
-        google.load('visualization', '1', {
-        packages: ['corechart'],
-        callback: passingRateChart
-        });
+     $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
       function numberCourseView()
       {
 
@@ -212,10 +181,12 @@ $testresutl = mysql_query($mysqltesting);
         var coptions = {
           chart: {
             title: 'Number of Course View',
+            width:1000000,
+            height:500
           }
         };
       
-        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        var cchart = new google.visualization.PieChart(document.getElementById('piechart'));
         function cselectHandler() {
           var cselectedItem = cchart.getSelection()[0];
           if (cselectedItem) {
@@ -226,7 +197,9 @@ $testresutl = mysql_query($mysqltesting);
                  success: function(data) {
                 $.fancybox.open([
                   {
-                    href : 'chart/lessonChart.php',
+                    href : 'chart/lessonChart.php', 
+                    'width'  : 500,           // set the width
+                    'height' : 500,
                     type : 'iframe',
                     padding : 5
                   }
@@ -245,7 +218,7 @@ $testresutl = mysql_query($mysqltesting);
       
       }
       google.load('visualization', '1', {
-        packages: ['bar'],
+        packages: ['corechart'],
         callback: numberCourseView
       });
       function numberofUser()
