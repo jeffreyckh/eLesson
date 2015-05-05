@@ -171,13 +171,15 @@ if(isset($_GET['action'])=='addlesson') {
              die("Could not add new lesson.".mysql_error());
             }else
             {
+              update_lesson_history($add_lessonid);
+
               date_default_timezone_set("Asia/Kuching");
               $modify_time = date('Y-m-d H:i:s');
               $modify_user = $_SESSION['username'];
               $last_inserted_id = mysql_insert_id();
 
               // Get direction_id to update modification information of the course
-              $query_select_course = "SELECT direction_id FROM lesson WHERE lessonid = '$last_inserted_id'";
+              $query_select_course = "SELECT direction_id FROM lesson WHERE lessonid = '$add_lessonid'";
               $select_course_result = mysql_query($query_select_course, $link);
 
               while($row = mysql_fetch_object($select_course_result)){
@@ -201,6 +203,45 @@ if(isset($_GET['action'])=='addlesson') {
         echo "Lesson Existed ";
     }
 
+}
+function update_lesson_history($lesson_id){
+    global $link;
+    // Insert modified lesson into lesson history 
+    $query_select = "SELECT * FROM lesson WHERE lessonid='$lesson_id'";
+    $result = mysql_query($query_select, $link);
+    $arr_result = mysql_fetch_assoc($result);
+    $revision_time = "";
+    $last_user = "";
+
+    $query_insert_hist = "INSERT INTO lesson_history(
+                                    lessonid, lessonname, created, lessoncontent, direction_id,
+                                    created_on, created_by, modified_on, modified_by,
+                                    deleted_on, deleted_by, rec_status, version_id, latest_revision_time, latest_user
+                                )
+                                VALUES(";
+    foreach($arr_result as $key => $value){
+    $query_insert_hist .=  "'" . $value . "',";
+
+    if($key == "modified_on"){
+      $revision_time = "'" . $value . "'";
+    }
+
+    if($key == "modified_by"){
+      $last_user = "'" . $value . "'";
+    }
+  }
+
+  $query_insert_hist .= $revision_time;
+  $query_insert_hist .= ",";
+  $query_insert_hist .= $last_user;
+  $query_insert_hist .= ")";
+
+    if(!mysql_query($query_insert_hist, $link)){
+        // echo "Checkpoint";
+        die("Could not add lesson history.".mysql_error());
+    }else{
+    // echo '<script> alert("Lesson ") </script>';
+    }
 }
 ?>
 

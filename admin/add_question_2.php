@@ -32,19 +32,21 @@ $result = mysql_query($query,$link);
     <script src="../jscss/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
       function validateForm(){
+        CKEDITOR.instances.quescont.updateElement();
         var warning_string = "";
         
         if(document.add_question_form.quescont.value == ""){
+          alert(document.add_question_form.quescont.value);
           alert("Please enter question content.");
-          warning_string += "Please enter question content.\n";
+          // warning_string += "Please enter question content.\n";
           return false;
         }else if(document.add_question_form.quesans.value == ""){
           alert("Please enter correct answer.");
-          warning_string += "Please enter question content.\n";
+          // warning_string += "Please enter question answer.\n";
           return false;
         }else if(document.add_question_form.option.value == ""){
           alert("Please enter option list.");
-          warning_string += "Please enter question content.\n";
+          // warning_string += "Please enter option list.\n";
           return false;
         }else{
           
@@ -75,11 +77,31 @@ if(isset($_GET['action'])=='addquestion') {
 else
 //show form
 ?>
+<form action="?action=addquestion&qid=<?php echo $quizid?>>" name="add_question_form" method="post" onsubmit="return(validateForm())">
 <table class = "table table-bordered">
 <tr>
- <form action="?action=addquestion&qid=<?php echo $quizid?>>" name="add_question_form" method="post" onsubmit="return(validateForm())">
+  <td>
+    Course:
+  </td>
+  <td>
+    <select name="ques_course">
+        <option value="" selected disabled>--- Select a Course ---</option>
+        <?php
+        $select_course = "SELECT * FROM course";
+        $result = mysql_query($select_course);
+        while($row = mysql_fetch_object($result)){
+          ?>
+          <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+          <?php
+        }
+        ?>
+    </select>
+  </td>
+</tr>
+<tr> 
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
-<td>Question Content:</td><td>
+<td>Question Content:</td>
+<td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td></tr>
 <!-- <td>Question Type:</td>
@@ -106,6 +128,7 @@ value="checkbox">Multiple Choice</td></tr>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
       CKEDITOR.replace( 'quescont' );
+
 </script>
 </body>
 </html>
@@ -115,11 +138,29 @@ value="checkbox">Multiple Choice</td></tr>
  function addquestion() 
  {
     include'../inc/db_config.php';
+    
     $add_quizid=intval($_REQUEST['qid']);
+
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
 	//$add_type=$_POST['choicetype'];
 	//$date = date('Y-m-d H:i:s');
+    if(isset($_SESSION['username'])){
+      $create_user = $_SESSION['username'];
+    }
+    date_default_timezone_set("Asia/Kuching");
+    $create_time  = date("Y-m-d h:i:s");
+    $modify_user  = "-";
+    $modify_time  = "0000-00-00 00:00:00";
+    $delete_user  = "-";
+    $delete_time  = "0000-00-00 00:00:00";
+    $rec_status   = "-";
+
+    $c_details = $_POST['ques_course'];
+    $c_explode = explode(',', $c_details);
+    $c_id = $c_explode[0];
+    $c_name = $c_explode[1];
+
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
     $add_option=$_POST['option'];
@@ -138,20 +179,39 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
+            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
+                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
             }else
             {
-                $sql = "insert into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
-                 if(!mysql_query($sql,$link)){
+                $sql = "INSERT into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
+                 if(!mysql_query($sql2,$link)){
                   die("Could not add new question.".mysql_error());
                 }
                   else
                   {
-                echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $add_quizid . '" </script>';}
+                    date_default_timezone_set("Asia/Kuching");
+                    $modify_time = date('Y-m-d H:i:s');
+                    $modify_user = $_SESSION['username'];
+                    $last_inserted_id = mysql_insert_id();
+
+                    // Get direction_id to update modification information of the course
+                    $query_select_question = "SELECT quizid FROM question WHERE questionid = '$add_quizid'";
+                    $select_question_result = mysql_query($query_select_question, $link);
+
+                    while($row = mysql_fetch_object($select_question_result)){
+                      $quiz_id = $row->quizid;
+                    }
+
+                    $query_update_quiz = "UPDATE quiz SET
+                                            modified_on = '$modify_time', modified_by = '$modify_user'
+                                            WHERE quizid = '$quiz_id'";
+
+                    mysql_query($query_update_quiz, $link);
+                    echo '<script> alert("Add Question Successful!") </script>';
+                    echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $add_quizid . '" </script>';}
             }
         
        

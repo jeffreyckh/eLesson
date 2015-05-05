@@ -168,16 +168,19 @@ else
 	$check_result  = mysql_query($check,$link);
 		while($result_rows=mysql_fetch_object($check_result))
 		{
-    		if(strcmp($add_questionid,$result_rows->questionid)!=0)
-        	$flag=false;
-    		else
-        	$flag=true;
+            if(isset($add_questionid)){
+                if(strcmp($add_questionid,$result_rows->questionid)!=0)
+                $flag=false;
+                else
+                $flag=true;
+            }
 		}
     
     if($flag==false)
     {
         $delete = "DELETE from quiz_to_question WHERE quizid=$add_quizid";
         mysql_query($delete);
+        $insert_query = "";
 
         if(isset($_POST['chk_ques'])){
 
@@ -190,11 +193,7 @@ else
             }
             
             $insert_query = chop($insert_query, ",");
-            
-        }
-            // $sql="INSERT into quiz_to_question(quizid,questionid) 
-            //         values('$add_quizid','$add_questionid')";
-            
+
             if(!mysql_query($insert_query,$link)){
              die("Could not select the question.".mysql_error());
             }else
@@ -202,6 +201,14 @@ else
                 echo '<script> alert("Select Question Successful!") </script>';
                 echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
             }
+            
+        }else{
+            echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
+        }
+            // $sql="INSERT into quiz_to_question(quizid,questionid) 
+            //         values('$add_quizid','$add_questionid')";
+            
+            
         
        
     }
