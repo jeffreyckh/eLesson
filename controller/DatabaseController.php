@@ -20,12 +20,35 @@ class DatabaseController
     $res = mysql_fetch_assoc($result);
     $_SESSION['rank'] = $res['rank'];
     $rank = $_SESSION['rank'];
+      
+      $time = time();
+      $month=date("F",$time);
+      $year=date("Y",$time);
+      $uidquery= mysql_query("SELECT userid FROM user WHERE username = '$username' AND password = '$password' ");
+      $uid = mysql_result($uidquery,0);
+        
+        $querycheck = "select * from user_view where userid = $uid";
+        $checkresult = mysql_query($querycheck);
+        if(mysql_num_rows($checkresult) == 0)
+        {
+          $sql = "INSERT INTO  user_view (username,userid,usertype,year)
+            VALUES ('$username','$uid', '$rank','$year')" or die(mysql_error());
+            mysql_query($sql);
+        }
+
+       
+      $mysqltesting = "UPDATE user_view SET $month = $month + 1 WHERE userid = $uid";
+      mysql_query($mysqltesting);
+     
+
+
     if($res)
     {
       if($rank == 1)
       {
       $_SESSION['username'] = $username;
-      header('Location: admin/adminHome.php');
+      
+      header('Location: admin/adminHome.php'); 
       exit;
       }
       elseif ($rank == 2) 

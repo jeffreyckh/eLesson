@@ -5,6 +5,50 @@ include '../inc/header.php';
 include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
+
+      $time = time();
+      $month=date("F",$time);
+      $year=date("Y",$time);
+      $totalviewer = 0;
+      $userstack = array();
+      $adminstack = array();
+        
+      $querycheck = "select * from user_view";
+      $checkresult = mysql_query($querycheck);
+       while($c_rows=mysql_fetch_object($checkresult))
+    {
+      $totalviewer = $totalviewer + $c_rows->$month; 
+
+      if($c_rows->usertype == 1 || $c_rows->usertype == 2)
+
+      {
+        array_push($adminstack,$c_rows->username,$c_rows->$month);
+      }
+
+      else
+      {
+         array_push($userstack,$c_rows->username,$c_rows->$month);
+      }
+       
+    }
+
+ $usercount =count($userstack);
+ $admincount = count($adminstack);
+ if($usercount < 11){
+    for($i = 0;$i < (10-$usercount);$i++)
+    {
+        array_push($userstack,'null','null');
+    }
+}
+
+if($admincount < 11){
+    for($i = 0;$i < (10-$admincount);$i++)
+    {
+        array_push($adminstack,'null','null');
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -45,13 +89,15 @@ $announcement = new announcementView();
      </script>
   </head>
 <body>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> 50</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> <?php echo $totalviewer ?></button>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most View Course <br> IT <br> 20 View</button>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Most Active User <br> xia0t99 </button>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:jeffrey<br>2:abc234<br>3:admin<br>4:admin123<br>5:admin001">Most Active Admin <br> jeffrey</button>
+         <br>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:<?php echo $userstack[0]; ?> <br>2:<?php echo $userstack[2]; ?> <br>3:<?php echo $userstack[4]; ?><br>4:<?php echo $userstack[6]; ?><br>5:<?php echo $userstack[8]; ?>">Most Active User <br> <?php echo $userstack[0]; ?> </button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:<?php echo $adminstack[0]; ?><br>2:<?php echo $adminstack[2]; ?><br>3:<?php echo $adminstack[4]; ?><br>4:<?php echo $adminstack[6]; ?><br>5:<?php echo $adminstack[8]; ?>">Most Active Admin <br>  <?php echo $adminstack[0]; ?></button>
+          <br>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most Change Course <br> IT</button>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
-
+       </br>
   <div class = "col-md-8">
     <div role="tabpanel">
         <!-- Nav tabs -->
