@@ -45,12 +45,12 @@ $announcement = new announcementView();
      </script>
   </head>
 <body>
-         <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> 50</button>
+         <!--<button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> 50</button>
          <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most View Course <br> IT <br> 20 View</button>
          <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Most Active User <br> xia0t99 </button>
          <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:jeffrey<br>2:abc234<br>3:admin<br>4:admin123<br>5:admin001">Most Active Admin <br> jeffrey</button>
          <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most Change Course <br> IT</button>
-         <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
+         <button type="button" style="width: 190px; height: 60px;" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>!-->
   <div class = "col-md-8">
 
       <div  id="piechart" style="width: 900px; height: 500px;"></div>
