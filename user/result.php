@@ -119,7 +119,7 @@ session_start();
                           }
                           else
                           {
-                            mysql_query("UPDATE passingrate SET result = '$result', pass = '0' WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
+                            mysql_query("UPDATE passingrate SET result = '$result', pass = '1' WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           }
           
 

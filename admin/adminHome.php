@@ -88,7 +88,7 @@ if($admincount < 11){
     })
      </script>
   </head>
-<body>
+  <body>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> <?php echo $totalviewer ?></button>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most View Course <br> IT <br> 20 View</button>
          <br>
@@ -99,32 +99,10 @@ if($admincount < 11){
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
        </br>
   <div class = "col-md-8">
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#piechart" aria-controls="home" role="tab" data-toggle="tab">Passing Rate</a></li>
-        <li role="presentation"><a href="#columnchart_values" aria-controls="profile" role="tab" data-toggle="tab">Number of view</a></li>
-        <li role="presentation"><a href="#chart_div" aria-controls="messages" role="tab" data-toggle="tab">Total registered member</a></li>
-      
-        </ul>
-    <!--<div class = "row">
-      <div class = "col-md-5">
-        <div id="piechart" style="width: 100%; height: 100%;"></div>
-      </div>
-      <div class = "col-md-20">
-        <div id="columnchart_values" style="width: 900px%; height: 400px;"></div>
-      </div>
-      <div class = "col-md-5">
-        <div id="chart_div" style="width: 100%; height: 100%;"></div>
-      </div>!-->
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="piechart"></div>
-      <div role="tabpanel" class="tab-pane" id="columnchart_values"></div>
-      <div role="tabpanel" class="tab-pane" id="chart_div"></div>
-    </div>
-    </div>
+
+      <div  id="piechart" style="width: 900px; height: 500px;"></div>
   </div>
- <!--<div class = "col-md-3">
+ <div class = "col-md-3">
   <div class = "row">
    <br> <hr>
   <?php
@@ -164,7 +142,7 @@ if($admincount < 11){
     </div>
   </div>
 </div>
-</div>!-->
+</div>
 
 <?php
 
@@ -172,6 +150,8 @@ if($admincount < 11){
   $cview = array();
   $lname = array();
   $lview = array();
+  $lcomp = array();
+  $lincomp = array();
   $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
   while($c_rows = mysql_fetch_object($courseresult))
   {
@@ -188,66 +168,31 @@ if($admincount < 11){
     while($l_rows = mysql_fetch_object($lessonresult))
     {
       $lname[] = $l_rows->lessonname;
-      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewrows = mysql_num_rows($lviewresult);
+      $lview[] = $lviewrows;
+      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where complete = '1' AND lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
       $lcompleterows = mysql_num_rows($lcompleteresult);
-      $lview[] = $lcompleterows;
+      $lcomp[] = $lcompleterows;
+      $lincomp[] = $lviewrows - $lcompleterows;
     }
     $_SESSION['lename'] = $lname;
     $_SESSION['leview'] = $lview;
+    $_SESSION['lecomp'] = $lcomp;
+    $_SESSION['leincomp'] = $lincomp;
   }
   //$jcname = json_encode($cname);
   //$jcview = json_encode($cview);
-  $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
-  $pass = mysql_result($passquery,0);
-  $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
-  $fail = mysql_result($failquery,0);
   $nuquery = mysql_query("SELECT * FROM user");
   $numUserRows = mysql_num_rows($nuquery);
 ?>
 <!--Pie Chart !-->
 
-<script type="text/javascript">
-      //$('#myTab a').click(function (e) {
-      //e.preventDefault()
-      //$(this).tab('show')
-
-      //})
-      </script>
-       
-
-
       <script type="text/javascript">
-      function passingRateChart()
-      {
-        // pie Chart for passing ate
-          var data = google.visualization.arrayToDataTable([
-            ['PassFail', 'Number of people'],
-            ['Pass',    <?php echo $pass?>],
-            ['Fail',    <?php echo $fail?>]
-          ]);
-       
-          var options = {
-            title: 'Passing Rate'
-          };
-       
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-           function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            alert('The user selected ' + topping);
-          }
-        }
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        
-          chart.draw(data, options);
-        }
-        google.load('visualization', '1', {
-        packages: ['corechart'],
-        callback: passingRateChart
-        });
+     $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
       function numberCourseView()
       {
 
@@ -269,7 +214,7 @@ if($admincount < 11){
           }
         };
       
-        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        var cchart = new google.visualization.PieChart(document.getElementById('piechart'));
         function cselectHandler() {
           var cselectedItem = cchart.getSelection()[0];
           if (cselectedItem) {
@@ -278,9 +223,12 @@ if($admincount < 11){
                 url: "adminHome.php",
                 data: 'q=' + ctopping,
                  success: function(data) {
+                  
                 $.fancybox.open([
                   {
-                    href : 'chart/lessonChart.php',
+                    href : 'chart/lessonChart.php', 
+                    'width'  : 900,           // set the width
+                    'height' : 600,
                     type : 'iframe',
                     padding : 5
                   }
@@ -299,7 +247,7 @@ if($admincount < 11){
       
       }
       google.load('visualization', '1', {
-        packages: ['bar'],
+        packages: ['corechart'],
         callback: numberCourseView
       });
       function numberofUser()

@@ -17,9 +17,8 @@ session_start();
         $query_name = "select quizname from quiz where quizid = $qid";
         $result_name = mysql_query($query_name,$link);
         $quizname = mysql_result($result_name,0);
-
-    $querycheck = "select * from user_to_quiz where userid = $uid and quizid = $qid";
-    $checkresult = mysql_query($querycheck);
+        $querycheck = "select * from user_to_quiz where userid = $uid and quizid = $qid";
+        $checkresult = mysql_query($querycheck);
 
         if(mysql_num_rows($checkresult) == 0)
         {
