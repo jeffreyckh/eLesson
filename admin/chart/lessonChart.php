@@ -197,8 +197,21 @@ $lsize = count($lname);
 
   </script>
   <body>
-	<div id="columnchart_values" style="width: 600px; height: 500px;" align="center"></div>
-  <hr>
-  <div id="columnchart_status" style="width: 700px; height: 400px;" align="center"></div>
+    <?php
+      $tmp = array_filter($lview);
+      if (!empty($tmp))
+      {
+    ?>
+	       <div id="columnchart_values" style="width: 600px; height: 500px;" align="center"></div>
+          <hr>
+        <div id="columnchart_status" style="width: 700px; height: 400px;" align="center"></div>
+    <?php
+      }
+      else
+      {
+        echo "No Data Available";
+      }
+    
+    ?>
 </body>
 </html>
