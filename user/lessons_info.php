@@ -117,7 +117,19 @@
            $currentcount = mysql_result($checkresult,0);
            $current_query = "select lessonid from lesson where direction_id = $courseid limit $currentcount";
            $current_result= mysql_query($current_query);
-           $current_lesson = mysql_result($current_result,($currentcount - 1));
+           $querylesson = "select count(*) from lesson where direction_id = $courseid";
+           $lessonresult = mysql_query($querylesson);
+           $lessontotal = mysql_result($lessonresult,0);
+
+
+           if($currentcount <= $lessontotal)
+
+          { $current_lesson = mysql_result($current_result,($currentcount - 1)); }
+
+          else
+          {
+          $current_lesson = 0;
+          }
 
             if($m_id == $current_lesson)
             {
