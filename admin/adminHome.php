@@ -12,6 +12,27 @@ $announcement = new announcementView();
       $totalviewer = 0;
       $userstack = array();
       $adminstack = array();
+      $coursestack = array();
+      $coursemodstack = array();
+
+      $coursequery = "select * from course order by view desc";
+     $courseresult = mysql_query($coursequery,$link);
+      while($b_rows=mysql_fetch_object($courseresult))
+      {
+      array_push($coursestack,$b_rows->coursename,$b_rows->view);
+
+      }
+
+      $coursequery2 = "select * from course order by mod_time desc";
+      $courseresult2 = mysql_query($coursequery2);
+      while($d_rows = mysql_fetch_object($courseresult2))
+      {
+
+        array_push($coursemodstack,$d_rows->coursename,$d_rows->mod_time);
+      }
+
+   
+
         
       $querycheck = "select * from user_view";
       $checkresult = mysql_query($querycheck);
@@ -31,6 +52,9 @@ $announcement = new announcementView();
       }
        
     }
+
+     
+ 
 
  $usercount =count($userstack);
  $admincount = count($adminstack);
@@ -90,13 +114,11 @@ if($admincount < 11){
   </head>
   <body>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" >Monthly Viewers <br> <?php echo $totalviewer ?></button>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most View Course <br> IT <br> 20 View</button>
-         <br>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:<?php echo $userstack[0]; ?> <br>2:<?php echo $userstack[2]; ?> <br>3:<?php echo $userstack[4]; ?><br>4:<?php echo $userstack[6]; ?><br>5:<?php echo $userstack[8]; ?>">Most Active User <br> <?php echo $userstack[0]; ?> </button>
          <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:<?php echo $adminstack[0]; ?><br>2:<?php echo $adminstack[2]; ?><br>3:<?php echo $adminstack[4]; ?><br>4:<?php echo $adminstack[6]; ?><br>5:<?php echo $adminstack[8]; ?>">Most Active Admin <br>  <?php echo $adminstack[0]; ?></button>
-          <br>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:IT<br>2:Accounting<br>3:HR<br>4:Testing<br>5:Unknown">Most Change Course <br> IT</button>
-         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:abc123<br>3:unknown123<br>4:user<br>5:user123">Top Scorer <br>xia0t99<br>Average Score:100</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:<?php echo $coursemodstack[0]; ?><br>2:<?php echo $coursemodstack[2]; ?><br>3:<?php echo $coursemodstack[4]; ?><br>4:<?php echo $coursemodstack[6]; ?><br>5:<?php echo $coursemodstack[8]; ?>">Most Change Course <br> <?php echo $coursemodstack[0]; ?></button>
+                  <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:<?php echo $coursestack[0]; ?><br>2:<?php echo $coursestack[2]; ?><br>3:<?php echo $coursestack[4]; ?><br>4:<?php echo $coursestack[6]; ?><br>5:<?php echo $coursestack[8]; ?>">Most View Course <br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views</button>
+         <button type="button" class="btn btn-lg btn-danger"  data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:user<br>3:null<br>4:null<br>5:null">Top Scorer <br>xia0t99<br>Average Score:100</button>
        </br>
   <div class = "col-md-8">
 

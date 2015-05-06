@@ -130,7 +130,7 @@ function editcourse()
 
                 $query_update = "UPDATE course SET 
                                 coursename = '$edit_name', description = '$edit_desc',
-                                modified_on = '$modify_time', modified_by = '$modify_user'
+                                modified_on = '$modify_time', modified_by = '$modify_user',mod_time = mod_time + 1
                                 WHERE courseid = '$m_id'";
             }else{
                 $query_update="update course set coursename='$edit_name',description='$edit_desc' where courseid=$m_id";
@@ -141,6 +141,7 @@ function editcourse()
              die("Could not update the data!".mysql_error());
             else
             {
+
                 echo '<script> alert("Modify Course Successful!") </script>';
                 echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
                 

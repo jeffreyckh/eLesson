@@ -215,6 +215,9 @@ function editlesson()
                 {
                     $m_directionid = $m_rows->direction_id;
                 }
+
+                mysql_query("UPDATE course SET mod_time = mod_time + 1 WHERE courseid = $m_directionid");
+
                 echo '<script> alert("Modify Lesson Successful!") </script>';
                 
                 echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid= '. $m_directionid . '" </script>';
