@@ -28,7 +28,7 @@ session_start();
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
     function validateForm(){
         // alert("Validating");

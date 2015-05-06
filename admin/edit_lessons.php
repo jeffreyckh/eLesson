@@ -29,7 +29,7 @@
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+   <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         function validateForm(){
             if(document.edit_lesson_form.lname.value == ""){
@@ -116,9 +116,21 @@ if(isset($_GET['action'])=='editlesson') {
 </table>
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+    });
   </script>
   </body>
   </html>
