@@ -154,3 +154,18 @@ div#banner_content{
 .breadcrumb{
   margin-bottom: 10px;
 }
+
+.tooltip.fade.top, .tooltip.fade.top.in{
+    background-color: #fff;
+    padding: 5px 5px;
+    color: black;
+    border-radius: 10px;
+    font-family: "Verdana","Song Ti";
+    border-color: #000000;
+    box-shadow: 0 0 7px white;
+}
+.tooltip-inner{
+    background-color: #ffffff;
+    padding: 5px 5px;
+    color: #000000;
+}

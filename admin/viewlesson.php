@@ -31,20 +31,14 @@
     <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
     <script type="text/javascript">
-    var jquery_1_11_4 = $.noConflict(true);
-    jquery_1_11_4(function(){
-      jquery_1_11_4( ".action-tooltip" ).tooltip({
-        show: {
-          effect: false
-        }
-      });
-    });
+    
     </script>
     <style>
     label{
       /*display: inline-block;*/
       /*width: 5em;*/
     }
+    
     </style>
 
 </head>
@@ -126,12 +120,31 @@
         </table>
     </center>
     <script>
+    function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
+        });
+    }
     $(document).ready(function(){
-    $('#lesson').DataTable(
-        { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        $('#lesson').DataTable(
+            { 
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            });
+        toolTip();
+        $('.next').click(function(){
+            toolTip();
+        });
+        $('.pagination').click(function(){
+            toolTip();
         });
     });
+
+    toolTip();
     </script>
     </body>
     </html>

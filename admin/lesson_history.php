@@ -33,6 +33,11 @@ session_start();
     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
+  <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewlesson.php">Lessons</a></li>
+    <li class="active">Lesson History</li>
+    </ol>
 <h3>Lesson Revision History</h3>
     <table id="table_filter" class="filter" width="800" border="0" cellpadding="30" cellspacing="10">
       <thead>
@@ -100,7 +105,11 @@ session_start();
       
       ?>
         <tr>
-          <td><?php echo $row->latest_revision_time; ?></td>
+          <td>
+            <?php
+            echo $row->latest_revision_time; 
+            ?>
+          </td>
           <td><?php echo $row->lessonname; ?></td>
           <td><?php echo $row->latest_user; ?></td>
           <td>

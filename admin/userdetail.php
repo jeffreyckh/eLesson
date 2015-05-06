@@ -28,9 +28,6 @@ while($a_rows=mysql_fetch_object($result))
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-
-    <link rel="stylesheet" type="text/css" href="style.css">
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -54,7 +51,7 @@ while($a_rows=mysql_fetch_object($result))
   <hr>
   <form action="" method="post">
   E-Mail : <?php echo $mailaddr; ?>
-  <br><br>&emsp;* You can add in extra message into the Reminder Mail or leave it blank *<br>&emsp;<input type="text" name="xtraMailMsg">&emsp;&emsp;<input class="btn btn-default" type="submit" name="sendReminder" value="Send Reminder Mail">&emsp;
+  <br><br>&emsp;* You can add in additional message into the Reminder Mail or leave it blank *<br>&emsp;<input type="text" name="xtraMailMsg">&emsp;&emsp;<input class="btn btn-default" type="submit" name="sendReminder" value="Send Reminder Mail">&emsp;
   <?php
     if(isset($_POST['sendReminder']))
     {
@@ -130,7 +127,7 @@ while($a_rows=mysql_fetch_object($result))
                             }
                             if($days >= 7)
                             {
-                              $lessonsNdate .= " [ " . $l_rows->lessonname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
+                              $lessonsNdate .= " [ " . $lname . " = Last view on " . $diff->format("%d days") . " ago ]. ";
                             }
                             ?>
                             </tr>                

@@ -142,7 +142,7 @@ function editcourse()
             else
             {
                 echo '<script> alert("Modify Course Successful!") </script>';
-                // echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
+                echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
                 
             }
     }

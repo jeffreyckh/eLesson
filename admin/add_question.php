@@ -25,6 +25,7 @@ $result = mysql_query($query,$link);
   <title>Add Question</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -50,12 +51,32 @@ else
 //show form
 ?>
 <table class = "table table-bordered">
+<form action="?action=addquestion>" method="post">
 <tr>
- <form action="?action=addquestion>" method="post">
+  <td>
+    Course:
+  </td>
+  <td>
+    <select name="ques_course">
+        <option value="" selected disabled>--- Select a Course ---</option>
+        <?php
+        $select_course = "SELECT * FROM course";
+        $result = mysql_query($select_course);
+        while($row = mysql_fetch_object($result)){
+          ?>
+          <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+          <?php
+        }
+        ?>
+    </select>
+  </td>
+</tr>
+<tr>
 <input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
-</td></tr>
+</td>
+</tr>
 <!-- <td>Question Type:</td>
  <td><input type="radio" name="choicetype" checked = "checked"
 <?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
@@ -106,6 +127,11 @@ value="checkbox">Multiple Choice</td></tr>
     $delete_time  = "0000-00-00 00:00:00";
     $rec_status   = "-";
 
+    $c_details = $_POST['ques_course'];
+    $c_explode = explode(',', $c_details);
+    $c_id = $c_explode[0];
+    $c_name = $c_explode[1];
+
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
     $add_option=$_POST['option'];
@@ -124,10 +150,12 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
-            $sql="insert into question(questionid,content,choicetype,answer,optionlist,difficulty) values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty')";
+            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
+                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+            $sql2="";                  
             
             if(!mysql_query($sql,$link)){
-
+              // echo $sql;
              die("Could not add new question.".mysql_error());
             }else
             {
@@ -152,7 +180,7 @@ value="checkbox">Multiple Choice</td></tr>
               mysql_query($query_update_quiz, $link);
 
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_question.php</script>';
             }
         
        

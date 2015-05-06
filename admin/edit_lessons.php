@@ -209,7 +209,7 @@ function editlesson()
                 update_lesson_history($m_id);
 
                 mysql_query($query_update_course, $link);
-                $query="select direction_id from lesson where lessonid=$m_id";
+                $query="SELECT direction_id from lesson where lessonid=$m_id";
                 $result=mysql_query($query,$link);
                 while($m_rows=mysql_fetch_object($result))
                 {
