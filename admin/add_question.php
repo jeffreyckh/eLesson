@@ -30,7 +30,7 @@ $result = mysql_query($query,$link);
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+     <script src="../jscss/tinymce/tinymce.min.js"></script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -98,9 +98,19 @@ value="checkbox">Multiple Choice</td></tr>
 <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'quescont' );
+       tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
 </script>
 </body>
 </html>
