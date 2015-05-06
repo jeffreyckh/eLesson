@@ -1,5 +1,6 @@
 <?php
     session_start();
+    unset($_SESSION['view']);
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
