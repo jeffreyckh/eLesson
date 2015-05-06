@@ -174,10 +174,10 @@ else
     		else
         	$flag=true;
 		}
-    
+    $addedlessoncontent = addslashes($add_lessoncontent);
     if($flag==false)
     {
-            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date','$add_lessoncontent','$add_directionid')";
+            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date','$addedlessoncontent','$add_directionid')";
             
             $query_insert_lesson = "INSERT INTO lesson
                                     ( lessonid, lessonname, created, lessoncontent, direction_id,
@@ -186,7 +186,7 @@ else
                                       deleted_on, deleted_by,
                                       rec_status )
                                     VALUES
-                                    ( '$add_lessonid','$add_lessonname','$date','$add_lessoncontent','$add_directionid',
+                                    ( '$add_lessonid','$add_lessonname','$date','$addedlessoncontent','$add_directionid',
                                       '$create_time', '$create_user',
                                       '$modify_time', '$modify_user',
                                       '$delete_time', '$delete_user',

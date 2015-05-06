@@ -2,7 +2,20 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'userNav.php';
+$uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'userNav.php'; 
+        }
+    }
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
 ?>

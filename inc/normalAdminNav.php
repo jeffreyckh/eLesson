@@ -80,7 +80,7 @@
           </a>
         </li>
         <li <?=echoActiveClassIfRequestMatches("user_viewquiz")?>>
-          <a href="../admin/user_viewquiz.php" class="nav-tooltip" title="Quiz">
+          <a href="../admin/viewquiz.php" class="nav-tooltip" title="Quiz">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/quizicon_white_600x600.png">';

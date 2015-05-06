@@ -198,7 +198,7 @@ value="checkbox">Multiple Choice</td></tr>
              die("Could not add new question.".mysql_error());
             }else
             {
-                $sql = "INSERT into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
+                $sql2 = "INSERT into quiz_to_question(quizid,questionid) values('$add_quizid','$add_questionid')";
                  if(!mysql_query($sql2,$link)){
                   die("Could not add new question.".mysql_error());
                 }

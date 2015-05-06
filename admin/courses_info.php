@@ -58,7 +58,6 @@
 </head>
 <body>
     <?php 
-    $uid = $_SESSION['userid'];
     $query2 = " select * from user where userid = $uid";
     $result2 = mysql_query($query2);
     while($rows=mysql_fetch_object($result2))

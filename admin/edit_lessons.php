@@ -179,7 +179,7 @@ function editlesson()
         // }
 
     }
-    
+    $editedcontent = addslashes($edit_content);
     if($flag==false)
     {
         $query_update = "";
@@ -193,7 +193,7 @@ function editlesson()
             $modify_user = $_SESSION['username'];
 
             $query_update = "UPDATE lesson SET
-                            lessonname = '$edit_name', lessoncontent = '$edit_content',
+                            lessonname = '$edit_name', lessoncontent = '$editedcontent',
                             modified_on = '$modify_time', modified_by = '$modify_user'
                             WHERE lessonid = '$m_id'";
 
@@ -209,7 +209,7 @@ function editlesson()
                                     WHERE courseid = '$course_id'";
         }else{
             $query_update = "UPDATE lesson SET
-                            lessonname = '$edit_name', lessoncontent = '$edit_content'
+                            lessonname = '$edit_name', lessoncontent = '$editedcontent'
                             WHERE lessonid = '$m_id'";
         }
             // $sql="update lesson set lessonname='$edit_name',lessoncontent='$edit_content' where lessonid=$m_id";
