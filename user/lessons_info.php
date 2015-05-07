@@ -41,20 +41,20 @@
       $validlid = $v_rows->lessonid;
     }
   
-    if(empty($validlid) && empty($validuid))
+    if( mysql_num_rows($vresult) == 0)
     {
+
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
             VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
     }
     else
     { 
-      $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
-       $uresult = mysql_query($uquery);
+      $abquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
+       $abresult = mysql_query($abquery);
     }
         
 
-    $uresult = mysql_query($uquery);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -117,7 +117,19 @@
            $currentcount = mysql_result($checkresult,0);
            $current_query = "select lessonid from lesson where direction_id = $courseid limit $currentcount";
            $current_result= mysql_query($current_query);
-           $current_lesson = mysql_result($current_result,($currentcount - 1));
+           $querylesson = "select count(*) from lesson where direction_id = $courseid";
+           $lessonresult = mysql_query($querylesson);
+           $lessontotal = mysql_result($lessonresult,0);
+
+
+           if($currentcount <= $lessontotal)
+
+          { $current_lesson = mysql_result($current_result,($currentcount - 1)); }
+
+          else
+          {
+          $current_lesson = 0;
+          }
 
             if($m_id == $current_lesson)
             {

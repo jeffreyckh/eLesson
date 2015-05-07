@@ -29,7 +29,7 @@
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+   <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         function validateForm(){
             if(document.edit_lesson_form.lname.value == ""){
@@ -116,9 +116,21 @@ if(isset($_GET['action'])=='editlesson') {
 </table>
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+    });
   </script>
   </body>
   </html>
@@ -167,7 +179,7 @@ function editlesson()
         // }
 
     }
-    
+    $editedcontent = addslashes($edit_content);
     if($flag==false)
     {
         $query_update = "";
@@ -181,7 +193,7 @@ function editlesson()
             $modify_user = $_SESSION['username'];
 
             $query_update = "UPDATE lesson SET
-                            lessonname = '$edit_name', lessoncontent = '$edit_content',
+                            lessonname = '$edit_name', lessoncontent = '$editedcontent',
                             modified_on = '$modify_time', modified_by = '$modify_user'
                             WHERE lessonid = '$m_id'";
 
@@ -197,7 +209,7 @@ function editlesson()
                                     WHERE courseid = '$course_id'";
         }else{
             $query_update = "UPDATE lesson SET
-                            lessonname = '$edit_name', lessoncontent = '$edit_content'
+                            lessonname = '$edit_name', lessoncontent = '$editedcontent'
                             WHERE lessonid = '$m_id'";
         }
             // $sql="update lesson set lessonname='$edit_name',lessoncontent='$edit_content' where lessonid=$m_id";
@@ -215,6 +227,9 @@ function editlesson()
                 {
                     $m_directionid = $m_rows->direction_id;
                 }
+
+                mysql_query("UPDATE course SET mod_time = mod_time + 1 WHERE courseid = $m_directionid");
+
                 echo '<script> alert("Modify Lesson Successful!") </script>';
                 
                 echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid= '. $m_directionid . '" </script>';

@@ -19,6 +19,7 @@ class DatabaseController
   	$result = mysql_query($query);
     $res = mysql_fetch_assoc($result);
     $_SESSION['rank'] = $res['rank'];
+    $_SESSION['userid'] = $res['userid'];
     $rank = $_SESSION['rank'];
       
       $time = time();

@@ -2,8 +2,21 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
     $m_id=intval($_GET['cid']);
+    $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     $query="select coursename,description from course where courseid=$m_id";
     $query_select = "SELECT * FROM course WHERE courseid = $m_id";
     $result=mysql_query($query_select,$link);
@@ -45,7 +58,6 @@
 </head>
 <body>
     <?php 
-    $uid = $_SESSION['userid'];
     $query2 = " select * from user where userid = $uid";
     $result2 = mysql_query($query2);
     while($rows=mysql_fetch_object($result2))

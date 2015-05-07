@@ -128,12 +128,21 @@ session_start();
                           $done_lessonid = mysql_result($lessonquery,0);
                           $coursequery = mysql_query("SELECT direction_id FROM lesson WHERE lessonid = $done_lessonid",$link);
                           $done_courseid = mysql_result($coursequery,0);       
+                          $quizquery = mysql_query("SELECT complete FROM user_to_quiz WHERE quizid = $qid AND userid = $uid");
+                          $quiz_complete = mysql_result($quizquery,0);
 
                           $date = date('Y-m-d H:i:s');
                           $done_query="SELECT lessoncount FROM lessonstatus WHERE userid = $uid AND courseid = $done_courseid";
                           $done_result=mysql_query($done_query,$link);
                           $newlc = mysql_result($done_result,0) + 1;
+
+                          if ($quiz_complete == 0)
+                          {
+
                           $sql = "UPDATE lessonstatus SET lessoncount = $newlc WHERE userid = $uid AND courseid = $done_courseid";
+                          }
+
+
                            if(!mysql_query($sql,$link))
                             { die("Could not update the data!".mysql_error());}
                             else
