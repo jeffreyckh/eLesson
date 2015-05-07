@@ -46,11 +46,11 @@ a:hover   {text-decoration:underline; color:#EE0000}
     float: left;
 }
 
-img {
+/*img {
 	height: 100%;
 	width: 100%;
     text-align: center;
-}
+}*/
 
 figure img {
     vertical-align: top;
