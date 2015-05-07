@@ -138,7 +138,9 @@ else
    external_filemanager_path:"/eLesson/jscss/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
-  </script>
+    
+ });
+      </script>
 </body>
 </html>
 
