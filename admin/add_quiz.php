@@ -114,7 +114,6 @@ else
             <?php
             if($urank == 2)
             {
-                echo $urank;
                 $select_perm = "SELECT * FROM permission WHERE userid = $uid";
                 $permresult = mysql_query($select_perm);
                 while($permrows = mysql_fetch_object($permresult))

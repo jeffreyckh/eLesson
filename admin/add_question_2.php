@@ -2,7 +2,21 @@
 session_start();
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+ $uid = $_SESSION['userid'];
+ $urank = $_SESSION['rank'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
 $temp_id;
 $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
@@ -87,14 +101,34 @@ else
     <select name="ques_course">
         <option value="" selected disabled>--- Select a Course ---</option>
         <?php
-        $select_course = "SELECT * FROM course";
-        $result = mysql_query($select_course);
-        while($row = mysql_fetch_object($result)){
-          ?>
-          <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
-          <?php
-        }
-        ?>
+            if($urank == 2)
+            {
+                echo $urank;
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
+                {
+                    $select_course = "SELECT * FROM course WHERE courseid = '".$permrows->courseid."'";
+                     $result = mysql_query($select_course);
+                    while($row = mysql_fetch_object($result)){
+                    ?>    
+                    <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+                    <?php
+                    }
+                }
+            }
+            else
+            {
+               $select_course = "SELECT * FROM course";
+                $result = mysql_query($select_course);
+                while($row = mysql_fetch_object($result)){
+                ?>
+              <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+              <?php
+                }
+
+            }
+            ?>
     </select>
   </td>
 </tr>

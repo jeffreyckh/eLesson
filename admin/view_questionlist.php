@@ -2,7 +2,21 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    $uid = $_SESSION['userid'];
+    $urank = $_SESSION['rank'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -49,29 +63,80 @@
 
         </thead>
         <?php
-            $query="select * from question ";
-            $result=mysql_query($query,$link);
-            echo "<tbody>";
-            while($a_rows=mysql_fetch_object($result))
+            if($urank == 2)
             {
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
+                {
+                    $query="select * from question WHERE course_id = '".$permrows->courseid."'";
+                    $result=mysql_query($query,$link)or die(mysql_error());
+                    echo "<tbody>";
+                    while($a_rows=mysql_fetch_object($result))
+                    {
 
         ?>
-                <tr>
-                <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
-                <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
-                <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
-                <td align="left" width="100">
-                    <a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">
-                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                        <!-- Modify -->
-                    </a>
-                    <a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">
-                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                        <!-- Delete -->
-                    </a>
-                </td>
-                </tr>                
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
+                        <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
+                        <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
+                        <td align="left" width="100">
+                            <a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+                        </tr>                
         <?php
+                    }
+                    $query2="select * from question WHERE course_id <> '".$permrows->courseid."'";
+                    $result2=mysql_query($query2,$link);
+                    echo "<tbody>";
+                    while($a2_rows=mysql_fetch_object($result2))
+                    {
+
+        ?>
+                        <tr>
+                        <td align="left" width="100"><?php echo $a2_rows->questionid ?></a></td>
+                        <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a2_rows->questionid ?>"><?php echo $a2_rows->content ?></a></td>
+                        <td align="left" width="50"><?php echo $a2_rows->difficulty ?></a></td>
+                        <td align="left" width="100">
+                        </tr>                
+        <?php
+                    }
+                }
+            }
+            else
+            {
+                $query="select * from question";
+                    $result=mysql_query($query,$link);
+                    echo "<tbody>";
+                    while($a_rows=mysql_fetch_object($result))
+                    {
+
+        ?>
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
+                        <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo $a_rows->content ?></a></td>
+                        <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
+                        <td align="left" width="100">
+                            <a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+                        </tr>                
+        <?php
+                    }
+
             }
             
                 mysql_close($link);

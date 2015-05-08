@@ -92,6 +92,19 @@
             <!-- Quiz -->
           </a>
         </li>
+        <li <?=echoActiveClassIfRequestMatches("question")?>>
+          <a class="nav-tooltip" href="../admin/view_questionlist.php" title="Question">
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/questionicon_white_600x600.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/questionicon4_600x600.png">';
+            }
+            ?>
+            <!-- Question -->
+          </a>
+        </li>
          <li <?=echoActiveClassIfRequestMatches("announcement")?>>
           <a href="../user/announcement.php" class="nav-tooltip" title="Announcement">
             <?php
