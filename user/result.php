@@ -104,7 +104,7 @@ session_start();
                         if($result < $passscore)
                         {
                         ?>
-                          <p> Sorry! You had <font color="red"> failed </font> the quiz. Please retake the quiz in order to advance to the next lesson</p>
+                          <p> Sorry! You had <font color="red"><b> FAILED </b> </font> the quiz. Please take the quiz again in order to advance to the next lesson</p>
                         <?php
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           if(mysql_num_rows($checkdone) == 0)
@@ -119,7 +119,7 @@ session_start();
                         else
                         {
                         ?>
-                        <p> you passed </p>
+                        <p> Congratulations! You had <font color="blue"><b> PASSED </b></font> the quiz. Now you can advance to the next lesson!</p>
                         <?php
 
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
