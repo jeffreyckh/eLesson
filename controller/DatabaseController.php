@@ -26,7 +26,11 @@ class DatabaseController
       $month=date("F",$time);
       $year=date("Y",$time);
       $uidquery= mysql_query("SELECT userid FROM user WHERE username = '$username' AND password = '$password' ");
-      $uid = mysql_result($uidquery,0);
+
+      if(mysql_num_rows($uidquery) != 0)
+
+     { $uid = mysql_result($uidquery,0);
+
         
         $querycheck = "select * from user_view where userid = $uid";
         $checkresult = mysql_query($querycheck);
@@ -41,7 +45,7 @@ class DatabaseController
       $mysqltesting = "UPDATE user_view SET $month = $month + 1 WHERE userid = $uid";
       mysql_query($mysqltesting);
      
-
+    }
 
     if($res)
     {
