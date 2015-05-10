@@ -37,12 +37,11 @@ session_start();
 <html>
 	<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="keywords" content="Conduct Quiz">
-  <meta name="description" content="Conduct Quiz"> 
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+    <meta name="keywords" content="Conduct Quiz">
+    <meta name="description" content="Conduct Quiz"> 
+    <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -54,18 +53,16 @@ session_start();
 		<!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" type="text/css" href="style.css">
-
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script src="../../assets/js/html5shiv.js"></script>
 		<script src="../../assets/js/respond.min.js"></script>
 		<![endif]-->
-		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="js/jquery-1.10.2.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
 		<script src="js/countdown.js"></script>
 
 	</head>
@@ -74,9 +71,7 @@ session_start();
 	  
 
      <!--     
-		
         <div id='timer'>
-
             <script type="application/javascript">
             var myCountdownTest = new Countdown({
                                     time: 600, 
