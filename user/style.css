@@ -152,3 +152,15 @@ a.navbar-brand{
 .breadcrumb{
   margin-bottom: 10px;
 }
+
+div#lesson_container{
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+  border: solid;
+  border-width: 1px;
+  border-color: #e7e7e7;
+}

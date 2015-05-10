@@ -73,6 +73,7 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+  <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -90,13 +91,14 @@
 
   <!-- Tab panes -->
 <div>
-
-          <h1>Lesson Name:<?php echo $m_lessonname ?></h1>
+          <div id="lesson_container">
+          <h1><center><?php echo $m_lessonname ?></center></h1>
           <hr>
-          <h2>Lesson Content:</h2>
+          
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
+          </div>
 
-
+          
             <?php
         if(isset($_GET['action'])=='donelesson') {
             donelesson();
