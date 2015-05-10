@@ -97,7 +97,11 @@ session_start();
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
                         <p>Score : <span class="answer"><?php echo $result;?></span></p>
-                        <?php if($result < 50)
+                        <?php 
+                        $scorequery = " SELECT passingscore FROM quiz WHERE quizid = $qid";
+                        $scoreresult = mysql_query($scorequery);
+                        $passscore = mysql_result($scoreresult, 0);
+                        if($result < $passscore)
                         {
                         ?>
                           <p> you failed </p>
