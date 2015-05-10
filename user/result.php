@@ -80,19 +80,20 @@ session_start();
     <body>
         <!-- <header>
         </header> -->
+        
         <center>
-        <h3>Quiz Results</h3>
+          <a href="userHome.php" class='btn btn-success'>Back</a>                   
+        <a href="../login.php" class='btn btn-success'>Logout</a>
+        <br>
+        <br>
       </center>
-        <div class="container result">
-           
+        <div id="result_container">
+           <center><h3>Quiz Results</h3></center>
            <hr>   
-           
-                  
-                  <div class="col-xs-6 col-sm-3 col-lg-3"> 
-                     <a href="userHome.php" class='btn btn-success'>Back</a>                   
-                     <a href="../login.php" class='btn btn-success'>Logout</a>
+                  <!-- <div class="col-xs-6 col-sm-3 col-lg-3">  -->
+                     
                    
-                       <div style="margin-top: 30%">
+                       <div style="margin-top: 5%">
                         <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
