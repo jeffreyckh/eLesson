@@ -58,6 +58,7 @@
         <th align="right">Question ID</th>
         <th align="right">Content</th>
         <th align="right">Difficulty</th>
+        <th align="right">Action</th>
         <!-- <th align="right">Modify</th>
         <th align="right">Delete</th> -->
         </thead>
@@ -80,6 +81,16 @@
                 <td align="left" width="50"><?php echo $b_rows->difficulty ?></a></td>
                 <!-- <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
                 <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td> -->
+                <td align="left" width="100">
+                            <a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
                 </tr>                
         <?php
             }
