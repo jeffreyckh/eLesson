@@ -111,8 +111,20 @@ div#banner_content{
   border: 0;
   border-left-width: 0;
   border-right-width: 0;
-  padding: 10px;
+  
 }
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+  padding: 4px;
+}
+
+.table>tfoot>tr>th{
+        
+        border: none;
+    }
+    .table>tfoot>tr>th>select{
+        width: 100px;
+    }
 
 .table{
   border: none;

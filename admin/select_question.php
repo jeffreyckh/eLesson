@@ -37,34 +37,74 @@ while($row = mysql_fetch_object($result)){
     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
     <script type="text/javascript">
     $(document).ready(function(){
-    $('#question').DataTable(
+    var table = $('#question').DataTable(
         {     
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
             "columns":[
-            {"name":"&nbsp;Select All", "orderable":false},
-            {"name":"Difficulty", "orderable":true},
-            {"name":"Question", "orderable":true},
-            ],
+                {"name":"&nbsp;Select All", "orderable":false},
+                {"name":"Course", "orderable":true},
+                {"name":"Difficulty", "orderable":true},
+                {"name":"Question", "orderable":true},
+                ],
             "order": [],
-            "columnDefs":[{
+            "columnDefs":[
+                {
                 "targets": "no-sort", 
                 "orderable":false
-            }]
+                }],
+            initComplete: function () {
+                this.api().columns([1,2]).every( function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+     
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+     
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
+            }
+        });
+
+        $('#select_all_ques').click(function () {
+            $(':checkbox', table.rows().nodes()).prop('checked', this.checked);
         });
     });
+
+    
+
     function select_all(p_param){
-        // alert("checking");
+        
         checkboxes = document.getElementsByName("chk_ques[]");
         for(var i=0; i<(checkboxes.length); i++){
             // alert(checkboxes[i]);
             checkboxes[i].checked = p_param.checked;
         }
 
-        if(this.checked){
-
-        }
+    
     }
     </script>
+    <style type="text/css">
+    /*.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+        padding: 4px;
+        vertical-align: middle;
+    }
+    .table>tfoot>tr>th{
+        
+        border: none;
+    }
+    .table>tfoot>tr>th>select{
+        width: 100px;
+    }*/
+    </style>
 </head>
 <body>
     <!--breadcrumb-->
@@ -75,10 +115,6 @@ while($row = mysql_fetch_object($result)){
     <li class="active">Select Question</li>
     </ol>
 <center>Select Question</center>
-<hr>
-    Course: <?php echo $q_coursename ?>
-<hr>
-
 <?php
 if(isset($_GET['action'])=='selectquestion') {
     selectquestion();
@@ -87,19 +123,51 @@ else
 //show form
 ?>
 <form action="?action=selectquestion&qid=<?php echo $quizid?>" method="post">
-
+<!-- Course: <select name="sel_course">
+    <option value="" selected disabled>--- Select a Course ---</option>
+    <option value="0">All</option>
+    <?php
+    $sel_course = "SELECT * FROM course";
+    $result = mysql_query($sel_course, $link);
+    while($row = mysql_fetch_object($result)){
+        ?>
+        <option value="<?php echo $row->courseid ?>"><?php echo $row->coursename ?>
+        <?php
+    }
+    ?>
+</select>
+Lesson: <select name="sel_lesson">
+    
+</select> -->
 <table id = "question" class="table table-striped table-bordered" cellspacing="0">
+
     <thead>
-        <th class="no-sort" align="center" width="10%"><div align = "center">
-            <input type="checkbox" onclick="select_all(this)">&nbsp;Select All
+        <tr>
+        <th class="no-sort" align="center" width="10%">
+            <!-- <input type="checkbox" onclick="select_all(this)">&nbsp;Select All -->
+            <input type="checkbox" id="select_all_ques" name="select_all_ques">&nbsp;Select All
         </th>
-        <th align="center" width="10%"><div align = "center">Difficulty</th>
-        <th align="center"><div align = "center">Question</th>
+        <th>Course</th>
+        <th width="10%">Difficulty</th>
+        <th align="center">Question</th>
+    </tr>
     </thead>
+
+    <tfoot>
+        <tr>
+        <th class="no-sort" align="center" width="10%">
+            <!-- <input type="checkbox" onclick="select_all(this)">&nbsp;Select All -->
+            Select All
+        </th>
+        <th>Course</th>
+        <th width="10%">Difficulty</th>
+        <th align="center">Question</th>
+    </tr>
+    </tfoot>
 
 
     <?php
-        $query2="SELECT * from question where course_id=$q_courseid";
+        $query2="SELECT * from question";
         $result2=mysql_query($query2,$link);
 
         $arr_quesid = array();
@@ -113,6 +181,7 @@ else
         while($b_rows=mysql_fetch_object($result2))
         {
             $check_flag = false;
+            // Checks questions already in quiz
             if(in_array($b_rows->questionid, $arr_quesid)){
                 $check_flag = true;
             }
@@ -124,7 +193,8 @@ else
                         name="chk_ques[]" value="<?php echo $b_rows->questionid ?>"
                         <?php echo ($check_flag==true ? 'checked' : '') ?>>
                     </td>
-                <td><div align = "center"><?php echo $b_rows->difficulty ?></td>
+                <td><?php echo $b_rows->course_name ?></td>
+                <td><?php echo $b_rows->difficulty ?></td>
                 <td><?php echo $b_rows->content ?></td>
             </tr>
     <?php
