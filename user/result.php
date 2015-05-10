@@ -104,7 +104,7 @@ session_start();
                         if($result < $passscore)
                         {
                         ?>
-                          <p> you failed </p>
+                          <p> Sorry! You had <font color="red"> failed </font> the quiz. Please retake the quiz in order to advance to the next lesson</p>
                         <?php
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           if(mysql_num_rows($checkdone) == 0)
