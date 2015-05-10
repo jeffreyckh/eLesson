@@ -42,6 +42,7 @@ session_start();
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -50,8 +51,9 @@ session_start();
 		<title>Quiz</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
 		<link href="css/style.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -70,7 +72,11 @@ session_start();
 	
   <body>
 	  
-     <!--   <div id='timer'>
+
+     <!--     
+		
+        <div id='timer'>
+
             <script type="application/javascript">
             var myCountdownTest = new Countdown({
                                     time: 600, 
@@ -79,14 +85,10 @@ session_start();
                                     rangeHi:"minute"
                                     });
            </script>
-            
         </div> -->
         
 		<div class="container question">
 			<div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-4 col-sm-offset-3 col-md-offset-3">
-				<p>
-				
-				</p>
 				<hr>
 				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
 					<?php 

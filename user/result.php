@@ -65,8 +65,11 @@ session_start();
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+        <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
         <link href="css/style.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         <script src="../../assets/js/html5shiv.js"></script>
@@ -75,8 +78,11 @@ session_start();
 
     </head>
     <body>
-        <header>
-        </header>
+        <!-- <header>
+        </header> -->
+        <center>
+        <h3>Quiz Results</h3>
+      </center>
         <div class="container result">
            
            <hr>   
@@ -91,10 +97,14 @@ session_start();
                         <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
                         <p>Score : <span class="answer"><?php echo $result;?></span></p>
-                        <?php if($result < 50)
+                        <?php 
+                        $scorequery = " SELECT passingscore FROM quiz WHERE quizid = $qid";
+                        $scoreresult = mysql_query($scorequery);
+                        $passscore = mysql_result($scoreresult, 0);
+                        if($result < $passscore)
                         {
                         ?>
-                          <p> you failed </p>
+                          <p> Sorry! You had <font color="red"> failed </font> the quiz. Please retake the quiz in order to advance to the next lesson</p>
                         <?php
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           if(mysql_num_rows($checkdone) == 0)
@@ -168,9 +178,9 @@ session_start();
                     
             </div>
         </div>
-        <footer>
+        <!-- <footer>
         
-        </footer>
+        </footer> -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
