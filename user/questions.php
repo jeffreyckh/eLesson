@@ -70,7 +70,7 @@ session_start();
 	
   <body>
 	  
-        <div id='timer'>
+     <!--   <div id='timer'>
             <script type="application/javascript">
             var myCountdownTest = new Countdown({
                                     time: 600, 
@@ -80,7 +80,7 @@ session_start();
                                     });
            </script>
             
-        </div>
+        </div> -->
         
 		<div class="container question">
 			<div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-4 col-sm-offset-3 col-md-offset-3">
@@ -341,9 +341,9 @@ session_start();
      });      
     }
 	             
-         setTimeout(function() {
-             $("form").submit();
-          }, 600000);
+      //setTimeout(function() {
+        //     $("form").submit();
+          //}, 600000); 
 		</script>
 	</body>
     
