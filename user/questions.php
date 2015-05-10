@@ -73,7 +73,7 @@ session_start();
         <div id='timer'>
             <script type="application/javascript">
             var myCountdownTest = new Countdown({
-                                    time: 1000, 
+                                    time: 600, 
                                     width:200, 
                                     height:80, 
                                     rangeHi:"minute"
@@ -111,6 +111,7 @@ session_start();
                           $y=1;
                           $optionstring = $b_rows->optionlist;
                           $optiontoken = strtok($optionstring, "/");
+
       
                           if($i<=1 || $i<$rows)
                           {
@@ -123,8 +124,10 @@ session_start();
                           {
                               $getvalue = $optiontoken;
                               $getvalue = str_replace(" ","-",$getvalue);
+                              $getvalue = addslashes($getvalue);
+                            
                           ?>
-                          <input type="radio" value="<?php echo $optiontoken;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>
+                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $getvalue;?>
                          <br/>
                              <?php $optiontoken = strtok("/"); 
                              $y++; 
@@ -149,10 +152,12 @@ session_start();
                           {
                               $getvalue = $optiontoken;
                               $getvalue = str_replace(" ","-",$getvalue);
+                              $getvalue = addslashes($getvalue);
                           ?>
-                          <input type="radio" value="<?php echo $optiontoken;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>
+                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $getvalue;?>
                          <br/>
                              <?php $optiontoken = strtok("/"); 
+                                  //$optiontoken = addslashes($optiontoken);
                              $y++; 
                            }
                              ?>
@@ -338,7 +343,7 @@ session_start();
 	             
          setTimeout(function() {
              $("form").submit();
-          }, 60000);
+          }, 600000);
 		</script>
 	</body>
     

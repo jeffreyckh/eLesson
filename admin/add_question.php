@@ -144,8 +144,12 @@ value="checkbox">Multiple Choice</td></tr>
 
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
+      $add_answer = str_replace("<","&lt",$add_answer);
+        $add_answer = str_replace(">","&gt",$add_answer);
     $add_option=$_POST['option'];
     $add_option = str_replace("/","/",$add_option);
+    $add_option = str_replace("<","&lt",$add_option);
+    $add_option = str_replace(">","&gt",$add_option);
     $add_difficulty = $_POST['ddlDifficulty'];
 	$flag=false;
 	$check="select * from question";
@@ -160,6 +164,9 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
+
+            $add_content = str_replace("<","&lt",$add_content);
+            $add_content = str_replace(">","&gt",$add_content);
             $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
                   values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
             $sql2="";                  

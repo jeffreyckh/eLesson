@@ -127,6 +127,13 @@ function editquestion()
     
     if($flag==false)
     {
+
+              $edit_answer = str_replace("/","/",$edit_answer);
+             $edit_answer = str_replace("<","&lt",$edit_answer);
+            $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
+             $edit_optionlist = str_replace("/","/",$edit_optionlist);
+            $edit_content = str_replace("<","&lt",$edit_content);
+            $edit_content = str_replace(">","&gt",$edit_content);
        
             $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',difficulty = '$edit_ddlDifficulty' where questionid=$quesid";
             if(!mysql_query($sql,$link))
