@@ -30,7 +30,7 @@ $result = mysql_query($query,$link);
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-     <script src="../jscss/tinymce/tinymce.min.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -98,7 +98,7 @@ value="checkbox">Multiple Choice</td></tr>
 <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
 </form>
 <script>
-       tinymce.init({
+      tinymce.init({
     selector: "textarea",
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -111,7 +111,9 @@ value="checkbox">Multiple Choice</td></tr>
    external_filemanager_path:"/eLesson/jscss/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
-</script>
+    
+ });
+  </script>
 </body>
 </html>
 
