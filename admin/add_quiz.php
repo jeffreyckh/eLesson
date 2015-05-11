@@ -175,6 +175,10 @@ else
     <td>Passing Score:</td>
     <td><input type="text" name="pScore"></td>
 </tr>
+<tr>
+    <td>Numbers of Question:</td>
+    <td><input type="text" name="NoQ"></td>
+</tr>
 </table>
 <div align = "center" >
     <input  class="btn btn-default" type="submit" value="Add">
@@ -204,6 +208,7 @@ else
     $add_quizid=intval($_POST['qid']);
     $add_quizname=$_POST['qname'];
     $add_quizScore = $_POST['pScore'];
+    $add_NoQ = $_POST['NoQ'];
     $date = date('Y-m-d H:i:s');
     $flag=true;
     $check="select * from quiz";
@@ -219,8 +224,8 @@ else
     if($flag==false)
     {*/
             // $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
-            $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name,passingscore) 
-                    values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name','$add_quizScore')";
+            $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name,passingscore,quiz_number) 
+                    values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name','$add_quizScore','$add_NoQ')";
             
             if(!mysql_query($sql,$link)){
                 echo $sql;

@@ -93,7 +93,8 @@ session_start();
                     $bi=1;
                     if($vrows == 0)
                     {
-					            $res = mysql_query("select * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT 3") or die(mysql_error());
+                      $NoQ = mysql_result(mysql_query("SELECT quiz_number FROM quiz WHERE quizid = $qid"),0) or die(mysql_error());
+					            $res = mysql_query("select * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT $NoQ") or die(mysql_error());
                       $rows = mysql_num_rows($res);
 					            $i=1;
                       while($result=mysql_fetch_object($res))
