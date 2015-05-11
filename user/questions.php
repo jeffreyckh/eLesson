@@ -186,11 +186,11 @@ session_start();
                   
                   while($select_rows = mysql_fetch_object($selectresult))
                   {
-                          $y=1;
+                          $k=1;
                           $optionstring = $select_rows->optionlist;
                           $optiontoken = strtok($optionstring, "/");
       
-                          if($bi<=1 || $bi<$vrows){
+                          if($bi<1 || $bi<$vrows){
                             ?>         
                           <div id='question<?php echo $bi;?>' class='cont'>
                           <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $ci?>.<?php echo $select_rows->content;?></p>
@@ -208,7 +208,7 @@ session_start();
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
-                                $y++; 
+                                $k++; 
                             }
                             else
                               {
@@ -217,7 +217,7 @@ session_start();
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
-                                $y++; 
+                                $k++; 
                               }
 
                            }
@@ -248,7 +248,7 @@ session_start();
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
-                                $y++; 
+                                $k++; 
                             }
                             else
                               {
@@ -257,7 +257,7 @@ session_start();
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
-                                $y++; 
+                                $k++; 
                               }
 
                            }
