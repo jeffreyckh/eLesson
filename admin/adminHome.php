@@ -169,11 +169,13 @@ if($admincount < 11){
   </div>
 </div>!-->
 <div class = "row">
-
+<br>
 <button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" >Monthly Viewers <br> <?php echo $totalviewer ?></button>
 <br>
 <button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:<?php echo $userstack[0]; ?> <br>2:<?php echo $userstack[2]; ?> <br>3:<?php echo $userstack[4]; ?><br>4:<?php echo $userstack[6]; ?><br>5:<?php echo $userstack[8]; ?>">Most Active User <br> <?php echo $userstack[0]; ?> </button>
+<br>
 </div>
+
 <div class = "row">
 <button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:<?php echo $adminstack[0]; ?><br>2:<?php echo $adminstack[2]; ?><br>3:<?php echo $adminstack[4]; ?><br>4:<?php echo $adminstack[6]; ?><br>5:<?php echo $adminstack[8]; ?>">Most Active Admin <br>  <?php echo $adminstack[0]; ?></button>
 <br>
@@ -251,9 +253,7 @@ if($admincount < 11){
          ]);
         
         var coptions = {
-          chart: {
             title: 'Number of Course View',
-          }
         };
       
         var cchart = new google.visualization.PieChart(document.getElementById('piechart'));

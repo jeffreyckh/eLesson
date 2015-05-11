@@ -120,7 +120,6 @@ session_start();
                           while ($optiontoken !== false)
                           {
                               $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
                               $getvalue = addslashes($getvalue);
                             
                           ?>
@@ -148,7 +147,6 @@ session_start();
                           while ($optiontoken !== false)
                           {
                               $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
                               $getvalue = addslashes($getvalue);
                           ?>
                           <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $getvalue;?>
@@ -201,7 +199,6 @@ session_start();
                           {
 
                               $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
                               if($optiontoken == $v_rows->answer)
                               {
                           ?>
@@ -242,7 +239,6 @@ session_start();
                           while ($optiontoken !== false)
                           {
                               $getvalue = $optiontoken;
-                              $getvalue = str_replace(" ","-",$getvalue);
                               if($optiontoken == $v_rows->answer)
                               {
                           ?>
