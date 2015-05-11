@@ -74,6 +74,9 @@ while($row = mysql_fetch_object($result)){
             }
         });
 
+         var nNodes = table.fnGetNodes( );
+         alert(nNodes);
+
         $('#select_all_ques').click(function () {
             $(':checkbox', table.rows().nodes()).prop('checked', this.checked);
         });
@@ -211,14 +214,6 @@ Lesson: <select name="sel_lesson">
 </td>
 </tr>
 </form>
-<script>
-
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'quescont' );
-
-    
-</script>
 </body>
 </html>
 
