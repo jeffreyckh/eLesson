@@ -94,14 +94,14 @@ $announcement = new announcementView();
           echo "<tbody>";
           while($comp_rows = mysql_fetch_object($compresult))
           {
-            $lessonid = $comp_rows->lessonid;
-            $complesson = "SELECT *FROM lesson where lessonid = '$lessonid'";
+            $complessonid = $comp_rows->lessonid;
+            $complesson = "SELECT *FROM lesson where lessonid = '$complessonid'";
             $complessonresult = mysql_query($complesson) or die(mysql_error());
             while ($compl_rows=mysql_fetch_object($complessonresult))
             {
               $complessonname = $compl_rows->lessonname;
               $compcourseid = $compl_rows->direction_id;
-              $compcourse = "SELECT * FROM course WHERE courseid = '$courseid'";
+              $compcourse = "SELECT * FROM course WHERE courseid = '$compcourseid'";
               $compcourseresult = mysql_query($compcourse) or die(mysql_error());
               while ($compc_rows = mysql_fetch_object($compcourseresult)) 
               {
@@ -110,7 +110,7 @@ $announcement = new announcementView();
                  <tr>
                     <td align="left" ><?php echo $compcoursename ?></a></td>
                     <td align="left" ><?php echo "
-                       <a href=\"lessons_info.php?lid=$lessonid\">".$complessonname."</a>"; ?></a></td>
+                       <a href=\"lessons_info.php?lid=$complessonid\">".$complessonname."</a>"; ?></a></td>
                 </tr>
           <?php
               }
