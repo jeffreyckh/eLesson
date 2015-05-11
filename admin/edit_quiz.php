@@ -4,13 +4,13 @@
     include '../inc/header.php';
     include 'adminNav.php';
     $m_id=intval($_REQUEST['qid']);
-    $query="select quizname,lessonid from quiz where quizid=$m_id";
+    $query="select quizname,lessonid,quiz_number from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
 
         $m_quizname=$m_rows->quizname;
-        
+        $m_NoQ = $m_rows->quiz_number;
         $m_lessonid=$m_rows->lessonid;
     }
 
@@ -75,6 +75,11 @@ if(isset($_GET['action'])=='editquiz') {
 
 }
 ?>
+<tr>
+
+    <td>Numbers of Question:</td>
+    <td><input type="text" name="NoQ" value = "<?php echo $m_NoQ ?>" ></td>
+</tr>
 
 <tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
 </table>
@@ -92,23 +97,25 @@ function editquiz()
  include("../inc/db_config.php");
     $qid = intval($_POST['qid']);
     $m_id = intval($_POST['select']);
+    $m_number = intval($_POST['NoQ']);
+    
     //$m_did = intval($POST['cid']);
     $edit_name = $_POST['qname'];
-    $flag = true;
+    $flag = false;
     $check= "SELECT * FROM quiz";
 
     $check_result=mysql_query($check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            if(strcmp($edit_name,$result_rows->quizname)!=0)
-            $flag=false;
-            else
-            $flag=true;
+           // if(strcmp($edit_name,$result_rows->quizname)!=0)
+           // $flag=false;
+           // else
+            //$flag=true;
         }
     
     // Check if submitted fields are different
     $modify_flag = false;
-    $query_select_check = "SELECT quizname, lessonid FROM quiz WHERE quizid = '$qid'";
+    $query_select_check = "SELECT quizname, lessonid ,quiz_number FROM quiz WHERE quizid = '$qid'";
     $check_select_result = mysql_query($query_select_check, $link);
         while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
             
@@ -118,8 +125,12 @@ function editquiz()
             if($m_id != $result_rows["lessonid"]){
                 $modify_flag = true;
             }
-        }
 
+             if($m_number != $result_rows["quiz_number"]){
+                $modify_flag = true;
+            }
+        }
+        //echo $flag;
     if($flag==false)
     {
             $query_update = "";
@@ -133,10 +144,10 @@ function editquiz()
               $sql="update quiz set quizname='$edit_name',lessonid='$m_id' where quizid=$qid";
               $query_update = "UPDATE quiz SET 
                               quizname = '$edit_name', lessonid = '$m_id',
-                              modified_on = '$modify_time', modified_by = '$modify_user'
+                              modified_on = '$modify_time', modified_by = '$modify_user',quiz_number = '$m_number'
                               WHERE quizid = '$qid'";
             }else{
-              $query_update = "update quiz set quizname='$edit_name',lessonid='$m_id' where quizid=$qid";
+              $query_update = "update quiz set quizname='$edit_name',lessonid='$m_id',quiz_number = '$m_number' where quizid=$qid";
             }
             if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());
