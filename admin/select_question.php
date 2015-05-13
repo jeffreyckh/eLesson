@@ -1,15 +1,5 @@
  <?php
 session_start();
-$urank = $_SESSION['rank'];
-if ($urank == 3)
-{
-  echo '<script language="javascript">';
-  echo 'alert("You have no permission to access here")';
-  echo '</script>';
-  
-  header("Location: ../user/userHome.php");
-  die();
-}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -44,7 +34,9 @@ while($row = mysql_fetch_object($result)){
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-    <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+    <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+    <script src="../jscss/datatable/plugin/fnGetFilteredNodes.js"></script> 
+    <script src="../jscss/datatable/plugin/fnGetHiddenNodes.js"></script>    
     <script type="text/javascript">
     $(document).ready(function(){
     var table = $('#question').DataTable(
@@ -83,9 +75,39 @@ while($row = mysql_fetch_object($result)){
                 } );
             }
         });
-
-         var nNodes = table.fnGetNodes( );
-         alert(nNodes);
+        var quizid = <?php echo $quizid ?>;
+        var list = [];
+        $('form[name=select_question]').submit(function(){ //replace 'yourformsnameattribute' with the name of your form
+        //$(table.fnGetHiddenNodes()).find('input:checked').appendTo(this); //this is what passes any hidden nodes to your form when a user clicks SUBMIT on your FORM
+        //var nodes = table.fnGetHiddenNodes();
+        //alert (nodes);
+        var rowcollection = table.$(".ques_check:checked",{page:"all"});
+        rowcollection.each(function(index,elem){
+            var quesid = $(elem).val();
+            list.push(quesid);
+            //var quesid = JSON.stringify(checkedvalues);
+           
+                //alert(checkvalues);
+            });
+             $.ajax({
+                type: "POST",
+                url: "select.php",
+                //data: { quesid : quesid, quizid : quizid},
+                data: { quizid : quizid,list : list},
+                cache: false,
+                success: function(data)
+                {
+                    //alert(response);
+                   
+                   window.location.href ="view_question.php?qid=" + quizid;
+                   alert("Select Question Successful!");
+                }
+            });   
+        });
+ 
+        //$('.checkall').click( function() { //this is the function that will mark all your checkboxes when the input with the .checkall class is clicked
+        //$('input',table.fnGetFilteredNodes()).attr('checked',this.checked); //note it's calling fnGetFilteredNodes() - this is so it will mark all nodes whether they are filtered or not
+        //} );
 
         $('#select_all_ques').click(function () {
             $(':checkbox', table.rows().nodes()).prop('checked', this.checked);
@@ -129,13 +151,13 @@ while($row = mysql_fetch_object($result)){
     </ol>
 <center>Select Question</center>
 <?php
-if(isset($_GET['action'])=='selectquestion') {
-    selectquestion();
-}
-else
+//if(isset($_GET['action'])=='selectquestion') {
+  //  selectquestion();
+//}
+//else
 //show form
 ?>
-<form action="?action=selectquestion&qid=<?php echo $quizid?>" method="post">
+<form action="?action=selectquestion&qid=<?php echo $quizid?>" method="post" name = "select_question">
 <!-- Course: <select name="sel_course">
     <option value="" selected disabled>--- Select a Course ---</option>
     <option value="0">All</option>
@@ -202,7 +224,7 @@ Lesson: <select name="sel_lesson">
             <tr>
                 <td>
                     <div align = "center">
-                    <input type="checkbox" id="chk_ques" 
+                    <input type="checkbox" class="ques_check" id="chk_ques" 
                         name="chk_ques[]" value="<?php echo $b_rows->questionid ?>"
                         <?php echo ($check_flag==true ? 'checked' : '') ?>>
                     </td>
@@ -217,6 +239,7 @@ Lesson: <select name="sel_lesson">
 </table>
 
 <div align = "center">
+
     <input class="btn btn-default" type="submit" value="Add">
     &nbsp&nbsp
     <input class="btn btn-default" type="reset">
@@ -238,25 +261,25 @@ Lesson: <select name="sel_lesson">
 
 
 
-	$flag  = false;
-	$check = "SELECT * from quiz_to_question where quizid=$add_quizid";
-	$check_result  = mysql_query($check,$link);
-		while($result_rows=mysql_fetch_object($check_result))
-		{
+    $flag  = false;
+    $check = "SELECT * from quiz_to_question where quizid=$add_quizid";
+    $check_result  = mysql_query($check,$link);
+        while($result_rows=mysql_fetch_object($check_result))
+        {
             if(isset($add_questionid)){
                 if(strcmp($add_questionid,$result_rows->questionid)!=0)
                 $flag=false;
                 else
                 $flag=true;
             }
-		}
+        }
     
     if($flag==false)
     {
         $delete = "DELETE from quiz_to_question WHERE quizid=$add_quizid";
         mysql_query($delete);
         $insert_query = "";
-
+        
         if(isset($_POST['chk_ques'])){
 
             $insert_query = "INSERT into quiz_to_question(quizid, questionid) VALUES";
@@ -273,7 +296,9 @@ Lesson: <select name="sel_lesson">
              die("Could not select the question.".mysql_error());
             }else
             {
-                echo '<script> alert("Select Question Successful!") </script>';
+                $test = print_r($_POST['checkedvalues'],true);
+                //echo '<script> alert("Select Question Successful!") </script>';
+                echo '<script> alert('. $test.') </script>';
                 echo '<script language="JavaScript"> window.location.href ="view_question.php?qid='.$add_quizid.'"</script>';
             }
             

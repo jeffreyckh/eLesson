@@ -63,6 +63,7 @@
 
     <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
+
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
         <th align="right">Question ID</th>

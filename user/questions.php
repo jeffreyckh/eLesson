@@ -168,7 +168,7 @@ session_start();
                               $getvalue = addslashes($getvalue);
                             
                           ?>
-                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $getvalue;?>
+                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo " ". $getvalue;?>
                          <br/>
                              <?php $optiontoken = strtok("/"); 
                              $y++; 
@@ -205,7 +205,7 @@ session_start();
                               $getvalue = $optiontoken;
                               $getvalue = addslashes($getvalue);
                           ?>
-                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo $getvalue;?>
+                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$getvalue;?>
                          <br/>
                              <?php $optiontoken = strtok("/"); 
                                   //$optiontoken = addslashes($optiontoken);
@@ -270,7 +270,7 @@ session_start();
                               {
                           ?>
 
-                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>   
+                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
@@ -279,7 +279,7 @@ session_start();
                             else
                               {
                           ?>
-                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>   
+                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
@@ -318,7 +318,7 @@ session_start();
                               {
                           ?>
 
-                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>   
+                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
@@ -327,7 +327,7 @@ session_start();
                             else
                               {
                           ?>
-                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo $optiontoken;?>   
+                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
