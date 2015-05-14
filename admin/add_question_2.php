@@ -32,6 +32,7 @@ $query_count="select count(*) from question";
 $result_count=mysql_query($query_count,$link);
 $count=mysql_result($result_count,0) + 1;
 $quizid = intval($_REQUEST['qid']);
+$cid = intval($_GET['cid']);
 $query = " select * from question order by questionid DESC limit 1";
 $result = mysql_query($query,$link);
  while($m_rows=mysql_fetch_object($result))
@@ -247,7 +248,7 @@ value="checkbox">Multiple Choice</td></tr>
             $add_content = str_replace("<","&lt",$add_content);
             $add_content = str_replace(">","&gt",$add_content);
             $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
-                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$cid','$c_name')";
             
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
