@@ -145,7 +145,7 @@
         ?>
                         <tr>
                         <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>&cid=<?php echo $courseid?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
                         <td align="left" width="100"><?php echo $a_rows->created ?></td>
                         <td align="left" width="100"><?php echo $lessonname ?></td>
                         <td align="left" width="100"><?php echo $coursename ?></td>
@@ -164,7 +164,7 @@
         <?php
 
                     }
-            //normal admin taking quiz
+            //
             $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
             //$query2="select * from course";
             $result=mysql_query($query,$link);
@@ -296,7 +296,7 @@
         ?>
                         <tr>
                         <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>&cid=<?php echo $directionid?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
                         <td align="left" width="100"><?php echo $a_rows->created ?></td>
                         <td align="left" width="100"><?php echo $lessonname ?></td>
                         <td align="left" width="100"><?php echo $coursename ?></td>

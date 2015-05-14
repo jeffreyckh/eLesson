@@ -55,14 +55,13 @@
     <center>
     <?php
         $qid = intval($_GET['qid']);
-        $cid = intval($_GET['cid']);
         $query_count="select count(*) from quiz_to_question where quizid = $qid";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         
     ?>
 
-    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>&cid=<?php echo $cid?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
+    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
 
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
@@ -89,7 +88,7 @@
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $b_rows->questionid ?></a></td>
-                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo $b_rows->content ?></a></td>
+                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo htmlspecialchars_decode($b_rows->content) ?></a></td>
                 <td align="left" width="50"><?php echo $b_rows->difficulty ?></a></td>
                 <!-- <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
                 <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td> -->

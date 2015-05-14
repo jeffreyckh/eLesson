@@ -54,7 +54,7 @@
  
         <table class="table table-bordered">
             <tr>
-                <td>Current Question:</td><td><?php echo $a_rows->content ?></td>
+                <td>Current Question:</td><td><?php echo htmlspecialchars_decode($a_rows->content) ?></td>
             </tr>
            <!-- <tr>
                 <td>Choice Type:</td><td><?php 

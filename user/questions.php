@@ -161,7 +161,7 @@ session_start();
                           </div>
                           </div> 
                            <!--!-->   
-                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
+                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo htmlspecialchars_decode($b_rows->content);?></p>
                           <?php
 
                           while ($optiontoken !== false)
@@ -199,7 +199,7 @@ session_start();
                           </div>
                           </div> 
                           <!--!-->
-                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo $b_rows->content;?></p>
+                          <p class='questions' id="qname<?php echo $i;?>"> <?php echo $i?>.<?php echo htmlspecialchars_decode($b_rows->content);?></p>
       
                           <?php
                           while ($optiontoken !== false)
@@ -261,7 +261,7 @@ session_start();
                           </div>
                           </div> 
                           <!--!-->
-                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $ci?>.<?php echo $select_rows->content;?></p>
+                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $ci?>.<?php echo htmlspecialchars_decode($select_rows->content);?></p>
                           <?php
 
                           while ($optiontoken !== false)
@@ -310,7 +310,7 @@ session_start();
                           </div>
                           </div> 
                           <!--!-->
-                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $ci?>.<?php echo $select_rows->content;?></p>
+                          <p class='questions' id="qname<?php echo $bi;?>"> <?php echo $ci?>.<?php echo htmlspecialchars_decode($select_rows->content); ?></p>
       
                           <?php
                           while ($optiontoken !== false)
