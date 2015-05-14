@@ -1,5 +1,15 @@
  <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -44,7 +54,7 @@
  
         <table class="table table-bordered">
             <tr>
-                <td>Current Question:</td><td><?php echo $a_rows->content ?></td>
+                <td>Current Question:</td><td><?php echo htmlspecialchars_decode($a_rows->content) ?></td>
             </tr>
            <!-- <tr>
                 <td>Choice Type:</td><td><?php 

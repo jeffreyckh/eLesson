@@ -1,9 +1,32 @@
 <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
     $m_id=intval($_GET['cid']);
+    $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     $query="select coursename,description from course where courseid=$m_id";
     $query_select = "SELECT * FROM course WHERE courseid = $m_id";
     $result=mysql_query($query_select,$link);
@@ -36,10 +59,15 @@
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
 </head>
 <body>
     <?php 
-    $uid = $_SESSION['userid'];
     $query2 = " select * from user where userid = $uid";
     $result2 = mysql_query($query2);
     while($rows=mysql_fetch_object($result2))
@@ -70,7 +98,7 @@
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab">Lessons</a></li>
+    <li role="presentation" class="active"><a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab">Course Lessons</a></li>
     <li role="presentation"><a href="#courseDetail" aria-controls="courseDetail" role="tab" data-toggle="tab">Course Detail</a></li>
   </ul>
 
@@ -113,7 +141,7 @@
                     <td align="left" width="100"><?php echo $a_rows->created ?></td>
                     <td align="left" width="100">
 
-                        <a href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                        <a class="action-tooltip" href="edit_lessons.php?lid=<?php echo $a_rows->lessonid ?>" title="Modify">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">
                             <!-- Modify -->
                         </a>
@@ -121,7 +149,7 @@
                             <img id="action-icon" src="../img/historyicon2_600x600.png">
                             <!-- &nbsp;View History&nbsp; -->
                         </a>
-                        <a href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>">
+                        <a class="action-tooltip" href="del_lessons.php?lid=<?php echo $a_rows->lessonid ?>" title="Delete">
                             <img id="action-icon" src="../img/deleteicon2_600x600.png">
                             <!-- Delete -->
                         </a>
@@ -178,12 +206,31 @@ $('#myTab a').click(function (e) {
 })
 </script>
 <script>
-$(document).ready(function(){
-    $('#lesson').DataTable(
-        { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
         });
-});
+    }
+    $(document).ready(function(){
+        $('#lesson').DataTable(
+            { 
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            });
+        toolTip();
+        $('.next').click(function(){
+            toolTip();
+        });
+        $('.pagination').click(function(){
+            toolTip();
+        });
+    });
+
+    toolTip();
 </script>
 </body>
 </html>

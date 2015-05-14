@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -28,7 +38,7 @@ session_start();
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
     function validateForm(){
         // alert("Validating");
@@ -130,7 +140,7 @@ function editcourse()
 
                 $query_update = "UPDATE course SET 
                                 coursename = '$edit_name', description = '$edit_desc',
-                                modified_on = '$modify_time', modified_by = '$modify_user'
+                                modified_on = '$modify_time', modified_by = '$modify_user',mod_time = mod_time + 1
                                 WHERE courseid = '$m_id'";
             }else{
                 $query_update="update course set coursename='$edit_name',description='$edit_desc' where courseid=$m_id";
@@ -141,8 +151,9 @@ function editcourse()
              die("Could not update the data!".mysql_error());
             else
             {
+
                 echo '<script> alert("Modify Course Successful!") </script>';
-                // echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
+                echo '<script language="JavaScript"> window.location.href ="courses.php" </script>';
                 
             }
     }

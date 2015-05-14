@@ -83,7 +83,7 @@ $register = new RegistrationView();
                                     </label>
                                 </div>
                                 <div class="fourcol last">
-                                    <input type="password" name="password" id="password"  placeholder="Mininum 6 character" maxlength="35"/>
+                                    <input type="password" name="password" id="password"  placeholder="Mininum 6 characters" maxlength="35"/>
                                 </div> 
                             </div>
                             <div class="row registration">

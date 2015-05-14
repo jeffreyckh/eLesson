@@ -1,8 +1,31 @@
  <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+     $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -23,13 +46,40 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script> 
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+      
 </head>
 <body>
+    <?php 
+    $query2 = " select * from user where userid = $uid";
+    $result2 = mysql_query($query2);
+    while($rows=mysql_fetch_object($result2))
+    {
+        if($rows->rank == 2)
+        {
+    ?>
+    <ol class="breadcrumb">
+    <li><a href="../user/userHome.php">Home</a></li>
+    <li class="active">Quiz</li>
+    </ol>
+    <?php
+        }
+        else
+        {
+    ?>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
     <li class="active">Quiz</li>
     </ol>
+    <?php
+        }
+    }
+    ?>
 
     <center>
     <?php
@@ -53,27 +103,89 @@
         <th align="left">Action</th>
         </thead>
         <?php
-            $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
+        if($urank == 2)
+        {       
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
+                {
+                    $courseid = $permrows->courseid;
+                    $query_all_quiz     = "SELECT * FROM quiz WHERE course_id = $courseid ORDER BY lessonid";
+                    //$query2="select * from course";
+                    $result_all_quiz    = mysql_query($query_all_quiz,$link) or die(mysql_error());
+                    //$result2=mysql_query($query2,$link);
+                    echo "<tbody>";
+        
+                    while($a_rows = mysql_fetch_object($result_all_quiz))
+                    {
+                        $query_all_lesson   = "SELECT * FROM lesson";
+                        $result_all_lesson  = mysql_query($query_all_lesson, $link);
+                        
+                        while($b_rows=mysql_fetch_object($result_all_lesson))
+                        {
+                            if($a_rows->lessonid == $b_rows->lessonid)
+                            {
+                                $lessonname = $b_rows->lessonname;
+                                $directionid = $b_rows->direction_id;
+        
+                                    $query_all_course   = "SELECT * FROM course";
+                                    $result_all_course  = mysql_query($query_all_course, $link);
+                                    while($c_rows = mysql_fetch_object($result_all_course))
+                                    {
+                                        if($directionid == $c_rows->courseid)
+                                        {
+                                        $coursename = $c_rows->coursename;
+                                        }
+                        
+                                    }
+        
+                            }          
+                        
+                        }
+        ?>
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                        <td align="left" width="100"><?php echo $lessonname ?></td>
+                        <td align="left" width="100"><?php echo $coursename ?></td>
+                        <td align="left" width="100">
+                            <a class="action-tooltip" href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>" title="Modify">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a class="action-tooltip" href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>" title="Delete">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+        
+                        </tr>                
+        <?php
+
+                    }
+            //
+            $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
             //$query2="select * from course";
-            $result_all_quiz    = mysql_query($query_all_quiz,$link);
+            $result=mysql_query($query,$link);
             //$result2=mysql_query($query2,$link);
             echo "<tbody>";
-
-            while($a_rows = mysql_fetch_object($result_all_quiz))
+            while($a_rows=mysql_fetch_object($result))
             {
-                $query_all_lesson   = "SELECT * FROM lesson";
-                $result_all_lesson  = mysql_query($query_all_lesson, $link);
+                $query2="select * from lesson";
+                $result2=mysql_query($query2,$link);
                 
-                while($b_rows=mysql_fetch_object($result_all_lesson))
+                while($b_rows=mysql_fetch_object($result2))
                 {
                     if($a_rows->lessonid == $b_rows->lessonid)
                     {
                         $lessonname = $b_rows->lessonname;
                         $directionid = $b_rows->direction_id;
+                        $lesson_id = $b_rows->lessonid;
 
-                            $query_all_course   = "SELECT * FROM course";
-                            $result_all_course  = mysql_query($query_all_course, $link);
-                            while($c_rows = mysql_fetch_object($result_all_course))
+                            $query3="select * from course";
+                            $result3=mysql_query($query3,$link);
+                              while($c_rows=mysql_fetch_object($result3))
                             {
                                 if($directionid == $c_rows->courseid)
                                 {
@@ -85,40 +197,156 @@
                     }          
                 
                 }
+                  $uid = $_SESSION['userid'];
+
+                  $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id");
+                  $completeQuery2 = mysql_query("SELECT complete from user_to_quiz WHERE userid = $uid and quizid = $a_rows->quizid");
+                  if(mysql_num_rows($completeQuery2) == 0)
+                  {
+                       if(mysql_num_rows($completeQuery) != 0)
+                        {
+
+                         $completeResult = mysql_result($completeQuery,0);
+                 
+                        if($completeResult == 1)
+                {
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
-                <td align="left" width="100">
-                    <a href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>">
-                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                        <!-- Modify -->
-                    </a>
-                    <a href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>">
-                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                        <!-- Delete -->
-                    </a>
-                </td>
-
                 </tr>                
         <?php
+                }
+                }
+                }
+                else
+                {
+                    $completeResult2 = mysql_result($completeQuery2,0);
+
+                    if($completeResult2 == 1)
+                {
+        ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                else
+                {
+
+                     ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                }
 
             }
+        }
+
+    }
+    else
+    {
+        $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
+        //$query2="select * from course";
+        $result_all_quiz    = mysql_query($query_all_quiz,$link);
+        //$result2=mysql_query($query2,$link);
+        echo "<tbody>";
+        
+        while($a_rows = mysql_fetch_object($result_all_quiz))
+                    {
+                        $query_all_lesson   = "SELECT * FROM lesson";
+                        $result_all_lesson  = mysql_query($query_all_lesson, $link);
+                        
+                        while($b_rows=mysql_fetch_object($result_all_lesson))
+                        {
+                            if($a_rows->lessonid == $b_rows->lessonid)
+                            {
+                                $lessonname = $b_rows->lessonname;
+                                $directionid = $b_rows->direction_id;
+        
+                                    $query_all_course   = "SELECT * FROM course";
+                                    $result_all_course  = mysql_query($query_all_course, $link);
+                                    while($c_rows = mysql_fetch_object($result_all_course))
+                                    {
+                                        if($directionid == $c_rows->courseid)
+                                        {
+                                        $coursename = $c_rows->coursename;
+                                        }
+                        
+                                    }
+        
+                            }          
+                        
+                        }
+        ?>
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                        <td align="left" width="100"><?php echo $lessonname ?></td>
+                        <td align="left" width="100"><?php echo $coursename ?></td>
+                        <td align="left" width="100">
+                            <a class="action-tooltip" href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>" title="Modify">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a class="action-tooltip" href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>" title="Delete">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+        
+                        </tr>                
+        <?php
+
+                    }
+    }
                 mysql_close($link);
         ?>  
     </tbody> 
     </table>
     </center>
     <script>
+    function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
+        });
+    }
     $(document).ready(function(){
-    $('#quiz').DataTable(
-        {  
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        $('#quiz').DataTable(
+            { 
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            });
+        toolTip();
+        $('.next').click(function(){
+            toolTip();
+        });
+        $('.pagination').click(function(){
+            toolTip();
         });
     });
+
+    toolTip();
     </script>
     </body>
     </html>

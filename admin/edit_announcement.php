@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -27,7 +37,7 @@ while($m_rows=mysql_fetch_object($result))
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -51,9 +61,21 @@ while($m_rows=mysql_fetch_object($result))
       ?>
     </form>
    <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'taskname' );
+     tinymce.init({
+     selector: "textarea",
+     plugins: [
+          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+          "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+          "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+    ],
+    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+    toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+    image_advtab: true ,
+    external_filemanager_path:"/eLesson/jscss/filemanager/",
+    filemanager_title:"Responsive Filemanager" ,
+    external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
   </script>
 </body>
 </html>

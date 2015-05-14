@@ -1,8 +1,32 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'adminNav.php';
+ $uid = $_SESSION['userid'];
+ $urank = $_SESSION['rank'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
 $temp_id;
 $query_count="select count(*) from quiz";
 $result_count=mysql_query($query_count,$link);
@@ -98,12 +122,31 @@ else
         <select name="quiz_course" id="quiz_course" onchange="getLessons(this.value)">
             <option value="" selected disabled>--- Select a Course ---</option>
             <?php
-            $select_course = "SELECT * FROM course";
-            $result = mysql_query($select_course);
-            while($row = mysql_fetch_object($result)){
-              ?>
+            if($urank == 2)
+            {
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
+                {
+                    $select_course = "SELECT * FROM course WHERE courseid = '".$permrows->courseid."'";
+                     $result = mysql_query($select_course);
+                    while($row = mysql_fetch_object($result)){
+                    ?>    
+                    <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
+                    <?php
+                    }
+                }
+            }
+            else
+            {
+               $select_course = "SELECT * FROM course";
+                $result = mysql_query($select_course);
+                while($row = mysql_fetch_object($result)){
+                ?>
               <option value="<?php echo $row->courseid ?>,<?php echo $row->coursename ?>"><?php echo $row->coursename ?></option>
               <?php
+                }
+
             }
             ?>
         </select>
@@ -138,6 +181,14 @@ else
     <td>Quiz Name:</td>
     <td><input type="text" name="qname"></td>
 </tr>
+<tr>
+    <td>Passing Score:</td>
+    <td><input type="text" name="pScore"></td>
+</tr>
+<tr>
+    <td>Numbers of Question:</td>
+    <td><input type="text" name="NoQ"></td>
+</tr>
 </table>
 <div align = "center" >
     <input  class="btn btn-default" type="submit" value="Add">
@@ -166,6 +217,8 @@ else
     // $add_lessonid=intval($_POST['sel_lesson']);
     $add_quizid=intval($_POST['qid']);
     $add_quizname=$_POST['qname'];
+    $add_quizScore = $_POST['pScore'];
+    $add_NoQ = $_POST['NoQ'];
     $date = date('Y-m-d H:i:s');
     $flag=true;
     $check="select * from quiz";
@@ -181,8 +234,8 @@ else
     if($flag==false)
     {*/
             // $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
-            $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name) 
-                    values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name')";
+            $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name,passingscore,quiz_number) 
+                    values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name','$add_quizScore','$add_NoQ')";
             
             if(!mysql_query($sql,$link)){
                 echo $sql;

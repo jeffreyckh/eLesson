@@ -1,0 +1,149 @@
+#navlist {
+    position: relative;
+}
+
+#navlist li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    top: 0;
+}
+
+#navlist li, #navlist a {
+    height: 44px;
+    display: block;
+    float: left;
+}
+
+
+figure img {
+    vertical-align: top;
+}
+figure figcaption {
+    text-align: center;
+}
+
+/* 100415 Changes */
+#main_banner{
+  background: #C06190;
+  font-size: 1.4em;
+  height: 60px;
+  margin: 0 auto;
+  padding: 10px 10px 5px;
+  width: 98%;
+  /*text-align: center;*/
+}
+#banner_content{
+  background: #C06190;
+  color: #FFF;
+  height: auto;
+  width: auto;
+  line-height: 50px;
+  font-size: 24px;
+  text-align: left;
+}
+#logo1 {
+  height: 40px;
+  width: auto;
+  float: left;
+  margin-right: 10px;
+}
+#action-icon{
+  height: 30px;
+  width: auto;
+}
+
+thead>tr{
+  background-color: #6190c0;
+  color: #ffffff;
+}
+
+/*.table>caption+thead>tr:first-child>th, 
+.table>colgroup+thead>tr:first-child>th, 
+.table>thead:first-child>tr:first-child>th, 
+.table>caption+thead>tr:first-child>td, 
+.table>colgroup+thead>tr:first-child>td, 
+.table>thead:first-child>tr:first-child>td{
+  border: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}*/
+
+.table>thead>tr>th, .table>thead>tr>td{
+  border: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  padding: 15px;
+}
+
+.table{
+  border: none;
+}
+
+.table>tbody>tr>td{
+  border-left-width: 0;
+  border-right-width: 0;
+  /*border-color: #6190c0;*/
+  vertical-align: middle;
+}
+
+
+#home_icon{
+  height: 35px;
+  width: auto;
+  float: left;
+  /*margin-bottom: 1.1em;*/
+}
+
+ul.nav.navbar-nav{
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li.active>a{
+  background-color: #61c091;
+}
+
+ul.nav.navbar-nav>li.active>a:hover{
+  background-color: #61c091;
+}
+
+.navbar-nav>li>a{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+a.navbar-brand{
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+.btn-default {
+  color: #ffffff;
+  /*background-color: #df006e;*/
+  /*color: #ffffff;*/
+  background-color: #e14b4a;
+  border-color: transparent; 
+}
+
+.btn-default:hover{
+  /*color: #df006e;*/
+  color: #e14b4a;
+  background-color: #ffffff;
+  border-color: #e14b4a;
+  /*border-color: transparent;*/
+}
+
+.navbar{
+  margin-bottom: 10px;
+}
+
+.breadcrumb{
+  margin-bottom: 10px;
+}

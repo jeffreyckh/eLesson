@@ -1,10 +1,88 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
 require_once('../view/announcementView.php');
 $announcement = new announcementView();
+
+      $time = time();
+      $month=date("F",$time);
+      $year=date("Y",$time);
+      $totalviewer = 0;
+      $userstack = array();
+      $adminstack = array();
+      $coursestack = array();
+      $coursemodstack = array();
+
+      $coursequery = "select * from course order by view desc";
+     $courseresult = mysql_query($coursequery,$link);
+      while($b_rows=mysql_fetch_object($courseresult))
+      {
+      array_push($coursestack,$b_rows->coursename,$b_rows->view);
+
+      }
+
+      $coursequery2 = "select * from course order by mod_time desc";
+      $courseresult2 = mysql_query($coursequery2);
+      while($d_rows = mysql_fetch_object($courseresult2))
+      {
+
+        array_push($coursemodstack,$d_rows->coursename,$d_rows->mod_time);
+      }
+
+   
+
+        
+      $querycheck = "select * from user_view";
+      $checkresult = mysql_query($querycheck);
+       while($c_rows=mysql_fetch_object($checkresult))
+    {
+      $totalviewer = $totalviewer + $c_rows->$month; 
+
+      if($c_rows->usertype == 1 || $c_rows->usertype == 2)
+
+      {
+        array_push($adminstack,$c_rows->username,$c_rows->$month);
+      }
+
+      else
+      {
+         array_push($userstack,$c_rows->username,$c_rows->$month);
+      }
+       
+    }
+
+     
+ 
+
+ $usercount =count($userstack);
+ $admincount = count($adminstack);
+ if($usercount < 11){
+    for($i = 0;$i < (10-$usercount);$i++)
+    {
+        array_push($userstack,'null','null');
+    }
+}
+
+if($admincount < 11){
+    for($i = 0;$i < (10-$admincount);$i++)
+    {
+        array_push($adminstack,'null','null');
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,6 +95,7 @@ $announcement = new announcementView();
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -38,36 +117,19 @@ $announcement = new announcementView();
     
     <link rel="stylesheet" href="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
     <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+     <script type="text/javascript"> 
+   $(function () {
+   $('[data-toggle="popover"]').popover()
+    })
+     </script>
   </head>
-<body>
+  <body>
   <div class = "col-md-8">
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#piechart" aria-controls="home" role="tab" data-toggle="tab">Passing Rate</a></li>
-        <li role="presentation"><a href="#columnchart_values" aria-controls="profile" role="tab" data-toggle="tab">Number of view</a></li>
-        <li role="presentation"><a href="#chart_div" aria-controls="messages" role="tab" data-toggle="tab">Total registered member</a></li>
-      
-        </ul>
-    <!--<div class = "row">
-      <div class = "col-md-5">
-        <div id="piechart" style="width: 100%; height: 100%;"></div>
-      </div>
-      <div class = "col-md-20">
-        <div id="columnchart_values" style="width: 900px%; height: 400px;"></div>
-      </div>
-      <div class = "col-md-5">
-        <div id="chart_div" style="width: 100%; height: 100%;"></div>
-      </div>!-->
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="piechart"></div>
-      <div role="tabpanel" class="tab-pane" id="columnchart_values"></div>
-      <div role="tabpanel" class="tab-pane" id="chart_div"></div>
-    </div>
-    </div>
+
+      <div  id="piechart" style="width: 900px; height: 500px;"></div>
   </div>
- <!--<div class = "col-md-3">
-  <div class = "row">
+ <div class = "col-md-3">
+  <!--<div class = "row">
    <br> <hr>
   <?php
   include "../inc/calender.php";
@@ -105,8 +167,26 @@ $announcement = new announcementView();
       </div>
     </div>
   </div>
-</div>
 </div>!-->
+<div class = "row">
+<br>
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" >Monthly Viewers <br> <?php echo $totalviewer ?></button>
+<br>
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 User" data-content="1:<?php echo $userstack[0]; ?> <br>2:<?php echo $userstack[2]; ?> <br>3:<?php echo $userstack[4]; ?><br>4:<?php echo $userstack[6]; ?><br>5:<?php echo $userstack[8]; ?>">Most Active User <br> <?php echo $userstack[0]; ?> </button>
+<br>
+</div>
+
+<div class = "row">
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 Admin" data-content="1:<?php echo $adminstack[0]; ?><br>2:<?php echo $adminstack[2]; ?><br>3:<?php echo $adminstack[4]; ?><br>4:<?php echo $adminstack[6]; ?><br>5:<?php echo $adminstack[8]; ?>">Most Active Admin <br>  <?php echo $adminstack[0]; ?></button>
+<br>
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 Course" data-content="1:<?php echo $coursemodstack[0]; ?><br>2:<?php echo $coursemodstack[2]; ?><br>3:<?php echo $coursemodstack[4]; ?><br>4:<?php echo $coursemodstack[6]; ?><br>5:<?php echo $coursemodstack[8]; ?>">Most Change Course <br> <?php echo $coursemodstack[0]; ?></button>
+</div>
+<div class = "row">
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 Viewed" data-content="1:<?php echo $coursestack[0]; ?><br>2:<?php echo $coursestack[2]; ?><br>3:<?php echo $coursestack[4]; ?><br>4:<?php echo $coursestack[6]; ?><br>5:<?php echo $coursestack[8]; ?>">Most View Course <br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views</button>
+<br>
+<button type="button" class="btn btn-lg btn-danger"  style="width: 250px; height: 60px;" data-html = "true" data-toggle="popover" title="Top 5 Scorer" data-content="1:xia0t99<br>2:user<br>3:null<br>4:null<br>5:null">Top Scorer <br>xia0t99<br>Average Score:100</button>
+</div>
+</div>
 
 <?php
 
@@ -114,6 +194,8 @@ $announcement = new announcementView();
   $cview = array();
   $lname = array();
   $lview = array();
+  $lcomp = array();
+  $lincomp = array();
   $courseresult = mysql_query("SELECT * FROM course") or die(mysql_error());
   while($c_rows = mysql_fetch_object($courseresult))
   {
@@ -130,64 +212,31 @@ $announcement = new announcementView();
     while($l_rows = mysql_fetch_object($lessonresult))
     {
       $lname[] = $l_rows->lessonname;
-      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewresult = mysql_query("SELECT * FROM lessoncomplete where lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
+      $lviewrows = mysql_num_rows($lviewresult);
+      $lview[] = $lviewrows;
+      $lcompleteresult = mysql_query("SELECT * FROM lessoncomplete where complete = '1' AND lessonid ='".$l_rows->lessonid."'") or die(mysql_error());
       $lcompleterows = mysql_num_rows($lcompleteresult);
-      $lview[] = $lcompleterows;
+      $lcomp[] = $lcompleterows;
+      $lincomp[] = $lviewrows - $lcompleterows;
     }
     $_SESSION['lename'] = $lname;
     $_SESSION['leview'] = $lview;
+    $_SESSION['lecomp'] = $lcomp;
+    $_SESSION['leincomp'] = $lincomp;
   }
   //$jcname = json_encode($cname);
   //$jcview = json_encode($cview);
-  $passquery = mysql_query("SELECT pass FROM passingrate") or die(mysql_error());
-  $pass = mysql_result($passquery,0);
-  $failquery = mysql_query("SELECT fail FROM passingrate") or die(mysql_error());
-  $fail = mysql_result($failquery,0);
   $nuquery = mysql_query("SELECT * FROM user");
   $numUserRows = mysql_num_rows($nuquery);
 ?>
 <!--Pie Chart !-->
 
-<script type="text/javascript">
-      //$('#myTab a').click(function (e) {
-      //e.preventDefault()
-      //$(this).tab('show')
-      //})
-
-      
-      </script>
       <script type="text/javascript">
-      function passingRateChart()
-      {
-        // pie Chart for passing ate
-          var data = google.visualization.arrayToDataTable([
-            ['PassFail', 'Number of people'],
-            ['Pass',    <?php echo $pass?>],
-            ['Fail',    <?php echo $fail?>]
-          ]);
-       
-          var options = {
-            title: 'Passing Rate'
-          };
-       
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-           function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            alert('The user selected ' + topping);
-          }
-        }
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        
-          chart.draw(data, options);
-        }
-        google.load('visualization', '1', {
-        packages: ['corechart'],
-        callback: passingRateChart
-        });
+     $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
       function numberCourseView()
       {
 
@@ -204,12 +253,10 @@ $announcement = new announcementView();
          ]);
         
         var coptions = {
-          chart: {
             title: 'Number of Course View',
-          }
         };
       
-        var cchart = new google.charts.Bar(document.getElementById('columnchart_values'));
+        var cchart = new google.visualization.PieChart(document.getElementById('piechart'));
         function cselectHandler() {
           var cselectedItem = cchart.getSelection()[0];
           if (cselectedItem) {
@@ -218,9 +265,12 @@ $announcement = new announcementView();
                 url: "adminHome.php",
                 data: 'q=' + ctopping,
                  success: function(data) {
+                  
                 $.fancybox.open([
                   {
-                    href : 'chart/lessonChart.php',
+                    href : 'chart/lessonChart.php', 
+                    'width'  : 900,           // set the width
+                    'height' : 600,
                     type : 'iframe',
                     padding : 5
                   }
@@ -239,7 +289,7 @@ $announcement = new announcementView();
       
       }
       google.load('visualization', '1', {
-        packages: ['bar'],
+        packages: ['corechart'],
         callback: numberCourseView
       });
       function numberofUser()

@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -30,7 +40,7 @@ $result = mysql_query($query,$link);
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
       function validateForm(){
         var warning_string = "";
@@ -125,10 +135,22 @@ else
 </form>
 </table>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
-  </script>
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
+      </script>
 </body>
 </html>
 
@@ -136,14 +158,27 @@ else
  function addlesson() 
  {
     include'../inc/db_config.php';
-    $add_directionid=intval($_POST['select']);
-    $add_lessonid=intval($_POST['lid']);
-	$add_lessonname=$_POST['lname'];
-	$add_lessoncontent=$_POST['lcont'];
-	$date = date('Y-m-d H:i:s');
-	$flag=true;
-	$check="select * from lesson";
-	$check_result=mysql_query($check,$link);
+    $add_directionid    = intval($_POST['select']);
+    $add_lessonid       = intval($_POST['lid']);
+    $add_lessonname     = $_POST['lname'];
+    $add_lessoncontent  = $_POST['lcont'];
+    $date               = date('Y-m-d H:i:s');
+
+    $create_user = "-";
+    if(isset($_SESSION['username'])){
+      $create_user = $_SESSION['username'];
+    }
+    date_default_timezone_set("Asia/Kuching");
+    $create_time  = date("Y-m-d h:i:s");
+    $modify_user  = "-";
+    $modify_time  = "0000-00-00 00:00:00";
+    $delete_user  = "-";
+    $delete_time  = "0000-00-00 00:00:00";
+    $rec_status   = "-";
+
+    $flag         = true;
+    $check        = "SELECT * from lesson";
+    $check_result = mysql_query($check,$link);
 		while($result_rows=mysql_fetch_object($check_result))
 		{
     		if(strcmp($add_lessonid,$result_rows->lessonname)!=0 && $result_rows->lessonid!=$add_lessonid && $result_rows->lessonname != $add_lessonname)
@@ -151,15 +186,29 @@ else
     		else
         	$flag=true;
 		}
-    
+    $addedlessoncontent = addslashes($add_lessoncontent);
     if($flag==false)
     {
-            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date','$add_lessoncontent','$add_directionid')";
+            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date','$addedlessoncontent','$add_directionid')";
             
-            if(!mysql_query($sql,$link)){
+            $query_insert_lesson = "INSERT INTO lesson
+                                    ( lessonid, lessonname, created, lessoncontent, direction_id,
+                                      created_on, created_by,
+                                      modified_on, modified_by,
+                                      deleted_on, deleted_by,
+                                      rec_status )
+                                    VALUES
+                                    ( '$add_lessonid','$add_lessonname','$date','$addedlessoncontent','$add_directionid',
+                                      '$create_time', '$create_user',
+                                      '$modify_time', '$modify_user',
+                                      '$delete_time', '$delete_user',
+                                      '$rec_status')";
+
+            if(!mysql_query($query_insert_lesson,$link)){
              die("Could not add new lesson.".mysql_error());
             }else
             {
+                update_lesson_history($add_lessonid);
                 echo '<script> alert("Add Lesson Successful!") </script>';
                 echo '<script language="JavaScript"> window.location.href ="viewlesson.php"</script>';
             }
@@ -171,7 +220,45 @@ else
     }
 
  }
+function update_lesson_history($lesson_id){
+    global $link;
+    // Insert modified lesson into lesson history 
+    $query_select = "SELECT * FROM lesson WHERE lessonid='$lesson_id'";
+    $result = mysql_query($query_select, $link);
+    $arr_result = mysql_fetch_assoc($result);
+    $revision_time = "";
+    $last_user = "";
 
+    $query_insert_hist = "INSERT INTO lesson_history(
+                                    lessonid, lessonname, created, lessoncontent, direction_id,
+                                    created_on, created_by, modified_on, modified_by,
+                                    deleted_on, deleted_by, rec_status, version_id, latest_revision_time, latest_user
+                                )
+                                VALUES(";
+    foreach($arr_result as $key => $value){
+    $query_insert_hist .=  "'" . $value . "',";
+
+    if($key == "created_on"){
+      $revision_time = "'" . $value . "'";
+    }
+
+    if($key == "created_by"){
+      $last_user = "'" . $value . "'";
+    }
+  }
+
+  $query_insert_hist .= $revision_time;
+  $query_insert_hist .= ",";
+  $query_insert_hist .= $last_user;
+  $query_insert_hist .= ")";
+
+    if(!mysql_query($query_insert_hist, $link)){
+        // echo "Checkpoint";
+        die("Could not add lesson history.".mysql_error());
+    }else{
+    // echo '<script> alert("Lesson ") </script>';
+    }
+}
 ?>
 
 

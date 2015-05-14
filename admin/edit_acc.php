@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -83,7 +93,7 @@ while($m_rows=mysql_fetch_object($result))
               while($m_rows=mysql_fetch_object($result1))
               {
 
-                 $cquery = "select * from permission where courseid = $m_rows->courseid";
+                 $cquery = "select * from permission where courseid = $m_rows->courseid and userid = $m_id";
                  $cresult = mysql_query($cquery);
                  if (mysql_num_rows($cresult) == 0) 
                   {
@@ -93,9 +103,6 @@ while($m_rows=mysql_fetch_object($result))
                   {
                     echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" checked/>".$m_rows->coursename."</br>";
                   }
-
-
-                echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
 
               }
               echo "</td>";
@@ -125,29 +132,7 @@ while($m_rows=mysql_fetch_object($result))
                 }
               }
             }
-            
-
-
-            $perm = $_POST['permCourse'];
-            $query2 = "select * from permission where userid = $m_id";
-            $result2 = mysql_query($query2);
-            if (mysql_num_rows($result2) != 0) 
-            {
-               $sql="delete from permission where userid=$m_id";
-               $result3 = mysql_query($sql);
-            } 
-            
-            if(!empty($perm))
-            {
-              $n = count($perm);
-              for($i=0;$i < $n; $i++)
-              {
-                $sql1 = "insert into permission (userid,courseid) values ($m_id,$perm[$i])";
-                $result3 = mysql_query($sql1);
-                //echo($perm[$i] . " ");
-              }
-            }
-
+          
 
           ?>
 

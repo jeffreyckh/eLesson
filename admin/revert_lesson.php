@@ -1,5 +1,15 @@
 <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -65,15 +75,13 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Revert Lesson Detail</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
     
     <style type="text/css">
         del{
@@ -202,9 +210,21 @@ if(isset($_GET['action'])=='editlesson') {
 </table>
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'lcont' );
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
   </script>
   <a href="lesson_history.php?lid=<?php echo $c_lessonid ?>" class = " btn btn-default">Return</a>
   </body>

@@ -1,9 +1,32 @@
 <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
     $m_id=intval($_GET['lid']);
+     $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $query_select = "SELECT * FROM lesson WHERE lessonid='$m_id'";
     $result=mysql_query($query_select,$link);
@@ -27,12 +50,11 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
   <ol class="breadcrumb">

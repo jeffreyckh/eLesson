@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -105,7 +115,11 @@ session_start();
       
       ?>
         <tr>
-          <td><?php echo $row->latest_revision_time; ?></td>
+          <td>
+            <?php
+            echo $row->latest_revision_time; 
+            ?>
+          </td>
           <td><?php echo $row->lessonname; ?></td>
           <td><?php echo $row->latest_user; ?></td>
           <td>

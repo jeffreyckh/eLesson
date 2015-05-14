@@ -51,6 +51,14 @@ class userView
       }
     }
   }
-}
 
-?>
+  public function reminderMailSent()
+  {
+    if(isset($_POST['sendReminder']))
+    {
+      echo '<script> alert("Reminder Mail was sent!") </script>';
+      echo '<script language="JavaScript"> window.location.href ="manageAccount.php" </script>'; 
+    }
+  }
+
+}

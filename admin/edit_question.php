@@ -1,5 +1,15 @@
 <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'adminNav.php';
@@ -32,7 +42,7 @@
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
 </head>
 <body>
 
@@ -74,13 +84,25 @@ if(isset($_GET['action'])=='editquestion') {
         ?>
       </select></td></tr>
     </table>
-    <div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset">
+    <div align = "center"><input class="btn btn-default" type="submit" value="edit">&nbsp&nbsp<input class="btn btn-default" type="reset">
 
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'qcont' );
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
   </script>
   </body>
   </html>
@@ -113,7 +135,13 @@ function editquestion()
     if($flag==false)
     {
 
-       
+            
+            $edit_answer = str_replace("/","/",$edit_answer);
+             $edit_answer = str_replace("<","&lt",$edit_answer);
+            $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
+             $edit_optionlist = str_replace("/","/",$edit_optionlist);
+            $edit_content = str_replace("<","&lt",$edit_content);
+            $edit_content = str_replace(">","&gt",$edit_content);
             $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',difficulty = '$edit_ddlDifficulty' where questionid=$quesid";
             if(!mysql_query($sql,$link))
 

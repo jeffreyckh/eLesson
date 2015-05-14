@@ -3,10 +3,17 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
+    $urank = $_SESSION['rank']; 
     $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
+        if(!isset($_SESSION['lessonview']))
+    {
+        $viewquery = "UPDATE lesson SET view = view + 1 where lessonid = $m_id";
+        $viewresult = mysql_query($viewquery);
+        $_SESSION['lessonview'] = 1;
+    }
 
-  $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
+   $querycheck = "select * from lessoncomplete where userid = $uid and lessonid = $m_id";
     $checkresult = mysql_query($querycheck);
         
 
@@ -35,20 +42,20 @@
       $validlid = $v_rows->lessonid;
     }
   
-    if(empty($validlid) && empty($validuid))
+    if( mysql_num_rows($vresult) == 0)
     {
+
       $uquery = "INSERT INTO user_to_lesson( userid, lessonid, viewtime) 
             VALUES ('$uid', '$m_id', '$time')";
       $uresult = mysql_query($uquery);
     }
     else
     { 
-      $uquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
-       $uresult = mysql_query($uquery);
+      $abquery = "UPDATE user_to_lesson SET viewtime='$time' WHERE userid=$uid and lessonid = $m_id";
+       $abresult = mysql_query($abquery);
     }
         
 
-    $uresult = mysql_query($uquery);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
@@ -67,11 +74,11 @@
   <title>Course Info</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+  <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
   <ol class="breadcrumb">
@@ -81,22 +88,17 @@
     <li class="active">Lesson Info</li>
     </ol>
 
-<div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#lessonDetail" aria-controls="lessonDetail" role="tab" data-toggle="tab">Lesson Content</a></li>
-    <li role="presentation"><a href="#quiz" aria-controls="quiz" role="tab" data-toggle="tab">Quiz</a></li>  
-  </ul>
 
   <!-- Tab panes -->
-<div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="lessonDetail">
-          <h1>Lesson Name:<?php echo $m_lessonname ?></h1>
+<div>
+          <div id="lesson_container">
+          <h1><center><?php echo $m_lessonname ?></center></h1>
           <hr>
-          <h2>Lesson Content:</h2>
+          
             <fieldset><?php echo $m_lessoncontent ?></fieldset>    
+          </div>
 
-
+          
             <?php
         if(isset($_GET['action'])=='donelesson') {
             donelesson();
@@ -117,7 +119,19 @@
            $currentcount = mysql_result($checkresult,0);
            $current_query = "select lessonid from lesson where direction_id = $courseid limit $currentcount";
            $current_result= mysql_query($current_query);
-           $current_lesson = mysql_result($current_result,($currentcount - 1));
+           $querylesson = "select count(*) from lesson where direction_id = $courseid";
+           $lessonresult = mysql_query($querylesson);
+           $lessontotal = mysql_result($lessonresult,0);
+
+
+           if($currentcount <= $lessontotal)
+
+          { $current_lesson = mysql_result($current_result,($currentcount - 1)); }
+
+          else
+          {
+          $current_lesson = 0;
+          }
 
             if($m_id == $current_lesson)
             {
@@ -133,40 +147,6 @@
             ?>
           </form>
         </div>
-
-  <div role="tabpanel" class="tab-pane" id="quiz">
-    <?php
-        $l_id=intval($_REQUEST['lid']);
-        $query_count="select count(*) from quiz where lessonid=$l_id";
-        $result_count=mysql_query($query_count,$link);
-        $count=mysql_result($result_count,0);
-        
-        ?>
-        <table id = "quiz" class="table table-striped table-bordered" cellspacing="0">
-        <thead>
-            <tr>
-            <th align="left">Quiz ID</th>
-            <th align="left">Quiz Name</th>
-            <th align="left">Created</th>
-            </tr>
-            </thead>
-        <?php
-            $qquery="select * from quiz where lessonid=$l_id";
-            $qresult=mysql_query($qquery,$link);
-            echo "<tbody>";
-            while($a_rows=mysql_fetch_object($qresult))
-            {
-        ?>
-        <tr>
-            <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-            <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
-            <td align="left" width="100"><?php echo $a_rows->created ?></td>
-        </tr>
-        <?php
-        }
-
-         // mysql_close($link);
-        ?>  
         </tbody> 
         </td>
         </tr>
@@ -180,12 +160,7 @@
         }
         mysql_close($link);
         ?>  
-<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
+
 <script>
 $(document).ready(function(){
     $('#lesson').DataTable(
@@ -236,7 +211,7 @@ $(document).ready(function(){
                       if(answer)
                       {
                         window.location.href ="user_viewquiz.php"
-                     }
+                      }
                       else
                       {
                        window.location.href ="userHome.php"                 

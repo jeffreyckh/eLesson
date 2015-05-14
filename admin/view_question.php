@@ -1,8 +1,31 @@
  <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -40,11 +63,13 @@
 
     <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
     <hr>
+
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
         <th align="right">Question ID</th>
         <th align="right">Content</th>
         <th align="right">Difficulty</th>
+        <th align="right">Action</th>
         <!-- <th align="right">Modify</th>
         <th align="right">Delete</th> -->
         </thead>
@@ -63,10 +88,20 @@
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $b_rows->questionid ?></a></td>
-                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo $b_rows->content ?></a></td>
+                <td align="left" width="500"><a href="question_info.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>"><?php echo htmlspecialchars_decode($b_rows->content) ?></a></td>
                 <td align="left" width="50"><?php echo $b_rows->difficulty ?></a></td>
                 <!-- <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
                 <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td> -->
+                <td align="left" width="100">
+                            <a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
                 </tr>                
         <?php
             }

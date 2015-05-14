@@ -1,8 +1,32 @@
 <?php
     session_start();
+    $urank = $_SESSION['rank'];
+    if ($urank == 3)
+    {
+      echo '<script language="javascript">';
+      echo 'alert("You have no permission to access here")';
+      echo '</script>';
+      
+      header("Location: ../user/userHome.php");
+      die();
+    }
+    unset($_SESSION['view']);
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    $uid = $_SESSION['userid'];
+    $query3 = " select * from user where userid = $uid";
+    $result3 = mysql_query($query3);
+    while($rows=mysql_fetch_object($result3))
+    {
+        if($rows->rank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    }
     ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -21,7 +45,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>  
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css"> 
 
      <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
  </head>
@@ -79,11 +108,11 @@
                     ?>
                 </td>
                 <td align="center" width="15%">
-                    <a href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>" title="Modify">
+                    <a class="action-tooltip" href="edit_courses.php?cid=<?php echo $a_rows->courseid ?>" title="Modify">
                         <img id="action-icon" src="../img/modifyicon2_600x600.png">
                         <!-- Modify -->
                     </a>
-                    <a href="del_course.php?cid=<?php echo $a_rows->courseid ?>" title="Delete">
+                    <a class="action-tooltip" href="del_course.php?cid=<?php echo $a_rows->courseid ?>" title="Delete">
                         <img id="action-icon" src="../img/deleteicon2_600x600.png">
                         <!-- Delete -->
                     </a>
@@ -99,13 +128,31 @@
 
     </center>
 <script>
+function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
+        });
+    }
 $(document).ready(function(){
     $('#course').DataTable(
         {
             
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
+    toolTip();
+        $('.next').click(function(){
+            toolTip();
+        });
+        $('.pagination').click(function(){
+            toolTip();
+        });
 });
+toolTip();
 /*$(document).ready(function(){
 $(function(){
 $("#course").tablesorter(

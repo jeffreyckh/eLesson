@@ -1,6 +1,19 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
+if(isset($_GET['action'])=='addlesson') {
+    addlesson();
+}else
 include '../inc/header.php';
 include 'adminNav.php';
 $temp_id;
@@ -34,7 +47,7 @@ $result = mysql_query($query,$link);
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
       function validateForm(){
         var warning_string = "";
@@ -81,9 +94,7 @@ Add new lesson
 <hr>
 
 <?php
-if(isset($_GET['action'])=='addlesson') {
-    addlesson();
-}else
+
 //show form
 ?>
 <table class="table table-bordered">
@@ -105,12 +116,21 @@ if(isset($_GET['action'])=='addlesson') {
 </form>
 </table>
    <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace('lcont', {
-        "filebrowserImageUploadUrl": "/path_to/ckeditor/plugins/imgupload.php"
-      });
-      //CKEDITOR.replace( 'lcont' );
+      tinymce.init({
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
   </script>
 </body>
 </html>
@@ -149,10 +169,10 @@ if(isset($_GET['action'])=='addlesson') {
     		else
         	$flag=true;
 		}
-    
+    $addedlessoncontent = addslashes($add_lessoncontent);
     if($flag==false)
     {
-            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date','$add_lessoncontent','$add_directionid')";
+            $sql="insert into lesson(lessonid,lessonname,created,lessoncontent,direction_id) values('$add_lessonid','$add_lessonname','$date',' $addedlessoncontent','$add_directionid')";
             
             $query_insert_lesson = "INSERT INTO lesson
                                     ( lessonid, lessonname, created, lessoncontent, direction_id,
@@ -161,7 +181,7 @@ if(isset($_GET['action'])=='addlesson') {
                                       deleted_on, deleted_by,
                                       rec_status )
                                     VALUES
-                                    ( '$add_lessonid','$add_lessonname','$date','$add_lessoncontent','$add_directionid',
+                                    ( '$add_lessonid','$add_lessonname','$date',' $addedlessoncontent','$add_directionid',
                                       '$create_time', '$create_user',
                                       '$modify_time', '$modify_user',
                                       '$delete_time', '$delete_user',
@@ -186,11 +206,11 @@ if(isset($_GET['action'])=='addlesson') {
                 $course_id = $row->direction_id;
               }
 
-              $query_update_course = "UPDATE course SET
-                                      modified_on = '$modify_time', modified_by = '$modify_user'
-                                      WHERE courseid = '$course_id'";
+              // $query_update_course = "UPDATE course SET
+              //                         modified_on = '$modify_time', modified_by = '$modify_user'
+              //                         WHERE courseid = '$course_id'";
 
-              mysql_query($query_update_course, $link);
+              // mysql_query($query_update_course, $link);
                 // echo $query_update_course;
                 echo '<script> alert("Add Lesson Successful!") </script>';
                 /*echo '<script language="JavaScript"> window.location.href ="courses_info.php?cid=<?php echo $add_directionid?>"</script>';*/
@@ -222,11 +242,11 @@ function update_lesson_history($lesson_id){
     foreach($arr_result as $key => $value){
     $query_insert_hist .=  "'" . $value . "',";
 
-    if($key == "modified_on"){
+    if($key == "created_on"){
       $revision_time = "'" . $value . "'";
     }
 
-    if($key == "modified_by"){
+    if($key == "created_by"){
       $last_user = "'" . $value . "'";
     }
   }

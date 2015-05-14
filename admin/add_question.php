@@ -1,5 +1,15 @@
 <?php
 session_start();
+$urank = $_SESSION['rank'];
+if ($urank == 3)
+{
+  echo '<script language="javascript">';
+  echo 'alert("You have no permission to access here")';
+  echo '</script>';
+  
+  header("Location: ../user/userHome.php");
+  die();
+}
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
@@ -30,7 +40,86 @@ $result = mysql_query($query,$link);
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script src="../jscss/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+      function validateForm(){
+        var q_content = tinyMCE.activeEditor.getContent();
+        var q_course = document.getElementById("ques_course").value;
+        var q_ans = document.getElementById("quesans").value;
+        var q_option = document.getElementById("p_new");
+        var q_options = document.getElementsByName("p_new[]");
+        var q_option_num = q_options.length;
+
+        var ans_count = 0;
+        
+        for(var i=0; i<q_option_num; i++){
+          /*alert(q_options[i].value); */
+          var option_ans = q_options[i].value;
+          if(option_ans == q_ans){
+            ans_count++;
+          }
+        }
+
+        var values = "";
+
+        /* Validation Section */
+        if(q_course == ""){
+          /* Validate course selection */
+          alert("Please select a course.");
+        }else if(q_content == ""){
+          /* Validate content existence */
+          alert("Please enter question content.");
+          // warning_string += "Please enter question content.\n";
+          return false;
+        }else if(q_ans == ""){
+          /* Validate answer existence */
+          alert("Please enter correct answer.");
+          // warning_string += "Please enter question answer.\n";
+          return false;
+        }else if(q_option == null){
+          /* Validate option list existence */
+          alert("Please enter option list.");
+          // warning_string += "Please enter option list.\n";
+          return false;
+        }else if(ans_count<1){
+          /* The correct answer cannot be found in the option list */
+          alert("The correct answer is not included into the option list."
+                +"\n"+"Ensure that the correct answer is in the option list.");
+          return false;
+        }else if(ans_count>1){
+          /* The correct answer is included more than once in the option list */
+          alert("The correct answer has been included into the option list more than once."
+                +"\n"+"Ensure that the correct answer is only included once in the option list.");
+          return false;
+        }else{
+          
+          return true;
+        }
+
+        return false;
+      }
+
+      $(function() {
+        var addDiv = $('#addinput');
+        var i = $('#addinput #extra').size() + 1;
+        $('#addNew').on('click', function() {
+          $('<div id="extra"><input type="text" id="p_new" size="20" name="p_new[]' + 
+          '" value="" placeholder="Add answer option here" /><a href="#" id="remNew"><button type="button">' + 
+          'Remove</button></a></div>').appendTo(addDiv);
+        i++;
+          return false;
+        });
+
+        $(document).on('click', "#remNew", function() {
+          if( i > 1 ) {
+            $(this).parents('#extra').remove();
+            // i--;
+          }
+          return false;
+        });
+      });
+
+    </script>
 </head>
 <body>
     <!--breadcrumb-->
@@ -50,14 +139,15 @@ if(isset($_GET['action'])=='addquestion') {
 else
 //show form
 ?>
+<form action="?action=addquestion>" method="post" onsubmit="return(validateForm())">
 <table class = "table table-bordered">
-<form action="?action=addquestion>" method="post">
+
 <tr>
   <td>
     Course:
   </td>
   <td>
-    <select name="ques_course">
+    <select id="ques_course" name="ques_course">
         <option value="" selected disabled>--- Select a Course ---</option>
         <?php
         $select_course = "SELECT * FROM course";
@@ -72,7 +162,7 @@ else
   </td>
 </tr>
 <tr>
-<input type="hidden" type="text" type="hidden" name="quesid" value="<?php echo $questionid ?>">
+<input type="hidden" type="text" type="hidden" id="quesid" name="quesid" value="<?php echo $questionid ?>">
 <td>Question Content:</td><td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td>
@@ -86,8 +176,17 @@ value="radio">Single Choice
 value="checkbox">Multiple Choice</td></tr>
 -->
 
-<td>Correct Answer:</td><td><input type="text" name="quesans"></td></tr>
-<td>Option List(Use "/" to separate):</td><td><input type="text" name="option"></td></tr>
+<td>Correct Answer:</td><td><input type="text" id="quesans" name="quesans"></td></tr>
+<td>Option List(Use "/" to separate):</td>
+<td>
+  <div id="addinput">
+    <a href="#" id="addNew">
+      <button type="button">Add</button>
+    </a>
+  </div>
+</td>
+<!-- <td><input type="text" name="option"></td> -->
+</tr>
 <td>Difficulty:</td><td>
     <select name="ddlDifficulty">
         <option value="Easy" selected>Easy</option>
@@ -95,13 +194,27 @@ value="checkbox">Multiple Choice</td></tr>
         <option value="Hard">Hard</option>
     </select></td></tr>
 </table>
-<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input class="btn btn-default" type="reset"></td></tr>
+<div align = "center"><input class="btn btn-default" type="submit" value="Add">&nbsp&nbsp
+  <input class="btn btn-default" type="reset"></td></tr>
 </form>
 <script>
-      // Replace the <textarea id="editor1"> with a CKEditor
-      // instance, using default configuration.
-      CKEDITOR.replace( 'quescont' );
-</script>
+      tinymce.init({
+        
+    selector: "textarea",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   external_filemanager_path:"/eLesson/jscss/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+    
+ });
+  </script>
 </body>
 </html>
 
@@ -113,6 +226,7 @@ value="checkbox">Multiple Choice</td></tr>
     // $add_quizid=intval($_REQUEST['qid']);
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
+    $add_content = htmlspecialchars($add_content);
 	//$add_type=$_POST['choicetype'];
 	//$date = date('Y-m-d H:i:s');
 
@@ -134,11 +248,30 @@ value="checkbox">Multiple Choice</td></tr>
 
     $add_answer=$_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
-    $add_option=$_POST['option'];
-    $add_option = str_replace("/","/",$add_option);
+      $add_answer = str_replace("<","&lt",$add_answer);
+        $add_answer = str_replace(">","&gt",$add_answer);
+
+    // $add_option=$_POST['option'];
+    // $add_option = str_replace("/","/",$add_option);
+    // $add_option = str_replace("<","&lt",$add_option);
+    // $add_option = str_replace(">","&gt",$add_option);
+
+    $add_option = "";
+    $p_new = $_POST['p_new'];
+    $size_p = sizeof($p_new) - 1;
+    for($i=0; $i<sizeof($p_new); $i++){
+      $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
+      $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
+      $add_option .= $p_new[$i];
+      if($i<$size_p){
+        $add_option .= "/";
+      }
+    }
+
     $add_difficulty = $_POST['ddlDifficulty'];
+
 	$flag=false;
-	$check="select * from question";
+	$check="SELECT * from question";
 	$check_result=mysql_query($check,$link);
 		while($result_rows=mysql_fetch_object($check_result))
 		{
@@ -150,12 +283,15 @@ value="checkbox">Multiple Choice</td></tr>
     
     if($flag==false)
     {
+
+            $add_content = str_replace("<","&lt",$add_content);
+            $add_content = str_replace(">","&gt",$add_content);
             $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
                   values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
             $sql2="";                  
             
             if(!mysql_query($sql,$link)){
-              // echo $sql;
+              echo $sql;
              die("Could not add new question.".mysql_error());
             }else
             {
@@ -166,21 +302,22 @@ value="checkbox">Multiple Choice</td></tr>
               $last_inserted_id = mysql_insert_id();
 
               // Get direction_id to update modification information of the course
-              $query_select_question = "SELECT quizid FROM question WHERE questionid = '$last_inserted_id'";
-              $select_question_result = mysql_query($query_select_question, $link);
+              // $query_select_question = "SELECT quizid FROM question WHERE questionid = '$last_inserted_id'";
+              // $select_question_result = mysql_query($query_select_question, $link);
 
-              while($row = mysql_fetch_object($select_question_result)){
-                $quiz_id = $row->quizid;
-              }
+              // while($row = mysql_fetch_object($select_question_result)){
+              //   $quiz_id = $row->quizid;
+              // }
 
-              $query_update_quiz = "UPDATE quiz SET
-                                      modified_on = '$modify_time', modified_by = '$modify_user'
-                                      WHERE courseid = '$quiz_id'";
+              // $query_update_quiz = "UPDATE quiz SET
+              //                         modified_on = '$modify_time', modified_by = '$modify_user'
+              //                         WHERE courseid = '$quiz_id'";
 
-              mysql_query($query_update_quiz, $link);
+              // mysql_query($query_update_quiz, $link);
 
                 echo '<script> alert("Add Question Successful!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="view_question.php</script>';
+                // echo '<script language="JavaScript"> window.location.href ="view_questionlist.php</script>';
+                echo '<script language="JavaScript"> window.location.href ="question_info_2.php?quid='.$add_questionid.'"</script>';
             }
         
        
