@@ -16,6 +16,10 @@ session_start();
     $score = 0; 
     $userans = array();
     $orians = array();
+    $quesarray = array();
+     $userans2 = array();
+    $orians2 = array();
+    $quesarray2 = array();
   
    //$keys=array_keys($_POST);
    //$order=join(",",$keys);
@@ -27,6 +31,7 @@ session_start();
    
    while($result=mysql_fetch_object($response)){
     $userans[] = $result->answer;
+    $quesarray[] = $result ->questionid;
       $ansquery = "select answer from question where questionid = $result->questionid";
       $ansresult = mysql_query($ansquery);
       while ($ans_rows = mysql_fetch_object($ansresult)) {
@@ -46,6 +51,9 @@ session_start();
            }
            else{
                $wrong_answer++;
+               $userans2[] = $userans[$i];
+               $orians2[] = $orians[$i];
+               $quesarray2[] = $quesarray[$i];
                //echo $result['answer'];
            }
     $score = ($right_answer/$usercount) * 100;
@@ -53,7 +61,7 @@ session_start();
    }
 
          
-          $updatesql = "UPDATE user_to_quiz SET attempt = attempt + 1 WHERE userid = $uid AND quizid = $qid";
+        $updatesql = "UPDATE user_to_quiz SET attempt = attempt + 1 WHERE userid = $uid AND quizid = $qid";
         mysql_query($updatesql);
        
 
@@ -100,6 +108,21 @@ session_start();
                         <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
                         <p>Score : <span class="answer"><?php echo $result;?></span></p>
                         <?php 
+                        $count = count($quesarray2);
+                        if($count != 0)
+                        {
+                          for($i = 0;$i <$count;$i++)
+                          {
+                            echo 'No' . $i . ' ';
+                            echo $quesarray2[$i];
+                            $qcontent = mysql_result(mysql_query("SELECT content FROM question WHERE questionid = $quesarray2[$i]") or die (mysql_error()),0);
+                            echo $qcontent . '<br>';
+                            echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians[$i] . '<br>';
+
+                          }
+
+                        }
+
                         $scorequery = " SELECT passingscore FROM quiz WHERE quizid = $qid";
                         $scoreresult = mysql_query($scorequery);
                         $passscore = mysql_result($scoreresult, 0);
