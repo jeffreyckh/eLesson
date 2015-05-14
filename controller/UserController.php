@@ -30,7 +30,7 @@
 	            	}
 	            	if (strlen($password) < 4 || strlen($password) > 13) {
 	                throw new Exception(
-	                  "<script type='text/javascript'>alert('Password must be longer than 6 character!')</script>");
+	                  "<script type='text/javascript'>alert('Password must be longer than 4 character and shorter than 13 characters!')</script>");
 	            	}
 	            
 					if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

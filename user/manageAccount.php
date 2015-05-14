@@ -38,10 +38,10 @@ $uid = $_SESSION['userid'];
       </div>
         <table cellspacing="10">
           <form action="" method="post">
-        <tr><td>Current Password :</td> <td><input type="text" name="cpassword"></td></tr>
-        <tr><td>New Password :</td> <td><input type="text" name="npassword"></td></tr>
+        <tr><td>Current Password :</td> <td><input type="password" name="cpassword"></td></tr>
+        <tr><td>New Password :</td> <td><input type="password" name="npassword"></td></tr>
         <tr></tr>
-        <tr><td>Re-type Password :</td> <td><input type="text" name="rpassword"></td></tr>
+        <tr><td>Re-type Password :</td> <td><input type="password" name="rpassword"></td></tr>
         </table>
         <br>
         <div align = "center" ><input  class="btn btn-default" name="submit" type="submit" value="Change">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
@@ -51,28 +51,56 @@ $uid = $_SESSION['userid'];
       {
         $validquery = "SELECT password FROM user WHERE userid = $uid";
         $validresult = mysql_query($validquery) or die (mysql_error());
-        $password = md5(mysql_result($validresult,0));
-        $input_cpass = md5($_POST['cpassword']);
-        echo "??".$password;
-        echo "<br>";
-        echo 'alert("'.$input_cpass.'")';
-        if($input_cpass == $password)
+        $password = mysql_result($validresult,0);
+        $input_cpass = $_POST['cpassword'];
+        if ($input_cpass != "")
         {
-          $npassword = md5($_POST['npassword']);
-          $rpassword = md5($_POST['rpassword']);
-          if ($npassword == $rpassword)
+          $curr_pass = MD5($input_cpass);
+          if($curr_pass == $password)
           {
-            $uquery = "UPDATE user SET password = $npassword WHERE userid = $uid";
-            $uresult = mysql_query($uquery) or die(mysql_error());
+            $npassword = $_POST['npassword'];
+            $rpassword = $_POST['rpassword'];
+            if(!empty($npassword))
+              {
+                if(!empty($rpassword))
+                  {
+                    if (strlen($password) < 4 || strlen($password) > 13)
+                      {
+                        if ($npassword == $rpassword)
+                        {
+                          $newpassword = md5($npassword);
+                          $uquery = "UPDATE user SET password = '$newpassword' WHERE userid = $uid";
+                          $uresult = mysql_query($uquery) or die(mysql_error());
+                          echo "<script type='text/javascript'>alert('Password changed successfully!')</script>";
+                        }
+                        else
+                        {
+                          echo "Password enetered is not same";
+                        }
+                      }
+                      else
+                      {
+                        echo "The password must be longer than 4 characters and shorter than 13 characters!";
+                      }
+                  }
+                  else
+                  {
+                    echo "Re-type Password can not be empty!";
+                  }
+              }
+              else
+              {
+                echo "New Password is empty";
+              }
           }
           else
           {
-            echo "Password enetered is not same";
+            echo "You have entered wrong password";
           }
         }
         else
         {
-          echo "You have entered wrong password";
+          echo "Current password can not be empty!";
         }
       }
       ?>
