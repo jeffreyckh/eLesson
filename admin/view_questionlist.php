@@ -103,21 +103,6 @@
                         </tr>                
         <?php
                     }
-                    $query2="select * from question WHERE course_id <> '".$permrows->courseid."'";
-                    $result2=mysql_query($query2,$link);
-                    echo "<tbody>";
-                    while($a2_rows=mysql_fetch_object($result2))
-                    {
-
-        ?>
-                        <tr>
-                        <td align="left" width="100"><?php echo $a2_rows->questionid ?></a></td>
-                        <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a2_rows->questionid ?>"><?php echo $a2_rows->content ?></a></td>
-                        <td align="left" width="50"><?php echo $a2_rows->difficulty ?></a></td>
-                        <td align="left" width="100">
-                        </tr>                
-        <?php
-                    }
                 }
             }
             else

@@ -67,7 +67,7 @@
         <li <?=echoActiveClassIfRequestMatches("courses")?>
           <?=echoActiveClassIfRequestMatches("lesson")?>
           >
-          <a href="../admin/courses.php" class="nav-tooltip" title="Course">
+          <a href="../user/courses.php" class="nav-tooltip" title="Course">
             <?php
             if($active_state==true){
               echo '<img id="home_icon" src="../img/courseicon_white_600x600.png">';

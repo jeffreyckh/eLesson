@@ -93,7 +93,7 @@ while($m_rows=mysql_fetch_object($result))
               while($m_rows=mysql_fetch_object($result1))
               {
 
-                 $cquery = "select * from permission where courseid = $m_rows->courseid";
+                 $cquery = "select * from permission where courseid = $m_rows->courseid and userid = $m_id";
                  $cresult = mysql_query($cquery);
                  if (mysql_num_rows($cresult) == 0) 
                   {

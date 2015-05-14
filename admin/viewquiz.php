@@ -103,38 +103,45 @@
         <th align="left">Action</th>
         </thead>
         <?php
-            $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
-            //$query2="select * from course";
-            $result_all_quiz    = mysql_query($query_all_quiz,$link);
-            //$result2=mysql_query($query2,$link);
-            echo "<tbody>";
-
-            while($a_rows = mysql_fetch_object($result_all_quiz))
+        if($urank == 2)
             {
-                $query_all_lesson   = "SELECT * FROM lesson";
-                $result_all_lesson  = mysql_query($query_all_lesson, $link);
-                
-                while($b_rows=mysql_fetch_object($result_all_lesson))
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
                 {
-                    if($a_rows->lessonid == $b_rows->lessonid)
+                    $courseid = $permrows->courseid;
+                    $query_all_quiz     = "SELECT * FROM quiz WHERE course_id = $courseid ORDER BY lessonid";
+                    //$query2="select * from course";
+                    $result_all_quiz    = mysql_query($query_all_quiz,$link) or die(mysql_error());
+                    //$result2=mysql_query($query2,$link);
+                    echo "<tbody>";
+        
+                    while($a_rows = mysql_fetch_object($result_all_quiz))
                     {
-                        $lessonname = $b_rows->lessonname;
-                        $directionid = $b_rows->direction_id;
-
-                            $query_all_course   = "SELECT * FROM course";
-                            $result_all_course  = mysql_query($query_all_course, $link);
-                            while($c_rows = mysql_fetch_object($result_all_course))
+                        $query_all_lesson   = "SELECT * FROM lesson";
+                        $result_all_lesson  = mysql_query($query_all_lesson, $link);
+                        
+                        while($b_rows=mysql_fetch_object($result_all_lesson))
+                        {
+                            if($a_rows->lessonid == $b_rows->lessonid)
                             {
-                                if($directionid == $c_rows->courseid)
-                                {
-                                $coursename = $c_rows->coursename;
-                                }
-                
-                            }
-
-                    }          
-                
-                }
+                                $lessonname = $b_rows->lessonname;
+                                $directionid = $b_rows->direction_id;
+        
+                                    $query_all_course   = "SELECT * FROM course";
+                                    $result_all_course  = mysql_query($query_all_course, $link);
+                                    while($c_rows = mysql_fetch_object($result_all_course))
+                                    {
+                                        if($directionid == $c_rows->courseid)
+                                        {
+                                        $coursename = $c_rows->coursename;
+                                        }
+                        
+                                    }
+        
+                            }          
+                        
+                        }
         ?>
                 <tr>
                 <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
@@ -157,6 +164,137 @@
         <?php
 
             }
+            //
+            $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
+            //$query2="select * from course";
+            $result=mysql_query($query,$link);
+            //$result2=mysql_query($query2,$link);
+            echo "<tbody>";
+            while($a_rows=mysql_fetch_object($result))
+            {
+                $query2="select * from lesson";
+                $result2=mysql_query($query2,$link);
+                
+                while($b_rows=mysql_fetch_object($result2))
+                {
+                    if($a_rows->lessonid == $b_rows->lessonid)
+                    {
+                        $lessonname = $b_rows->lessonname;
+                        $directionid = $b_rows->direction_id;
+                        $lesson_id = $b_rows->lessonid;
+
+                            $query3="select * from course";
+                            $result3=mysql_query($query3,$link);
+                              while($c_rows=mysql_fetch_object($result3))
+                            {
+                                if($directionid == $c_rows->courseid)
+                                {
+                                $coursename = $c_rows->coursename;
+                                }
+                
+                            }
+
+                    }          
+                
+                }
+                  $uid = $_SESSION['userid'];
+
+                  $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id");
+                  $completeQuery2 = mysql_query("SELECT complete from user_to_quiz WHERE userid = $uid and quizid = $a_rows->quizid");
+                  if(mysql_num_rows($completeQuery2) == 0)
+                  {
+                       if(mysql_num_rows($completeQuery) != 0)
+                        {
+
+                         $completeResult = mysql_result($completeQuery,0);
+                 
+                        if($completeResult == 1)
+                {
+        ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+                }
+                }
+                else
+                {
+                    $completeResult2 = mysql_result($completeQuery2,0);
+
+                    if($completeResult2 == 1)
+                {
+        ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                else
+                {
+
+                     ?>
+                <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $lessonname ?></td>
+                <td align="left" width="100"><?php echo $coursename ?></td>
+                </tr>                
+        <?php
+                }
+
+                }
+
+            }
+        }
+
+    }
+    else
+    {
+        $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
+        //$query2="select * from course";
+        $result_all_quiz    = mysql_query($query_all_quiz,$link);
+        //$result2=mysql_query($query2,$link);
+        echo "<tbody>";
+        
+        while($a_rows = mysql_fetch_object($result_all_quiz))
+        {
+            $query_all_lesson   = "SELECT * FROM lesson";
+            $result_all_lesson  = mysql_query($query_all_lesson, $link);
+            
+            while($b_rows=mysql_fetch_object($result_all_lesson))
+            {
+                if($a_rows->lessonid == $b_rows->lessonid)
+                {
+                    $lessonname = $b_rows->lessonname;
+                    $directionid = $b_rows->direction_id;
+        
+                        $query_all_course   = "SELECT * FROM course";
+                        $result_all_course  = mysql_query($query_all_course, $link);
+                        while($c_rows = mysql_fetch_object($result_all_course))
+                        {
+                            if($directionid == $c_rows->courseid)
+                            {
+                            $coursename = $c_rows->coursename;
+                            }
+            
+                        }
+        
+                }          
+            
+            }
+        }
+    }
                 mysql_close($link);
         ?>  
     </tbody> 

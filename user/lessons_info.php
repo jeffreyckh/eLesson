@@ -3,6 +3,7 @@
     include'../inc/db_config.php';
     include '../inc/header.php';
     include 'userNav.php';
+    $urank = $_SESSION['rank']; 
     $m_id=intval($_REQUEST['lid']);
     $uid = $_SESSION['userid'];
         if(!isset($_SESSION['lessonview']))
@@ -210,7 +211,7 @@ $(document).ready(function(){
                       if(answer)
                       {
                         window.location.href ="user_viewquiz.php"
-                     }
+                      }
                       else
                       {
                        window.location.href ="userHome.php"                 
