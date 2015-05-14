@@ -103,10 +103,10 @@ session_start();
                      
                    
                        <div style="margin-top: 5%">
-                        <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
-                        <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
-                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
-                        <p>Score : <span class="answer"><?php echo $result;?></span></p>
+                        <p align="center">Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
+                        <p align="center">Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
+                        <p align="center">Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
+                        <p align="center">Score : <span class="answer"><?php echo $result;?></span></p>
                         <?php 
                         $count = count($quesarray2);
                         if($count != 0)
@@ -117,18 +117,22 @@ session_start();
                             $quesid = $quesarray[$i];     
                             $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
                             $qcontent = mysql_result($qcquery,0);
+                          ?>
+                            <table cellspacing = "10">
+                            <tr>
+                            <td width="10%">No. <?php echo $y ?></td>
+                            <td width="90%"><?php echo $qcontent ?></td></tr>
+                            <tr>
+                            </table>
 
-                            echo '<table>';
-
-                            echo '<tr>' ;
-                            echo 'No ' . $y . ' ';
-                            echo $qcontent . '</tr>';
-                            echo '<tr>';
-                            echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians2[$i] . '</tr>';
+                            <table align = "center">
+                            <td align = "right" width="50%">You choose: <b><?php echo $userans2[$i]?></b> </td>
+                            <td align = "right" width="50%">Correct Answer: <b><?php echo $orians2[$i] ?></b></td></tr>
                             
-
+                          <?php
                           }
-                          echo '<table>';
+                          echo '</table>';
+                          echo '</br>';
 
                         }
 
