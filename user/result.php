@@ -120,7 +120,7 @@ session_start();
                             $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
                             $qcontent = mysql_result($qcquery,0);
                             echo $qcontent . '<br>';
-                            echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians[$i] . '<br>';
+                            echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians2[$i] . '<br>';
 
                           }
 
