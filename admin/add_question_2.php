@@ -172,6 +172,7 @@ value="checkbox">Multiple Choice</td></tr>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
      tinymce.init({
+      forced_root_block: false,
     selector: "textarea",
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -184,6 +185,7 @@ value="checkbox">Multiple Choice</td></tr>
    external_filemanager_path:"/eLesson/jscss/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
+ });
 
 </script>
 </body>
