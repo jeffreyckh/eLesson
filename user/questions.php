@@ -42,6 +42,8 @@ session_start();
             VALUES ('$uid', '$qid','0','$starttime')";
             mysql_query($sql,$link);
         }
+
+        
           
 
 

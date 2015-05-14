@@ -120,6 +120,51 @@ $announcement = new announcementView();
       </tbody>
     </table>
   </div>
+
+
+ <div class = "row">
+      
+        <table id = "CompleteQuiz" class="table table-striped table-bordered" cellspacing="0">
+          <p><b>Completed Quiz</b></p>
+        <thead>
+            <th align="right">Course</th>
+            <th align="right">Lesson</th>
+             <th align="right">Quiz</th>
+        </thead>
+        <?php
+          $cquizquery = "SELECT * FROM user_to_quiz WHERE userid = '$uid'AND complete = '1'";
+          $cquizresult = mysql_query($cquizquery);
+          echo "<tbody>";
+          while($cquiz_rows = mysql_fetch_object($cquizresult))
+          {
+            $quizid = $cquiz_rows->quizid;
+
+            $cquiz = "SELECT * FROM quiz where quizid = '$quizid'";
+            $quizresult = mysql_query($cquiz) or die(mysql_error());
+            while ($q_rows=mysql_fetch_object($quizresult))
+            {
+              $lessonname = $q_rows->lesson_name;
+              $coursename = $q_rows->course_name;
+              $quizname = $q_rows->quizname;
+
+             
+                ?>
+                 <tr>
+                    <td align="left"><?php echo $coursename ?></a></td>
+                    <td align="left"><?php echo $lessonname ?></a></td>
+                    <td align="left"><?php echo "
+                       <a href=\"user_viewresult.php?qid=$quizid\">".$quizname."</a>"; ?></a></td>
+                </tr>
+          <?php
+              
+            }
+          }
+        ?>
+      </tbody>
+    </table>
+    </div>
+
+
 </div>
   <div class = "col-md-2">
   </div>

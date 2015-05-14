@@ -53,7 +53,8 @@ session_start();
    }
 
          
-          
+          $updatesql = "UPDATE user_to_quiz SET attempt = attempt + 1 WHERE userid = $uid AND quizid = $qid";
+        mysql_query($updatesql);
        
 
    
