@@ -36,8 +36,9 @@ $uid = $_SESSION['userid'];
     <div id="lesson_container">
       <div class = "col-md-4">
       </div>
-        <table cellspacing="10">
+        
           <form action="" method="post">
+        <table>
         <tr><td>Current Password :</td> <td><input type="password" name="cpassword"></td></tr>
         <tr><td>New Password :</td> <td><input type="password" name="npassword"></td></tr>
         <tr></tr>

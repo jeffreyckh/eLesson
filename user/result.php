@@ -75,7 +75,7 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-        <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+        <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />!-->
         <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -118,21 +118,35 @@ session_start();
                             $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
                             $qcontent = mysql_result($qcquery,0);
                           ?>
-                            <table cellspacing = "10">
+                           <hr>
+                            <table class="table table-striped table-bordered" width = "100%" cellspacing = "10">
+                              <tbody>
+                              <tr>
+                              <table width = "100%">
+                                <thead>
+                                <th width="5%">No. </th>
+                                <th width="95%"> Question</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td width="5%"><?php echo $y ?></td>
+                                <td width="95%"><?php echo $qcontent ?></td></tr>
+                              </table>
+                            </tr>
+                            <hr>
                             <tr>
-                            <td width="10%">No. <?php echo $y ?></td>
-                            <td width="90%"><?php echo $qcontent ?></td></tr>
+                              <table width = "100%">
+                                <tr><td align = "center" width="50%">Your Choice : </td>
+                                <td align = "center" width="50%">Correct Answer : </td></tr>
+                                <tr><td align = "center" width="50%"><b><?php echo $userans2[$i]?></b></td>
+                                <td align = "center" width="50%"><b><?php echo $orians2[$i] ?></b></td></tr>
+                              </table>
                             <tr>
+                                </tbody>
                             </table>
-
-                            <table align = "center">
-                            <td align = "right" width="50%">You choose: <b><?php echo $userans2[$i]?></b> </td>
-                            <td align = "right" width="50%">Correct Answer: <b><?php echo $orians2[$i] ?></b></td></tr>
                             
                           <?php
                           }
-                          echo '</table>';
-                          echo '</br>';
 
                         }
 
@@ -142,6 +156,7 @@ session_start();
                         if($result < $passscore)
                         {
                         ?>
+                        <br/>
                           <p> Sorry! You had <font color="red"><b> FAILED </b> </font> the quiz. Please take the quiz again in order to advance to the next lesson</p>
                         <?php
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
@@ -157,6 +172,7 @@ session_start();
                         else
                         {
                         ?>
+                        <br/>
                         <p> Congratulations! You had <font color="blue"><b> PASSED </b></font> the quiz. Now you can advance to the next lesson!</p>
                         <?php
 

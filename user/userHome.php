@@ -206,8 +206,15 @@ $announcement = new announcementView();
   </div>
 </div>
 
-<script type="text/javascript">
-        $(".collapse").collapse();
+
+<script>
+$(document).ready(function(){
+    $('.table').DataTable(
+        { 
+            "dom": '<"right"l>rt<"left"i><"right"p><"clear">',
+            "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]]
+        });
+});
 </script>
 </body>
 </html>
