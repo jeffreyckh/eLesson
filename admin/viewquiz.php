@@ -104,7 +104,7 @@
         </thead>
         <?php
         if($urank == 2)
-            {
+        {       
                 $select_perm = "SELECT * FROM permission WHERE userid = $uid";
                 $permresult = mysql_query($select_perm);
                 while($permrows = mysql_fetch_object($permresult))
@@ -143,27 +143,27 @@
                         
                         }
         ?>
-                <tr>
-                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
-                <td align="left" width="100"><?php echo $lessonname ?></td>
-                <td align="left" width="100"><?php echo $coursename ?></td>
-                <td align="left" width="100">
-                    <a class="action-tooltip" href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>" title="Modify">
-                        <img id="action-icon" src="../img/modifyicon2_600x600.png">
-                        <!-- Modify -->
-                    </a>
-                    <a class="action-tooltip" href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>" title="Delete">
-                        <img id="action-icon" src="../img/deleteicon2_600x600.png">
-                        <!-- Delete -->
-                    </a>
-                </td>
-
-                </tr>                
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                        <td align="left" width="100"><?php echo $lessonname ?></td>
+                        <td align="left" width="100"><?php echo $coursename ?></td>
+                        <td align="left" width="100">
+                            <a class="action-tooltip" href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>" title="Modify">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a class="action-tooltip" href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>" title="Delete">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+        
+                        </tr>                
         <?php
 
-            }
+                    }
             //
             $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
             //$query2="select * from course";
@@ -268,32 +268,53 @@
         echo "<tbody>";
         
         while($a_rows = mysql_fetch_object($result_all_quiz))
-        {
-            $query_all_lesson   = "SELECT * FROM lesson";
-            $result_all_lesson  = mysql_query($query_all_lesson, $link);
-            
-            while($b_rows=mysql_fetch_object($result_all_lesson))
-            {
-                if($a_rows->lessonid == $b_rows->lessonid)
-                {
-                    $lessonname = $b_rows->lessonname;
-                    $directionid = $b_rows->direction_id;
-        
-                        $query_all_course   = "SELECT * FROM course";
-                        $result_all_course  = mysql_query($query_all_course, $link);
-                        while($c_rows = mysql_fetch_object($result_all_course))
+                    {
+                        $query_all_lesson   = "SELECT * FROM lesson";
+                        $result_all_lesson  = mysql_query($query_all_lesson, $link);
+                        
+                        while($b_rows=mysql_fetch_object($result_all_lesson))
                         {
-                            if($directionid == $c_rows->courseid)
+                            if($a_rows->lessonid == $b_rows->lessonid)
                             {
-                            $coursename = $c_rows->coursename;
-                            }
-            
-                        }
+                                $lessonname = $b_rows->lessonname;
+                                $directionid = $b_rows->direction_id;
         
-                }          
-            
-            }
-        }
+                                    $query_all_course   = "SELECT * FROM course";
+                                    $result_all_course  = mysql_query($query_all_course, $link);
+                                    while($c_rows = mysql_fetch_object($result_all_course))
+                                    {
+                                        if($directionid == $c_rows->courseid)
+                                        {
+                                        $coursename = $c_rows->coursename;
+                                        }
+                        
+                                    }
+        
+                            }          
+                        
+                        }
+        ?>
+                        <tr>
+                        <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
+                        <td align="left" width="100"><a href="view_question.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
+                        <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                        <td align="left" width="100"><?php echo $lessonname ?></td>
+                        <td align="left" width="100"><?php echo $coursename ?></td>
+                        <td align="left" width="100">
+                            <a class="action-tooltip" href="edit_quiz.php?qid=<?php echo $a_rows->quizid ?>" title="Modify">
+                                <img id="action-icon" src="../img/modifyicon2_600x600.png">
+                                <!-- Modify -->
+                            </a>
+                            <a class="action-tooltip" href="del_quiz.php?quizid=<?php echo $a_rows->quizid ?>" title="Delete">
+                                <img id="action-icon" src="../img/deleteicon2_600x600.png">
+                                <!-- Delete -->
+                            </a>
+                        </td>
+        
+                        </tr>                
+        <?php
+
+                    }
     }
                 mysql_close($link);
         ?>  
