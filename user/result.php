@@ -113,9 +113,12 @@ session_start();
                         {
                           for($i = 0;$i <$count;$i++)
                           {
-                            echo 'No' . $i . ' ';
-                            echo $quesarray2[$i];
-                            $qcontent = mysql_result(mysql_query("SELECT content FROM question WHERE questionid = $quesarray2[$i]") or die (mysql_error()),0);
+                            $y = $i + 1;
+                            echo 'No ' . $y . ' ';
+                            $quesid = $quesarray[$i];
+                           
+                            $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
+                            $qcontent = mysql_result($qcquery,0);
                             echo $qcontent . '<br>';
                             echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians[$i] . '<br>';
 
