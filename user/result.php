@@ -75,7 +75,7 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-        <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+        <!--<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />!-->
         <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
         <link href="css/style.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -103,10 +103,10 @@ session_start();
                      
                    
                        <div style="margin-top: 5%">
-                        <p>Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
-                        <p>Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
-                        <p>Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
-                        <p>Score : <span class="answer"><?php echo $result;?></span></p>
+                        <p align="center">Total no. of right answers : <span class="answer"><?php echo $right_answer;?></span></p>
+                        <p align="center">Total no. of wrong answers : <span class="answer"><?php echo $wrong_answer;?></span></p>
+                        <p align="center">Total no. of Unanswered Questions : <span class="answer"><?php echo $unanswered;?></span></p>
+                        <p align="center">Score : <span class="answer"><?php echo $result;?></span></p>
                         <?php 
                         $count = count($quesarray2);
                         if($count != 0)
@@ -118,17 +118,37 @@ session_start();
                             $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
                             $qcontent = mysql_result($qcquery,0);
 
-                            echo '<table class="table table-striped table-bordered" cellspacing="0">';
+                          ?>
+                           <hr>
+                            <table class="table table-striped table-bordered" width = "100%" cellspacing = "10">
+                              <tbody>
+                              <tr>
+                              <table width = "100%">
+                                <thead>
+                                <th width="5%">No. </th>
+                                <th width="95%"> Question</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td width="5%"><?php echo $y ?></td>
+                                <td width="95%"><?php echo $qcontent ?></td></tr>
+                              </table>
+                            </tr>
+                            <hr>
+                            <tr>
+                              <table width = "100%">
+                                <tr><td align = "center" width="50%">Your Choice : </td>
+                                <td align = "center" width="50%">Correct Answer : </td></tr>
+                                <tr><td align = "center" width="50%"><b><?php echo $userans2[$i]?></b></td>
+                                <td align = "center" width="50%"><b><?php echo $orians2[$i] ?></b></td></tr>
+                              </table>
+                            <tr>
+                                </tbody>
+                            </table>
 
-                            echo '<tr>' ;
-                            echo 'No ' . $y . ' ';
-                            echo $qcontent . '</tr>';
-                            echo '<tr>';
-                            echo 'You choose ' . $userans2[$i] . ' .Correct Answer: ' . $orians2[$i] . '</tr>';
                             
-
+                          <?php
                           }
-                          echo '<table>';
 
                         }
 
@@ -138,6 +158,7 @@ session_start();
                         if($result < $passscore)
                         {
                         ?>
+                        <br/>
                           <p> Sorry! You had <font color="red"><b> FAILED </b> </font> the quiz. Please take the quiz again in order to advance to the next lesson</p>
                         <?php
                           $checkdone = mysql_query("SELECT * FROM passingrate WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
@@ -153,6 +174,7 @@ session_start();
                         else
                         {
                         ?>
+                        <br/>
                         <p> Congratulations! You had <font color="blue"><b> PASSED </b></font> the quiz. Now you can advance to the next lesson!</p>
                         <?php
 

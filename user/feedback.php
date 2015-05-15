@@ -69,10 +69,10 @@
                 $title = $_POST['feedbacktitle'];
                 $content = $_POST['feedbackcontent'];
 
-                $mailInfo="insert into feedback(date,feedback_category,feedback_title,feedback_content,sender_id,sender_name) values('$dt','$category','$title','$content','$uid','$uname')";
-                if(!mysql_query($mailInfo))
+                $fbInfo="insert into feedback(date,feedback_category,feedback_title,feedback_content,sender_id,sender_name) values('$dt','$category','$title','$content','$uid','$uname')";
+                if(!mysql_query($fbInfo))
                 {
-                    die("Unable to store the mail into database.".mysql_error());
+                    die("Unable to store the feedback into database.".mysql_error());
                 }
             }
         ?>
