@@ -118,7 +118,7 @@ session_start();
                             $qcquery = mysql_query("SELECT content FROM question WHERE questionid = $quesid") or die (mysql_error());
                             $qcontent = mysql_result($qcquery,0);
 
-                            echo '<table>';
+                            echo '<table class="table table-striped table-bordered" cellspacing="0">';
 
                             echo '<tr>' ;
                             echo 'No ' . $y . ' ';
