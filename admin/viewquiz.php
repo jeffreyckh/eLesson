@@ -103,13 +103,17 @@
         <th align="left">Action</th>
         </thead>
         <?php
+        $cidarray = array();
+        $i = 0;
         if($urank == 2)
         {       
                 $select_perm = "SELECT * FROM permission WHERE userid = $uid";
                 $permresult = mysql_query($select_perm);
                 while($permrows = mysql_fetch_object($permresult))
                 {
+                    
                     $courseid = $permrows->courseid;
+                    $cidarray[] = $courseid;
                     $query_all_quiz     = "SELECT * FROM quiz WHERE course_id = $courseid ORDER BY lessonid";
                     //$query2="select * from course";
                     $result_all_quiz    = mysql_query($query_all_quiz,$link) or die(mysql_error());
@@ -160,36 +164,39 @@
                             </a>
                         </td>
         
-                        </tr>                
+                        </tr> 
+
         <?php
 
-                    }
+                }
+   
             }
-            $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
+            
+            $squery="SELECT * FROM quiz ORDER BY lessonid";
             //$query2="select * from course";
-            $result=mysql_query($query,$link);
+            $sresult=mysql_query($squery,$link);
             //$result2=mysql_query($query2,$link);
             echo "<tbody>";
-            while($a_rows=mysql_fetch_object($result))
+            while($select_rows=mysql_fetch_object($sresult))
             {
-                $query2="select * from lesson";
-                $result2=mysql_query($query2,$link);
+                $bsquery2="select * from lesson";
+                $bsresult2=mysql_query($bsquery2,$link);
                 
-                while($b_rows=mysql_fetch_object($result2))
+                while($bselect_rows=mysql_fetch_object($bsresult2))
                 {
-                    if($a_rows->lessonid == $b_rows->lessonid)
+                    if($select_rows->lessonid == $bselect_rows->lessonid)
                     {
-                        $lessonname = $b_rows->lessonname;
-                        $directionid = $b_rows->direction_id;
-                        $lesson_id = $b_rows->lessonid;
+                        $lessonname = $bselect_rows->lessonname;
+                        $directionid = $bselect_rows->direction_id;
+                        $lesson_id = $bselect_rows->lessonid;
 
-                            $query3="select * from course";
-                            $result3=mysql_query($query3,$link);
-                              while($c_rows=mysql_fetch_object($result3))
+                            $csquery3="select * from course where courseid";
+                            $csresult3=mysql_query($csquery3,$link);
+                              while($cselect_rows=mysql_fetch_object($csresult3))
                             {
-                                if($directionid == $c_rows->courseid)
+                                if($directionid == $cselect_rows->courseid)
                                 {
-                                $coursename = $c_rows->coursename;
+                                $coursename = $cselect_rows->coursename;
                                 }
                 
                             }
@@ -197,10 +204,37 @@
                     }          
                 
                 }
+
+
+                    $flag = false;
+                for($i = 0;$i < count($cidarray);$i++)
+                {
+
+                        if($select_rows->course_id == $cidarray[$i])
+                        {
+                            $flag=true;
+                        }
+
+                }
+
+
+
+                if($flag != true)
+                {
                   $uid = $_SESSION['userid'];
 
-                  $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id");
-                  $completeQuery2 = mysql_query("SELECT complete from user_to_quiz WHERE userid = $uid and quizid = $a_rows->quizid");
+                  $completeQuery = mysql_query("SELECT complete from lessoncomplete WHERE userid = $uid and lessonid = $lesson_id ");
+                  $completeQuery2 = mysql_query("SELECT complete from user_to_quiz WHERE userid = $uid and quizid = $select_rows->quizid");
+                  $completeQuery3 = mysql_query("SELECT courseid from lessonstatus WHERE userid = $uid") or die(mysql_error());
+                  if(mysql_num_rows($completeQuery3) != 0)
+                  {
+
+                    $resultid = mysql_result($completeQuery3,0);
+                  }
+
+                  if($resultid != $courseid)
+                  {
+
                   if(mysql_num_rows($completeQuery2) == 0)
                   {
                        if(mysql_num_rows($completeQuery) != 0)
@@ -210,11 +244,14 @@
                  
                         if($completeResult == 1)
                 {
+
+                
+
         ?>
                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $select_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="../user/questions.php?qid=<?php echo $select_rows->quizid ?>"><?php echo $select_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $select_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
                 </tr>                
@@ -230,9 +267,9 @@
                 {
         ?>
                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->quizname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $select_rows->quizid ?></a></td>
+                <td align="left" width="100"><?php echo $select_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $select_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
                 </tr>                
@@ -244,9 +281,9 @@
 
                      ?>
                 <tr>
-                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
-                <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
-                <td align="left" width="100"><?php echo $a_rows->created ?></td>
+                <td align="left" width="100"><?php echo $select_rows->quizid ?></a></td>
+                <td align="left" width="100"><a href="../user/questions.php?qid=<?php echo $select_rows->quizid ?>"><?php echo $select_rows->quizname ?></a></td>
+                <td align="left" width="100"><?php echo $select_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
                 <td align="left" width="100"><?php echo $coursename ?></td>
                 </tr>                
@@ -254,11 +291,13 @@
                 }
 
                 }
+            }
 
             }
-        
+        }
+            
+        }
 
-    }
     else
     {
         $query_all_quiz     = "SELECT * FROM quiz ORDER BY lessonid";
