@@ -42,10 +42,10 @@ $announcement = new announcementView();
 <div class = "col-md-6">
     <div class = "row">
       
-        <table id = "incomplete" class="table table-striped table-bordered" cellspacing="0">
+        <table id = "incomplete" width = "100%" class="table table-striped table-bordered" cellspacing="0">
           <p><b>Incomplete Lesson</b></p>
         <thead>
-            <th align="right">Course</th>
+            <th width = "30%" align="right">Course</th>
             <th align="right">Lesson</th>
         </thead>
         <?php
@@ -68,7 +68,7 @@ $announcement = new announcementView();
                 $coursename = $c_rows->coursename;
                 ?>
                  <tr>
-                    <td align="left"><?php echo $coursename ?></a></td>
+                    <td width = "30%" align="left"><?php echo $coursename ?></a></td>
                     <td align="left"><?php echo "
                        <a href=\"lessons_info.php?lid=$lessonid\">".$lessonname."</a>"; ?></a></td>
                 </tr>
@@ -85,7 +85,7 @@ $announcement = new announcementView();
       <table id = "Complete" class="table table-striped table-bordered" cellspacing="0">
         <p><b>Complete Lesson</b></p>
         <thead>
-            <th align="right">Course</th>
+            <th width = "30%" align="right">Course</th>
             <th align="right">Lesson</th>
         </thead>
         <?php
@@ -108,7 +108,7 @@ $announcement = new announcementView();
                 $compcoursename = $compc_rows->coursename;
                 ?>
                  <tr>
-                    <td align="left" ><?php echo $compcoursename ?></a></td>
+                    <td width = "30%" align="left" ><?php echo $compcoursename ?></a></td>
                     <td align="left" ><?php echo "
                        <a href=\"lessons_info.php?lid=$complessonid\">".$complessonname."</a>"; ?></a></td>
                 </tr>

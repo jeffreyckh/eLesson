@@ -164,7 +164,7 @@
         <?php
 
                     }
-            //
+            }
             $query="SELECT * FROM quiz WHERE course_id != $courseid ORDER BY lessonid";
             //$query2="select * from course";
             $result=mysql_query($query,$link);
@@ -256,7 +256,7 @@
                 }
 
             }
-        }
+        
 
     }
     else

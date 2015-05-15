@@ -65,7 +65,7 @@ $uid = $_SESSION['userid'];
               {
                 if(!empty($rpassword))
                   {
-                    if (strlen($password) < 4 || strlen($password) > 13)
+                    if (strlen($password) < 6)
                       {
                         if ($npassword == $rpassword)
                         {
@@ -81,7 +81,7 @@ $uid = $_SESSION['userid'];
                       }
                       else
                       {
-                        echo "The password must be longer than 4 characters and shorter than 13 characters!";
+                        echo "The password must be longer than 6 characters!";
                       }
                   }
                   else
