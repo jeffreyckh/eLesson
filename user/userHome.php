@@ -40,6 +40,7 @@ $announcement = new announcementView();
 </head>
 <body>
 <div class = "col-md-6">
+  
     <div class = "row">
       
         <table id = "incomplete" width = "100%" class="table table-striped table-bordered" cellspacing="0">
