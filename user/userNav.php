@@ -145,7 +145,15 @@
         </li>
         <li <?=echoActiveClassIfRequestMatches("feedback")?>>
           <a class="nav-tooltip" href="feedback.php" title="Feedback">
-            Feedback
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/feedbackicon2_white.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/feedbackicon2.png">';
+            }
+            ?>
+            <!-- Feedback -->
           </a>
         </li>
           </ul>
@@ -161,7 +169,7 @@
         $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
         $nresult = mysql_query($nquery);
         ?>
-        <button type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
+        <button <?=echoActiveClassIfRequestMatches("notification")?> type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
         "
         <?php
         while($n_rows = mysql_fetch_object($nresult))
@@ -182,7 +190,11 @@
             ?>
       </button>
           
-        <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
+        <button id="signout-btn" class="btn btn-default" type="submit" name="submit">
+          <img src="../img/logouticon1.png">
+          Sign Out
+        <!-- <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/> -->
+        </button>
         </div>
       </ul>
       </form>
