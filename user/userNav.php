@@ -139,12 +139,14 @@
         <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
+
           <button id="notification-btn" type="button" class="btn btn-default navbar-btn" 
                   data-html = "true" data-toggle="popover" 
                   title="Top 5 User" data-content="">
                   <img src="../img/notificationicon_white.png">
                   Notification 
                 </button>
+
           
         <button id="signout-btn" class="btn btn-default" type="submit" name="submit">
           <img src="../img/logouticon1.png">

@@ -164,7 +164,7 @@ $(document).ready(function(){
       $dt = date("Y-m-d H:i:s");
 
       mail($mailaddr, $sbj, $msg, "From: e-Lesson");
-      $mailInfo="insert into email(date,receiver,message) values('$dt','$mailaddr','$msg')";
+      $mailInfo="INSERT INTO notification(type,receiver_id,date,receiver,message,readnotification) values('mail','$u_id','$dt','$mailaddr','$msg','0')";
       if(!mysql_query($mailInfo))
       {
         die("Unable to store the mail into database.".mysql_error());
