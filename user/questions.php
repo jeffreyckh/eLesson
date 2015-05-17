@@ -11,26 +11,26 @@ session_start();
   $qid = intval($_GET['qid']);
   $uid = $_SESSION['userid'];
   $_SESSION['qid'] = $qid;
-        $query_count="select count(*) from question where quizid = $qid";
+        $query_count="SELECT count(*) from question where quizid = $qid";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
-        $query_name = "select quizname from quiz where quizid = $qid";
+        $query_name = "SELECT quizname from quiz where quizid = $qid";
         $result_name = mysql_query($query_name,$link);
         $quizname = mysql_result($result_name,0);
 
-        $query_score = "select passingscore from quiz where quizid = $qid";
+        $query_score = "SELECT passingscore from quiz where quizid = $qid";
         $result_score = mysql_query($query_score,$link);
         $passingscore = mysql_result($result_score,0);
 
-        $query_lid = "select lessonid from quiz where quizid = $qid";
+        $query_lid = "SELECT lessonid from quiz where quizid = $qid";
         $result_lid = mysql_query($query_lid,$link);
         $lid = mysql_result($result_lid,0);
-        $query_lname = "select lessonname from lesson where lessonid = $lid";
+        $query_lname = "SELECT lessonname from lesson where lessonid = $lid";
         $result_lname = mysql_query($query_lname);
         $lname = mysql_result($result_lname, 0);
 
 
-        $querycheck = "select * from user_to_quiz where userid = $uid and quizid = $qid";
+        $querycheck = "SELECT * from user_to_quiz where userid = $uid and quizid = $qid";
         $checkresult = mysql_query($querycheck);
 
         if(mysql_num_rows($checkresult) == 0)
@@ -122,22 +122,27 @@ session_start();
 				<hr>
 				<form class="form-horizontal" role="form" id='login' method="post" action="result.php">
 					<?php 
-                    $validquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = '0'";
-                    $validresult = mysql_query($validquery);
-                    $vrows = mysql_num_rows($validresult);
+                    // Gets questions from the user's quiz which are incomplete
+                    $validquery   = "SELECT * from user_to_question where userid = $uid and quizid = $qid and completed = '0'";
+                    $validresult  = mysql_query($validquery);
+                    $vrows        = mysql_num_rows($validresult);
                     $bi=1;
-                    if($vrows == 0)
+
+                    if($vrows == 0) 
                     {
-                      $NoQ = mysql_result(mysql_query("SELECT quiz_number FROM quiz WHERE quizid = $qid"),0) or die(mysql_error());
-					            $res = mysql_query("select * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT $NoQ") or die(mysql_error());
-                      $rows = mysql_num_rows($res);
+                      // User has not attempted the quiz, generate a new set of questions for the quiz
+                      $NoQ     = mysql_result(mysql_query("SELECT quiz_number FROM quiz WHERE quizid = $qid"),0) or die(mysql_error());
+					            $res     = mysql_query("SELECT * from quiz_to_question where quizid = $qid ORDER BY RAND() LIMIT $NoQ") or die(mysql_error());
+                      $rows    = mysql_num_rows($res);
 					            $i=1;
+
                       while($result=mysql_fetch_object($res))
                       {
-                      $uquery = "INSERT INTO user_to_question( userid, quizid, questionid,answer,completed) 
-                                VALUES ('$uid', '$qid', '$result->questionid','5','0')";
-                      $uresult = mysql_query($uquery);          
-                      $query2 = "select * from question where questionid = $result->questionid";
+                      $uquery   = "INSERT INTO user_to_question( userid, quizid, questionid,answer,completed) 
+                                  VALUES ('$uid', '$qid', '$result->questionid','5','0')";
+                      $uresult  = mysql_query($uquery);          
+                      $query2   = "SELECT * from question where questionid = $result->questionid";
+
                       $result2=mysql_query($query2,$link);
                       while($b_rows=mysql_fetch_object($result2))
                       {
@@ -146,7 +151,7 @@ session_start();
                           $optiontoken = strtok($optionstring, "/");
                           $width = ($i/$rows)*100;
                           $barwidth = $width . '%';
-
+                          $arr_option   = array();
 
       
                           if($i<=1 || $i<$rows)
@@ -168,16 +173,45 @@ session_start();
                           {
                               $getvalue = $optiontoken;
                               $getvalue = addslashes($getvalue);
-                            
+                              array_push($arr_option, $optiontoken);
                           ?>
-                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo " ". $getvalue;?>
-                         <br/>
+                          <!-- <input type="radio" 
+                                  value="<?php echo $getvalue;?>" 
+                                  id='radio1_<?php echo $b_rows->questionid;?>' 
+                                  name='<?php echo $b_rows->questionid;?>' 
+                                  onclick="update(this);"/><?php echo " ". $getvalue;?> -->
+                         <!-- <br/> -->
                              <?php $optiontoken = strtok("/"); 
                              $y++; 
                            }
+                                 shuffle($arr_option);
+                                 // print_r($arr_option);
+                                 ?><br /><?php
+                                 /* Display multiple choice answers */
+                                 for($i=0; $i<sizeof($arr_option); $i++){
+                                  if($arr_option[$i] == $b_rows->answer){
+                                    ?>
+                                    <input type="radio" checked='checked' 
+                                              value="<?php echo $arr_option[$i];?>" id='radio1_<?php echo $b_rows->questionid;?>' 
+                                              name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/>
+                                              <?php echo " ".$arr_option[$i];?>   
+                                    <br/>
+                                    <?php
+                                  }else{
+                                    ?>
+                                      <input type="radio"  value="<?php echo $arr_option[$i];?>" 
+                                              id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' 
+                                              onclick="update(this);"/>
+                                              <?php echo " ".$arr_option[$i];?>   
+                                      <br/>
+                                    <?php 
+                                  }
+                                }
                              ?>
-        
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
+                        
+                          <input type="radio" checked='checked' 
+                                  style='display:none' value="5" 
+                                  id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>                                                                      
                           <br/>
 
                           <button id='<?php echo $i;?>' class='next btn btn-success' type='button'>Next</button>
@@ -207,14 +241,18 @@ session_start();
                               $getvalue = $optiontoken;
                               $getvalue = addslashes($getvalue);
                           ?>
-                          <input type="radio" value="<?php echo $getvalue;?>" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$getvalue;?>
+                          <input type="radio" value="<?php echo $getvalue;?>" 
+                                  id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' 
+                                  onclick="update(this);"/><?php echo " ".$getvalue;?>
                          <br/>
                              <?php $optiontoken = strtok("/"); 
                                   //$optiontoken = addslashes($optiontoken);
                              $y++; 
                            }
                              ?>
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>    
+                          <input type="radio" checked='checked' 
+                                  style='display:none' value="5" 
+                                  id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>'/>    
                           
                                           
                           <button id='<?php echo $i;?>' class='next btn btn-success' type='submit'>Finish</button>
@@ -233,13 +271,13 @@ session_start();
                       }
           else
           {         $NoQuestion = mysql_result(mysql_query("SELECT quiz_number FROM quiz WHERE quizid = $qid"),0) or die(mysql_error());
-                   $countquery = "select * from user_to_question where userid = $uid and quizid = $qid and completed = 1";
+                   $countquery = "SELECT * from user_to_question where userid = $uid and quizid = $qid and completed = 1";
                     $countresult = mysql_query($countquery);
                     $countrows = mysql_num_rows($countresult);
                     $ci = $countrows + 1;
                   while($v_rows = mysql_fetch_object($validresult))
                   {
-                  $selectquery = "select * from question where questionid = $v_rows->questionid";
+                  $selectquery = "SELECT * from question where questionid = $v_rows->questionid";
                   $selectresult = mysql_query($selectquery);
                   $width = ($ci/$NoQuestion)*100;
                   $barwidth = $width . '%';
@@ -248,8 +286,8 @@ session_start();
                   {
                           $k=1;
                           $optionstring = $select_rows->optionlist;
-                          $optiontoken = strtok($optionstring, "/");
-      
+                          $optiontoken  = strtok($optionstring, "/");
+                          $arr_option   = array();
                           if($bi<1 || $bi<$vrows){
                             ?>         
                           <div id='question<?php echo $bi;?>' class='cont'>
@@ -266,14 +304,15 @@ session_start();
 
                           while ($optiontoken !== false)
                           {
-
                               $getvalue = $optiontoken;
+                              array_push($arr_option, $optiontoken);
                               if($optiontoken == $v_rows->answer)
                               {
                           ?>
-
-                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
-                                <br/>
+                                <!-- <input type="radio" checked='checked' 
+                                        value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' 
+                                        name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
+                                <br/> -->
                              <?php 
                                 $optiontoken = strtok("/"); 
                                 $k++; 
@@ -281,19 +320,45 @@ session_start();
                             else
                               {
                           ?>
-                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
-                                <br/>
+                                <!-- <input type="radio"  value="<?php echo $optiontoken;?>" 
+                                        id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
+                                        onclick="update(this);"/><?php echo " ".$optiontoken;?>   
+                                <br/> -->
                              <?php 
                                 $optiontoken = strtok("/"); 
                                 $k++; 
                               }
-
+                           }
+                           shuffle($arr_option);
+                           // print_r($arr_option);
+                           ?><br /><?php
+                           /* Display multiple choice answers */
+                           for($i=0; $i<sizeof($arr_option); $i++){
+                            if($arr_option[$i] == $v_rows->answer){
+                              ?>
+                              <input type="radio" checked='checked' 
+                                        value="<?php echo $arr_option[$i];?>" id='radio1_<?php echo $select_rows->questionid;?>' 
+                                        name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/>
+                                        <?php echo " ".$arr_option[$i];?>   
+                              <br/>
+                              <?php
+                            }else{
+                              ?>
+                                <input type="radio"  value="<?php echo $arr_option[$i];?>" 
+                                        id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
+                                        onclick="update(this);"/>
+                                        <?php echo " ".$arr_option[$i];?>   
+                                <br/>
+                              <?php 
+                            }
                            }
                            if($optiontoken == $v_rows->answer)
                            {
-
                              ?>
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);" />                                                                      
+                          <input type="radio" checked='checked' 
+                                  style='display:none' value="5" 
+                                  id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
+                                  onclick="update(this);" />                                                                      
                           <?php } ?>
                           <br/>
                           <button id='<?php echo $bi;?>' class='next btn btn-success' type='button'  >Next</button>
@@ -320,7 +385,9 @@ session_start();
                               {
                           ?>
 
-                                <input type="radio" checked='checked' value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
+                                <input type="radio" checked='checked' 
+                                        value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' 
+                                        name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
@@ -329,7 +396,9 @@ session_start();
                             else
                               {
                           ?>
-                                <input type="radio"  value="<?php echo $optiontoken;?>" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/><?php echo " ".$optiontoken;?>   
+                                <input type="radio"  value="<?php echo $optiontoken;?>" 
+                                        id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
+                                        onclick="update(this);"/><?php echo " ".$optiontoken;?>   
                                 <br/>
                              <?php 
                                 $optiontoken = strtok("/"); 
@@ -341,7 +410,10 @@ session_start();
                            {
 
                              ?>
-                          <input type="radio" checked='checked' style='display:none' value="5" id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' onclick="update(this);" />                                                                      
+                          <input type="radio" checked='checked' 
+                                  style='display:none' value="5" 
+                                  id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
+                                  onclick="update(this);" />                                                                      
                           <?php } ?>
                           
                           <button id='<?php echo $bi;?>' class='next btn btn-success' type='submit' >Finish</button>
