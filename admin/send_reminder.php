@@ -103,7 +103,7 @@ while($m_rows=mysql_fetch_object($result))
       $msg = $display_msg1 . $lessonsNdate . $xtraMsg . $display_msg2;
 
       mail($mailaddr, $sbj, $msg, "From: e-Lesson");
-      $mailInfo="insert into email(date,receiver,message) values('$dt','$mailaddr','$msg')";
+      $mailInfo="INSERT INTO notification(type,receiver_id,date,receiver,message,readnotification) values('Reminder','$m_id','$dt','$mailaddr','$msg','0')";
       if(!mysql_query($mailInfo))
       {
         die("Unable to store the mail into database.".mysql_error());

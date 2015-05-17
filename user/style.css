@@ -15,7 +15,11 @@
     display: block;
     float: left;
 }
-
+.popover-content {
+ max-height: 400px !important;
+  height:auto;
+  overflow-y: scroll;
+ }
 /*img {
 	height: 100%;
 	width: 100%;
