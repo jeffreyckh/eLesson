@@ -160,14 +160,27 @@
         </li>
          <li <?=echoActiveClassIfRequestMatches("viewfeedback")?>>
           <a class="nav-tooltip" href="viewfeedback.php" title="Feed Back">
-            FeedBack
+            <!-- FeedBack -->
             <?php
-           /* if($active_state==true){
-              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/feedbackicon2_white.png">';
               $active_state = false;
             }else{
-              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
-            }*/
+              echo '<img id="home_icon" src="../img/feedbackicon2.png">';
+            }
+            ?>
+            <!-- Account -->
+          </a>
+        </li>
+        <li <?=echoActiveClassIfRequestMatches("notification")?>>
+          <a class="nav-tooltip" href="#" title="Notifications">
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/notificationicon.png">';
+            }
             ?>
             <!-- Account -->
           </a>
@@ -179,8 +192,12 @@
       <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
-        <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
-        </div>
+        <button id="signout-btn" class="btn btn-default" type="submit" name="submit">
+          <img src="../img/logouticon1.png">
+          Sign Out
+        <!-- <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/> -->
+        </button>
+      </div>
       </ul>
       </form>
       

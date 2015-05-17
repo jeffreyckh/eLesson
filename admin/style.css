@@ -181,3 +181,38 @@ div#banner_content{
     padding: 5px 5px;
     color: #000000;
 }
+
+.scoreboard{
+  width: 25px;
+  height: auto;
+}
+
+.row>button.btn.btn-lg.btn-danger{
+  width: 250px; 
+  height: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-radius: 0px;
+  font-size: 14px;
+}
+
+.row>button.btn.btn-lg.btn-danger>img{
+  float: left;
+}
+
+button#signout-btn{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  vertical-align: middle;
+}
+
+button#signout-btn>img{
+  width: 16px;
+  height: auto;
+}
+
+.accActions>a>img{
+  margin: 2px;
+}

@@ -65,7 +65,7 @@ $tnow = date_create ("$t");
             <th align="right">Position</th>
             <th align="right">Rank</th>
             <th align="right">Last View Lesson</th>
-            <th align="right">Send Reminder</th>
+            <!-- <th align="right">Send Reminder</th> -->
             <th align="right">Actions</th>
         </thead>
             <?php
@@ -77,12 +77,12 @@ $tnow = date_create ("$t");
             ?>
                     <tr>
                     <td align="left" width="5%"><?php echo $a_rows->userid ?></a></td>
-                    <td align="left" width="100"><a href="userdetail.php?uid=<?php echo $a_rows->userid ?>"><?php echo $a_rows->username ?></a></td>
+                    <td align="left" width="10%"><a href="userdetail.php?uid=<?php echo $a_rows->userid ?>"><?php echo $a_rows->username ?></a></td>
                     <!--<td align="left" width="10%"><?php echo $a_rows->username ?></a></td>-->
                     <td align="left" width="10%"><?php echo $a_rows->name ?></td>
-                    <td align="left" width="20%"><?php echo $a_rows->email ?></td>
-                    <td align="left" width="20%"><?php echo $a_rows->position ?></td>
-                     <td align="left" width="20%">
+                    <td align="left" width="15%"><?php echo $a_rows->email ?></td>
+                    <td align="left" width="10%"><?php echo $a_rows->position ?></td>
+                     <td align="left" width="10%">
                         <?php 
                         if($a_rows->rank == 1)
                         {
@@ -97,7 +97,7 @@ $tnow = date_create ("$t");
                             echo "User";                        
                         }?>
                     </td>
-                    <td align="left" width="20%">
+                    <td align="left" width="10%">
                         <?php
                             $useracc = $a_rows->userid;
                             $queryU2L = "select * from user_to_lesson where userid = $useracc";
@@ -126,13 +126,16 @@ $tnow = date_create ("$t");
                             }
                         ?>
                     </td>
-                    <td align="left" width="10%"><a href="send_reminder.php?userid=<?php echo $a_rows->userid ?>">Send</a></td>
-                    <td align="left" width="10%">
-                        <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>">
+                    <td class="accActions" align="left" width="10%">
+                        <a href="send_reminder.php?userid=<?php echo $a_rows->userid ?>" title="Send Reminder">
+                            <img id="action-icon" src="../img/sendremindericon2_600x600.png">
+                            <!-- Send -->
+                        </a>
+                        <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>" title="Modify Account">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">
                             <!-- Modify -->
                         </a>
-                        <a href="del_acc.php?userid=<?php echo $a_rows->userid ?>">
+                        <a href="del_acc.php?userid=<?php echo $a_rows->userid ?>" title="Delete Account">
                             <img id="action-icon" src="../img/deleteicon2_600x600.png">
                             <!-- Delete -->
                         </a>

@@ -118,6 +118,33 @@
             <!-- Announcement -->
           </a>
         </li>
+        <li <?=echoActiveClassIfRequestMatches("viewfeedback")?>>
+          <a class="nav-tooltip" href="viewfeedback.php" title="Feed Back">
+            <!-- FeedBack -->
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/feedbackicon2_white.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/feedbackicon2.png">';
+            }
+            ?>
+            <!-- Account -->
+          </a>
+        </li>
+        <li <?=echoActiveClassIfRequestMatches("notification")?>>
+          <a class="nav-tooltip" href="#" title="Notifications">
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/notificationicon.png">';
+            }
+            ?>
+            <!-- Account -->
+          </a>
+        </li>
           </ul>
         </li>
       </ul>
