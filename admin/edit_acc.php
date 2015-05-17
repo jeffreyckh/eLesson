@@ -28,8 +28,8 @@ while($m_rows=mysql_fetch_object($result))
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="keywords" content="announcement">
-  <meta name="description" content="AdminHomePage">
+  <meta name="keywords" content="EditAccount">
+  <meta name="description" content="EditAccountPage">
   <title>Edit User</title>
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
@@ -38,7 +38,6 @@ while($m_rows=mysql_fetch_object($result))
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
       // getCourses();

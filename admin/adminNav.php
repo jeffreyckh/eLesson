@@ -158,6 +158,20 @@
             <!-- Account -->
           </a>
         </li>
+         <li <?=echoActiveClassIfRequestMatches("viewfeedback")?>>
+          <a class="nav-tooltip" href="viewfeedback.php" title="Feed Back">
+            FeedBack
+            <?php
+           /* if($active_state==true){
+              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
+            }*/
+            ?>
+            <!-- Account -->
+          </a>
+        </li>
       </ul>
       
       

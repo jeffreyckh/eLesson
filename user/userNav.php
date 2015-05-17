@@ -131,6 +131,10 @@
         <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
+          <a class="nav-tooltip" href="notification.php" title="notification" <?=echoActiveClassIfRequestMatches("notification")?>>
+            Notification
+          </a>
+          
         <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
         </div>
       </ul>
