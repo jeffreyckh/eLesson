@@ -131,9 +131,7 @@
         <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
-          <a class="nav-tooltip" href="notification.php" title="notification" <?=echoActiveClassIfRequestMatches("notification")?>>
-            Notification
-          </a>
+          <button type="button" class="btn btn-default navbar-btn" data-html = "true" data-toggle="popover" title="Top 5 User" data-content="">Notification </button>
           
         <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
         </div>

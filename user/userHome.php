@@ -43,6 +43,7 @@ $announcement = new announcementView();
   
     <div class = "row">
       
+      
         <table id = "incomplete" width = "100%" class="table table-striped table-bordered" cellspacing="0">
           <p><b>Incomplete Lesson</b></p>
         <thead>
