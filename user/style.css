@@ -129,7 +129,7 @@ a.navbar-brand{
   padding: 10px 15px;
 }
 
-.btn-default {
+.btn-default, a.btn-default {
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
@@ -143,6 +143,14 @@ a.navbar-brand{
   background-color: #ffffff;
   border-color: #e14b4a;
   /*border-color: transparent;*/
+}
+
+button.btn.btn-default.navbar.btn {
+  color: #ffffff;
+  /*background-color: #df006e;*/
+  /*color: #ffffff;*/
+  background-color: #e14b4a;
+  border-color: transparent; 
 }
 
 .navbar{
@@ -163,4 +171,15 @@ div#lesson_container, div#result_container{
   border: solid;
   border-width: 1px;
   border-color: #e7e7e7;
+}
+
+button#notification-btn, button#signout-btn{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  vertical-align: middle;
+}
+
+button#notification-btn>img, button#signout-btn>img{
+  width: 16px;
+  height: auto;
 }

@@ -172,19 +172,6 @@
             <!-- Account -->
           </a>
         </li>
-        <li <?=echoActiveClassIfRequestMatches("notification")?>>
-          <a class="nav-tooltip" href="#" title="Notifications">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/notificationicon.png">';
-            }
-            ?>
-            <!-- Account -->
-          </a>
-        </li>
       </ul>
       
       
