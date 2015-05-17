@@ -16,7 +16,7 @@ include 'adminNav.php';
 require_once('../view/userView.php');
 $user = new userView();
 $m_id=intval($_REQUEST['userid']);
-$query="select * from user where userid=$m_id";
+$query="SELECT * from user where userid=$m_id";
 $result=mysql_query($query);
 while($m_rows=mysql_fetch_object($result))
 {
@@ -39,8 +39,37 @@ while($m_rows=mysql_fetch_object($result))
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      // getCourses();
+    });
+    
+    function getCourses(id, rank){
+
+      get_courses_url = "get_courses.php";
+      /*var rank = document.getElementById("sel_rank").value;*/
+      var user_id = id;
+      var user_rank = "";
+
+      user_rank = rank;
+      get_courses_url += "?uid=" + user_id + "&rank=" + user_rank;
+      
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              document.getElementById("course_list").innerHTML = xmlhttp.responseText;
+          }
+      }
+      xmlhttp.open("GET", get_courses_url, true);
+      xmlhttp.send();
+      // alert(user_rank);
+    }
+    </script>
 </head>
 <body>
+  <script type="text/javascript">
+  getCourses(<?php echo $m_id ?>, <?php echo $m_rank ?>);
+  </script>
     <!--breadcrumb-->
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
@@ -58,7 +87,7 @@ while($m_rows=mysql_fetch_object($result))
            <td width="20%">Rank: </td>
            <!--<td><input type="text" name="rank" id = "rank" value="<?php echo $m_rank ?>"></td>-->
            <td>
-            <select name = "rank">
+            <select id="sel_rank" name = "rank" onchange="getCourses(<?php echo $m_id ?>, this.value)">
               <?php 
               if ($m_rank == 1)
               {
@@ -82,32 +111,36 @@ while($m_rows=mysql_fetch_object($result))
               </select>
             </td>
           </tr>
+          <tr id="course_list">
+            <!-- <div id="course_list">
+            </div> -->
+          </tr>
           <?php
             if($m_rank == 2)
             {
-              $query1="select * from course";
-              $result1=mysql_query($query1);
-              echo "<tr>";
-              echo "<td width=\"20%\">Course: </td>";
-              echo "<td>";
-              while($m_rows=mysql_fetch_object($result1))
-              {
+              // $query1="select * from course";
+              // $result1=mysql_query($query1);
+              // echo "<tr>";
+              // echo "<td width=\"20%\">Course: </td>";
+              // echo "<td>";
+              // while($m_rows=mysql_fetch_object($result1))
+              // {
 
-                 $cquery = "select * from permission where courseid = $m_rows->courseid and userid = $m_id";
-                 $cresult = mysql_query($cquery);
-                 if (mysql_num_rows($cresult) == 0) 
-                  {
-                    echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
-                  }
-                else
-                  {
-                    echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" checked/>".$m_rows->coursename."</br>";
-                  }
+              //    $cquery = "select * from permission where courseid = $m_rows->courseid and userid = $m_id";
+              //    $cresult = mysql_query($cquery);
+              //    if (mysql_num_rows($cresult) == 0) 
+              //     {
+              //       echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
+              //     }
+              //   else
+              //     {
+              //       echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" checked/>".$m_rows->coursename."</br>";
+              //     }
 
-              }
-              echo "</td>";
+              // }
+              // echo "</td>";
               
-              echo "</tr>";
+              // echo "</tr>";
             }
 
             if(isset($_POST['permCourse']))

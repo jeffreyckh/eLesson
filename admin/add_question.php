@@ -81,11 +81,6 @@ $result = mysql_query($query,$link);
           alert("Please enter option list.");
           // warning_string += "Please enter option list.\n";
           return false;
-        }else if(ans_count<1){
-          /* The correct answer cannot be found in the option list */
-          alert("The correct answer is not included into the option list."
-                +"\n"+"Ensure that the correct answer is in the option list.");
-          return false;
         }else if(ans_count>1){
           /* The correct answer is included more than once in the option list */
           alert("The correct answer has been included into the option list more than once."
@@ -117,6 +112,20 @@ $result = mysql_query($query,$link);
           }
           return false;
         });
+
+        /*var tooltips = $("[title]").tooltip({
+          position: {
+            my: "left top",
+            at: "right+5 top-5"
+          }
+        });
+        $("<button>")
+          .text("Show help")
+          .button()
+          .click(function(){
+            tooltips.tooltip("open");
+          })
+            .insertAfter("form");*/
       });
 
     </script>
@@ -164,7 +173,7 @@ else
 <tr>
 <input type="hidden" type="text" type="hidden" id="quesid" name="quesid" value="<?php echo $questionid ?>">
 <td>Question Content:</td><td>
-    <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
+    <textarea name="quescont" id="quescont" rows="10" cols="80" title="Enter question content"></textarea>
 </td>
 </tr>
 <!-- <td>Question Type:</td>
@@ -177,7 +186,7 @@ value="checkbox">Multiple Choice</td></tr>
 -->
 
 <td>Correct Answer:</td><td><input type="text" id="quesans" name="quesans"></td></tr>
-<td>Option List(Use "/" to separate):</td>
+<td>Option List:</td>
 <td>
   <div id="addinput">
     <a href="#" id="addNew">
@@ -257,11 +266,16 @@ value="checkbox">Multiple Choice</td></tr>
     // $add_option = str_replace(">","&gt",$add_option);
 
     $add_option = "";
-    $p_new = $_POST['p_new'];
-    $size_p = sizeof($p_new) - 1;
+    $p_new      = $_POST['p_new'];
+    array_unshift($p_new, $add_answer);
+    $size_p     = sizeof($p_new) - 1;
+
     for($i=0; $i<sizeof($p_new); $i++){
-      $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
-      $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
+
+      // $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
+      // $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
+      $p_new[$i] = htmlspecialchars($p_new[$i]);
+
       $add_option .= $p_new[$i];
       if($i<$size_p){
         $add_option .= "/";
@@ -286,11 +300,14 @@ value="checkbox">Multiple Choice</td></tr>
 
             $add_content = str_replace("<","&lt",$add_content);
             $add_content = str_replace(">","&gt",$add_content);
-            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
-                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+            // $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
+            //       values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name,created_on,created_by) 
+                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name','$create_time','$create_user')";
             $sql2="";                  
             
             if(!mysql_query($sql,$link)){
+              print_r($p_new);
               echo $sql;
              die("Could not add new question.".mysql_error());
             }else
@@ -316,8 +333,8 @@ value="checkbox">Multiple Choice</td></tr>
               // mysql_query($query_update_quiz, $link);
 
                 echo '<script> alert("Add Question Successful!") </script>';
-                // echo '<script language="JavaScript"> window.location.href ="view_questionlist.php</script>';
-                echo '<script language="JavaScript"> window.location.href ="question_info_2.php?quid='.$add_questionid.'"</script>';
+                echo '<script language="JavaScript"> window.location.href ="view_questionlist.php"</script>';
+                // echo '<script language="JavaScript"> window.location.href ="question_info_2.php?quid='.$add_questionid.'"</script>';
             }
         
        

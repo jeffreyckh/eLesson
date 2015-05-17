@@ -38,11 +38,33 @@
   <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
     <script src="../jscss/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var addDiv = $('#addinput');
+        var i = $('#addinput #extra').size() + 1;
+        $('#addNew').on('click', function() {
+          $('<div id="extra"><input type="text" id="p_new" size="20" name="p_new[]' + 
+          '" value="" placeholder="Add answer option here" /><a href="#" id="remNew"><button type="button">' + 
+          'Remove</button></a></div>').appendTo(addDiv);
+        i++;
+          return false;
+        });
+
+        $(document).on('click', "#remNew", function() {
+          if( i > 1 ) {
+            $(this).parents('#extra').remove();
+            // i--;
+          }
+          return false;
+        });
+      });
+    </script>
 </head>
 <body>
 
@@ -62,7 +84,37 @@ if(isset($_GET['action'])=='editquestion') {
 <tr>
     <td>Question Content:</td><td><textarea name="qcont" id="qcont" rows="10" cols="80"><?php echo $m_content ?></textarea></tr>
     <tr> <td>Answer:</td><td><input type="text" name="qanswer" value="<?php echo $m_answer ?>"></td></tr>
-    <tr><td>Option List(use '/' to separate):</td><td><input type="text" name="qopt" value="<?php echo $m_optionlist ?>"></td></tr>
+    <tr>
+      <td>Option List(use '/' to separate):</td>
+      <td>
+        <?php
+        $option_arr = array();
+        $option_token = strtok($m_optionlist, "/");
+        while($option_token !== false){
+          array_push($option_arr, $option_token);
+          $option_token = strtok("/");
+        }
+        ?>
+        <div id="addinput">
+          <a href="#" id="addNew">
+            <button type="button">Add</button>
+          </a>
+          <?php
+          if($option_arr != null){
+            for($i=0; $i<sizeof($option_arr); $i++){
+              if($i > 0){
+                echo "<div id='extra'>".
+                    "<input type='text' id='p_new' size='20' name='p_new[]' value='$option_arr[$i]' />".
+                    "<a href='#' id='remNew'><button type='button'>Remove</button></a>".
+                    "</div>";  
+              }
+            }
+          }
+          ?>
+        </div>
+        <!-- <input type="text" name="qopt" value="<?php echo $m_optionlist ?>"> -->
+      </td>
+    </tr>
 
     <tr><td>Difficulty:</td><td>
       <select name="ddlDifficulty">
@@ -110,11 +162,39 @@ if(isset($_GET['action'])=='editquestion') {
 function editquestion() 
  {
  include("../inc/db_config.php");
+
+    if(isset($_SESSION['username'])){
+      $modify_user = $_SESSION['username'];
+    }
+    date_default_timezone_set("Asia/Kuching");
+    $modify_time  = date("Y-m-d h:i:s");
+
     $quizid=intval($_REQUEST['qid']);
     $quesid=intval($_POST['quid']);
     $edit_content=$_POST['qcont'];
     $edit_answer=$_POST['qanswer'];
-    $edit_optionlist=$_POST['qopt'];
+    // $edit_optionlist=$_POST['qopt'];
+
+    $edit_option = "";
+    $p_new      = $_POST['p_new'];
+    array_unshift($p_new, $edit_answer);
+    $size_p     = sizeof($p_new) - 1;
+
+    for($i=0; $i<sizeof($p_new); $i++){
+      if($i == 0){
+        $p_new[$i] = $edit_answer;
+      }
+
+      // $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
+      // $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
+      $p_new[$i] = htmlspecialchars($p_new[$i]);
+      
+      $edit_option .= $p_new[$i];
+      if($i<$size_p){
+        $edit_option .= "/";
+      }
+    }
+
     $edit_ddlDifficulty=$_POST['ddlDifficulty'];
     $flag=true;
     $check="select * from question";
@@ -124,7 +204,7 @@ function editquestion()
 
             if(strcmp($edit_content,$result_rows->content)!=0||
                 (strcmp($edit_answer,$result_rows->answer)!=0) ||
-                (strcmp($edit_optionlist,$result_rows->optionlist)!=0) ||
+                (strcmp($edit_option,$result_rows->optionlist)!=0) ||
                 (strcmp($edit_ddlDifficulty,$result_rows->difficulty)!=0)
             )
             $flag=false;
@@ -136,13 +216,21 @@ function editquestion()
     {
 
             
-            $edit_answer = str_replace("/","/",$edit_answer);
-             $edit_answer = str_replace("<","&lt",$edit_answer);
-            $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
-             $edit_optionlist = str_replace("/","/",$edit_optionlist);
-            $edit_content = str_replace("<","&lt",$edit_content);
-            $edit_content = str_replace(">","&gt",$edit_content);
-            $sql="update question set content='$edit_content',answer='$edit_answer',optionlist = '$edit_optionlist',difficulty = '$edit_ddlDifficulty' where questionid=$quesid";
+            //   $edit_answer = str_replace("/","/",$edit_answer);
+            //  $edit_answer = str_replace("<","&lt",$edit_answer);
+            // $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
+            //  $edit_optionlist = str_replace("/","/",$edit_optionlist);
+            // $edit_content = str_replace("<","&lt",$edit_content);
+            // $edit_content = str_replace(">","&gt",$edit_content);
+            $edit_answer  = htmlspecialchars($edit_answer);
+            $edit_option  = htmlspecialchars($edit_option);
+            $edit_content = htmlspecialchars($edit_content);
+            $sql="UPDATE question set 
+                  content='$edit_content',answer='$edit_answer',
+                  optionlist = '$edit_option',difficulty = '$edit_ddlDifficulty',
+                  modified_on = '$modify_time', modified_by = '$modify_user'
+                  where 
+                  questionid=$quesid";
             if(!mysql_query($sql,$link))
 
              die("Could not update the data!".mysql_error());

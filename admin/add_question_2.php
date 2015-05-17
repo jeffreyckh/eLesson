@@ -210,7 +210,7 @@ value="checkbox">Multiple Choice</td></tr>
 -->
 
 <td>Correct Answer:</td><td><input type="text" id="quesans" name="quesans"></td></tr>
-<td>Option List(Use "/" to separate):</td>
+<td>Option List:</td>
 <td>
   <div id="addinput">
     <a href="#" id="addNew">
@@ -289,11 +289,15 @@ value="checkbox">Multiple Choice</td></tr>
     // $add_option = str_replace(">","&gt",$add_option);
 
     $add_option = "";
-    $p_new = $_POST['p_new'];
-    $size_p = sizeof($p_new) - 1;
+    $p_new      = $_POST['p_new'];
+    array_unshift($p_new, $add_answer);
+    $size_p     = sizeof($p_new) - 1;
+
     for($i=0; $i<sizeof($p_new); $i++){
+
       $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
       $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
+      
       $add_option .= $p_new[$i];
       if($i<$size_p){
         $add_option .= "/";
@@ -321,9 +325,10 @@ value="checkbox">Multiple Choice</td></tr>
              $add_option = str_replace("/","/",$add_option);
             $add_content = str_replace("<","&lt",$add_content);
             $add_content = str_replace(">","&gt",$add_content);
-            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
-                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
-            
+            // $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
+            //       values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+            $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name,created_on,created_by) 
+                  values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name','$create_time','$create_user')";
             if(!mysql_query($sql,$link)){
              die("Could not add new question.".mysql_error());
             }else
