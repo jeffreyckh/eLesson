@@ -12,7 +12,16 @@
     }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+
+        if($urank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    
     $m_id=intval($_REQUEST['lid']);
     $query="select lessonname,lessoncontent,direction_id from lesson where lessonid=$m_id";
     $result=mysql_query($query,$link);
@@ -102,7 +111,7 @@ if(isset($_GET['action'])=='editlesson') {
 <tr>
     <td>Lesson Name:</td>
     <td>
-        <input type="text" name="lname" value="<?php echo $m_lessonname ?>">
+        <input type="text" name="lname" size="35" value="<?php echo $m_lessonname ?>">
         <!-- <button type="button" onclick="return(checkLesson())">Check Lesson Name</button> -->
         <div id="name_warning_msg" style="display:inline;"></div>
     </td>

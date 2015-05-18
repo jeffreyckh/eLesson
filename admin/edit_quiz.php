@@ -12,7 +12,15 @@
     }
     include '../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    if($urank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    
     $m_id=intval($_REQUEST['qid']);
     $query="select quizname,lessonid,quiz_number from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);

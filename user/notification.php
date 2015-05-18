@@ -38,7 +38,7 @@ include 'userNav.php';
         <th align="left">Date</th>
         </thead>
         <?php
-        $nquery= "SELECT * FROM notification";
+        $nquery= "SELECT * FROM notification WHERE receiver_id = $uid";
         $nresult = mysql_query($nquery) or die (mysql_error());
         while($n_rows=mysql_fetch_object($nresult))
         {

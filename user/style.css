@@ -183,12 +183,12 @@ div#lesson_container, div#result_container{
 }
 
 button#notification-btn, button#signout-btn{
-  margin-top: 8px;
-  margin-bottom: 8px;
-  vertical-align: middle;
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+  vertical-align: middle!important;
 }
 
 button#notification-btn>img, button#signout-btn>img{
-  width: 16px;
-  height: auto;
+  width: 16px !important;
+  height: auto !important;
 }

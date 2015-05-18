@@ -15,7 +15,21 @@
     display: block;
     float: left;
 }
-
+.popover-content {
+ max-height: 400px !important;
+  height:auto;
+  overflow-y: scroll;
+ }
+ #popover {
+  padding: 0;
+  border: none;
+  background: none;
+ }
+/*img {
+  height: 100%;
+  width: 100%;
+    text-align: center;
+}*/
 
 figure img {
     vertical-align: top;
@@ -124,7 +138,7 @@ a.navbar-brand{
   padding: 10px 15px;
 }
 
-.btn-default {
+.btn-default, a.btn-default {
   color: #ffffff;
   /*background-color: #df006e;*/
   /*color: #ffffff;*/
@@ -140,10 +154,41 @@ a.navbar-brand{
   /*border-color: transparent;*/
 }
 
+button.btn.btn-default.navbar.btn {
+  color: #ffffff;
+  /*background-color: #df006e;*/
+  /*color: #ffffff;*/
+  background-color: #e14b4a;
+  border-color: transparent; 
+}
+
 .navbar{
   margin-bottom: 10px;
 }
 
 .breadcrumb{
   margin-bottom: 10px;
+}
+
+div#lesson_container, div#result_container{
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+  border: solid;
+  border-width: 1px;
+  border-color: #e7e7e7;
+}
+
+button#notification-btn, button#signout-btn{
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+  vertical-align: middle!important;
+}
+
+button#notification-btn>img, button#signout-btn>img{
+  width: 16px !important;
+  height: auto !important;
 }
