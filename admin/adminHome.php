@@ -27,6 +27,20 @@ $announcement = new announcementView();
       $scorerstack = array();
 
 
+      $scorequery = "SELECT * FROM average_score ORDER BY average DESC";
+      $scoreresult = mysql_query($scorequery,$link);
+      while($score_rows=mysql_fetch_object($scoreresult))
+      {
+
+        $nameresult = mysql_query("SELECT username FROM user WHERE userid = $score_rows->userid");
+        $username = mysql_result($nameresult,0);
+
+        array_push($scorerstack,$username,$score_rows->average);
+
+      }
+
+
+
       $coursequery = "select * from course order by view desc";
      $courseresult = mysql_query($coursequery,$link);
       while($b_rows=mysql_fetch_object($courseresult))
@@ -85,7 +99,15 @@ if($admincount < 11){
     }
 }
 
+if($scorercount <11)
+{
 
+ for($i = 0;$i < (10-$scorercount);$i++)
+    {
+        array_push($scorerstack,'null','null');
+    }
+
+}
 
 
 
@@ -215,7 +237,7 @@ $('body').on('click', function (e) {
         data-html = "true" data-toggle="popover" 
         title="Top 5 Course" data-content="1:<?php echo $coursemodstack[0]; ?><br>2:<?php echo $coursemodstack[2]; ?><br>3:<?php echo $coursemodstack[4]; ?><br>4:<?php echo $coursemodstack[6]; ?><br>5:<?php echo $coursemodstack[8]; ?>">
         <img class="scoreboard" src="../img/changecourseicon2.png">
-        Most Change Course <br> <?php echo $coursemodstack[0]; ?>
+        Most Changed Course <br> <?php echo $coursemodstack[0]; ?>
       </button>
 </div>
 
@@ -224,14 +246,14 @@ $('body').on('click', function (e) {
         data-html = "true" data-toggle="popover" 
         title="Top 5 Viewed" data-content="1:<?php echo $coursestack[0]; ?><br>2:<?php echo $coursestack[2]; ?><br>3:<?php echo $coursestack[4]; ?><br>4:<?php echo $coursestack[6]; ?><br>5:<?php echo $coursestack[8]; ?>">
         <img class="scoreboard" src="../img/viewcourseicon2.png">
-        Most View Course <br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views
+        Most Viewed Course <br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views
       </button>
 <br>
 <button type="button" class="btn btn-lg btn-danger" 
         data-html = "true" data-toggle="popover" 
-        title="Top 5 Scorer" data-content="1:xia0t99<br>2:user<br>3:null<br>4:null<br>5:null">
+        title="Top 5 Scorer" data-content="1:<?php echo $scorerstack[0]; ?><br>2:<?php echo $scorerstack[2]; ?><br>3:<?php echo $scorerstack[4]; ?><br>4:<?php echo $scorerstack[6]; ?><br>5:<?php echo $scorerstack[8];?>">
         <img class="scoreboard" src="../img/scoremedalicon.png">
-        Top Scorer <br>xia0t99<br>Average Score:100
+        Top Scorer <br><?php echo $scorerstack[0]; ?><br>Average Score:<?php echo $scorerstack[1] ?>
       </button>
 </div>
 </div>

@@ -262,8 +262,8 @@ session_start();
                             $newscore = 0;
                             $y = 1;
                             $checkscore = mysql_query("SELECT * FROM passingrate WHERE userid = $uid") or die(mysql_error());
-                            $scoreresult = mysql_result($checkscore);
-                            while($score_rows=mysql_fetch_object($scoreresult))
+                            //$scoreresult = mysql_result($checkscore,$link);
+                            while($score_rows=mysql_fetch_object($checkscore))
                             {
                               $newscore = $newscore + $score_rows->result;
                               $y++;
