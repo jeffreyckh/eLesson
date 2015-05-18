@@ -24,6 +24,8 @@ $announcement = new announcementView();
       $adminstack = array();
       $coursestack = array();
       $coursemodstack = array();
+      $scorerstack = array();
+
 
       $coursequery = "select * from course order by view desc";
      $courseresult = mysql_query($coursequery,$link);
@@ -63,11 +65,12 @@ $announcement = new announcementView();
        
     }
 
-     
+    
  
 
  $usercount =count($userstack);
  $admincount = count($adminstack);
+ $scorercount = count($scorerstack);
  if($usercount < 11){
     for($i = 0;$i < (10-$usercount);$i++)
     {
@@ -81,6 +84,11 @@ if($admincount < 11){
         array_push($adminstack,'null','null');
     }
 }
+
+
+
+
+
 
 
 ?>

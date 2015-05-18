@@ -65,6 +65,7 @@ session_start();
         mysql_query($updatesql);
        
 
+
    
 ?>
 <!DOCTYPE html>
@@ -187,6 +188,8 @@ session_start();
                           {
                             mysql_query("UPDATE passingrate SET result = '$result', pass = '1' WHERE userid = $uid AND quizid = $qid") or die(mysql_error());
                           }
+
+
           
 
           
@@ -249,6 +252,29 @@ session_start();
     </body>
 </html>
 <?php
+ $ascheck = mysql_query("SELECT * FROM average_score WHERE userid = $uid") or die(mysql_error());
+                          if(mysql_num_rows($ascheck) == 0)
+                          {
+                            mysql_query("INSERT INTO average_score(userid,average) VALUES ('$uid','$result')") or die(mysql_error());
+                          }
+                          else
+                          {
+                            $newscore = 0;
+                            $y = 1;
+                            $checkscore = mysql_query("SELECT * FROM passingrate WHERE userid = $uid") or die(mysql_error());
+                            $scoreresult = mysql_result($checkscore);
+                            while($score_rows=mysql_fetch_object($scoreresult))
+                            {
+                              $newscore = $newscore + $score_rows->result;
+                              $y++;
+                            }
+
+                            $newscore = ($newscore / $y);
+                            //$newscore = round($newscore);
+
+                            mysql_query("UPDATE average_score SET average = $newscore WHERE userid = $uid ") or die(mysql_error());
+                          }
+
 $delquery=mysql_query("delete from user_to_question where userid = $uid and quizid = $qid")   or die(mysql_error());
 ?>
 

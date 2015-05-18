@@ -45,15 +45,31 @@
                 $attempttime = $b_rows->attempt;
 
             }
+            ?>
 
-            
-            echo 'Your result for this quiz is ' . $a_rows->result . '<br>';
-            echo 'Start Time: ' . $starttime . '<br>';
-            echo 'Finish Time: ' . $finishtime . '<br>';
-            echo 'Attempt Time: ' . $attempttime . '<br>';
-
+                            <table class="table table-striped table-bordered" width = "100%" cellspacing = "10">
+                              <tbody>
+                              <tr>
+                              <table width = "100%">
+                                <thead>
+                                <th width="25%">Result</th>
+                                <th width="25%">Start Time</th>
+                                 <th width="25%">Finish Time </th>
+                                <th width="25%">Attempt Time</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td width="25%"><?php echo $a_rows->result ?></td>
+                                <td width="25%"><?php echo $starttime ?></td>
+                                <td width="25%"><?php echo $finishtime ?></td>
+                                <td width="25%"><?php echo $attempttime ?></td>
+                                </tr>
+                              </table>
+                                </tr>
+          
+        <?php
         }
-    ?>
+        ?>
 
 
 
