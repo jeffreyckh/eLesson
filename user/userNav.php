@@ -15,7 +15,7 @@
     <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
     <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <script type="text/javascript"> 
    $(function () {
    $('[data-toggle="popover"]').popover()
@@ -185,7 +185,8 @@
               echo '<img id="home_icon" src="../img/notificationicon_white.png">';
               $active_state = false;
             }else{
-              echo '<img id="home_icon" src="../img/notificationicon.png">';
+              // echo '<img id="home_icon" src="../img/notificationicon.png">';
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
             }
             ?>
       </button>

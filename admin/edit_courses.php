@@ -58,7 +58,7 @@ if ($urank == 3)
     <li><a href="courses.php">Courses</a></li>
     <li class="active">Edit Course</li>
     </ol>
-Modify Course Detail
+    <center>Modify Course Detail</center>
 
 <hr>
 

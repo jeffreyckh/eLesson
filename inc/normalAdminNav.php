@@ -17,6 +17,43 @@
     <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="../inc/1style.css">
     <script type="text/javascript">
+    $(function () {
+   $('[data-toggle="popover"]').popover()
+    })
+     </script>
+    <script type="text/javascript">
+    var jquery_1_11_4 = $.noConflict(true);
+    jquery_1_11_4(function(){
+      jquery_1_11_4( ".nav-tooltip" ).tooltip({
+        show: {
+          effect: false
+        },
+        position: {
+          my: "center top+18",
+          at: "right center"
+        }
+      });
+    });
+    </script>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) { 
+    $('[rel=popover]').popover().click(function(e) {
+      e.preventDefault()
+      var uid = <?php echo $uid ?>;
+
+      $.ajax({
+       type: "POST",
+       url: "updatestatus.php",
+       data: { uid : uid},
+       cache: false,
+       success: function(response)
+       {
+        alert(response);
+       }
+     });
+    });
+});
+
     var jquery_1_11_4 = $.noConflict(true);
     jquery_1_11_4(function(){
       jquery_1_11_4( ".nav-tooltip" ).tooltip({
@@ -132,7 +169,7 @@
             <!-- Account -->
           </a>
         </li>
-        <li <?=echoActiveClassIfRequestMatches("notification")?>>
+        <!-- <li <?=echoActiveClassIfRequestMatches("notification")?>>
           <a class="nav-tooltip" href="#" title="Notifications">
             <?php
             if($active_state==true){
@@ -142,9 +179,8 @@
               echo '<img id="home_icon" src="../img/notificationicon.png">';
             }
             ?>
-            <!-- Account -->
           </a>
-        </li>
+        </li> -->
           </ul>
         </li>
       </ul>
@@ -153,7 +189,38 @@
         <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
-        <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/>
+        <?php
+        $uid = $_SESSION['userid'];
+        $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
+        $nresult = mysql_query($nquery);
+        ?>
+        <button <?=echoActiveClassIfRequestMatches("notification")?> type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
+        "
+        <?php
+        while($n_rows = mysql_fetch_object($nresult))
+        {
+          echo $n_rows->message;
+          echo "<hr>";
+        }
+        ?>
+        <a href='notification.php' title='Notification'>View All Notification</a>
+        ">
+        <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+              $active_state = false;
+            }else{
+              // echo '<img id="home_icon" src="../img/notificationicon.png">';
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+            }
+            ?>
+      </button>
+          
+        <button id="signout-btn" class="btn btn-default" type="submit" name="submit">
+          <img src="../img/logouticon1.png">
+          Sign Out
+        <!-- <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/> -->
+        </button>
         </div>
       </ul>
       </form>

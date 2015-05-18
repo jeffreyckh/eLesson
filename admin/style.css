@@ -153,8 +153,8 @@ div#banner_content{
 
 .btn-default:hover{
   /*color: #df006e;*/
-  color: #e14b4a;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #bf2120;
   border-color: #e14b4a;
   /*border-color: transparent;*/
 }

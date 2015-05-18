@@ -143,8 +143,9 @@ a.navbar-brand{
 
 .btn-default:hover{
   /*color: #df006e;*/
-  color: #e14b4a;
-  background-color: #ffffff;
+  color: #ffffff;
+  /*background-color: #ffffff;*/
+  background-color: #bf2120;
   border-color: #e14b4a;
   /*border-color: transparent;*/
 }
@@ -177,13 +178,24 @@ div#lesson_container, div#result_container{
   border-color: #e7e7e7;
 }
 
+div#notification>img{
+
+}
+
+button#popover{
+  /*margin-top: 8px;
+  margin-bottom: 8px;
+  vertical-align: middle;*/
+  height: 35px;
+}
+
 button#notification-btn, button#signout-btn{
   margin-top: 8px;
   margin-bottom: 8px;
   vertical-align: middle;
 }
 
-button#notification-btn>img, button#signout-btn>img{
-  width: 16px;
+button#popover>img, button#signout-btn>img{
+  width: 18px;
   height: auto;
 }
