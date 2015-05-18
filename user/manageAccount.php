@@ -45,7 +45,10 @@ $uid = $_SESSION['userid'];
         <tr><td>Re-type Password :</td> <td><input type="password" name="rpassword"></td></tr>
         </table>
         <br>
-        <div align = "center" ><input  class="btn btn-default" name="submit" type="submit" value="Change">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
+        <div align = "center" ><input  class="btn btn-default" name="submit" type="submit" value="Change">
+          &nbsp&nbsp
+          <input  class="btn btn-default" type="reset">
+        </div>
       
       <?php
       if(isset($_POST['submit']))

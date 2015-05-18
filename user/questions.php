@@ -188,21 +188,21 @@ session_start();
                                  // print_r($arr_option);
                                  ?><br /><?php
                                  /* Display multiple choice answers */
-                                 for($i=0; $i<sizeof($arr_option); $i++){
-                                  if($arr_option[$i] == $b_rows->answer){
+                                 for($radio_count=0; $radio_count<sizeof($arr_option); $radio_count++){
+                                  if($arr_option[$radio_count] == $b_rows->answer){
                                     ?>
                                     <input type="radio" checked='checked' 
-                                              value="<?php echo $arr_option[$i];?>" id='radio1_<?php echo $b_rows->questionid;?>' 
+                                              value="<?php echo $arr_option[$radio_count];?>" id='radio1_<?php echo $b_rows->questionid;?>' 
                                               name='<?php echo $b_rows->questionid;?>' onclick="update(this);"/>
-                                              <?php echo " ".$arr_option[$i];?>   
+                                              <?php echo " ".$arr_option[$radio_count];?>   
                                     <br/>
                                     <?php
                                   }else{
                                     ?>
-                                      <input type="radio"  value="<?php echo $arr_option[$i];?>" 
+                                      <input type="radio"  value="<?php echo $arr_option[$radio_count];?>" 
                                               id='radio1_<?php echo $b_rows->questionid;?>' name='<?php echo $b_rows->questionid;?>' 
                                               onclick="update(this);"/>
-                                              <?php echo " ".$arr_option[$i];?>   
+                                              <?php echo " ".$arr_option[$radio_count];?>   
                                       <br/>
                                     <?php 
                                   }
@@ -333,21 +333,21 @@ session_start();
                            // print_r($arr_option);
                            ?><br /><?php
                            /* Display multiple choice answers */
-                           for($i=0; $i<sizeof($arr_option); $i++){
-                            if($arr_option[$i] == $v_rows->answer){
+                           for($radio_count=0; $radio_count<sizeof($arr_option); $radio_count++){
+                            if($arr_option[$radio_count] == $v_rows->answer){
                               ?>
                               <input type="radio" checked='checked' 
-                                        value="<?php echo $arr_option[$i];?>" id='radio1_<?php echo $select_rows->questionid;?>' 
+                                        value="<?php echo $arr_option[$radio_count];?>" id='radio1_<?php echo $select_rows->questionid;?>' 
                                         name='<?php echo $select_rows->questionid;?>' onclick="update(this);"/>
-                                        <?php echo " ".$arr_option[$i];?>   
+                                        <?php echo " ".$arr_option[$radio_count];?>   
                               <br/>
                               <?php
                             }else{
                               ?>
-                                <input type="radio"  value="<?php echo $arr_option[$i];?>" 
+                                <input type="radio"  value="<?php echo $arr_option[$radio_count];?>" 
                                         id='radio1_<?php echo $select_rows->questionid;?>' name='<?php echo $select_rows->questionid;?>' 
                                         onclick="update(this);"/>
-                                        <?php echo " ".$arr_option[$i];?>   
+                                        <?php echo " ".$arr_option[$radio_count];?>   
                                 <br/>
                               <?php 
                             }
