@@ -18,7 +18,17 @@
     <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <script type="text/javascript"> 
    $(function () {
-   $('[data-toggle="popover"]').popover()
+   $('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
     })
      </script>
     <script type="text/javascript">
@@ -48,7 +58,6 @@
        cache: false,
        success: function(response)
        {
-        alert(response);
        }
      });
     });
@@ -174,6 +183,8 @@
         <?php
         while($n_rows = mysql_fetch_object($nresult))
         {
+          echo $n_rows->date;
+          echo "<br/>";
           echo $n_rows->message;
           echo "<hr>";
         }

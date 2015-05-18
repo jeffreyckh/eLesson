@@ -183,8 +183,8 @@ div#banner_content{
 }
 
 .scoreboard{
-  width: 25px;
-  height: auto;
+  width: 25px!important;
+  height: auto!important;
 }
 
 .row>button.btn.btn-lg.btn-danger{

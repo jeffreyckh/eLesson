@@ -12,7 +12,15 @@
     }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    if($urank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    
     $m_id         = intval($_GET['l_hid']);
     $query        = "SELECT lessonname, lessoncontent, direction_id 
                       FROM lesson_history WHERE lesson_hist_id = $m_id";

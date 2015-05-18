@@ -12,7 +12,15 @@
     }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    if($urank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    
     $quizid=intval($_REQUEST['qid']);
     $quesid=intval($_REQUEST['quid']);
     $query="select * from question where questionid=$quesid";
@@ -145,16 +153,16 @@ if(isset($_GET['action'])=='editquestion') {
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak",
          "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager media youtube"
    ],
    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | youtube",
    image_advtab: true ,
    external_filemanager_path:"/eLesson/jscss/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "/eLesson/jscss/filemanager/plugin.min.js"}
     
- });
+    });
   </script>
   </body>
   </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $urank = $_SESSION['rank'];
-if ($urank == 3)
+if ($urank == 3 || $urank ==2)
 {
   echo '<script language="javascript">';
   echo 'alert("You have no permission to access here")';
@@ -119,7 +119,17 @@ if($admincount < 11){
     <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
      <script type="text/javascript"> 
    $(function () {
-   $('[data-toggle="popover"]').popover()
+   $('[data-toggle="popover"]').popover();
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
     })
      </script>
   </head>

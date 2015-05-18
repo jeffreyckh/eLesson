@@ -20,6 +20,11 @@
   height:auto;
   overflow-y: scroll;
  }
+ #popover {
+  padding: 0;
+  border: none;
+  background: none;
+ }
 /*img {
 	height: 100%;
 	width: 100%;
@@ -190,12 +195,13 @@ button#popover{
 }
 
 button#notification-btn, button#signout-btn{
-  margin-top: 8px;
-  margin-bottom: 8px;
-  vertical-align: middle;
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+  vertical-align: middle!important;
 }
 
 button#popover>img, button#signout-btn>img{
   width: 18px;
   height: auto;
+
 }

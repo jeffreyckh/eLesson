@@ -12,7 +12,15 @@ if ($urank == 3)
 }
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    if($urank == 2)
+        {
+            include '../inc/normalAdminNav.php';
+        }
+        else
+        {
+           include 'adminNav.php'; 
+        }
+    
 
     $year   = "";
     $month  = "";
