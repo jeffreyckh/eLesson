@@ -48,7 +48,6 @@
        cache: false,
        success: function(response)
        {
-        alert(response);
        }
      });
     });
@@ -174,6 +173,8 @@
         <?php
         while($n_rows = mysql_fetch_object($nresult))
         {
+          echo $n_rows->date;
+          echo "<br/>";
           echo $n_rows->message;
           echo "<hr>";
         }

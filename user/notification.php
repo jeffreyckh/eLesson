@@ -13,13 +13,16 @@ include 'userNav.php';
   <meta name="keywords" content="FeedBack">
   <meta name="description" content="FeedbackPage">
   <title>Feedback</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
   <!--breadcrumb-->
@@ -28,7 +31,7 @@ include 'userNav.php';
     <li class="active">Notification</li>
     </ol>
 
-  <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
+  <table id="notification" class="table table-striped table-bordered" cellspacing="0" >
         <thead>    
         <th align="left">Type</th>
         <th align="left">Message</th>
@@ -53,5 +56,13 @@ include 'userNav.php';
         <?php
           }
         ?>
+<script>
+$(document).ready(function(){
+    $('#notification').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
+</script>        
 </body>
 </html>

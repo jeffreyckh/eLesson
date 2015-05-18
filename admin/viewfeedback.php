@@ -22,13 +22,16 @@ include 'adminNav.php';
   <meta name="keywords" content="FeedBack">
   <meta name="description" content="FeedbackPage">
   <title>Feedback</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../jscss/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
+     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
 </head>
 <body>
   <!--breadcrumb-->
@@ -37,7 +40,7 @@ include 'adminNav.php';
     <li class="active">Feedback</li>
     </ol>
 
-  <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
+  <table id="feedback" class="table table-striped table-bordered" cellspacing="0" >
         <thead>    
         <th align="left">User</th>
         <th align="left">Type</th>
@@ -51,6 +54,7 @@ include 'adminNav.php';
         $fbresult = mysql_query($fbquery) or die (mysql_error());
         while($fb_rows=mysql_fetch_object($fbresult))
         {
+          $senderid = $fb_rows->sender_id;
           $username = $fb_rows->sender_name;
           $fbtype = $fb_rows->feedback_category;
           $fbtitle = $fb_rows->feedback_title;
@@ -64,10 +68,24 @@ include 'adminNav.php';
             <td><?php echo $fbtitle; ?></td>
             <td><?php echo $fbcontent?></td>
             <td><?php echo $fbdate?></td>
+            <td align="left" width="10%">
+                        <a href="reply.php?uid=<?php echo $senderid;?>">
+                            <img id="action-icon" src="../img/reply.png">
+                            <!-- Modify -->
+                        </a>
+            </td>
           </tr>
         </tbody>
         <?php
           }
         ?>
+        <script>
+$(document).ready(function(){
+    $('#feedback').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
+</script>
 </body>
 </html>

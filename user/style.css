@@ -20,6 +20,11 @@
   height:auto;
   overflow-y: scroll;
  }
+ #popover {
+  padding: 0;
+  border: none;
+  background: none;
+ }
 /*img {
 	height: 100%;
 	width: 100%;
