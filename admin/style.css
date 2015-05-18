@@ -63,24 +63,24 @@ figure figcaption {
 #main_banner{
   background: #C06190;
   font-size: 1.4em;
-  height: 80px;
+  height: 60px;
   margin: 0 auto;
   padding: 10px 10px 5px;
   width: 98%;
   
 }
-div#banner_content{
+#banner_content{
   background: #C06190;
   color: #fff;
   height: auto;
   width: auto;
-  line-height: 60px;
+  line-height: 50px;
   font-size: 24px;
   text-align: left;
   vertical-align: text-bottom;
 }
 #logo1 {
-  height: 50px;
+  height: 40px;
   width: auto;
   float: left;
   margin-right: 10px;
@@ -215,4 +215,20 @@ button#signout-btn>img{
 
 .accActions>a>img{
   margin: 2px;
+}
+
+button#popover>img, button#signout-btn>img{
+  width: 18px;
+  height: auto;
+
+}
+
+button#popover, button#signout-btn{
+  background-color: #e14b4a;
+  padding: 6px 12px;
+  height: 35px;
+}
+
+button#popover:hover, button#signout-btn:hover{
+  background-color: #bf2120;
 }

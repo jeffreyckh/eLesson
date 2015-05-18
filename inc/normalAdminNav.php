@@ -58,19 +58,6 @@
      });
     });
 });
-
-    var jquery_1_11_4 = $.noConflict(true);
-    jquery_1_11_4(function(){
-      jquery_1_11_4( ".nav-tooltip" ).tooltip({
-        show: {
-          effect: false
-        },
-        position: {
-          my: "center top+18",
-          at: "right center"
-        }
-      });
-    });
     </script>
     <script type="text/javascript">
     jQuery(document).ready(function($) { 
@@ -103,7 +90,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="userHome.php">eLesson</a>
+        <a class="navbar-brand" href="userHome.php">
+          <img id="home_icon" src="../img/elessonlogo2_600x600.png">
+          <!-- eLesson -->
+        </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

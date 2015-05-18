@@ -148,8 +148,8 @@ a.navbar-brand{
 
 .btn-default:hover{
   /*color: #df006e;*/
-  color: #e14b4a;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #bf2120;
   border-color: #e14b4a;
   /*border-color: transparent;*/
 }
@@ -193,9 +193,10 @@ button#notification-btn>img, button#signout-btn>img{
   height: auto !important;
 }
 
-button#popover{
+button#popover, button#signout-btn{
   background-color: #e14b4a;
   padding: 6px 12px;
+  height: 35px;
 }
 
 button#popover:hover{
@@ -207,3 +208,52 @@ button#popover>img{
   height: auto;
 
 }
+
+/*#home_button{
+  height: 100%;
+  width: auto;
+}*/
+
+#home_icon{
+  height: 35px;
+  width: auto;
+  float: left;
+  /*margin-bottom: 1.1em;*/
+}
+
+ul.nav.navbar-nav{
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a:hover{
+  background-color: #ffffff;
+}
+
+ul.nav.navbar-nav>li.active>a{
+  background-color: #61c091;
+}
+
+ul.nav.navbar-nav>li.active>a:hover{
+  background-color: #61c091;
+}
+
+.navbar-nav>li>a{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+a.navbar-brand{
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+
+/*a:hover{
+  height: 45px;
+}*/

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -66,7 +67,7 @@
             {
         ?>
                 <tr>
-                <td align="left" width="10%"><?php echo $a_rows->courseid ?></a></td>
+                <td align="left" width="15%"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 </tr> 
