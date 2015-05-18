@@ -27,12 +27,9 @@ class DatabaseController
       $year=date("Y",$time);
       $uidquery= mysql_query("SELECT userid FROM user WHERE username = '$username' AND password = '$password' ");
 
-      if(mysql_num_rows($uidquery) != 0)
-
-     { $uid = mysql_result($uidquery,0);
-
-        
-        $querycheck = "select * from user_view where userid = $uid";
+      if(mysql_num_rows($uidquery) != 0) { 
+      $uid = mysql_result($uidquery,0);
+        $querycheck = "select * from user_view where userid = $uid and rank = $rank";
         $checkresult = mysql_query($querycheck);
         if(mysql_num_rows($checkresult) == 0)
         {
