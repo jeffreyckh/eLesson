@@ -211,7 +211,7 @@
         $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
         $nresult = mysql_query($nquery);
         ?>
-        <button <?=echoActiveClassIfRequestMatches("notification")?> type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
+        <button <?=echoActiveClassIfRequestMatches("notification")?> type="button" id = "popover" class="btn btn-default" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
         "
         <?php
         while($n_rows = mysql_fetch_object($nresult))
