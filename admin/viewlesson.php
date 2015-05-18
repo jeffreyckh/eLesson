@@ -82,7 +82,6 @@
         <hr>
         <table id="lesson" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
-        <th align="left">Lesson ID</th>
         <th align="left">Lesson Name</th>
         <th align="left">Created</th>
         <th align="left">Course</th>
@@ -110,7 +109,6 @@
 
         ?>
                 <tr>
-                <td align="left" width="10%"><?php echo $a_rows->lessonid ?></a></td>
                 <td align="left" width="30%"><a href="lessons_info.php?lid=<?php echo $a_rows->lessonid ?>"><?php echo $a_rows->lessonname ?></a></td>
                 <td align="left" width="10%"><?php echo $a_rows->created ?></td>
                 <td align="left" width="20%"><?php echo $cn ?></td>

@@ -58,7 +58,7 @@ $tnow = date_create ("$t");
   <hr>
       <table id = "user" class="table table-striped table-bordered" cellspacing="0">
         <thead>
-            <th align="right">User ID</th>
+
             <th align="right">UserName</th>
             <th align="right">Name</th>
             <th align="right">Email</th>
@@ -76,7 +76,6 @@ $tnow = date_create ("$t");
                 {
             ?>
                     <tr>
-                    <td align="left" width="5%"><?php echo $a_rows->userid ?></a></td>
                     <td align="left" width="10%"><a href="userdetail.php?uid=<?php echo $a_rows->userid ?>"><?php echo $a_rows->username ?></a></td>
                     <!--<td align="left" width="10%"><?php echo $a_rows->username ?></a></td>-->
                     <td align="left" width="10%"><?php echo $a_rows->name ?></td>

@@ -66,7 +66,6 @@
     <hr>
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
-        <th align="right">Question ID</th>
         <th align="right">Content</th>
         <th align="right">Difficulty</th>
         <th align="right">Action</th>
@@ -87,7 +86,6 @@
 
         ?>
                         <tr>
-                        <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
                         <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo htmlspecialchars_decode($a_rows->content) ?></a></td>
                         <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
                         <td align="left" width="100">
