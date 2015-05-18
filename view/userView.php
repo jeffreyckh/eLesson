@@ -13,6 +13,13 @@ class userView
         $userid=intval($_POST['userid']);
         $rank = $_POST['rank'];
 
+        if($rank == 3)
+        {
+          $deletesql = "DELETE FROM permission WHERE userid = $userid";
+          mysql_query($deletesql) or die(mysql_error());
+
+        }
+
             $sql="update user set rank='$rank' where userid=$userid";
             if(!mysql_query($sql))
              die("Could not update the data!".mysql_error());
