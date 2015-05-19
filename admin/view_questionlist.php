@@ -14,7 +14,7 @@
     include '../inc/header.php';
     $uid = $_SESSION['userid'];
     $urank = $_SESSION['rank'];
-    $query3 = " select * from user where userid = $uid";
+    $query3 = " SELECT * from user where userid = $uid";
     $result3 = mysql_query($query3);
     while($rows=mysql_fetch_object($result3))
     {
@@ -62,7 +62,7 @@
     <center>
     <?php
         
-        $query_count="select count(*) from question";
+        $query_count="SELECT count(*) from question";
         $result_count=mysql_query($query_count,$link);
         $count=mysql_result($result_count,0);
         
@@ -84,7 +84,7 @@
                 $permresult = mysql_query($select_perm);
                 while($permrows = mysql_fetch_object($permresult))
                 {
-                    $query="select * from question WHERE course_id = '".$permrows->courseid."'";
+                    $query="SELECT * from question WHERE course_id = '".$permrows->courseid."'";
                     $result=mysql_query($query,$link)or die(mysql_error());
                     echo "<tbody>";
                     while($a_rows=mysql_fetch_object($result))
@@ -119,7 +119,7 @@
 
         ?>
                         <tr>
-                        <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td>
+                        <!-- <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td> -->
                         <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo htmlspecialchars_decode($a_rows->content) ?></a></td>
                         <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
                         <td align="left" width="100">
