@@ -38,7 +38,7 @@ $uid = $_SESSION['userid'];
       </div>
         
           <form action="" method="post">
-        <table>
+        <table id="change-pass" class="change-pwd">
         <tr><td>Current Password :</td> <td><input type="password" name="cpassword"></td></tr>
         <tr><td>New Password :</td> <td><input type="password" name="npassword"></td></tr>
         <tr></tr>

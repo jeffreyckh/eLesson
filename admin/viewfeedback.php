@@ -23,15 +23,21 @@ include 'adminNav.php';
   <meta name="description" content="FeedbackPage">
   <title>Feedback</title>
   <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css"> 
+
 </head>
 <body>
   <!--breadcrumb-->
@@ -69,8 +75,8 @@ include 'adminNav.php';
             <td><?php echo $fbcontent?></td>
             <td><?php echo $fbdate?></td>
             <td align="left" width="10%">
-                        <a href="reply.php?uid=<?php echo $senderid;?>">
-                            <img id="action-icon" src="../img/reply.png">
+                        <a class="action-tooltip" href="reply.php?uid=<?php echo $senderid;?>" title="Reply Feedback">
+                            <img id="action-icon" src="../img/reply2.png">
                             <!-- Modify -->
                         </a>
             </td>
@@ -80,12 +86,23 @@ include 'adminNav.php';
           }
         ?>
         <script>
+        function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
+        });
+    }
 $(document).ready(function(){
     $('#feedback').DataTable(
         { 
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
+toolTip();
 </script>
 </body>
 </html>

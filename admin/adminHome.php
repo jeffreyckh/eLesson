@@ -31,15 +31,10 @@ $announcement = new announcementView();
       $scoreresult = mysql_query($scorequery,$link);
       while($score_rows=mysql_fetch_object($scoreresult))
       {
-
         $nameresult = mysql_query("SELECT username FROM user WHERE userid = $score_rows->userid");
         $username = mysql_result($nameresult,0);
-
         array_push($scorerstack,$username,$score_rows->average);
-
       }
-
-
 
       $coursequery = "select * from course order by view desc";
      $courseresult = mysql_query($coursequery,$link);

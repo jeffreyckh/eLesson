@@ -130,7 +130,7 @@
             <!-- Course -->
           </a>
         </li>
-        <li <?=echoActiveClassIfRequestMatches("user_viewquiz")?>>
+        <li <?=echoActiveClassIfRequestMatches("viewquiz")?>>
           <a href="../admin/viewquiz.php" class="nav-tooltip" title="Quiz">
             <?php
             if($active_state==true){

@@ -249,6 +249,10 @@ button#popover>img{
 
 }
 
+a#back-btn, a#logout-btn{
+  color: #ffffff;
+}
+
 #home_icon{
   height: 35px;
   width: auto;
@@ -288,7 +292,9 @@ a.navbar-brand{
   padding: 10px 15px;
 }
 
-
+#change-pass td{
+  padding: 10px;
+}
 /*a:hover{
   height: 45px;
 }*/

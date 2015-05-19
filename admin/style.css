@@ -1,10 +1,10 @@
 /*body {margin:5px 5px 5px 5px} */
-body,p,table,a,form,input,textarea,select,botton {font-family:"Verdana","Song Ti"; font-size:12px; color:#000000} 
+body,p,table,a,form,input,textarea,select,botton {font-family:"Verdana","Song Ti"; font-size:12px} 
 form {margin:0px} 
 input,textarea,select,botton {padding:2px 2px 0px 2px} 
 
-a:link    {text-decoration:none;      color:#222222} 
-a:visited {text-decoration:none;      color:#444444} 
+a:link    {text-decoration:none;font-weight: bold;      color:#3d6a98} 
+a:visited {text-decoration:none;font-weight: bold;      color:#3d6a98} 
 a:hover   {text-decoration:underline; color:#EE0000} 
 
 .empha {color:#FF0000} 
@@ -115,7 +115,7 @@ figure figcaption {
 }
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
-  padding: 4px;
+  padding: 10px;
 }
 
 .table>tfoot>tr>th{
@@ -127,7 +127,8 @@ figure figcaption {
     }
 
 .table{
-  border: none;
+  border: transparent;
+  border-radius: 10px;
 }
 
 .table>tbody>tr>td{
@@ -196,6 +197,10 @@ figure figcaption {
   padding-top: 10px;
   border-radius: 0px;
   font-size: 14px;
+}
+
+a.btn.btn-default:link{
+  font-weight: normal;
 }
 
 .row>button.btn.btn-lg.btn-danger>img{
