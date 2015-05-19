@@ -29,7 +29,7 @@ class DatabaseController
 
       if(mysql_num_rows($uidquery) != 0) { 
       $uid = mysql_result($uidquery,0);
-        $querycheck = "select * from user_view where userid = $uid and rank = $rank";
+        $querycheck = "select * from user_view where userid = $uid and usertype = $rank";
         $checkresult = mysql_query($querycheck);
         if(mysql_num_rows($checkresult) == 0)
         {
@@ -39,7 +39,7 @@ class DatabaseController
         }
 
        
-      $mysqltesting = "UPDATE user_view SET $month = $month + 1 WHERE userid = $uid";
+      $mysqltesting = "UPDATE user_view SET $month = $month + 1 WHERE userid = $uid and usertype = $rank";
       mysql_query($mysqltesting);
      
     }
