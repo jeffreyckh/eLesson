@@ -292,7 +292,9 @@ a.navbar-brand{
   padding: 10px 15px;
 }
 
-
+#change-pass td{
+  padding: 10px;
+}
 /*a:hover{
   height: 45px;
 }*/

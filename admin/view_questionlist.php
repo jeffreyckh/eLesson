@@ -121,8 +121,8 @@
                         <tr>
                         <!-- <td align="left" width="100"><?php echo $a_rows->questionid ?></a></td> -->
                         <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo htmlspecialchars_decode($a_rows->content) ?></a></td>
-                        <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
-                        <td align="left" width="100">
+                        <td align="left" width="40"><?php echo $a_rows->difficulty ?></a></td>
+                        <td align="left" width="60">
                             <a class="action-tooltip" href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>" title="Modify Question">
                                 <img id="action-icon" src="../img/modifyicon2_600x600.png">
                                 <!-- Modify -->
