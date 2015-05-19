@@ -145,11 +145,11 @@ while($m_rows=mysql_fetch_object($result))
             if(isset($_POST['permCourse']))
             {
               $perm = $_POST['permCourse'];
-              $query2 = "select * from permission where userid = $m_id";
+              $query2 = "SELECT * from permission where userid = $m_id";
               $result2 = mysql_query($query2);
               if (mysql_num_rows($result2) != 0) 
               {
-                 $sql="delete from permission where userid=$m_id";
+                 $sql="DELETE from permission where userid=$m_id";
                  $result3 = mysql_query($sql);
               } 
               
@@ -158,7 +158,7 @@ while($m_rows=mysql_fetch_object($result))
                 $n = count($perm);
                 for($i=0;$i < $n; $i++)
                 {
-                  $sql1 = "insert into permission (userid,courseid) values ($m_id,$perm[$i])";
+                  $sql1 = "INSERT into permission (userid,courseid) values ($m_id,$perm[$i])";
                   $result3 = mysql_query($sql1);
                   //echo($perm[$i] . " ");
                 }

@@ -45,7 +45,13 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
-     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>   
+     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+       
 </head>
 <body>
      <ol class="breadcrumb">
@@ -117,11 +123,11 @@
                         <td align="left" width="500"><a href="question_info_2.php?quid=<?php echo $a_rows->questionid ?>"><?php echo htmlspecialchars_decode($a_rows->content) ?></a></td>
                         <td align="left" width="50"><?php echo $a_rows->difficulty ?></a></td>
                         <td align="left" width="100">
-                            <a href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>">
+                            <a class="action-tooltip" href="edit_question_2.php?quid=<?php echo $a_rows->questionid ?>" title="Modify Question">
                                 <img id="action-icon" src="../img/modifyicon2_600x600.png">
                                 <!-- Modify -->
                             </a>
-                            <a href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>">
+                            <a class="action-tooltip" href="del_queslist.php?quesid=<?php echo $a_rows->questionid ?>" title="Delete Question">
                                 <img id="action-icon" src="../img/deleteicon2_600x600.png">
                                 <!-- Delete -->
                             </a>
@@ -138,12 +144,32 @@
     </table>
     </center>
     <script>
+    function toolTip(){
+        var jquery_1_11_4 = $.noConflict(true);
+        jquery_1_11_4(function(){
+          jquery_1_11_4( ".action-tooltip" ).tooltip({
+            show: {
+              effect: false
+            }
+          });
+        });
+    }
     $(document).ready(function(){
-    $('#question').DataTable(
-        {     
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        $('#question').DataTable(
+            { 
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+            });
+        
+        toolTip();
+        $('.next').click(function(){
+            toolTip();
+        });
+        $('.pagination').click(function(){
+            toolTip();
         });
     });
+
+    toolTip();
     </script>
     </body>
     </html>

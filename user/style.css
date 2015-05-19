@@ -249,6 +249,10 @@ button#popover>img{
 
 }
 
+a#back-btn, a#logout-btn{
+  color: #ffffff;
+}
+
 #home_icon{
   height: 35px;
   width: auto;

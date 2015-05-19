@@ -92,8 +92,8 @@ session_start();
         </header> -->
         
         <center>
-          <a href="userHome.php" class='btn btn-success'>Back</a>                   
-        <a href="../login.php" class='btn btn-success'>Logout</a>
+          <a href="userHome.php" id="back-btn" class='btn btn-success'>Back</a>                   
+        <a href="../login.php" id="logout-btn" class='btn btn-success'>Logout</a>
         <br>
         <br>
       </center>
