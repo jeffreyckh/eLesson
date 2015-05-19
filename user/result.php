@@ -91,12 +91,6 @@ session_start();
         <!-- <header>
         </header> -->
         
-        <center>
-          <a href="userHome.php" class='btn btn-success'>Back</a>                   
-        <a href="../login.php" class='btn btn-success'>Logout</a>
-        <br>
-        <br>
-      </center>
         <div id="result_container">
            <center><h3>Quiz Results</h3></center>
            <hr>   

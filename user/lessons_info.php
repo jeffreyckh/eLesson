@@ -184,6 +184,7 @@ $(document).ready(function(){
           include'../inc/db_config.php';
            $done_courseid=intval($_POST['cid']);
            $done_lessonid=intval($_POST['lid']);
+           $urank = $_SESSION['rank']; 
             $uid = $_SESSION['userid'];
           $date = date('Y-m-d H:i:s');
           $flag=true;
@@ -205,8 +206,23 @@ $(document).ready(function(){
            { die("Could not update the data!".mysql_error());}
            else
             {
-
+              if($urank == 2)
+              {
                 echo '<script> 
+                    var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
+                      if(answer)
+                      {
+                        window.location.href ="../admin/viewquiz.php"
+                      }
+                      else
+                      {
+                       window.location.href ="userHome.php"                 
+                     } 
+                      </script>';
+                }
+                else
+                {
+                  echo '<script> 
                     var answer = confirm("You had finished the lesson! Would you like to take the quiz?")
                       if(answer)
                       {
@@ -217,6 +233,7 @@ $(document).ready(function(){
                        window.location.href ="userHome.php"                 
                      } 
                       </script>';
+                }
                
             }
 
