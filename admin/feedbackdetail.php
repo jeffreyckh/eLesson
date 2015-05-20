@@ -61,7 +61,11 @@
             <?php 
             if($username == $uname)
             {
-
+            ?>
+            <td align="left" width="10%">
+                       <input type="hidden" name="space">
+            </td>
+            <?php
             }
             else
             {

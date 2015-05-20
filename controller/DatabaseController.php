@@ -20,6 +20,7 @@ class DatabaseController
     $res = mysql_fetch_assoc($result);
     $_SESSION['rank'] = $res['rank'];
     $_SESSION['userid'] = $res['userid'];
+    $_SESSION['username'] = $res['username'];
     $rank = $_SESSION['rank'];
       
       $time = time();
@@ -48,19 +49,15 @@ class DatabaseController
     {
       if($rank == 1)
       {
-      $_SESSION['username'] = $username;
-      
       header('Location: admin/adminHome.php'); 
       exit;
       }
       elseif ($rank == 2) 
       {
-      $_SESSION['username'] = $username;
       header('Location: user/userHome.php');
       }
       elseif ($rank == 3) 
       {
-      $_SESSION['username'] = $username;
       header('Location: user/userHome.php');
       }
     }

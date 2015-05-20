@@ -30,6 +30,7 @@
     <li><a href="feedback.php">Feedback</a></li>
     <li class="active">Feedback Detail</li>
     </ol>
+    
     <table id="feedback" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
         <th align="left">Sender</th>  
@@ -39,7 +40,6 @@
         <th align="left">Action</th>
         </thead>
         <?php
-        echo $fbtitle;
         $fbquery= "SELECT * FROM feedback where sender_id = $uid and feedbackid = '$fbid' OR feedback_title = '$fbtitle'";
         $fbresult = mysql_query($fbquery) or die (mysql_error());
         while($fb_rows=mysql_fetch_object($fbresult))
@@ -61,10 +61,17 @@
             <?php 
             if($username == $uname)
             {
-
+            ?>
+            <td align="left" width="10%">
+                       <input type="hidden" name="space">
+            </td>
+            <?php
             }
             else
             {
+              echo "what".$username;
+              echo "<br>";
+              echo "is".$uname;
             ?>
             <td align="left" width="10%">
                         <a class="action-tooltip" href="reply.php?uid=<?php echo $senderid;?>&fbid=<?php echo $fbid?>&fbtitle=<?php echo $fbtitle ?>" title="Reply Feedback">
