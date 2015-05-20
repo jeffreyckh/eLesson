@@ -4,7 +4,7 @@ $urank = $_SESSION['rank'];
 $uid = $_SESSION['userid'];
 include'../inc/db_config.php';
 include '../inc/header.php';
-include 'userNav.php';
+include 'adminNav.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -28,7 +28,7 @@ include 'userNav.php';
 <body>
   <!--breadcrumb-->
     <ol class="breadcrumb">
-    <li><a href="userHome.php">Home</a></li>
+    <li><a href="adminHome.php">Home</a></li>
     <li class="active">Notification</li>
     </ol>
 

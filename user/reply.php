@@ -2,7 +2,7 @@
     session_start();
     include'../inc/db_config.php';
     include '../inc/header.php';
-    include 'adminNav.php';
+    include 'userNav.php';
     $u_id = $_SESSION['userid'];
     $uname = $_SESSION['username'];
     $uid = $_GET['uid'];
@@ -34,11 +34,10 @@
 <body>
     <ol class="breadcrumb">
     <li><a href="adminHome.php">Home</a></li>
-    <li><a href="viewfeedback.php?>">Feedback</a></li>
+    <li><a href="feedback.php?>">Feedback</a></li>
     <li><a href="feedbackdetail.php?fbid=<?php echo $fbid ?>&fbtitle=<?php echo $fbtitle ?>">Feedback Detail</a></li>
     <li class="active">Reply</li>
     </ol>
-
     <div align = "center">
     <table class="table table-bordered">
     <form action="" method="post">
@@ -60,7 +59,7 @@
                     die("Unable to store the reply into database.".mysql_error());
                 }
                 echo '<script> alert("Reply was sent!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="feedbackdetail.php?fbid=<?php echo $fbid ?>&fbtitle=<?php echo $fbtitle ?>" </script>'; 
+      			echo '<script language="JavaScript"> window.location.href ="feedbackdetail.php?fbid=<?php echo $fbid ?>&fbtitle=<?php echo $fbtitle ?>" </script>'; 
             }
         ?>
     </form>

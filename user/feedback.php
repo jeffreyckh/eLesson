@@ -34,8 +34,51 @@
     </ol>
 
     <div align = "center">
-    <table class="table table-bordered">
+    <div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#viewfeedback" aria-controls="home" role="tab" data-toggle="tab">Feedback Sent</a></li>
+    <li role="presentation"><a href="#sendfeedback" aria-controls="profile" role="tab" data-toggle="tab">Send Feedback</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="viewfeedback">
+        <table id="feedback" class="table table-striped table-bordered" cellspacing="0" >
+        <thead>    
+        <th align="left">Type</th>
+        <th align="left">Title</th>
+        <th align="left">Date</th>
+        </thead>
+        <?php
+        $fbquery= "SELECT * FROM feedback where sender_id = $uid and feedback_category != 'Reply'";
+        $fbresult = mysql_query($fbquery) or die (mysql_error());
+        while($fb_rows=mysql_fetch_object($fbresult))
+        {
+            $fbid= $fb_rows->feedbackid;
+          $senderid = $fb_rows->sender_id;
+          $username = $fb_rows->sender_name;
+          $fbtype = $fb_rows->feedback_category;
+          $fbtitle = $fb_rows->feedback_title;
+          $fbdate = $fb_rows->date;
+        ?>
+        <tbody>
+          <tr>
+            <td><?php echo $fbtype; ?></td>
+            <td align="left"><a href="feedbackdetail.php?fbid=<?php echo $fbid ?>&fbtitle=<?php echo $fbtitle ?>"><?php echo $fbtitle ?></a></td>
+            <td><?php echo $fbdate?></td>
+          </tr>
+        </tbody>
+        <?php
+          }
+          echo "</table>";
+        ?>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="sendfeedback">
+        
     <form action="" method="post">
+        <table class="table table-bordered">
         <tr>
             <td width="20%" >User Name: </td><td><?php echo $uname ?></td>
         </tr>
@@ -77,6 +120,25 @@
             }
         ?>
     </form>
-    </div> 
+    </div>
+
+  </div>
+
+</div>
+</div> 
+<script type="text/javascript">
+   $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+    </script>
+    <script>
+$(document).ready(function(){
+    $('#feedback').DataTable(
+        { 
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        });
+});
+</script>
     </body>
     </html>

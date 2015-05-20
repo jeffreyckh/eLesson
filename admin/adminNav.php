@@ -176,15 +176,45 @@
       
       
       <form method="post" action="../logout.php" id="navBar">
-      <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
         <div class=".col-md-4">
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
+        <?php
+        $uid = $_SESSION['userid'];
+        $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
+        $nresult = mysql_query($nquery);
+        ?>
+        <button
+          type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
+        "
+        <?php
+        while($n_rows = mysql_fetch_object($nresult))
+        {
+          echo $n_rows->date;
+          echo "<br/>";
+          echo $n_rows->message;
+          echo "<hr>";
+        }
+        ?>
+        <a href='notification.php' title='Notification'>View All Notification</a>
+        ">
+        <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+              $active_state = false;
+            }else{
+              // echo '<img id="home_icon" src="../img/notificationicon.png">';
+              echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+            }
+            ?>
+      </button>
+          
         <button id="signout-btn" class="btn btn-default" type="submit" name="submit">
           <img src="../img/logouticon1.png">
           Sign Out
         <!-- <input class="btn btn-default navbar-btn" type="submit" value="Sign Out" name="submit"/> -->
         </button>
-      </div>
+        </div>
       </ul>
       </form>
       
