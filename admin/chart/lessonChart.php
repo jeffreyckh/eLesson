@@ -202,7 +202,7 @@ $lsize = count($lname);
       if (!empty($tmp))
       {
     ?>
-	       <div id="columnchart_values" style="width: 600px; height: 500px;" align="center"></div>
+	       <div id="columnchart_values" style="width: 900px; height: 500px;" align="center"></div>
           <hr>
         <div id="columnchart_status" style="width: 700px; height: 400px;" align="center"></div>
     <?php

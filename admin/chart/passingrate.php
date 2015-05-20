@@ -63,10 +63,11 @@ include'../../inc/db_config.php';
           ]);
        
           var options = {
+          chart: {
             title: 'Passing Rate - <?php echo $qname; ?>',
-            
-          };
-       
+          }
+        };
+
 
           var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         
@@ -80,7 +81,19 @@ include'../../inc/db_config.php';
 
   </script>
   <body>
-	<div id="piechart" style="width: 600px; height: 500px;" align="center"></div>
+	    <?php
+      if ($numofpass != 0 && $numoffail != 0)
+      {
+    ?>
+         <div id="piechart" style="width: 900px; height: 600px;" align="center"></div>
+    <?php
+      }
+      else
+      {
+        echo "No Data Available";
+      }
+    
+    ?>
 
 </body>
 </html>
