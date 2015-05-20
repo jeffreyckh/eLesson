@@ -68,6 +68,7 @@ $uid = $_SESSION['userid'];
               {
                 if(!empty($rpassword))
                   {
+                    if (strlen($npassword) >= 6 && strlen($npassword) <=13 )
                       {
                         if ($npassword == $rpassword)
                         {
