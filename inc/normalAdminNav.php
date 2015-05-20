@@ -54,10 +54,17 @@
        success: function(response)
        {
         /*alert(response);*/
+        toggleNotice();
        }
      });
     });
 });
+    function toggleNotice(){
+      
+      var parent = document.getElementById("popover");
+      var child = document.getElementById("n_indicator");
+      parent.removeChild(child);
+    }
     </script>
     <script type="text/javascript">
     jQuery(document).ready(function($) { 
@@ -200,8 +207,10 @@
         $uid = $_SESSION['userid'];
         $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
         $nresult = mysql_query($nquery);
+        $ncount = mysql_num_rows($nresult);
+        // $ncount = 100;
         ?>
-        <button <?=echoActiveClassIfRequestMatches("notification")?> type="button" id = "popover" class="btn btn-default" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
+        <button type="button" id = "popover" class="btn btn-default" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
         "
         <?php
         while($n_rows = mysql_fetch_object($nresult))
@@ -224,6 +233,17 @@
             }else{
               // echo '<img id="home_icon" src="../img/notificationicon.png">';
               echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+            }
+            if($ncount>0){
+              if($ncount>99){
+                ?>
+                <span id="n_indicator" class="n_indicator"><?php echo "+99"; ?></span>
+                <?php
+              }else{
+              ?>
+              <span id="n_indicator" class="n_indicator"><?php echo $ncount ?></span>
+              <?php
+              }
             }
             ?>
       </button>
