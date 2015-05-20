@@ -33,7 +33,6 @@ $result = mysql_query($query,$link);
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Add Question</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

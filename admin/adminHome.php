@@ -117,15 +117,12 @@ if($scorercount <11)
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Home</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../jscss/dist/js/bootstrap.min.js"></script>
-    <script src="../jscss/ckeditor/ckeditor.js"></script>
     <!--Script required for Google chart !-->
     <script type="text/javascript" src="../jscss/googleChart.js"></script>
     <!-- Add mousewheel plugin (this is optional) -->
@@ -160,7 +157,7 @@ $('body').on('click', function (e) {
   </head>
   <body>
   <div class = "col-md-8">
-
+    <div align="right"><a href="report.php" class = "btn btn-default">Generate Report</a></div>
       <div  id="piechart" style="width: 900px; height: 500px;"></div>
   </div>
  <div class = "col-md-3">

@@ -40,8 +40,6 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Modify Course Detail</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

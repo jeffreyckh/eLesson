@@ -22,9 +22,7 @@ include 'adminNav.php';
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
-  <title>Home</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
+  <title>Report</title>
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -74,11 +72,11 @@ $(document).ready(function(){
     <li class="active">Report</li>
     </ol>
 
- 	<input type="button" onClick="printdiv('div_print');" value="Print">
+ 	<input type="button" class = "btn btn-default" onClick="printdiv('div_print');" value="Print">
 	<div id="div_print">
 		<div class = "row">
       	<table id = "LessonStatus" class="table table-striped table-bordered" cellspacing="0">
-          <p><b>Lesson Status</b></p>
+          <h4><b>Lesson Status</b></h4>
         <thead>
             <th align="right">User</th>
             <th align="right">Lesson Name</th>
@@ -113,11 +111,11 @@ $(document).ready(function(){
 	</div>
 
 
-	 	<input type="button" onClick="printdiv('div_print2');" value="Print">
+	 	<input type="button" class = "btn btn-default" onClick="printdiv('div_print2');" value="Print">
 		<div id="div_print2">
 		<div class = "row">
       	<table id = "QuizStatus" class="table table-striped table-bordered" cellspacing="0">
-          <p><b>Quiz Status</b></p>
+          <h4><b>Quiz Status</b></h4>
         <thead>
             <th align="right">User</th>
             <th align="right">Quiz Name</th>

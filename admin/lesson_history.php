@@ -38,8 +38,6 @@ if ($urank == 3)
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Lesson History Log</title>
-  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

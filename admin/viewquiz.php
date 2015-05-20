@@ -34,7 +34,6 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Quiz</title>
-  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
