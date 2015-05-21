@@ -39,6 +39,7 @@ while($a_rows=mysql_fetch_object($result))
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -58,9 +59,10 @@ if($urank == 1)
 {
   ?>
   <div id="lesson_container">
+    <center>Password Change</center>
+    <hr>
       <div class = "col-md-4">
       </div>
-        
           <form action="" method="post">
         <table id="change-pass" class="change-pwd">
         <tr><td>Current Password :</td> <td><input type="password" name="cpassword"></td></tr>

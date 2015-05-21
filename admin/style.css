@@ -356,3 +356,7 @@ span#n_indicator{
   direction: rtl;
 
 }
+
+#change-pass td{
+  padding: 10px;
+}
