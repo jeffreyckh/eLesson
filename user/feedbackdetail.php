@@ -63,15 +63,12 @@
             {
             ?>
             <td align="left" width="10%">
-                       <input type="hidden" name="space">
+                    <input type="hidden" name="space">
             </td>
             <?php
             }
             else
             {
-              echo "what".$username;
-              echo "<br>";
-              echo "is".$uname;
             ?>
             <td align="left" width="10%">
                         <a class="action-tooltip" href="reply.php?uid=<?php echo $senderid;?>&fbid=<?php echo $fbid?>&fbtitle=<?php echo $fbtitle ?>" title="Reply Feedback">

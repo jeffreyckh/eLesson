@@ -201,6 +201,7 @@ $(document).ready(function(){
 
 
           $sql = "UPDATE lessoncomplete SET complete = '$finish', end_time = '$endtime' WHERE userid = $uid AND lessonid = $done_lessonid";
+          $ulresult = mysql_query($ulsql) or die(mysql_error());
 
            if(!mysql_query($sql,$link))
            { die("Could not update the data!".mysql_error());}

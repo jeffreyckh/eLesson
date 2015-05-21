@@ -34,6 +34,33 @@
       });
     });
     </script>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) { 
+    $('[rel=popover]').popover().click(function(e) {
+      e.preventDefault()
+      var uid = <?php echo $uid ?>;
+
+      $.ajax({
+       type: "POST",
+       url: "../user/updatestatus.php",
+       data: { uid : uid },
+       cache: false,
+       success: function(response)
+       {
+        toggleNotice();
+       }
+       
+     });
+    });
+});
+    function toggleNotice(){
+      
+      var parent = document.getElementById("popover");
+      var child = document.getElementById("n_indicator");
+      parent.removeChild(child);
+    }
+
+    </script>
     <style>
     label{
       display: inline-block;
@@ -181,7 +208,7 @@
         <p class="navbar-text">Signed in as: <?php echo $_SESSION['username']?></a></p>
         <?php
         $uid = $_SESSION['userid'];
-        $nquery = "SELECT * FROM notification WHERE receiver_id = $uid AND readnotification = 0";
+        $nquery = "SELECT * FROM notification WHERE receiver_id = 0 AND readnotification = 0";
         $nresult = mysql_query($nquery);
         ?>
         <button
