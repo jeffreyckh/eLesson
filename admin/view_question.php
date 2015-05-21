@@ -81,7 +81,7 @@
         <th align="right">Delete</th> -->
         </thead>
         <?php
-            $query="select * from quiz_to_question where quizid = $qid";
+            $query="select * from quiz_to_question where quizid = $qid order by questionid asc";
             $result=mysql_query($query,$link);
             echo "<tbody>";
             while($a_rows=mysql_fetch_object($result))
