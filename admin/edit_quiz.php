@@ -22,11 +22,11 @@
         }
     
     $m_id=intval($_REQUEST['qid']);
-    $query="select quizname,lessonid,quiz_number from quiz where quizid=$m_id";
+    $query="select quizname,lessonid,quiz_number,passingscore from quiz where quizid=$m_id";
     $result=mysql_query($query,$link);
     while($m_rows=mysql_fetch_object($result))
     {
-
+        $m_passingscore = $m_rows->passingscore;
         $m_quizname=$m_rows->quizname;
         $m_NoQ = $m_rows->quiz_number;
         $m_lessonid=$m_rows->lessonid;
@@ -92,7 +92,10 @@ if(isset($_GET['action'])=='editquiz') {
 }
 ?>
 <tr>
-
+    <td>Passing Score:</td>
+    <td><input type="text" name="pScore" value = "<?php echo $m_passingscore ?>"></td>
+</tr>
+<tr>
     <td>Numbers of Question:</td>
     <td><input type="text" name="NoQ" value = "<?php echo $m_NoQ ?>" ></td>
 </tr>
@@ -113,6 +116,7 @@ function editquiz()
  include("../inc/db_config.php");
     $qid = intval($_POST['qid']);
     $m_id = intval($_POST['select']);
+    $m_score = intval($_POST['pScore']);
     $m_number = intval($_POST['NoQ']);
     
     //$m_did = intval($POST['cid']);
@@ -141,6 +145,9 @@ function editquiz()
             if($m_id != $result_rows["lessonid"]){
                 $modify_flag = true;
             }
+            if($m_score != $result_rows["passingscore"]){
+                $modify_flag = true;
+            }
 
              if($m_number != $result_rows["quiz_number"]){
                 $modify_flag = true;
@@ -163,7 +170,7 @@ function editquiz()
                               modified_on = '$modify_time', modified_by = '$modify_user',quiz_number = '$m_number'
                               WHERE quizid = '$qid'";
             }else{
-              $query_update = "update quiz set quizname='$edit_name',lessonid='$m_id',quiz_number = '$m_number' where quizid=$qid";
+              $query_update = "update quiz set quizname='$edit_name',lessonid='$m_id',quiz_number = '$m_number',passingscore = '$m_score' where quizid=$qid";
             }
             if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());

@@ -39,7 +39,6 @@
         <th align="left">Action</th>
         </thead>
         <?php
-        echo $fbtitle;
         $fbquery= "SELECT * FROM feedback where sender_id = $uid and feedbackid = '$fbid' OR feedback_title = '$fbtitle'";
         $fbresult = mysql_query($fbquery) or die (mysql_error());
         while($fb_rows=mysql_fetch_object($fbresult))

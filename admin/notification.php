@@ -40,7 +40,7 @@ include 'adminNav.php';
         <th align="left">Action</th>
         </thead>
         <?php
-        $nquery= "SELECT * FROM notification WHERE receiver_id = $uid";
+        $nquery= "SELECT * FROM notification WHERE receiver_id = 0";
         $nresult = mysql_query($nquery) or die (mysql_error());
         while($n_rows=mysql_fetch_object($nresult))
         {

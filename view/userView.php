@@ -5,12 +5,37 @@ class userView
 {
    public function editAcc()
    {
+    if(isset($_POST['userid']))
+    {
+      $userid=intval($_POST['userid']);
+    }
     if (isset($_POST['submit']))
     {
-
+         if(isset($_POST['permCourse']))
+            {
+              $perm = $_POST['permCourse'];
+              $query2 = "SELECT * from permission where userid = $userid";
+              $result2 = mysql_query($query2);
+              if (mysql_num_rows($result2) != 0) 
+              {
+                 $sql="DELETE from permission where userid=$userid";
+                 $result3 = mysql_query($sql);
+              } 
+              
+              if(!empty($perm))
+              {
+                $n = count($perm);
+                for($i=0;$i < $n; $i++)
+                {
+                  $sql1 = "INSERT into permission (userid,courseid) values ($userid,$perm[$i])";
+                  $result3 = mysql_query($sql1);
+                  //echo($perm[$i] . " ");
+                }
+              }
+            }
       if (isset($_POST['rank']))
       {
-        $userid=intval($_POST['userid']);
+        
         $rank = $_POST['rank'];
 
         if($rank == 3)
