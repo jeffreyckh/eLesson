@@ -92,7 +92,7 @@ session_start();
         </header> -->
         
         <div id="result_container">
-           <center><h3 id="result-header"><img src="../img/quizresulticon2.png">Quiz Results</h3></center>
+           <center><h3>Quiz Results</h3></center>
            <hr>   
                   <!-- <div class="col-xs-6 col-sm-3 col-lg-3">  -->
                      

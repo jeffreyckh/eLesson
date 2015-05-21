@@ -90,11 +90,7 @@
 
 
 
-        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp&nbsp
-            <a id="addbutton" class = "btn btn-default" href="add_quiz.php">
-                <img src="../img/addquiz_white.png">
-                Add Quiz
-            </a>
+        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp&nbsp<a class = "btn btn-default" href="add_quiz.php">Add Quiz</a>
         <hr>
         <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
         <thead>    
