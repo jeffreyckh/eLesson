@@ -97,7 +97,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="userHome.php">
+        <a class="navbar-brand" href="../user/userHome.php">
           <img id="home_icon" src="../img/elessonlogo2_600x600.png">
           <!-- eLesson -->
         </a>
