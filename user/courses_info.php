@@ -184,7 +184,7 @@ $(document).ready(function(){
                 "visible": false,
                 "searchable": false
 
-            }], 
+            }],
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
