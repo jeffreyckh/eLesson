@@ -50,7 +50,7 @@
     <script src="../jscss/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-
+<center>
 Modify Quiz
 <hr>
 
@@ -120,9 +120,10 @@ if(isset($_GET['action'])=='editquiz') {
     <td><input type="text" name="NoQ" value = "<?php echo $m_NoQ ?>" ></td>
 </tr>
 
-<tr><td><input type="submit" value="Change"></td><td><input type="reset"></td></tr>
+<tr><td></td><td><input class="btn btn-default" type="submit" value="Change">&nbsp;<input class="btn btn-default" type="reset"></td></tr>
 </table>
 </form>
+</center>
 <script>
       // Replace the <textarea id="editor1"> with a CKEditor
       // instance, using default configuration.
@@ -214,8 +215,9 @@ function editquiz()
 ?>
 </table>
 <br>
+<center>
 <a href="viewquiz.php">Return</a>
-
+</center>
 <?php
 mysql_close($link);
 ?>
