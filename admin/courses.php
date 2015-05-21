@@ -35,6 +35,7 @@
   <meta name="keywords" content="course">
   <meta name="description" content="course">
   <title>Course</title>
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
@@ -52,6 +53,7 @@
     <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css"> 
 
      <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+
  </head>
 <body>
     <ol class="breadcrumb">
@@ -66,7 +68,12 @@
         
     ?>
    
-    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_courses.php" class = " btn btn-default">Add New Course</a></div>
+    <div align = "right">Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp
+        <a id="addbutton" href="add_courses.php" class = " btn btn-default">
+            <img src="../img/addcourseicon_white.png">
+            Add New Course
+        </a>
+    </div>
     <hr>
         <table id="course" class="table table-striped table-bordered" cellspacing="0" >
         <thead>

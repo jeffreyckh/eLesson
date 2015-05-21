@@ -41,6 +41,7 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Course Info</title>
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
@@ -108,7 +109,11 @@
         
     ?>
 
-        <div align="right">Total Lesson:<font color="red"><?php echo $count; ?></font>&nbsp<a href="add_lessons.php?cid=<?php echo $c_id?>" class = "btn btn-default">Add New Lesson</a>
+        <div align="right">Total Lesson:<font color="red"><?php echo $count; ?></font>&nbsp
+            <a id="addbutton" href="add_lessons.php?cid=<?php echo $c_id?>" class = "btn btn-default">
+                <img src="../img/addcourseicon_white.png">
+                Add New Lesson
+            </a>
         <hr> 
             <table id = "lesson" class="table table-striped table-bordered" cellspacing="0">
             <thead>

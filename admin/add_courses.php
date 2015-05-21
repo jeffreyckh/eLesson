@@ -25,6 +25,7 @@ $count=mysql_result($result_count,0) + 1;
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Home</title>
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -38,8 +39,35 @@ $count=mysql_result($result_count,0) + 1;
         if(document.add_course_form.cname.value == ""){
           alert("Please enter a course name.");
           return false;
+        }else{
+          var c_name = document.add_course_form.cname.value;
+          // alert("Checking..."+l_name);
+          var state = checkCourseName(c_name);
+          /*alert("State: "+state);*/
+          return false;
         }
-        return true;
+
+        return false;
+      }
+
+      function checkCourseName(c_name){
+        $.ajax({
+          url: "check_course.php",
+          type: "POST",
+          data: "c_name=" + c_name,
+          success: function(data){
+            // alert(data);
+            if(data == 1){
+              $("#name_warning_msg").html("Course name is taken, choose another.");
+              // return false;
+            }else{
+              $("#name_warning_msg").html("Course name is free.");
+              // return true;
+              document.getElementById("add_course_form").submit();
+            }
+          }
+        });
+
       }
 
     </script>
@@ -63,12 +91,13 @@ if(isset($_GET['action'])=='addcourse') {
 ?>
 <table class = "table table-bordered">
 <tr>
-  <form action="?action=addcourse" name="add_course_form" method="post" onsubmit="return(validate())">
+  <form action="?action=addcourse" id="add_course_form" name="add_course_form" method="post" onsubmit="return(validate())">
   <input type="hidden" type="text" name="cid" value="<?php echo $courseid ?>">
-  <td>Course Name:</td><td><input type="text" name="cname"></td>
+  <td>Course Name:</td><td><input type="text" name="cname"><div id="name_warning_msg"></div></td>
 </tr>
 <tr>
-  <td>Course Description</td><td><input type="text" name="cdesc"></td>
+  <!-- <td>Course Description</td><td><input type="text" name="cdesc"></td> -->
+  <td>Course Description</td><td><textarea name="cdesc" cols="100" rows="10"></textarea></td>
 </tr>
 </table>
 <div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>

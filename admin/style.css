@@ -237,7 +237,6 @@ button#popover, button#signout-btn{
 
 button#popover:hover, button#signout-btn:hover{
   background-color: #bf2120;
-<<<<<<< HEAD
 }
 
 div#addinput>a>button.btn.btn-default{
@@ -333,8 +332,6 @@ td#hist-action>a>img{
 }
 
 div#lessonDetail{
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
-=======
->>>>>>> origin/kit
 }

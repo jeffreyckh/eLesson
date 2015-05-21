@@ -23,7 +23,7 @@ $announcement = new announcementView();
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Announcement</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
@@ -42,9 +42,13 @@ $announcement = new announcementView();
     <li class="active">Announcement</li>
     </ol>
     <div align="right">
-    <form method="post" action="add_announcement.php">
+    <!-- <form method="post" action="add_announcement.php">
       <input type="submit" class = "btn btn-default" value="Add Announcement" name="submit"/>
-    </form>
+    </form> -->
+    <a id="addbutton" class = "btn btn-default" href="add_announcement.php">
+        <img src="../img/addannounce_white.png">
+        Add Announcement
+    </a>
   </div>
     <hr>
       <table id = "announcement" class="table table-striped table-bordered" cellspacing="0">

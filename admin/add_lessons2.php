@@ -32,6 +32,8 @@ $result = mysql_query($query,$link);
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Add Lessons</title>
+  <link rel="stylesheet" href="home.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -129,7 +131,14 @@ else
 <textarea name="lcont" id="lcont" rows="10" cols="80">
 </textarea>
 </td></tr>
-<tr><td><input type="submit" value="Add"></td><td><input type="reset"></td></tr>
+<tr><td>
+      
+    </td>
+    <td>
+      <input class="btn btn-default" type="submit" value="Add">
+      <input class="btn btn-default" type="reset">
+    </td>
+  </tr>
 </form>
 </table>
 <script>
@@ -263,7 +272,7 @@ function update_lesson_history($lesson_id){
 <br>
 <a href="viewlesson.php">Return</a>
 </center> 
-
+&nbsp;
 <?php
 
 mysql_close($link);

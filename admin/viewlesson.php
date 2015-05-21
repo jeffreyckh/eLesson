@@ -29,6 +29,7 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Lessons</title>
+    <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
@@ -74,7 +75,10 @@
 
     <div align = "right">
         Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp
-        <a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a>
+        <a id="addbutton" href="add_lessons2.php" class = " btn btn-default">
+            <img src="../img/addlessonicon_white.png">
+            Add New Lesson
+        </a>
         <!-- <a href="history_lesson.php" class = " btn btn-default">Lesson History Log</a> -->
     </div>
 

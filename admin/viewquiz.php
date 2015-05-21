@@ -34,6 +34,7 @@
   <meta name="keywords" content="announcement">
   <meta name="description" content="AdminHomePage">
   <title>Quiz</title>
+  <link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
@@ -90,7 +91,11 @@
 
 
 
-        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp&nbsp<a class = "btn btn-default" href="add_quiz.php">Add Quiz</a>
+        <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>&nbsp&nbsp
+            <a id="addbutton" class = "btn btn-default" href="add_quiz.php">
+                <img src="../img/addquiz_white.png">
+                Add Quiz
+            </a>
         <hr>
         <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
         <thead>    
@@ -229,8 +234,7 @@
                     $resultid = mysql_result($completeQuery3,0);
                   }
 
-                  if(isset($resultid)){
-                    if($resultid != $courseid)
+                  if($resultid != $courseid)
                   {
 
                   if(mysql_num_rows($completeQuery2) == 0)
@@ -287,8 +291,6 @@
 
                 }
             }
-                  }
-                  
 
             }
         }
