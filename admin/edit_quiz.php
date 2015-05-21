@@ -155,7 +155,7 @@ function editquiz()
     
     // Check if submitted fields are different
     $modify_flag = false;
-    $query_select_check = "SELECT quizname, lessonid ,quiz_number FROM quiz WHERE quizid = '$qid'";
+    $query_select_check = "SELECT quizname, lessonid ,quiz_number,passingscore FROM quiz WHERE quizid = '$qid'";
     $check_select_result = mysql_query($query_select_check, $link);
         while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
             
