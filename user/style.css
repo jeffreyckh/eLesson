@@ -384,6 +384,7 @@ div#user-stat{
   border-color: #e7e7e7;
   padding: 10px;
   margin: 20px;
+  /*width: 800px;*/
 }
 
 p#complete-lesson, p#incomplete-lesson, p#complete-quiz{
@@ -404,4 +405,8 @@ h3#result-header>img{
   width: 50px;
   height: auto;
   margin-right: 10px;
+}
+
+a#submit-btn{
+  font-weight: normal;
 }

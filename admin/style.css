@@ -91,7 +91,8 @@ figure figcaption {
 }
 
 .table>thead>tr{
-  background-color: #6190c0;
+  /*background-color: #6190c0;*/
+  background-color: #50a1d3;
   /*background-color: #c06190;*/
   color: #ffffff;
 }
