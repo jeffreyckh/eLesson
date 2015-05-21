@@ -410,3 +410,7 @@ h3#result-header>img{
 a#submit-btn{
   font-weight: normal;
 }
+
+table#ques-review tr td, table#ques-review tr td{
+  background-color: #ffffff;
+}

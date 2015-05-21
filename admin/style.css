@@ -330,3 +330,8 @@ td#hist-action>a>img{
   margin-left: 2px;
   margin-right: 2px;
 }
+
+div#lessonDetail{
+  max-width: 1200px;
+  margin: 0 auto;
+}

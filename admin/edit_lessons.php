@@ -94,7 +94,9 @@
 </head>
 <body>
 
+<center>
 Modify Lesson Details
+</center>
 <hr>
 <div id="test"></div>
 <?php
@@ -123,10 +125,10 @@ if(isset($_GET['action'])=='editlesson') {
 </tr>
 <tr>
     <td>
-        <input class="btn btn-default" type="submit" value="Change">
+        
         
     </td>
-    <td><input type="reset">
+    <td><input class="btn btn-default" type="submit" value="Change">&nbsp;<input class="btn btn-default" type="reset">
 
 </td></tr>
 
@@ -303,7 +305,10 @@ function update_lesson_history($lesson_id){
 ?>
 </table>
 <br>
+<center>
 <a href="courses_info.php?cid=<?php echo $m_directionid ?>">Return</a>
+</center>
+&nbsp;
 
 <?php
 mysql_close($link);

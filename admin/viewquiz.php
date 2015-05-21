@@ -233,7 +233,8 @@
                     $resultid = mysql_result($completeQuery3,0);
                   }
 
-                  if($resultid != $courseid)
+                  if(isset($resultid)){
+                    if($resultid != $courseid)
                   {
 
                   if(mysql_num_rows($completeQuery2) == 0)
@@ -290,6 +291,8 @@
 
                 }
             }
+                  }
+                  
 
             }
         }

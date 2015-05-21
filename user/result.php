@@ -115,10 +115,10 @@ session_start();
 
                           ?>
                            <hr>
-                            <table class="table table-striped table-bordered" width = "100%" cellspacing = "10">
+                            <table id="ques-review" class="table table-striped table-bordered" width = "100%" cellspacing = "10">
                               <tbody>
                               <tr>
-                              <table width = "100%">
+                              <table id="ques-review" width = "100%">
                                 <thead>
                                 <th width="5%">No. </th>
                                 <th width="95%"> Question</th>
@@ -131,7 +131,7 @@ session_start();
                             </tr>
                             <hr>
                             <tr>
-                              <table width = "100%">
+                              <table id="ans-review" width = "100%">
                                 <tr><td align = "center" width="50%">Your Choice : </td>
                                 <td align = "center" width="50%">Correct Answer : </td></tr>
                                 <tr><td align = "center" width="50%"><b><?php echo $userans2[$i]?></b></td>
