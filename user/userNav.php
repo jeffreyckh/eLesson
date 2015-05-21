@@ -150,19 +150,6 @@ $('body').on('click', function (e) {
             <!-- Announcement -->
           </a>
         </li>
-         <li <?=echoActiveClassIfRequestMatches("manageAccount")?>>
-          <a class="nav-tooltip" href="manageAccount.php" title="Account">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
-            }
-            ?>
-            <!-- Account -->
-          </a>
-        </li>
         <li <?=echoActiveClassIfRequestMatches("feedback")?>>
           <a class="nav-tooltip" href="feedback.php" title="Feedback">
             <?php
@@ -174,6 +161,19 @@ $('body').on('click', function (e) {
             }
             ?>
             <!-- Feedback -->
+          </a>
+        </li>
+         <li <?=echoActiveClassIfRequestMatches("manageAccount")?>>
+          <a class="nav-tooltip" href="manageAccount.php" title="Account">
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
+            }
+            ?>
+            <!-- Account -->
           </a>
         </li>
           </ul>

@@ -176,20 +176,7 @@
             <!-- Announcement -->
           </a>
         </li>
-         <li <?=echoActiveClassIfRequestMatches("manageAccount")?>>
-          <a class="nav-tooltip" href="../user/manageAccount.php" title="Account">
-            <?php
-            if($active_state==true){
-              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
-              $active_state = false;
-            }else{
-              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
-            }
-            ?>
-            <!-- Account -->
-          </a>
-        </li>
-        <li <?=echoActiveClassIfRequestMatches("viewfeedback")?>>
+        <li <?=echoActiveClassIfRequestMatches("feedback")?>>
           <a class="nav-tooltip" href="../user/feedback.php" title="Feed Back">
             <!-- FeedBack -->
             <?php
@@ -198,6 +185,19 @@
               $active_state = false;
             }else{
               echo '<img id="home_icon" src="../img/feedbackicon2.png">';
+            }
+            ?>
+            <!-- Account -->
+          </a>
+        </li>
+         <li <?=echoActiveClassIfRequestMatches("manageAccount")?>>
+          <a class="nav-tooltip" href="../user/manageAccount.php" title="Account">
+            <?php
+            if($active_state==true){
+              echo '<img id="home_icon" src="../img/usericon_white_600x600.png">';
+              $active_state = false;
+            }else{
+              echo '<img id="home_icon" src="../img/usericon2_600x600.png">';
             }
             ?>
             <!-- Account -->
