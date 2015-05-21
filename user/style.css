@@ -311,4 +311,108 @@ span#n_indicator{
   bottom: 10px;
   right: 5px;
   direction: rtl;
+
+}
+
+/*#home_button{
+  height: 100%;
+  width: auto;
+}*/
+
+#home_icon{
+  height: 35px;
+  width: auto;
+  float: left;
+  /*margin-bottom: 1.1em;*/
+}
+
+ul.nav.navbar-nav{
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a:hover{
+  background-color: #ffffff;
+}
+
+ul.nav.navbar-nav>li.active>a{
+  background-color: #5cb85c;
+}
+
+ul.nav.navbar-nav>li.active>a:hover{
+  background-color: #5cb85c;
+}
+
+.navbar-nav>li>a{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+a.navbar-brand{
+  display: inline-block;
+  padding: 10px 15px;
+}
+/*a:hover{
+  height: 45px;
+}*/
+
+a#submit-btn{
+  background-color: #5cb85c;
+  border-color: #ffffff;
+}
+
+a#submit-btn:hover{
+  background-color: #3d8b3d;
+  border-color: #ffffff;
+}
+
+a#submit-btn>img{
+  width: 28px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+div#user-stat{
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: #e7e7e7;
+  padding: 10px;
+  margin: 20px;
+  /*width: 800px;*/
+}
+
+p#complete-lesson, p#incomplete-lesson, p#complete-quiz{
+  margin-bottom: -20px;
+}
+
+p#complete-lesson>img, p#incomplete-lesson>img, p#complete-quiz>img{
+  width: 40px;
+  height: auto;
+  margin-right: 5px;
+}
+
+table.calendar.small{
+  margin-top: 20px;
+}
+
+h3#result-header>img{
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+a#submit-btn{
+  font-weight: normal;
+
+}
+
+table#ques-review tr td, table#ques-review tr td{
+  background-color: #ffffff;
+
 }

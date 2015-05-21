@@ -20,6 +20,7 @@ $register = new RegistrationView();
         <!-- Your styles -->
         <link rel="stylesheet" href="jscss/default.css" type="text/css" media="screen" />
         <link rel="stylesheet" type="text/css" href="jscss/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="inc/1style.css">
         
         <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
         <script type="text/javascript" src="js/css3-mediaqueries.js"></script>

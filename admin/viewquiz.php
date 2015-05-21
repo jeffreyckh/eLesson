@@ -228,8 +228,10 @@
 
                     $resultid = mysql_result($completeQuery3,0);
                   }
+
                   if(isset($resultid) && isset($courseid))
                   {
+
                     if($resultid != $courseid)
                   {
 
@@ -287,6 +289,8 @@
 
                 }
             }
+                  
+                  
 
                   }
                   
