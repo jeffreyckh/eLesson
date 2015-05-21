@@ -14,6 +14,7 @@ include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
 $u_id=intval($_GET['uid']);
+$urank = $_SESSION['rank'];
 $query="select * from user where userid = $u_id";
 $result=mysql_query($query);
 $t = date("Y-m-d H:i:s");
@@ -52,9 +53,92 @@ while($a_rows=mysql_fetch_object($result))
     <li><a href="manageAccount.php">Manage Account</a></li>
     <li class="active">View Account Detail</li>
     </ol>
-    <div align="right">
+<?php
+if($urank == 1)
+{
+  ?>
+  <div id="lesson_container">
+      <div class = "col-md-4">
+      </div>
+        
+          <form action="" method="post">
+        <table id="change-pass" class="change-pwd">
+        <tr><td>Current Password :</td> <td><input type="password" name="cpassword"></td></tr>
+        <tr><td>New Password :</td> <td><input type="password" name="npassword"></td></tr>
+        <tr></tr>
+        <tr><td>Re-type Password :</td> <td><input type="password" name="rpassword"></td></tr>
+        </table>
+        <br>
+        <div align = "center" ><input  class="btn btn-default" name="submit" type="submit" value="Change">
+          &nbsp&nbsp
+          <input  class="btn btn-default" type="reset">
+        </div>
+      
+      <?php
+      if(isset($_POST['submit']))
+      {
+        $validquery = "SELECT password FROM user WHERE userid = $uid";
+        $validresult = mysql_query($validquery) or die (mysql_error());
+        $password = mysql_result($validresult,0);
+        $input_cpass = $_POST['cpassword'];
+        if ($input_cpass != "")
+        {
+          $curr_pass = MD5($input_cpass);
+          if($curr_pass == $password)
+          {
+            $npassword = $_POST['npassword'];
+            $rpassword = $_POST['rpassword'];
+            if(!empty($npassword))
+              {
+                if(!empty($rpassword))
+                  {
+                    if (strlen($npassword) >= 6 && strlen($npassword) <=13 )
+                      {
+                        if ($npassword == $rpassword)
+                        {
+                          $newpassword = md5($npassword);
+                          $uquery = "UPDATE user SET password = '$newpassword' WHERE userid = $uid";
+                          $uresult = mysql_query($uquery) or die(mysql_error());
+                          echo "<script type='text/javascript'>alert('Password changed successfully!')</script>";
+                        }
+                        else
+                        {
+                          echo "Password enetered is not same";
+                        }
+                      }
+                      else
+                      {
+                        echo "The password must be 6 to 13 characters!";
+                      }
+                  }
+                  else
+                  {
+                    echo "Re-type Password can not be empty!";
+                  }
+              }
+              else
+              {
+                echo "New Password is empty";
+              }
+          }
+          else
+          {
+            echo "You have entered wrong password";
+          }
+        }
+        else
+        {
+          echo "Current password can not be empty!";
+        }
+      }
+      ?>
     </form>
-  </div>
+     </div>
+    <?php
+}
+else
+{
+?>
   View Account Detail
   <hr>
   Username : <?php echo $uname; ?>
@@ -147,6 +231,7 @@ while($a_rows=mysql_fetch_object($result))
             ?>
             </tbody> 
     </table>
+    <?php }?>
 <script>
 $(document).ready(function(){
     $('#user').DataTable(
