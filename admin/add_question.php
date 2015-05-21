@@ -258,9 +258,11 @@ value="checkbox">Multiple Choice</td></tr>
     $c_name = $c_explode[1];
 
     $add_answer=$_POST['quesans'];
+    $add_answer2 = $_POST['quesans'];
     $add_answer = str_replace("/","/",$add_answer);
       $add_answer = str_replace("<","&lt",$add_answer);
         $add_answer = str_replace(">","&gt",$add_answer);
+
 
     // $add_option=$_POST['option'];
     // $add_option = str_replace("/","/",$add_option);
@@ -269,7 +271,7 @@ value="checkbox">Multiple Choice</td></tr>
 
     $add_option = "";
     $p_new      = $_POST['p_new'];
-    array_unshift($p_new, $add_answer);
+    array_unshift($p_new, $add_answer2);
     $size_p     = sizeof($p_new) - 1;
 
     for($i=0; $i<sizeof($p_new); $i++){
