@@ -140,7 +140,16 @@ $(document).ready(function(){
             $PRresult = mysql_query("SELECT result FROM passingrate WHERE quizid = $QSrows->quizid AND userid = $QSrows->userid") or die(mysql_error());
             $username = mysql_result($UNresult2,0);
             $quizname = mysql_result($QNresult,0);
+            
+            if(mysql_num_rows($PRresult) != 0)
+            {
             $quizresult = mysql_result($PRresult,0);
+            }
+            else
+            {
+              $quizresult = 0;
+            }
+
             $lessonname = mysql_result($LNresult2,0);
 
         ?>
