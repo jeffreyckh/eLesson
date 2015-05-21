@@ -60,18 +60,38 @@ if(isset($_GET['action'])=='editquiz') {
 }else
 //show form
 ?>
+
+
 <form action="?action=editquiz" method="post">
 <input type="hidden" name="qid" value="<?php echo $m_id ?>">
 <table class="table table-bordered">
+
+
+
 <tr>
     <td>Quiz Name:</td><td><input type="text" name="qname" value="<?php echo $m_quizname ?>"></td></tr>
 
    <td>Lesson:</td>
     <td><select name="select">
-     <?php $query2="select * from lesson order by direction_id";
+     <?php 
+
+  if($urank == 2)
+            {
+                $select_perm = "SELECT * FROM permission WHERE userid = $uid";
+                $permresult = mysql_query($select_perm);
+                while($permrows = mysql_fetch_object($permresult))
+                {
+                   $query2 = "SELECT * from lesson where direction_id = $permrows->courseid";
+                }
+            }
+     else       
+
+    { $query2="select * from lesson order by direction_id"; }
                 $result2=mysql_query($query2,$link);
                 while($b_rows=mysql_fetch_object($result2))
                 {
+
+
                     if($b_rows->lessonid == $m_lessonid)
 
                     {
