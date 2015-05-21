@@ -239,6 +239,10 @@ button#popover:hover, button#signout-btn:hover{
   background-color: #bf2120;
 }
 
+button#popover{
+  width: 42px;
+}
+
 div#addinput>a>button.btn.btn-default{
   background-color: #5cb85c;
   margin-bottom: 5px;
@@ -334,4 +338,21 @@ td#hist-action>a>img{
 div#lessonDetail{
   width: 1200px;
   margin: 0 auto;
+}
+
+span#n_indicator{
+  background-color: #ffffff;
+  color: #e14b4a;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 7px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  position: relative;
+  bottom: 10px;
+  right: 5px;
+  direction: rtl;
+
 }

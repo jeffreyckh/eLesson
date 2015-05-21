@@ -212,6 +212,7 @@
         $uid = $_SESSION['userid'];
         $nquery = "SELECT * FROM notification WHERE receiver_id = 0 AND readnotification = 0";
         $nresult = mysql_query($nquery);
+        $ncount = mysql_num_rows($nresult);
         ?>
         <button
           type="button" id = "popover" class="btn btn-default navbar-btn" data-trigger="click" rel="popover" data-html = "true" data-placement="bottom" data-toggle="popover" title="Notification" data-content=
@@ -234,6 +235,18 @@
             }else{
               // echo '<img id="home_icon" src="../img/notificationicon.png">';
               echo '<img id="home_icon" src="../img/notificationicon_white.png">';
+            }
+
+            if($ncount>0){
+              if($ncount>99){
+                ?>
+                <span id="n_indicator" class="n_indicator"><?php echo "+99"; ?></span>
+                <?php
+              }else{
+              ?>
+              <span id="n_indicator" class="n_indicator"><?php echo $ncount ?></span>
+              <?php
+              }
             }
             ?>
       </button>
