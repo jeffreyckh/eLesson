@@ -60,7 +60,7 @@
                     die("Unable to store the reply into database.".mysql_error());
                 }
                 echo '<script> alert("Reply was sent!") </script>';
-                echo '<script language="JavaScript"> window.location.href ="feedbackdetail.php?fbid=<?php echo $fbid ?>&fbtitle=<?php echo $fbtitle ?>" </script>'; 
+                echo '<script language="JavaScript"> window.location.href ="feedbackdetail.php?fbid='.$fbid.'&fbtitle='.$fbtitle.'" </script>'; 
             }
         ?>
     </form>
