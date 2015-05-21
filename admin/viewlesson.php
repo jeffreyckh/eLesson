@@ -74,7 +74,10 @@
 
     <div align = "right">
         Total Courses:<font color="red"><?php echo $count; ?></font>&nbsp
-        <a href="add_lessons2.php" class = " btn btn-default">Add New Lesson</a>
+        <a id="addbutton" href="add_lessons2.php" class = " btn btn-default">
+            <img src="../img/addlessonicon_white.png">
+            Add New Lesson
+        </a>
         <!-- <a href="history_lesson.php" class = " btn btn-default">Lesson History Log</a> -->
     </div>
 

@@ -237,3 +237,95 @@ button#popover, button#signout-btn{
 button#popover:hover, button#signout-btn:hover{
   background-color: #bf2120;
 }
+
+div#addinput>a>button.btn.btn-default{
+  background-color: #5cb85c;
+  margin-bottom: 5px;
+
+}
+
+div#extra{
+  margin-bottom: 10px;
+}
+
+div#extra>input{
+  vertical-align: middle;
+
+}
+
+div#extra>a>button.btn.btn-default{
+ margin-left: 5px; 
+ vertical-align: middle;
+}
+
+div#addinput>a>button.btn.btn-default>img, div#extra>a>button.btn.btn-default>img{
+  width: 14px;
+  height: auto;
+}
+
+a#addbutton{
+  background-color: #5cb85c;
+  border-color: #ffffff;
+}
+
+a#addbutton:hover{
+  background-color: #3d8b3d;
+  border-color: #ffffff;
+}
+
+a#addbutton>img{
+  width: 28px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/*#home_button{
+  height: 100%;
+  width: auto;
+}*/
+
+#home_icon{
+  height: 35px;
+  width: auto;
+  float: left;
+  /*margin-bottom: 1.1em;*/
+}
+
+ul.nav.navbar-nav{
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a:hover{
+  background-color: #ffffff;
+}
+
+ul.nav.navbar-nav>li.active>a{
+  background-color: #5cb85c;
+}
+
+ul.nav.navbar-nav>li.active>a:hover{
+  background-color: #5cb85c;
+}
+
+.navbar-nav>li>a{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+a.navbar-brand{
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+td#hist-action>a>img{
+  height: 25px;
+  width: auto;
+  margin-left: 2px;
+  margin-right: 2px;
+}

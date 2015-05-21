@@ -107,7 +107,7 @@ if ($urank == 3)
     </form> -->
     <table id="lesson_hist" class="table table-striped table-bordered" cellspacing="0">
       <thead>
-        <th align="left">Latest Activity Time</th>
+        <th align="left">Date/Time Modified</th>
         <th align="left">Lesson Name</th>
         <th align="left">User</th>
         <th align="left">Action</th>
@@ -128,9 +128,15 @@ if ($urank == 3)
           </td>
           <td><?php echo $row->lessonname; ?></td>
           <td><?php echo $row->latest_user; ?></td>
-          <td>
-            <a href="lesson_oldinfo.php?l_hid=<?php echo $row->lesson_hist_id ?>">View</a>
-            <a href="revert_lesson.php?l_hid=<?php echo $row->lesson_hist_id ?>">Revert</a>
+          <td id="hist-action">
+            <a href="lesson_oldinfo.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="View Lesson Version">
+              <img src="../img/viewicon_blue.png">
+              <!-- View -->
+            </a>
+            <a href="revert_lesson.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="Revert Lesson">
+              <img src="../img/reverticon_blue.png">
+              <!-- Revert -->
+            </a>
           </td>
         </tr>
       <?php

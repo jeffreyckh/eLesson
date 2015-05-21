@@ -61,7 +61,15 @@
         
     ?>
 
-    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">Add Question</a>&nbsp<a class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">Select Question</a>
+    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp
+        <a id="addbutton" class = " btn btn-default" href="add_question_2.php?qid=<?php echo $qid ?>">
+            <img src="../img/addquestion_white.png">
+            Add Question
+        </a>&nbsp
+        <a id="addbutton" class = " btn btn-default" href="select_question.php?qid=<?php echo $qid ?>">
+            <img src="../img/selectquestion_white.png">
+            Select Question
+        </a>
     <hr>
 
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >

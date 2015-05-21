@@ -98,8 +98,8 @@ $result = mysql_query($query,$link);
         var i = $('#addinput #extra').size() + 1;
         $('#addNew').on('click', function() {
           $('<div id="extra"><input type="text" id="p_new" size="20" name="p_new[]' + 
-          '" value="" placeholder="Add answer option here" /><a href="#" id="remNew"><button type="button">' + 
-          'Remove</button></a></div>').appendTo(addDiv);
+          '" value="" placeholder="Add answer option here" /><a href="#" id="remNew"><button type="button" class="btn btn-default" title="Remove an option">' + 
+          '<img src="../img/minusicon_white.png"></button></a></div>').appendTo(addDiv);
         i++;
           return false;
         });
@@ -189,7 +189,10 @@ value="checkbox">Multiple Choice</td></tr>
 <td>
   <div id="addinput">
     <a href="#" id="addNew">
-      <button type="button">Add</button>
+      <button type="button" class="btn btn-default" title="Add Option">
+        <img src="../img/addicon_white.png">
+        <!-- Add -->
+      </button>
     </a>
   </div>
 </td>

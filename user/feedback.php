@@ -32,7 +32,12 @@
     <li><a href="userHome.php">Home</a></li>
     <li class="active">Feedback</li>
     </ol>
-    <div align = "right"><a href="feedbackform.php" class = " btn btn-default">Submit Feedback</a></div>
+    <div align = "right">
+        <a id="submit-btn" href="feedbackform.php" class = " btn btn-default">
+            <img src="../img/submitfeedback_white.png">
+            Submit Feedback
+        </a>
+    </div>
     <hr>
     <div align = "center">
 

@@ -68,7 +68,8 @@ if(isset($_GET['action'])=='addcourse') {
   <td>Course Name:</td><td><input type="text" name="cname"></td>
 </tr>
 <tr>
-  <td>Course Description</td><td><input type="text" name="cdesc"></td>
+  <!-- <td>Course Description</td><td><input type="text" name="cdesc"></td> -->
+  <td>Course Description</td><td><textarea name="cdesc" cols="100" rows="10"></textarea></td>
 </tr>
 </table>
 <div align = "center" ><input  class="btn btn-default" type="submit" value="Add">&nbsp&nbsp<input  class="btn btn-default" type="reset"></div>
