@@ -42,7 +42,8 @@
         <div align = "right">Total Quiz:<font color="red"><?php echo $count; ?></font>
         <hr>
         <table id="quiz" class="table table-striped table-bordered" cellspacing="0" >
-        <thead>    
+        <thead>
+        <th align="left">Quiz ID</th>    
         <th align="left">Quiz Name</th>
         <th align="left">Created</th>
         <th align="left">Lesson</th>
@@ -96,6 +97,7 @@
                 {
         ?>
                 <tr>
+                <td align="left" width="100"><?php echo $a_rows->quizid ?></a></td>
                 <td align="left" width="100"><a href="questions.php?qid=<?php echo $a_rows->quizid ?>"><?php echo $a_rows->quizname ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 <td align="left" width="100"><?php echo $lessonname ?></td>
@@ -149,6 +151,13 @@
     $(document).ready(function(){
     $('#quiz').DataTable(
         {  
+            "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+
+            }],
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
     });

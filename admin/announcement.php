@@ -53,6 +53,7 @@ $announcement = new announcementView();
     <hr>
       <table id = "announcement" class="table table-striped table-bordered" cellspacing="0">
         <thead>
+            <th align="right">No</th>
             <th align="right">Announcement</th>
             <th align="right">Posted On</th>
             <th align="right">Action</th>
@@ -65,6 +66,8 @@ $announcement = new announcementView();
                 {
             ?>
                     <tr>
+
+                    <td align="left" width="5%"><?php echo $a_rows->taskid ?></a></td>
                     <td align="left" width="50%"><?php echo $a_rows->taskname ?></a></td>
                     <td align="left" width="25%"><?php echo $a_rows->taskdate ?></td>
                     <td align="left" width="10%">
@@ -88,6 +91,14 @@ $announcement = new announcementView();
 $(document).ready(function(){
     $('#announcement').DataTable(
         { 
+            "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+
+            }],
+
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });

@@ -55,6 +55,7 @@
 
         <table id="course" class="table table-striped table-bordered" cellspacing="0" >
         <thead>
+        <th align="left">Course ID</th>
         <th align="left">Course Name</th>
         <th align="left">Created</th>
         </thead>
@@ -66,6 +67,7 @@
             {
         ?>
                 <tr>
+                <td align="left" width="15%"><?php echo $a_rows->courseid ?></a></td>
                 <td align="left" width="100"><a href="courses_info.php?cid=<?php echo $a_rows->courseid ?>"><?php echo $a_rows->coursename ?></a></td>
                 <td align="left" width="100"><?php echo $a_rows->created ?></td>
                 </tr> 
@@ -82,7 +84,13 @@
 $(document).ready(function(){
     $('#course').DataTable(
         {
-            
+            "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+
+            }],
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });

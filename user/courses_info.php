@@ -178,6 +178,13 @@ $('#myTab a').click(function (e) {
 $(document).ready(function(){
     $('#lesson').DataTable(
         { 
+            "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+
+            }], 
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
 });
