@@ -42,10 +42,13 @@ $announcement = new announcementView();
 <body>
 <div class = "col-md-6">
   
-    <div class = "row">
+    <div id="user-stat" class = "row">
       
         <table id = "incomplete" width = "100%" class="table table-striped table-bordered" cellspacing="0">
-          <p><b>Incomplete Lesson</b></p>
+          <p id="incomplete-lesson">
+          <img src="../img/incompletelessonicon2.png">
+            <b>Incomplete Lesson</b>
+          </p>
         <thead>
             <th width = "30%" align="right">Course</th>
             <th align="right">Lesson</th>
@@ -83,9 +86,12 @@ $announcement = new announcementView();
     </table>
     </div>
 <!-- complete lesson !-->
-  <div class = "row">
+  <div id="user-stat" class = "row">
       <table id = "Complete" class="table table-striped table-bordered" cellspacing="0">
-        <p><b>Complete Lesson</b></p>
+        <p id="complete-lesson">
+          <img src="../img/completelessonicon2.png">
+          <b>Complete Lesson</b>
+        </p>
         <thead>
             <th width = "30%" align="right">Course</th>
             <th align="right">Lesson</th>
@@ -124,10 +130,13 @@ $announcement = new announcementView();
   </div>
 
 
- <div class = "row">
+ <div id="user-stat" class = "row">
       
         <table id = "CompleteQuiz" class="table table-striped table-bordered" cellspacing="0">
-          <p><b>Completed Quiz</b></p>
+          <p id="complete-quiz">
+            <img src="../img/completequizicon1.png">
+            <b>Completed Quiz</b>
+          </p>
         <thead>
             <th align="right">Course</th>
             <th align="right">Lesson</th>
