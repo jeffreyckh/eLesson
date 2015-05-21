@@ -67,11 +67,7 @@
         
     ?>
 
-    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp
-        <a id="addbutton" class = " btn btn-default" href="add_question.php">
-            <img src="../img/addquestion_white.png">
-            Add Question
-        </a>
+    <div align = "right">Total Questions:<font color="red"><?php echo $count; ?></font>&nbsp<a class = " btn btn-default" href="add_question.php">Add Question</a>
     <hr>
         <table id="question" class="table table-striped table-bordered" cellspacing="0" >
         <thead>

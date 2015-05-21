@@ -97,8 +97,7 @@ figure figcaption {
 }
 
 thead>tr{
-  /*background-color: #6190c0;*/
-  background-color: #50a1d3;
+  background-color: #6190c0;
   color: #ffffff;
 }
 
@@ -312,6 +311,7 @@ span#n_indicator{
   bottom: 10px;
   right: 5px;
   direction: rtl;
+
 }
 
 /*#home_button{
@@ -409,8 +409,10 @@ h3#result-header>img{
 
 a#submit-btn{
   font-weight: normal;
+
 }
 
 table#ques-review tr td, table#ques-review tr td{
   background-color: #ffffff;
+
 }
