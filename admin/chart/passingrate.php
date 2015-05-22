@@ -81,18 +81,8 @@ include'../../inc/db_config.php';
 
   </script>
   <body>
-	    <?php
-      if ($numofpass != 0 && $numoffail != 0)
-      {
-    ?>
+
          <div id="piechart" style="width: 900px; height: 600px;" align="center"></div>
-    <?php
-      }
-      else
-      {
-        echo "No Data Available";
-      }
-    
     ?>
 
 </body>
