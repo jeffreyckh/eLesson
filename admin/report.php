@@ -78,7 +78,7 @@ $(document).ready(function(){
       	<table id = "LessonStatus" class="table table-striped table-bordered" cellspacing="0">
           <h4><b>Lesson Status</b></h4>
         <thead>
-            <th align="right">User</th>
+            <th align="right" border=1>User</th>
             <th align="right">Lesson Name</th>
             <th align="right">Start Time</th>
             <th align="right">Complete Time</th>
@@ -97,7 +97,7 @@ $(document).ready(function(){
 
         ?>
                  <tr>
-                    <td align="left"><?php echo $username ?></a></td>
+                    <td align="left" border='1111'><?php echo $username ?></a></td>
                     <td align="left"><?php echo $lessonname ?></a></td>
                     <td align="left"><?php echo $CLrows->start_time ?></a></td>
                     <td align="left"><?php echo $CLrows->end_time ?></a></td>

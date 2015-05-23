@@ -139,6 +139,7 @@ if($scorercount <11)
     
     <link rel="stylesheet" href="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
     <script type="text/javascript" src="../jscss/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+     
      <script type="text/javascript"> 
    $(function () {
    $('[data-toggle="popover"]').popover();
@@ -205,14 +206,14 @@ $('body').on('click', function (e) {
 <button type="button" class="btn btn-lg btn-danger"  
        data-html = "true" >
         <img class="scoreboard" src="../img/viewicon1.png">
-        Monthly Viewers <br> <?php echo $totalviewer ?>
+        <div class="title">Monthly Viewers </div><br> <?php echo $totalviewer ?>
       </button>
 <br>
 <button type="button" class="btn btn-lg btn-danger" 
       data-html = "true" data-toggle="popover" 
       title="Top 5 User" data-content="1:<?php echo $userstack[0]; ?> <br>2:<?php echo $userstack[2]; ?> <br>3:<?php echo $userstack[4]; ?><br>4:<?php echo $userstack[6]; ?><br>5:<?php echo $userstack[8]; ?>">
       <img class="scoreboard" src="../img/activeusericon2.png">
-      Most Active User <br> <?php echo $userstack[0]; ?> 
+      <div class="title">Most Active User </div><br> <?php echo $userstack[0]; ?> 
     </button>
 <br>
 </div>
@@ -222,14 +223,14 @@ $('body').on('click', function (e) {
         data-html = "true" data-toggle="popover" 
         title="Top 5 Admin" data-content="1:<?php echo $adminstack[0]; ?><br>2:<?php echo $adminstack[2]; ?><br>3:<?php echo $adminstack[4]; ?><br>4:<?php echo $adminstack[6]; ?><br>5:<?php echo $adminstack[8]; ?>">
         <img class="scoreboard" src="../img/activeadminicon1.png">
-        Most Active Admin <br>  <?php echo $adminstack[0]; ?>
+       <div class="title"> Most Active Admin </div><br>  <?php echo $adminstack[0]; ?>
       </button>
 <br>
 <button type="button" class="btn btn-lg btn-danger" 
         data-html = "true" data-toggle="popover" 
         title="Top 5 Course" data-content="1:<?php echo $coursemodstack[0]; ?><br>2:<?php echo $coursemodstack[2]; ?><br>3:<?php echo $coursemodstack[4]; ?><br>4:<?php echo $coursemodstack[6]; ?><br>5:<?php echo $coursemodstack[8]; ?>">
         <img class="scoreboard" src="../img/changecourseicon2.png">
-        Most Changed Course <br> <?php echo $coursemodstack[0]; ?>
+        <div class="title">Most Changed Course </div><br> <?php echo $coursemodstack[0]; ?>
       </button>
 </div>
 
@@ -238,14 +239,14 @@ $('body').on('click', function (e) {
         data-html = "true" data-toggle="popover" 
         title="Top 5 Viewed" data-content="1:<?php echo $coursestack[0]; ?><br>2:<?php echo $coursestack[2]; ?><br>3:<?php echo $coursestack[4]; ?><br>4:<?php echo $coursestack[6]; ?><br>5:<?php echo $coursestack[8]; ?>">
         <img class="scoreboard" src="../img/viewcourseicon2.png">
-        Most Viewed Course <br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views
+        <div class="title">Most Viewed Course </div><br> <?php echo $coursestack[0]; ?> <br> <?php echo $coursestack[1] ?> Views
       </button>
 <br>
 <button type="button" class="btn btn-lg btn-danger" 
         data-html = "true" data-toggle="popover" 
         title="Top 5 Scorer" data-content="1:<?php echo $scorerstack[0]; ?><br>2:<?php echo $scorerstack[2]; ?><br>3:<?php echo $scorerstack[4]; ?><br>4:<?php echo $scorerstack[6]; ?><br>5:<?php echo $scorerstack[8];?>">
         <img class="scoreboard" src="../img/scoremedalicon.png">
-        Top Scorer <br><?php echo $scorerstack[0]; ?><br>Average Score:<?php echo $scorerstack[1] ?>
+        <div class="title">Top Scorer </div><br><?php echo $scorerstack[0]; ?><br>Average Score:<?php echo $scorerstack[1] ?>
       </button>
 </div>
 </div>

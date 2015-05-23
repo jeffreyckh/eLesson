@@ -200,6 +200,11 @@ figure figcaption {
   font-size: 14px;
 }
 
+.row>button.btn.btn-lg.btn-danger>div.title{
+  font-weight: bold;
+  margin-bottom: -15px;
+}
+
 a.btn.btn-default:link{
   font-weight: normal;
 }
