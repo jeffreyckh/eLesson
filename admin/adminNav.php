@@ -39,7 +39,7 @@
     jQuery(document).ready(function($) { 
     $('[rel=popover]').popover().click(function(e) {
       e.preventDefault()
-      var uid = <?php echo $uid ?>;
+      var uid = <?php echo $_SESSION['userid'] ?>;
 
       $.ajax({
        type: "POST",
