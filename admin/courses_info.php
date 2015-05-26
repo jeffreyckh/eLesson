@@ -45,7 +45,6 @@
     <link rel="stylesheet" href="../jscss/tablesorter/css/theme.blue.css">
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../jscss/datatable/jquery.dataTables.min.css">
-
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -205,38 +204,40 @@ $('#myTab a').click(function (e) {
 })
 </script>
 <script>
-function toolTip(){
-        var jquery_1_11_4 = $.noConflict(true);
-        jquery_1_11_4(function(){
-          jquery_1_11_4( ".action-tooltip" ).tooltip({
-            show: {
-              effect: false
-            }
-          });
-        });
-    }
-    $(document).ready(function(){
-        $('#lesson').DataTable(
-            {   
-                "columnDefs": [
+var tool = $.noConflict(true);
+$(document).ready(function(){
+    $('#lesson').DataTable(
+        {
+            "fnDrawCallback": function()
+            {
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
+            "columnDefs": [
             {
                 "targets": [ 0 ],
                 "visible": false,
                 "searchable": false
 
-            }],
-                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
-            });
-        toolTip();
-        $('.next').click(function(){
-            toolTip();
+            }],   
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
-        $('.pagination').click(function(){
-            toolTip();
-        });
-    });
-
-    toolTip();
+});
 </script>
 </body>
 </html>

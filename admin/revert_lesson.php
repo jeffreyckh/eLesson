@@ -126,10 +126,16 @@
     </style>
 </head>
 <body>
-
-<center><h3>Revert Lesson Detail</h3></center>
+    <ol class="breadcrumb">
+    <li><a href="adminHome.php">Home</a></li>
+    <li><a href="viewlesson.php">Lessons</a></li>
+    <li><a href="lesson_history.php?lid=<?php echo $m_lessonid ?>">Lesson History</a></li>
+    <li class="active">Revert Lesson</li>
+    </ol>
+&nbsp;
+<center><b>Revert Lesson Detail</b></center>
 <hr>
-
+&nbsp;
 <?php
 if(isset($_GET['action'])=='editlesson') {
     editlesson();

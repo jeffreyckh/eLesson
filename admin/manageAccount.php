@@ -36,13 +36,14 @@ $tnow = date_create ("$t");
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+    <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
      <script type="text/javascript">
-     $(document).ready(function(){
-    $('#user').DataTable(
-        {     
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
-        });
-    });
+     
      </script>
 </head>
 <body>
@@ -126,15 +127,15 @@ $tnow = date_create ("$t");
                         ?>
                     </td>
                     <td class="accActions" align="left" width="10%">
-                        <a href="send_reminder.php?userid=<?php echo $a_rows->userid ?>" title="Send Reminder">
+                        <a class="action-tooltip" href="send_reminder.php?userid=<?php echo $a_rows->userid ?>" title="Send Reminder">
                             <img id="action-icon" src="../img/sendremindericon2_600x600.png">
                             <!-- Send -->
                         </a>
-                        <a href="edit_acc.php?userid=<?php echo $a_rows->userid ?>" title="Modify Account">
+                        <a class="action-tooltip" href="edit_acc.php?userid=<?php echo $a_rows->userid ?>" title="Modify Account">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">
                             <!-- Modify -->
                         </a>
-                        <a href="del_acc.php?userid=<?php echo $a_rows->userid ?>" title="Delete Account">
+                        <a class="action-tooltip" href="del_acc.php?userid=<?php echo $a_rows->userid ?>" title="Delete Account">
                             <img id="action-icon" src="../img/deleteicon2_600x600.png">
                             <!-- Delete -->
                         </a>
@@ -147,19 +148,48 @@ $tnow = date_create ("$t");
             </tbody> 
     </table>
 <script>
+var tool = $.noConflict(true);
 $(document).ready(function(){
     $('#user').DataTable(
-        { 
+        {
+            "fnDrawCallback": function()
+            {
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
+            "columnDefs": [
+            {
+                /*"targets": [ 0 ],
+                "visible": false,
+                "searchable": false*/
+
+            }],   
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
             stateSave: true,
             "aoColumns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "orderSequence": [ "asc" ] },
+                { "bSortable": false }
+                ]
         });
 });
 </script>

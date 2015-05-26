@@ -141,38 +141,40 @@
         </table>
     </center>
     <script>
-    function toolTip(){
-        var jquery_1_11_4 = $.noConflict(true);
-        jquery_1_11_4(function(){
-          jquery_1_11_4( ".action-tooltip" ).tooltip({
-            show: {
-              effect: false
-            }
-          });
-        });
-    }
-    $(document).ready(function(){
-        $('#lesson').DataTable(
-            { 
-                "columnDefs": [
+    var tool = $.noConflict(true);
+$(document).ready(function(){
+    $('#lesson').DataTable(
+        {
+            "fnDrawCallback": function()
             {
-                "targets": [ 0 ],
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
+            "columnDefs": [
+            {
+                /*"targets": [ 0 ],
                 "visible": false,
-                "searchable": false
+                "searchable": false*/
 
-            }],
-                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
-            });
-        toolTip();
-        $('.next').click(function(){
-            toolTip();
+            }],   
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
-        $('.pagination').click(function(){
-            toolTip();
-        });
-    });
-
-    toolTip();
+});
     </script>
     </body>
     </html>

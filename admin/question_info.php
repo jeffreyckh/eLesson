@@ -24,6 +24,7 @@
   <title>Home</title>
   <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -95,7 +96,7 @@
             </tr>
             </table>
         
-            
+            <center><a href="view_question.php?qid=<?php echo $qid ?>">Return</a></center>
         
 
         <?php

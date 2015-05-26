@@ -134,19 +134,30 @@
 
     </center>
 <script>
-function toolTip(){
-        var jquery_1_11_4 = $.noConflict(true);
-        jquery_1_11_4(function(){
-          jquery_1_11_4( ".action-tooltip" ).tooltip({
-            show: {
-              effect: false
-            }
-          });
-        });
-    }
+var tool = $.noConflict(true);
 $(document).ready(function(){
     $('#course').DataTable(
         {
+            "fnDrawCallback": function()
+            {
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
             "columnDefs": [
             {
                 "targets": [ 0 ],
@@ -156,15 +167,7 @@ $(document).ready(function(){
             }],   
             "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
         });
-    toolTip();
-        $('.next').click(function(){
-            toolTip();
-        });
-        $('.pagination').click(function(){
-            toolTip();
-        });
 });
-toolTip();
 /*$(document).ready(function(){
 $(function(){
 $("#course").tablesorter(

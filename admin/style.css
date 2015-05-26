@@ -365,3 +365,38 @@ span#n_indicator{
 #change-pass td{
   padding: 10px;
 }
+
+.tooltip.in{
+  opacity: 1;
+  
+  border-style: solid;
+}
+
+.tooltip.fade.top.in{
+  border-color: #50a1d3;
+}
+
+body>.ui-tooltip{
+  border-color: #c0c0c0;
+  background: #fff;
+  box-shadow: 0px 0px 7px #fff;
+}
+
+.arrow.bottom{
+  background: #000;
+}
+
+table#table_filter{
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+table#table_filter thead th{
+  padding: 5px;
+}
+
+table#table_filter tr td{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding: 5px;
+}

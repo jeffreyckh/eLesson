@@ -135,7 +135,7 @@
             <!-- Lesson -->
           </a>
         </li>
-        <li <?=echoActiveClassIfRequestMatches("quiz")?>>
+        <li <?=echoActiveClassIfRequestMatches("quiz") || echoActiveClassIfRequestMatches("view_question.php")?>>
           <a class="nav-tooltip" href="viewquiz.php" title="Quiz">
             <?php
             if($active_state==true){
@@ -148,7 +148,7 @@
             <!-- Quiz -->
           </a>
         </li>
-        <li <?=echoActiveClassIfRequestMatches("question")?>>
+        <li <?=echoActiveClassIfRequestMatches("questionlist")?>>
           <a class="nav-tooltip" href="view_questionlist.php" title="Question">
             <?php
             if($active_state==true){
@@ -174,7 +174,7 @@
             <!-- Announcement -->
           </a>
         </li>
-         <li <?=echoActiveClassIfRequestMatches("viewfeedback")?>>
+         <li <?=echoActiveClassIfRequestMatches("feedback")?>>
           <a class="nav-tooltip" href="viewfeedback.php" title="Feed Back">
             <!-- FeedBack -->
             <?php

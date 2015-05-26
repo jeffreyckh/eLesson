@@ -44,7 +44,12 @@
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>  
-</head>
+    <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
 </head>
 <body>
     <ol class="breadcrumb">
@@ -99,11 +104,11 @@
                 <!-- <td align="left" width="100"><a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Modify</a></td>
                 <td align="left" width="100"><a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">Delete</a></td> -->
                 <td align="left" width="100">
-                            <a href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                            <a class="action-tooltip" href="edit_question.php?quid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>" title="Modify Question">
                                 <img id="action-icon" src="../img/modifyicon2_600x600.png">
                                 <!-- Modify -->
                             </a>
-                            <a href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>">
+                            <a class="action-tooltip" href="del_ques.php?quesid=<?php echo $b_rows->questionid ?>&qid=<?php echo $qid ?>" title="Delete Question">
                                 <img id="action-icon" src="../img/deleteicon2_600x600.png">
                                 <!-- Delete -->
                             </a>
@@ -119,18 +124,48 @@
     </table>
     </center>
     <script>
+    var tool = $.noConflict(true);
     $(document).ready(function(){
-    $('#question').DataTable(
-        {     
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
-            stateSave: true,
-            "aoColumns": [
-            null,
-            null,
-            { "orderSequence": [ "asc" ] },
-            { "orderSequence": [ "asc" ] }
+        $('#question').DataTable(
+            {    
+                "fnDrawCallback": function()
+                {
+                    tool(function()
+                    {
+                      tool( ".action-tooltip" ).tooltip(
+                      {
+                        show: {
+                          effect: false
+                        },
+                        position: {
+                            my: "center top-25",
+                            at: "center top-20"
+                        },
+                        show: false,
+                        hide: 
+                            false
+                        
+                      });
+                    });
+                },
+                "columnDefs": [
+                {
+                    /*"targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false*/
+
+                }],   
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+                stateSave: true,
+                "aoColumns": [
+                    null,
+                    null,
+                    { "bSortable": false }
+                ]
+            });
         });
-    });
+
+
     </script>
     </body>
     </html>

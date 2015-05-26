@@ -34,6 +34,12 @@ $announcement = new announcementView();
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+     <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
 </head>
 <body>
   <!--breadcrumb-->
@@ -71,11 +77,11 @@ $announcement = new announcementView();
                     <td align="left" width="50%"><?php echo $a_rows->taskname ?></a></td>
                     <td align="left" width="25%"><?php echo $a_rows->taskdate ?></td>
                     <td align="left" width="10%">
-                        <a href="edit_announcement.php?taskid=<?php echo $a_rows->taskid ?>">
+                        <a class="action-tooltip" href="edit_announcement.php?taskid=<?php echo $a_rows->taskid ?>" title="Modify Announcement">
                             <img id="action-icon" src="../img/modifyicon2_600x600.png">
                             <!-- Modify -->
                         </a>
-                        <a href="del_announcement.php?taskid=<?php echo $a_rows->taskid ?>">
+                        <a class="action-tooltip" href="del_announcement.php?taskid=<?php echo $a_rows->taskid ?>" title="Delete Announcement">
                             <img id="action-icon" src="../img/deleteicon2_600x600.png">
                             <!-- Delete -->
                         </a>
@@ -88,20 +94,47 @@ $announcement = new announcementView();
             </tbody> 
     </table>
 <script>
-$(document).ready(function(){
-    $('#announcement').DataTable(
-        { 
-            "columnDefs": [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-                "searchable": false
+var tool = $.noConflict(true);
+    $(document).ready(function(){
+        $('#announcement').DataTable(
+            {    
+                "fnDrawCallback": function()
+                {
+                    tool(function()
+                    {
+                      tool( ".action-tooltip" ).tooltip(
+                      {
+                        show: {
+                          effect: false
+                        },
+                        position: {
+                            my: "center top-25",
+                            at: "center top-20"
+                        },
+                        show: false,
+                        hide: 
+                            false
+                        
+                      });
+                    });
+                },
+                "columnDefs": [
+                {
+                    "targets": [ 0 ],
+                    "visible": false,
+                    "searchable": false
 
-            }],
-
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+                }],   
+                "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+                stateSave: true,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    { "bSortable": false }
+                ]
+            });
         });
-});
 </script>
 </body>
 </html>

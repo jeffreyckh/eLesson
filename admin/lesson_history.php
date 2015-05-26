@@ -49,6 +49,12 @@ if ($urank == 3)
     <script src="../jscss/ckeditor/ckeditor.js"></script>
     <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
     <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+    <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
 </head>
 <body>
   <ol class="breadcrumb">
@@ -56,7 +62,10 @@ if ($urank == 3)
     <li><a href="viewlesson.php">Lessons</a></li>
     <li class="active">Lesson History</li>
     </ol>
-<h3>Lesson Revision History</h3>
+    &nbsp;
+<center><b>Lesson Revision History</b></center>
+<hr>
+&nbsp;
     <table id="table_filter" class="filter" width="800" border="0" cellpadding="30" cellspacing="10">
       <thead>
         <tr>
@@ -131,11 +140,11 @@ if ($urank == 3)
           <td><?php echo $row->lessonname; ?></td>
           <td><?php echo $row->latest_user; ?></td>
           <td id="hist-action">
-            <a href="lesson_oldinfo.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="View Lesson Version">
+            <a class="action-tooltip" href="lesson_oldinfo.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="View Lesson Version">
               <img src="../img/viewicon_blue.png">
               <!-- View -->
             </a>
-            <a href="revert_lesson.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="Revert Lesson">
+            <a class="action-tooltip" href="revert_lesson.php?l_hid=<?php echo $row->lesson_hist_id ?>" title="Revert Lesson">
               <img src="../img/reverticon_blue.png">
               <!-- Revert -->
             </a>
@@ -148,6 +157,7 @@ if ($urank == 3)
     <br><br>
     <a href="viewlesson.php" class = " btn btn-default">Return</a>
 <script>
+var tool = $.noConflict(true);
 $(document).ready(function(){
   function filterGlobal () {
       $('#lesson_hist').DataTable().search(
@@ -164,8 +174,30 @@ $(document).ready(function(){
           $('#col'+i+'_smart').prop('checked')
       ).draw();
   }
+
+
   $('#lesson_hist').DataTable(
       { 
+        "fnDrawCallback": function()
+            {
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
         "ordering":false,
         "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
       });

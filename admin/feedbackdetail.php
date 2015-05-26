@@ -23,6 +23,12 @@
     <script type="text/javascript" src="../jscss/dist/js/bootstrap.min.js"></script>
      <script src="../jscss/datatable/jquery.dataTables.min.js"></script> 
      <script src="../jscss/datatable/jquery.dataTables.bootstrap.js"></script>
+    <!-- jquery UI -->
+    <!-- Added on: 11-04-15 -->
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+    <script src="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../jqueryui/jquery-ui-1.11.4.custom/jquery-ui.css">
+    
 </head>
 <body>
     <ol class="breadcrumb">
@@ -83,10 +89,45 @@
           echo "</table>";
         ?>
         <script>
+var tool = $.noConflict(true);
 $(document).ready(function(){
     $('#feedback').DataTable(
-        { 
-            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">'
+        {
+            "fnDrawCallback": function()
+            {
+                tool(function()
+                {
+                  tool( ".action-tooltip" ).tooltip(
+                  {
+                    show: {
+                      effect: false
+                    },
+                    position: {
+                        my: "center top-25",
+                        at: "center top-20"
+                    },
+                    show: false,
+                    hide: 
+                        false
+                    
+                  });
+                });
+            },
+            "columnDefs": [
+            {
+                /*"targets": [ 0 ],
+                "visible": false,
+                "searchable": false*/
+
+            }],   
+            "dom": '<"left"l><"right"f>rt<"left"i><"right"p><"clear">',
+            "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    { "bSortable": false }
+                ]
         });
 });
 </script>

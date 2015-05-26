@@ -16,7 +16,8 @@ $register = new RegistrationView();
 	<!-- Your styles -->
 	<link rel="stylesheet" href="jscss/styles.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../jscss/default.css" type="text/css" media="screen" />
-	
+	<!-- <link rel="stylesheet" type="text/css" href="jscss/dist/css/bootstrap.min.css">  -->
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 </head>
 
 <div class="container">
