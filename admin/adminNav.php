@@ -8,7 +8,6 @@
   <meta name="keywords" content="Navbar">
   <meta name="description" content="Navbar">
   <link rel="stylesheet" type="text/css" href="../jscss/dist/css/bootstrap.min.css"> 
-    <!-- <link rel="stylesheet" type="text/css" href="nav_css.css"/>  -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../jscss/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

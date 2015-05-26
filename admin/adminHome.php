@@ -162,45 +162,6 @@ $('body').on('click', function (e) {
       <div  id="piechart" style="width: 900px; height: 500px;"></div>
   </div>
  <div class = "col-md-3">
-  <!--<div class = "row">
-   <br> <hr>
-  <?php
-  include "../inc/calender.php";
-  ?>
-  <br></br>
-    <div class = "row">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Announcement
-            </a>
-          </h4>
-        </div>
-      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-            <fieldset class = "setright">
-              <?php
-                  $query="select * from announcement order by taskid DESC limit 1";
-                  $result=mysql_query($query);
-                  while($a_rows=mysql_fetch_object($result))
-                  {
-                  echo "<fieldset>
-                     Posted On:".$a_rows->taskdate."
-                     <br></br>
-                     Annoucement:".$a_rows->taskname."
-                     </fieldset>";
-                    echo "<hr>";
-                  }
-              ?>      
-            </fieldset> 
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>!-->
 <div class = "row">
 <br>
 <button type="button" class="btn btn-lg btn-danger"  

@@ -17,9 +17,6 @@ if(isset($_GET['action'])=='addlesson') {
 include '../inc/header.php';
 include 'adminNav.php';
 $temp_id;
-//$query_count="select count(*) from lesson";
-//$result_count=mysql_query($query_count,$link);
-//$count=mysql_result($result_count,0) + 1;
 if(isset($_REQUEST['cid'])){
   $courseid = intval($_REQUEST['cid']);  
 }
@@ -56,9 +53,7 @@ $result = mysql_query($query,$link);
           return false;
         }else{
           var l_name = document.add_lesson_form.lname.value;
-          // alert("Checking..."+l_name);
           var state = checkLessonName(l_name);
-          /*alert("State: "+state);*/
           return false;
         }
 

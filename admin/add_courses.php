@@ -41,9 +41,7 @@ $count=mysql_result($result_count,0) + 1;
           return false;
         }else{
           var c_name = document.add_course_form.cname.value;
-          // alert("Checking..."+l_name);
           var state = checkCourseName(c_name);
-          /*alert("State: "+state);*/
           return false;
         }
 
@@ -56,13 +54,10 @@ $count=mysql_result($result_count,0) + 1;
           type: "POST",
           data: "c_name=" + c_name,
           success: function(data){
-            // alert(data);
             if(data == 1){
               $("#name_warning_msg").html("Course name is taken, choose another.");
-              // return false;
             }else{
               $("#name_warning_msg").html("Course name is free.");
-              // return true;
               document.getElementById("add_course_form").submit();
             }
           }

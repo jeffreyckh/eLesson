@@ -7,6 +7,8 @@ include'../inc/db_config.php';
 	{
 		$updatequery = "UPDATE notification SET readnotification = '1' WHERE receiver_id = 0"; 
 		$updateresult = mysql_query($updatequery) or die(mysql_error());
+		$updatequery2 = "UPDATE notification SET readnotification = '1' WHERE receiver_id = $uid"; 
+		$updateresult2 = mysql_query($updatequery2) or die(mysql_error());
 	}
 	else
 	{
