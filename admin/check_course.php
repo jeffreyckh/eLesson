@@ -24,6 +24,4 @@ while($row = mysql_fetch_object($result_query)){
 		echo json_encode(0);
 	}
 	
-	// echo $c_name;
-	// echo "<script> alertFunction(); </script>";
 ?>

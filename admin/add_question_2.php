@@ -200,14 +200,6 @@ else
 <td>
     <textarea name="quescont" id="quescont" rows="10" cols="80"></textarea>
 </td></tr>
-<!-- <td>Question Type:</td>
- <td><input type="radio" name="choicetype" checked = "checked"
-<?php if (isset($choicetype) && $choicetype=="radio") echo "checked";?>
-value="radio">Single Choice
-<input type="radio" name="choicetype"
-<?php if (isset($choicetype) && $choicetype=="checkbox") echo "checked";?>
-value="checkbox">Multiple Choice</td></tr>
--->
 
 <td>Correct Answer:</td><td><input type="text" id="quesans" name="quesans"></td></tr>
 <td>Option List:</td>
@@ -263,8 +255,7 @@ value="checkbox">Multiple Choice</td></tr>
     $add_questionid=intval($_POST['quesid']);
     $add_content=$_POST['quescont'];
     $add_content = htmlspecialchars($add_content);
-	//$add_type=$_POST['choicetype'];
-	//$date = date('Y-m-d H:i:s');
+
     if(isset($_SESSION['username'])){
       $create_user = $_SESSION['username'];
     }
@@ -285,10 +276,6 @@ value="checkbox">Multiple Choice</td></tr>
     
     $add_answer = str_replace(">","&gt",$add_answer);
 
-    // $add_option=$_POST['option'];
-    // $add_option = str_replace("/","/",$add_option);
-    // $add_option = str_replace("<","&lt",$add_option);
-    // $add_option = str_replace(">","&gt",$add_option);
 
     $add_option = "";
     $p_new      = $_POST['p_new'];
@@ -327,8 +314,7 @@ value="checkbox">Multiple Choice</td></tr>
              $add_option = str_replace("/","/",$add_option);
             $add_content = str_replace("<","&lt",$add_content);
             $add_content = str_replace(">","&gt",$add_content);
-            // $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name) 
-            //       values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name')";
+           
             $sql="INSERT into question(questionid,content,choicetype,answer,optionlist,difficulty,course_id,course_name,created_on,created_by) 
                   values('$add_questionid','$add_content','radio','$add_answer','$add_option','$add_difficulty','$c_id','$c_name','$create_time','$create_user')";
             if(!mysql_query($sql,$link)){
@@ -346,19 +332,6 @@ value="checkbox">Multiple Choice</td></tr>
                     $modify_user = $_SESSION['username'];
                     $last_inserted_id = mysql_insert_id();
 
-                    // Get direction_id to update modification information of the course
-                    // $query_select_question = "SELECT quizid FROM question WHERE questionid = '$add_quizid'";
-                    // $select_question_result = mysql_query($query_select_question, $link);
-
-                    // while($row = mysql_fetch_object($select_question_result)){
-                    //   $quiz_id = $row->quizid;
-                    // }
-
-                    // $query_update_quiz = "UPDATE quiz SET
-                    //                         modified_on = '$modify_time', modified_by = '$modify_user'
-                    //                         WHERE quizid = '$quiz_id'";
-
-                    // mysql_query($query_update_quiz, $link);
                     echo '<script> alert("Add Question Successful!") </script>';
                     echo '<script language="JavaScript"> window.location.href ="view_question.php?qid= '. $add_quizid . '" </script>';}
             }

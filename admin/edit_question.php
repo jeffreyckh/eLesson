@@ -196,8 +196,6 @@ function editquestion()
         $p_new[$i] = $edit_answer;
       }
 
-      // $p_new[$i] = str_replace("<","&lt",$p_new[$i]);
-      // $p_new[$i] = str_replace(">","&gt",$p_new[$i]);
       $p_new[$i] = htmlspecialchars($p_new[$i]);
       
       $edit_option .= $p_new[$i];
@@ -226,13 +224,6 @@ function editquestion()
     if($flag==false)
     {
 
-            
-            //   $edit_answer = str_replace("/","/",$edit_answer);
-            //  $edit_answer = str_replace("<","&lt",$edit_answer);
-            // $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
-            //  $edit_optionlist = str_replace("/","/",$edit_optionlist);
-            // $edit_content = str_replace("<","&lt",$edit_content);
-            // $edit_content = str_replace(">","&gt",$edit_content);
             $edit_answer  = htmlspecialchars($edit_answer);
             $edit_option  = htmlspecialchars($edit_option);
             $edit_content = htmlspecialchars($edit_content);

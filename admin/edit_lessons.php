@@ -172,17 +172,14 @@ function editlesson()
     $check_result=mysql_query($query_check,$link);
         while($result_rows=mysql_fetch_object($check_result))
         {
-            // echo $result_rows->lessonname."<br>";
+
             if(strcmp($edit_name, $result_rows->lessonname) == 0){
                 
                 $flag = true;
                 echo $flag;
 
             }
-            // if(strcmp($edit_name,$result_rows->lessonname)!=0 && $edit_name != $result_rows->lessonname)
-            // $flag=false;
-            // else
-            // $flag=true;
+
         }
 
     // Check if submitted fields are different
@@ -194,9 +191,6 @@ function editlesson()
         if(strcmp($edit_name, $result_rows["lessonname"])==0 && strcmp($edit_content, $result_rows["lessoncontent"])==0){
             $modify_flag = true;
         }
-        // if(strcmp($edit_content, $result_rows["lessoncontent"])==0){
-        //     $modify_flag = true;
-        // }
 
     }
     $editedcontent = addslashes($edit_content);
@@ -232,7 +226,6 @@ function editlesson()
                             lessonname = '$edit_name', lessoncontent = '$editedcontent'
                             WHERE lessonid = '$m_id'";
         }
-            // $sql="update lesson set lessonname='$edit_name',lessoncontent='$edit_content' where lessonid=$m_id";
             
             if(!mysql_query($query_update, $link))
              die("Could not update the data!".mysql_error());

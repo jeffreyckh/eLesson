@@ -154,20 +154,6 @@ else
 <tr>
     <td>Lesson:</td>
     <td>
-        <!-- <select name="select">
-         <?php $query2="select * from lesson order by direction_id";
-                    $result2=mysql_query($query2,$link);
-                    while($b_rows=mysql_fetch_object($result2))
-                    {
-        ?>         
-        <option value="<?php echo $b_rows->lessonid ?>" selected><?php echo $b_rows->lessonname ?></option>
-        <?php
-        }
-        ?>
-        </select> -->
-        <!-- <select name = "sel_lesson" id = "sel_lesson" value="<?php echo $sel_lesson; ?>">
-            <option value='' disabled selected> --- Select a Lesson --- </option>
-        </select> -->
         <select name = "sel_lesson" id = "sel_lesson">
             
         </select>
@@ -222,17 +208,7 @@ else
     $flag=true;
     $check="select * from quiz";
     $check_result=mysql_query($check,$link);
-        /*while($result_rows=mysql_fetch_object($check_result))
-        {
-            if(strcmp($add_quizid,$result_rows->quizid)!=0 && $result_rows->quizid!=$add_quizid && $result_rows->quizname != $add_quizname)
-            $flag=false;
-            else
-            $flag=true;
-        }
-    
-    if($flag==false)
-    {*/
-            // $sql="insert into quiz(quizid,quizname,created,lessonid) values('$add_quizid','$add_quizname','$date','$add_lessonid')";
+
             $sql="INSERT into quiz(quizid,quizname,created,lessonid,lesson_name,course_id,course_name,passingscore,quiz_number) 
                     values('$add_quizid','$add_quizname','$date','$l_id','$l_name','$c_id','$c_name','$add_quizScore','$add_NoQ')";
             
@@ -245,11 +221,6 @@ else
                 echo '<script language="JavaScript"> window.location.href ="viewquiz.php"</script>';
             }
         
-       
-    //}
-    //else{
-    //    echo "Quiz Existed ";
-    //}
 
  }
 

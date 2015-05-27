@@ -113,59 +113,6 @@ while($m_rows=mysql_fetch_object($result))
             <!-- <div id="course_list">
             </div> -->
           </tr>
-          <?php
-            if($m_rank == 2)
-            {
-              // $query1="select * from course";
-              // $result1=mysql_query($query1);
-              // echo "<tr>";
-              // echo "<td width=\"20%\">Course: </td>";
-              // echo "<td>";
-              // while($m_rows=mysql_fetch_object($result1))
-              // {
-
-              //    $cquery = "select * from permission where courseid = $m_rows->courseid and userid = $m_id";
-              //    $cresult = mysql_query($cquery);
-              //    if (mysql_num_rows($cresult) == 0) 
-              //     {
-              //       echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" />".$m_rows->coursename."</br>";
-              //     }
-              //   else
-              //     {
-              //       echo "<input type=\"checkbox\" name=\"permCourse[]\" value=\"$m_rows->courseid\" checked/>".$m_rows->coursename."</br>";
-              //     }
-
-              // }
-              // echo "</td>";
-              
-              // echo "</tr>";
-            }
-
-            /*if(isset($_POST['permCourse']))
-            {
-              $perm = $_POST['permCourse'];
-              $query2 = "SELECT * from permission where userid = $m_id";
-              $result2 = mysql_query($query2);
-              if (mysql_num_rows($result2) != 0) 
-              {
-                 $sql="DELETE from permission where userid=$m_id";
-                 $result3 = mysql_query($sql);
-              } 
-              
-              if(!empty($perm))
-              {
-                $n = count($perm);
-                for($i=0;$i < $n; $i++)
-                {
-                  $sql1 = "INSERT into permission (userid,courseid) values ($m_id,$perm[$i])";
-                  $result3 = mysql_query($sql1);
-                  //echo($perm[$i] . " ");
-                }
-              }
-            }*/
-          
-
-          ?>
 
     </table>
     <br>

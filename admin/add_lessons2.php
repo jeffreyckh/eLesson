@@ -13,10 +13,6 @@ if ($urank == 3)
 include'../inc/db_config.php';
 include '../inc/header.php';
 include 'adminNav.php';
-//$temp_id;
-//$query_count="select count(*) from lesson";
-//$result_count=mysql_query($query_count,$link);
-//$count=mysql_result($result_count,0) + 1;
 $query = " select * from lesson order by lessonid DESC limit 1";
 $result = mysql_query($query,$link);
  while($m_rows=mysql_fetch_object($result))
@@ -48,7 +44,6 @@ $result = mysql_query($query,$link);
           alert("Please select a course.");
           return false;
         }
-        /*alert(document.add_lesson_form.select.value);*/
 
         if(document.add_lesson_form.lname.value == ""){
           alert("Please enter a lesson name.");
@@ -56,9 +51,7 @@ $result = mysql_query($query,$link);
           return false;
         }else{
           var l_name = document.add_lesson_form.lname.value;
-          // alert("Checking..."+l_name);
           var state = checkLessonName(l_name);
-          /*alert("State: "+state);*/
           return false;
         }
 
@@ -71,13 +64,10 @@ $result = mysql_query($query,$link);
           type: "POST",
           data: "l_name=" + l_name,
           success: function(data){
-            // alert(data);
             if(data == 1){
               $("#name_warning_msg").html("Lesson name is taken, choose another.");
-              // return false;
             }else{
               $("#name_warning_msg").html("Lesson name is free.");
-              // return true;
               document.getElementById("add_lesson_form").submit();
             }
           }
@@ -260,10 +250,8 @@ function update_lesson_history($lesson_id){
   $query_insert_hist .= ")";
 
     if(!mysql_query($query_insert_hist, $link)){
-        // echo "Checkpoint";
         die("Could not add lesson history.".mysql_error());
     }else{
-    // echo '<script> alert("Lesson ") </script>';
     }
 }
 ?>

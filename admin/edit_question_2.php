@@ -109,9 +109,6 @@ if(isset($_GET['action'])=='editquestion') {
           array_push($option_arr, $option_token);
           $option_token = strtok("/");
         }
-        // echo "<br>";
-        // print_r($option_arr);
-        // echo "<br>";
 
         ?>
         <div id="addinput">
@@ -238,12 +235,6 @@ function editquestion()
     if($flag==false)
     {
 
-            //   $edit_answer = str_replace("/","/",$edit_answer);
-            //  $edit_answer = str_replace("<","&lt",$edit_answer);
-            // $edit_optionlist = str_replace(">","&gt",$edit_optionlist);
-            //  $edit_optionlist = str_replace("/","/",$edit_optionlist);
-            // $edit_content = str_replace("<","&lt",$edit_content);
-            // $edit_content = str_replace(">","&gt",$edit_content);
             $edit_answer  = htmlspecialchars($edit_answer);
             $edit_option  = htmlspecialchars($edit_option);
             $edit_content = htmlspecialchars($edit_content);

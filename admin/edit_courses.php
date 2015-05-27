@@ -105,11 +105,6 @@ function editcourse()
             
             if(strcmp($edit_name, $result_rows->coursename)==0)
                 $flag=true;
-            // else
-            //     $flag=true;
-
-            // echo $edit_name." ".$result_rows->coursename."<br>";
-            // echo $flag."<br>";
         }
     
     // Check if submitted fields are different
@@ -117,9 +112,7 @@ function editcourse()
     $query_select_check = "SELECT coursename, description FROM course WHERE courseid = '$m_id'";
     $check_select_result = mysql_query($query_select_check, $link);
         while($result_rows = mysql_fetch_array($check_select_result, MYSQL_ASSOC)){
-            // foreach($result_rows as $k=>$v){
-            //     echo "<br>".$k." ".$v;
-            // }
+
             
             if(strcmp($edit_name, $result_rows["coursename"])!=0){
                 $modify_flag = true;

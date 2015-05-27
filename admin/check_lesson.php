@@ -23,7 +23,5 @@ while($row = mysql_fetch_object($result_query)){
 	}else{
 		echo json_encode(0);
 	}
-	
-	// echo $l_name;
-	// echo "<script> alertFunction(); </script>";
+
 ?>
