@@ -74,32 +74,7 @@ if ($urank == 3)
         </tr>
       </tbody>
     </table>
-    <!-- <form>
-        <fieldset>
-              <legend>Browse History</legend>
-              <label for="year">From year:</label>
-              <input id="year" type="number" value="<?php echo $year ?>"/>
-              <label for="month">From Month (and earlier):</label>
-              <select id="month" class="month_selector">
-                <option value="-1" >all</option>
-                <option value="1" >January</option>
-                <option value="2" >February</option>
-                <option value="3" >March</option>
-                <option value="4" >April</option>
-                <option value="5" >May</option>
-                <option value="6" >June</option>
-                <option value="7" >July</option>
-                <option value="8" >August</option>
-                <option value="9" >September</option>
-                <option value="10" >October</option>
-                <option value="11" >November</option>
-                <option value="12" >December</option>
-              </select>
-              <label for="lesson">Lesson Name:</label>
-              <input id="lesson" type="text" value=""/>
-              <input type="submit" value="Go">
-        </fieldset>
-    </form> -->
+  
     <table id="lesson_hist" class="table table-striped table-bordered" cellspacing="0">
       <thead>
         <th align="left">Latest Activity Time</th>

@@ -15,18 +15,6 @@ include'../inc/db_config.php';
 
 
 
-	// if(!isset($_GET['c_id'])){
-	// 	$course_id = " ";
-
-	// 	show_lesson_selection($self_url);
-	// }else{
-	// 	if(isset($_GET['c_id'])){
-	// 		$c_id = $_GET['c_id'];
-	// 	}
-
-
-	// }
-
 	?>
 	<!-- <select name = "sel_lesson" id = "sel_lesson" form="quizform"> -->
     	<option value='' disabled selected> --- Select a Lesson --- </option>
