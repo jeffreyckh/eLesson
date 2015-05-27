@@ -55,7 +55,10 @@ while($a_rows=mysql_fetch_object($result))
     <li class="active">View Account Detail</li>
     </ol>
 <?php
-if($urank == 1)
+$rankquery = "SELECT rank FROM user WHERE userid = $u_id";
+$rankresult = mysql_query($rankquery) or die(mysql_error());
+$userrank = mysql_result($rankresult, 0);
+if($userrank == 1)
 {
   ?>
   <div id="lesson_container">
