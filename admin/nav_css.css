@@ -1,0 +1,48 @@
+/*#home_button{
+	height: 100%;
+	width: auto;
+}*/
+
+#home_icon{
+	height: 35px;
+	width: auto;
+	float: left;
+	/*margin-bottom: 1.1em;*/
+}
+
+ul.nav.navbar-nav{
+	padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a:hover{
+	background-color: #ffffff;
+}
+
+ul.nav.navbar-nav>li.active>a{
+	background-color: #61c091;
+}
+
+ul.nav.navbar-nav>li.active>a:hover{
+	background-color: #61c091;
+}
+
+.navbar-nav>li>a{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+ul.nav.navbar-nav>li>a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+a.navbar-brand{
+	display: inline-block;
+	padding: 10px 15px;
+}
+
+
+/*a:hover{
+	height: 45px;
+}*/

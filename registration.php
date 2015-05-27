@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-include 'inc/header.php'; 
+include 'inc/login_header.php'; 
 require_once('inc/db_config.php');
 require_once('view/RegistrationView.php');
 
@@ -19,17 +19,21 @@ $register = new RegistrationView();
         
         <!-- Your styles -->
         <link rel="stylesheet" href="jscss/default.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="jscss/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="inc/1style.css">
         
         <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
         <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
         <title>Register | eLesson </title>
     </head>
     <body>
-
+        <ol class="breadcrumb">
+        <li><a href="login.php">Login</a></li>
+        <li class="active">Registration</li>
+        </ol>
+        <center>
         <div class="container">
             <div class="row">
-                <div class="twocol">
-                </div>
                 <div class="sixcol">
                     <form action="registration.php" method="POST">
                         <fieldset class="fieldset">
@@ -80,7 +84,7 @@ $register = new RegistrationView();
                                     </label>
                                 </div>
                                 <div class="fourcol last">
-                                    <input type="password" name="password" id="password"  placeholder="Mininum 6 character" maxlength="35"/>
+                                    <input type="password" name="password" id="password"  placeholder="Mininum 6 characters" maxlength="35"/>
                                 </div> 
                             </div>
                             <div class="row registration">
@@ -95,8 +99,9 @@ $register = new RegistrationView();
                            
                             </div>
                             <div class="row centerObjects">
-                                <input class="button" type="submit" name="submit" value="Register" />
-                                <input type="reset" name="Clear" value="Clear" class="button" />
+                                <br>
+                                <input class = "btn btn-default" type="submit" name="submit" value="Register" />&nbsp&nbsp
+                                <input type="reset" name="Clear" value="Clear" class = "btn btn-default" />
                             </div>
                         </fieldset>
                     </form>
@@ -105,8 +110,9 @@ $register = new RegistrationView();
         </div>
                   
             <?php include('inc/footer.php');?>
-        
+        </center>
     </body>
+
 </html>
 
 

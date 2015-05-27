@@ -1,4 +1,5 @@
 <?php
+	require_once "DatabaseController.php";
 	class UserController{
 
 		public function register($username,$password,$repeatPassword, $name, $email, $position){
@@ -29,7 +30,7 @@
 	            	}
 	            	if (strlen($password) < 4 || strlen($password) > 13) {
 	                throw new Exception(
-	                  "<script type='text/javascript'>alert('Password must be longer than 6 character!')</script>");
+	                  "<script type='text/javascript'>alert('Password must be longer than 4 character and shorter than 13 characters!')</script>");
 	            	}
 	            
 					if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -70,5 +71,28 @@
         		
         		return $result;
 		}
+
+		public function forgotPass($email){
+			try
+			{
+				if (empty($email))
+				{
+					throw new Exception("Email must not be empty.");	
+				}
+
+				$dbController = new DatabaseController();
+				$result = $dbController->retrivePass($email);
+
+			} catch (ErrorException $e) {
+            	throw $e;
+        	} catch (mysqli_sql_exception $e) {
+            	throw $e;
+        	} catch (Exception $e) {
+           		throw $e;
+        	}
+			
+		}
+
+
 	}	
-	
+?>

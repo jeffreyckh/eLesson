@@ -5,23 +5,32 @@
 <meta name="description" content="description"/>
 <meta name="keywords" content="keywords"/>
 <meta name="author" content="author"/>
+<link rel="stylesheet" type="text/css" href="../jscss/default.css"  />
 <link rel="stylesheet" type="text/css" href="jscss/default.css"  />
+<!-- <link rel="stylesheet" href="style.css" type="text/css" media="screen" /> -->
 <link rel="shortcut icon" type="image/x-icon" href="http://www.datapuri.com/CTOS/favicon.ico">
- 
-
+<!-- <link rel="shortcut icon" type="image/x-icon" href="../img/eLessonLogo2_600x600.png"> -->
+<link rel="stylesheet" type="text/css" href="../inc/style.css"  />
+<?php
+// global $basedir;
+// echo $basedir;
+$self = $_SERVER['PHP_SELF'];
+$self = dirname($self);
+?>
 <title>eLesson Project</title>
 </head>
 <body>
 <div class="top">
-  <div class="header">
-    <div class="left">e-Lesson </div>
-    <div class="right">
-       <? ?>
+  <div id="main_banner" class="banner">
+    <div id="banner_content" class="left">
+    	<img id="logo1" src="../img/logo2.png">
+    	e-Lesson 
+    	
     </div>
+    
   </div>
 </div>
 <div class="container">
-
-<BR><BR>
+<BR>
   <div class="main">
     <div class="content">

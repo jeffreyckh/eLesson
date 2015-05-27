@@ -1,0 +1,27 @@
+#main_banner{
+  background: #C06190;
+  font-size: 1.4em;
+  height: 60px;
+  margin: 0 auto;
+  padding: 10px 10px 5px;
+  width: 98%;
+  text-align: center;
+}
+#banner_content{
+  background: #C06190;
+  color: #FFF;
+  height: auto;
+  width: auto;
+  line-height: 50px;
+  font-size: 24px;
+  text-align: center;
+  float: none;
+}
+#logo1 {
+  height: 50px;
+  width: auto;
+  /* float: left; */
+  margin-right: 10px;
+  margin: 0 auto;
+  vertical-align: text-bottom;
+}
